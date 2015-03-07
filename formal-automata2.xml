@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<AUTOMAAT>
+<AUTOMATON name = "AUTOMAAT1">
 	<ALPHABET>
 		<SYMBOL>0</SYMBOL>
 		<SYMBOL>1</SYMBOL>
@@ -24,4 +24,4 @@
 		<TRANSITION from="A" symbol="2" to="C"></TRANSITION>
 		...
 	</TRANSITIONS>
-</AUTOMAAT>
+</AUTOMATON>
