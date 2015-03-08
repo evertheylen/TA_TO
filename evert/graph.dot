@@ -1,4 +1,4 @@
  digraph graphname {
-     a -> b -> <&epsilon;>;
+     a -> b -> <&#1013;>;
      b -> d;
  }
