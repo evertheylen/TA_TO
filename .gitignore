@@ -1,3 +1,17 @@
+# Binary images, don't want that!
+*.png
+*.jpeg
+*.jpg
+*.gif
+*.bmp
+*.jpe
+
+# Evert
+*.kdevelop
+*.kdev4
+.kdev4
+*.kate-swp
+
 # Compiled Object files
 *.slo
 *.lo
