@@ -1,0 +1,4 @@
+ digraph graphname {
+     a -> b -> <&#1013;>;
+     b -> d;
+ }
