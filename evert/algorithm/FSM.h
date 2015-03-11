@@ -31,6 +31,8 @@ public:
 	Transition(State* _from, std::string _symbol, State* _to);
 
 	bool is_epsilon();
+	
+	//toDot(std::ostream& out, Automaton& FSM);
 };
 
 class Automaton {
@@ -42,6 +44,8 @@ public:
 	std::map<std::string, std::map<std::string, std::string>> transitions;  // transitions[from_name][symbol] = to_name
 	State* start;
 	std::vector<State*> accepting;
+	
+	std::vector<State*> been_there;
 
 	/*
 	Automaton(std::vector<std::string> _alphabet,
@@ -66,6 +70,10 @@ public:
 	Automaton();
 	
 	~Automaton();
+	
+	void toDot(std::ostream& out);
 };
+
+void state_to_dot(std::string name, Automaton& FSM, std::ostream& out);
 
 #endif

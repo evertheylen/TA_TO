@@ -3,8 +3,6 @@
 #include <map>
 #include <string>
 #include <iostream>
-#include <algorithm>
-
 #include "FSM.h"
 
 std::string readAttribute(TiXmlElement* elem, const char* tag) {
@@ -114,7 +112,7 @@ std::string readElement(TiXmlElement* elem) {
 						}
 					} else {
 						if (child->ValueTStr() == "STATE") {
-							state = new State(child);
+							state = new State(child2);
 							std::string name = readAttribute(child, "name");
 // 							std::cout << "adding state with name=" << name << ", pointing to " << state << std::endl;
 							states[name] = state;
@@ -130,7 +128,7 @@ std::string readElement(TiXmlElement* elem) {
 					std::string to_name = readAttribute(child, "to");
 					std::string symbol = readAttribute(child, "symbol");
 					
-					std::cerr << "adding transition from " << from_name << " with symbol " << symbol << " to " << to_name << "\n";
+					std::cout << "adding transition from " << from_name << " with symbol " << symbol << " to " << to_name << "\n";
 					
 // 					State* from = states[from_name];
 // 					State* to = states[to_name];
@@ -152,7 +150,7 @@ std::string readElement(TiXmlElement* elem) {
 		for (auto i = temp_transitions.begin(); i != temp_transitions.end(); ++i) {			
 			State* from = states[i->first];
 			if (from == nullptr) {
-				std::cerr << "Couldn't find valid state with name " << i->first << ", skipping...\n";
+				std::cout << "Couldn't find valid state with name " << i->first << ", skipping...\n";
 				continue;
 			}
 			
@@ -163,9 +161,9 @@ std::string readElement(TiXmlElement* elem) {
 				for (int k=0; k<j->second.size(); ++k) {
 					std::string to_name = j->second.at(k);
 					
-					//State* to = states[to_name];
-					transitions[i->first][symbol] = to_name;
-					std::cerr << "adding transition from " << from->name << " with symbol " << symbol << " to " << to_name << "\n"; 
+					State* to = states[to_name];
+					transitions[from][symbol].push_back(to);
+					std::cout << "adding transition from " << from->name << " with symbol " << symbol << " to " << to->name << "\n"; 
 				}
 			}
 		}
@@ -173,63 +171,10 @@ std::string readElement(TiXmlElement* elem) {
 // 		std::cout << "the end?\n";
 	}
 	
-	Automaton::Automaton() {}
-	
 	Automaton::~Automaton() {
 		// delete all the states
 		for(auto iterator = states.begin(); iterator != states.end(); ++iterator) {
 			delete iterator->second;
 		}
 	}
-	
-	void Automaton::toDot(std::ostream& out) {
-		// create error state
-		states["error"] = new State("error");
-		
-		out << "digraph automaton {\n"
-			<< "    node [shape=none]; start;\n"
-			<< "    node [shape=doublecircle]; error;\n"
-			<< "    node [shape=circle];\n"
-			<< "    start -> " << start->name << ";\n";
-		
-		out << "    \"error\" -> \"error\" [label=\"";
-		for (auto symbol: alphabet) {
-			out << symbol << ", ";
-		}
-		out << "\"];\n";
-		
-		// lazy evaluation
-		std::string start_name = start->name;
-			
-		state_to_dot(start_name, *this, out);
-		
-		out << "}\n";
-	}
 //};
-
-
-void state_to_dot(std::string name, Automaton& FSM, std::ostream& out) {
-	std::cerr << "state_to_dot: called with " << name << "\n";
-	
-	State* state = FSM.states[name];
-	
-	if (std::find(FSM.been_there.begin(), FSM.been_there.end(), state) != FSM.been_there.end()) {
-		//out << "uhuh.\n";
-		return;
-	} else {
-		FSM.been_there.push_back(state);  // and continue
-	}
-	
-	for (auto symbol: FSM.alphabet) {
-		// if symbol is a valid transition
-		if (FSM.transitions[name].find(symbol) != FSM.transitions[name].end()) {
-			out << "    \"" << name << "\" -> \"" << FSM.transitions[name][symbol] 
-			    << "\" [label=\"" << symbol << "\"];\n";
-			state_to_dot(FSM.transitions[name][symbol], FSM, out);
-		} else {
-			out << "    \"" << name << "\" -> \"error"
-			    << "\" [label=\"" << symbol << "\"];\n";
-		}
-	}
-	
-}
