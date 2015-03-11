@@ -112,7 +112,7 @@ std::string readElement(TiXmlElement* elem) {
 						}
 					} else {
 						if (child->ValueTStr() == "STATE") {
-							state = new State(child2);
+							state = new State(child);
 							std::string name = readAttribute(child, "name");
 // 							std::cout << "adding state with name=" << name << ", pointing to " << state << std::endl;
 							states[name] = state;
@@ -161,15 +161,17 @@ std::string readElement(TiXmlElement* elem) {
 				for (int k=0; k<j->second.size(); ++k) {
 					std::string to_name = j->second.at(k);
 					
-					State* to = states[to_name];
-					transitions[from][symbol].push_back(to);
-					std::cout << "adding transition from " << from->name << " with symbol " << symbol << " to " << to->name << "\n"; 
+					//State* to = states[to_name];
+					transitions[i->first][symbol] = to_name;
+					std::cout << "adding transition from " << from->name << " with symbol " << symbol << " to " << to_name << "\n"; 
 				}
 			}
 		}
 		
 // 		std::cout << "the end?\n";
 	}
+	
+	Automaton::Automaton() {}
 	
 	Automaton::~Automaton() {
 		// delete all the states

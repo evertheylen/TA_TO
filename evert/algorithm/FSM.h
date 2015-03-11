@@ -39,7 +39,7 @@ public:
 
 	std::vector<std::string> alphabet;
 	std::map<std::string, State*> states;  // search on name
-	std::map<State*, std::map<std::string, std::vector<State*>>> transitions;
+	std::map<std::string, std::map<std::string, std::string>> transitions;  // transitions[from_name][symbol] = to_name
 	State* start;
 	std::vector<State*> accepting;
 
@@ -62,6 +62,8 @@ public:
 	*/
 
 	Automaton(TiXmlDocument& doc);
+	
+	Automaton();
 	
 	~Automaton();
 };
