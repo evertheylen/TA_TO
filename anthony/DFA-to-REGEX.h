@@ -1,6 +1,6 @@
 /*
 //Description: Header for DFA to REGEX
-//Author: Anthony
+//Author: Anthony Hermans
 //Date: 11/03/15
 */
 #ifndef ____DFA_to_REGEX__
