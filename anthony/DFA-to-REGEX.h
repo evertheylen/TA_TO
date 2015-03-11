@@ -27,7 +27,8 @@ std::vector<State*> start;
 std::vector<State*> end;
 void setName(std::string new_name);
 std::string getName();
-void readfromXML();
+void readXML();
+std::string StateEliminationTechnique();
 };
 
 

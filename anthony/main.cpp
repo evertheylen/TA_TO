@@ -5,6 +5,7 @@
 */
 #include <stdio.h>
 #include <iostream>
+#include <fstream>
 #include "DFA-to-REGEX.h"
 #include "TinyXML/tinyxml.h"
 using namespace std;
@@ -22,7 +23,13 @@ int main(int argc, char const* argv[]){
 	}
 	
 	Automaton DFA;
-	
+	DFA.readXML();
+
+	ofstream regex_out;
+	regex_out.open("REGEX.txt");
+	regex_out << "This text file contains the regex expression of the specified inputDFA:\n";
+	regex_out << DFA.StateEliminationTechnique();
+	regex_out.close();
 	
 }
 

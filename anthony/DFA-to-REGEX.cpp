@@ -15,10 +15,20 @@ void Automaton::setName(string new_name){name = new_name;}
 
 string Automaton::getName(){return name;}
 
+void Automaton::readXML(){}
+
+string Automaton::StateEliminationTechnique(){
+
+	return "This will be the regex";
+	};
+
+
 //The class State
 void State::setName(string new_name){name = new_name;}
 
 string State::getName(){return name;}
+
+
 
 //The class Transition
 std::string Transition::getLabel(){return _label;}
