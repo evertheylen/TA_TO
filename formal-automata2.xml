@@ -1,11 +1,10 @@
 <?xml version="1.0" ?>
-<AUTOMATON name = "AUTOMAAT1">
+<AUTOMATON name="automaton2">
 	<ALPHABET>
 		<SYMBOL>0</SYMBOL>
 		<SYMBOL>1</SYMBOL>
 		<SYMBOL>2</SYMBOL>
 	</ALPHABET>
-	
 	<STATES>
 		<START>
 			<STATE name = "A"></STATE>
@@ -17,11 +16,16 @@
 			<STATE name = "C"></STATE>
 		</END>
 	</STATES>
-	
 	<TRANSITIONS>
 		<TRANSITION from="A" symbol="0" to="A"></TRANSITION>
 		<TRANSITION from="A" symbol="1" to="B"></TRANSITION>
 		<TRANSITION from="A" symbol="2" to="C"></TRANSITION>
-		...
+		<TRANSITION from="B" symbol="0" to="A"></TRANSITION>
+		<TRANSITION from="B" symbol="1" to="B"></TRANSITION>
+		<TRANSITION from="B" symbol="2" to="C"></TRANSITION>
+		<TRANSITION from="C" symbol="0" to="A"></TRANSITION>
+		<TRANSITION from="C" symbol="1" to="B"></TRANSITION>
+		<TRANSITION from="C" symbol="2" to="C"></TRANSITION>
 	</TRANSITIONS>
+	
 </AUTOMATON>

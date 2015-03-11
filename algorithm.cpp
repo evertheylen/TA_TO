@@ -19,7 +19,7 @@ Automaton::Automaton(TiXmlDocument& doc){
 	name = readAttribute(root, "name");
 	TiXmlElement* current_el = root->FirstChildElement();
 	TiXmlElement* child, *child2;
-	State* p;
+	State* p = NULL;
 	while (current_el != NULL) {
 		if (current_el->ValueTStr() == "ALPHABET") {
 			child = current_el->FirstChildElement();
@@ -36,22 +36,32 @@ Automaton::Automaton(TiXmlDocument& doc){
 						child2 = child->FirstChildElement();
 						while (child2 != NULL) {
 							std::string name = readAttribute(child2, "name");
-							p = new State;
-							*p = State(name);
+							/*if (p != NULL) {
+								std::cout << "Deleting: " << p->get_name() << "\n";
+								delete p;
+							}*/
+							p = new State(name);
+							//*p = State(name);
 							//State s (name);
 							//State* p = &s;
 							start.push_back(p);
 							total_states.push_back(p);
 							//std::cout << p->get_name() << std::endl;
+
 							child2 = child2->NextSiblingElement();
+
 						}
 					} else {
 						if (child->ValueTStr() == "END") {
 							child2 = child->FirstChildElement();
 							while (child2 != NULL) {
 								std::string name = readAttribute(child2, "name");
-								p = new State;
-								*p = State(name);
+								/*if (p != NULL) {
+									std::cout << "Deleting: " << p->get_name() << "\n";
+									delete p;
+								}*/
+								p = new State(name);
+								//*p = State(name);
 								//State s (name);
 								//State* p = &s;
 								end.push_back(p);
@@ -62,8 +72,12 @@ Automaton::Automaton(TiXmlDocument& doc){
 						} else {
 							if (child->ValueTStr() == "STATE") {
 								std::string name = readAttribute(child, "name");
-								p = new State;
-								*p = State(name);
+								/*if (p != NULL) {
+									std::cout << "Deleting: " << p->get_name() << "\n";
+									delete p;
+								}*/
+								p = new State(name);
+								//*p = State(name);
 								//State s (name);
 								//State* p = &s;
 								total_states.push_back(p);
@@ -94,15 +108,18 @@ Automaton::Automaton(TiXmlDocument& doc){
 							//std::cout << "current: " << p->get_name() << std::endl;
 							if (!from && p->get_name() == name_from) {
 								//std::cout << p->get_name() << "\n";
-								p_from = new State;
-								*p_from = *p;
+								//p_from = new State;
+								//*p_from = *p;
+								p_from = p;
 								from = true;
 								//std::cout << p_from->get_name() << "\n";
 							}
 							if (!to && p->get_name() == name_to) {
-								p_to = new State;
-								*p_to = *p;
+								//p_to = new State;
+								//*p_to = *p;
+								p_to = p;
 								//std::cout << p_to->get_name();
+
 								to = true;
 							}
 							continue;
@@ -113,9 +130,9 @@ Automaton::Automaton(TiXmlDocument& doc){
 						//std::cout << "from: " << t.get_from()->get_name() << std::endl;
 						//std::cout << "to: " << t.get_to()->get_name() << std::endl;
 
-						Transition t (p_from, label, p_to);
-						Transition* p = new Transition;
-						*p = t;
+						//Transition t (p_from, label, p_to);
+						Transition* p = new Transition(p_from, label, p_to);
+						//*p = t;
 						//std::cout << *p << std::endl;
 						transitions.push_back(p);
 						child = child->NextSiblingElement();
@@ -125,8 +142,6 @@ Automaton::Automaton(TiXmlDocument& doc){
 				}
 			}
 		}
-
-
 		current_el = current_el->NextSiblingElement();
 	}
 }
@@ -140,10 +155,7 @@ Transition::Transition(State* a, std::string label, State* b) {
 	_label = label;
 }
 
-/*Transition::~Transition() {
-	delete _a;
-	delete _b;
-}*/
+
 State::State(std::string name){
 	_name = name;
 }
@@ -180,7 +192,7 @@ std::ostream& operator<< (std::ostream &out, Transition& transition) {
 
 std::ostream& operator << (std::ostream& out, Automaton& automaton) {
 	//std::cout << "HAAAI\n";
-	Transition* t;
+	Transition* t = NULL;
 	if (!automaton.product) {
 	out << "digraph " << automaton.get_name() << " {\n\tnode [shape=none]; start;\n"
 			<< "\tnode [shape=doublecircle];";
@@ -193,8 +205,9 @@ std::ostream& operator << (std::ostream& out, Automaton& automaton) {
 		out << "\tstart -> " << automaton.start.at(i)->get_name() << ";\n";
 	}
 	for (unsigned int i = 0; i != automaton.transitions.size(); i++) {
-		t = new Transition;
-		*t = *automaton.transitions.at(i);
+		//t = new Transition;
+		t = automaton.transitions.at(i);
+		//*t = *automaton.transitions.at(i);
 		out << "\t" << t->get_from()->get_name() << " -> " << t->get_to()->get_name() << " [label=" << t->get_label() << "];\n";
 		//std::cout << "eeeuy\n";
 	}
@@ -211,8 +224,9 @@ std::ostream& operator << (std::ostream& out, Automaton& automaton) {
 			out << "\tstart -> \"" << automaton.start.at(i)->get_name() << "\";\n";
 		}
 		for (unsigned int i = 0; i != automaton.transitions.size(); i++) {
-			t = new Transition;
-			*t = *automaton.transitions.at(i);
+			//t = new Transition;
+			t = automaton.transitions.at(i);
+			//*t = *automaton.transitions.at(i);
 			out << "\t\"" << t->get_from()->get_name() << "\" -> \"" << t->get_to()->get_name() << "\" [label=" << t->get_label() << "];\n";
 			//std::cout << "eeeuy\n";
 		}
@@ -222,7 +236,7 @@ std::ostream& operator << (std::ostream& out, Automaton& automaton) {
 	return out;
 }
 
-Automaton& Automaton::operator *=(const Automaton& auto2) {
+/*Automaton& Automaton::operator *=(const Automaton& auto2) {
 	//std::cout << "FEEEEST\n";
 	bool already_in_alphabet = false;
 	for (unsigned int i = 0; i != auto2.alphabet.size(); i++) {
@@ -238,7 +252,7 @@ Automaton& Automaton::operator *=(const Automaton& auto2) {
 	}
 	/*for (unsigned int j = 0; j != alphabet.size(); j++) {
 		std::cout << alphabet.at(j) << std::endl;
-	}*/
+	}
 
 
 
@@ -249,7 +263,7 @@ Automaton& Automaton::operator *=(const Automaton& auto2) {
 	}
 
 	return *this;
-}
+}*/
 bool Automaton::in_start(std::string name) {
 	for (unsigned int i = 0; i != start.size(); i++) {
 		if (start.at(i)->get_name() == name) {
@@ -267,8 +281,13 @@ bool Automaton::in_end(std::string name) {
 	}
 	return false;
 }
-Automaton operator*(Automaton auto1, Automaton auto2) {
+void Automaton::set_name(std::string _name) {
+	name = _name;
+}
+
+Automaton operator*(Automaton& auto1, Automaton& auto2) {
 	Automaton product;
+	product.set_name("Temporary Product Automaton");
 	product.product = true;
 	bool end_union = false;	// This bool lets you choose between the union or the intersection of the end states of both automata.
 
@@ -303,15 +322,15 @@ Automaton operator*(Automaton auto1, Automaton auto2) {
 	// Create the states of the product automaton.
 	std::stringstream startname;
 	std::string name;
-	State* p;
+	State* p = NULL;
 	for (unsigned int i = 0; i != auto1.total_states.size(); i++) {
 		for (unsigned int j = 0; j != auto2.total_states.size(); j++) {
 			startname << auto1.total_states.at(i)->get_name() << "/" << auto2.total_states.at(j)->get_name();
 			name = startname.str();
 			startname.str("");	// Clears the stringstream
-			State start (name);
-			p = new State;
-			*p = start;
+			//State start (name);
+			p = new State(name);
+			//*p = start;
 			//product.start.push_back(p);
 			product.total_states.push_back(p);
 			if (auto1.in_start(auto1.total_states.at(i)->get_name()) && auto2.in_start(auto2.total_states.at(j)->get_name())) {
@@ -347,8 +366,8 @@ Automaton operator*(Automaton auto1, Automaton auto2) {
 			name_to << p1_to->get_name() << "/" << p2_to->get_name();
 			name = name_to.str();
 			name_to.str("");
-			Transition* t = new Transition();
-			*t = Transition(product.total_states.at(i), product.alphabet.at(j), product.get_state(name));
+			Transition* t = new Transition(product.total_states.at(i), product.alphabet.at(j), product.get_state(name));
+			//*t = Transition(product.total_states.at(i), product.alphabet.at(j), product.get_state(name));
 			product.transitions.push_back(t);
 		}
 		//std::cout << p->get_name() << std::endl;
@@ -432,20 +451,31 @@ std::string Automaton::get_second_name(std::string total) {
 	//std::cout << result << "\n";
 	return result;
 }
-/*Automaton::~Automaton() {
-	for (unsigned int i = 0; i != start.size(); i++) {
-		delete start.at(i);
-	}
-	for (unsigned int i = 0; i != end.size(); i++) {
-		delete end.at(i);
-	}
+
+/*Transition::~Transition() {
+	//delete _a;
+	//delete _b;
+	std::cout << "Destructor called for Transition.\n";
+}*/
+/*State::~State(){
+	std::cout << _name << "\n";
+	std::cout << "Destructor called for State.\n";
+}*/
+
+Automaton::~Automaton() {
 	for (unsigned int i = 0; i != total_states.size(); i++) {
-		delete total_states.at(i);
+		std::cout << total_states.at(i)->get_name() << std::endl;
+		delete(total_states.at(i));
+		total_states.at(i) = NULL;
+		//std::cout << total_states.at(i)->get_name() << std::endl;
 	}
 	for (unsigned int i = 0; i != transitions.size(); i++) {
 		delete transitions.at(i);
 	}
-}*/
+	std::cout << "Destructor called for automaton " << name << "!\n";
+}
+
+
 
 std::string& Transition::get_label() {
 	return _label;
