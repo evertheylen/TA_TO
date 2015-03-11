@@ -8,17 +8,21 @@
 #include "DFA-to-REGEX.h"
 #include "TinyXML/tinyxml.h"
 using namespace std;
+
 int main(int argc, char const* argv[]){
-	cout << "Converting a DFA to REGEX.\n";
-	TiXmlDocument DFA;
-	if (argc >= 2){
+	cout << "Converting a DFA to REGEX using the state elimination technique.\n";
+	TiXmlDocument inputDFA;
+	if (argc == 1){
 		cerr << "U need to specify an input DFA.\n";
 		return 0;
 	}
-	if (DFA.LoadFile(argv[1]) == false){
+	if (inputDFA.LoadFile(argv[1]) == false){
 		cerr << "Problems with the loading of the DFA ==> shut down.\n";
 		return 0;
 	}
+	
+	Automaton DFA;
+	
 	
 }
 
