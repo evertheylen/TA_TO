@@ -26,16 +26,6 @@
 		<TRANSITION from="C" symbol="0" to="A"></TRANSITION>
 		<TRANSITION from="C" symbol="1" to="B"></TRANSITION>
 		<TRANSITION from="C" symbol="2" to="C"></TRANSITION>
-		
-		<!-- "eps" staat voor epsilon! -->
-		<TRANSITION from="A" symbol="eps" to="C"></TRANSITION>
-		<!-- op het einde van u algoritme, als ge wilt outputten naar
-		     dot, moet ge er aan denken om "eps" te vervangen door
-		     "<&epsilon;>", dan wordt dat degelijk weergegeven.
-		-->
-		
-		<!-- ... -->
-		
 	</TRANSITIONS>
 	
 </AUTOMATON>
