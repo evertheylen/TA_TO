@@ -23,7 +23,7 @@ int main(int argc, char const* argv[]){
 	}
 	
 	Automaton DFA;
-	DFA.readXML();
+	DFA.readXML(inputDFA);
 
 	ofstream regex_out;
 	regex_out.open("REGEX.txt");

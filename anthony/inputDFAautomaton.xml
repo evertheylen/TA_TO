@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<AUTOMATON name="automaton1">
+<AUTOMATON name="DFA1">
   <ALPHABET>
     <SYMBOL>0</SYMBOL>
     <SYMBOL>1</SYMBOL>
@@ -8,9 +8,10 @@
     <START>
       <STATE name = "A"></STATE>
     </START>
+    <STATE name = "B"></STATE>
     <END>
+      <STATE name = "C"></STATE>
       <STATE name = "D"></STATE>
-      <STATE name = "E"></STATE>
     </END>
   </STATES>
   <TRANSITIONS>

@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
+#include "TinyXML/tinyxml.h"
 
 class State{
 private:
@@ -16,19 +17,8 @@ std::string name;
 public:
 void setName(std::string new_name);
 std::string getName();
-};
-
-class Automaton{
-private:
-std::string name;
-public:
-Automaton();
-std::vector<State*> start;
-std::vector<State*> end;
-void setName(std::string new_name);
-std::string getName();
-void readXML();
-std::string StateEliminationTechnique();
+State(std::string name);
+State();
 };
 
 
@@ -39,10 +29,25 @@ State* _end;
 std::string _label;
 public:
 std::string getLabel();
-std::vector<Transition*> transitions;
 State* get_from();
 State* get_to();
 Transition(State* begin, std::string label, State* end);
 };
+
+class Automaton{
+private:
+std::string name;
+public:
+Automaton();
+std::vector<State*> start;
+std::vector<State*> end;
+std::vector<State*> total;
+std::vector<Transition*> transitions;
+void setName(std::string new_name);
+std::string getName();
+int readXML(TiXmlDocument input_automaton);
+std::string StateEliminationTechnique();
+};
+
 
 #endif /* defined(____DFA_to_REGEX__) */
