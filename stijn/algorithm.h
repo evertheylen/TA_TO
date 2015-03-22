@@ -17,6 +17,7 @@ private:
 public:
 	State(std::string name);
 	State();
+	//~State();
 	std::string& get_name();
 };
 
@@ -30,6 +31,7 @@ public:
 	State* get_to();
 	Transition(State* a, std::string label, State* b);
 	Transition();
+	//~Transition();
 	friend std::ostream& operator<< (std::ostream &out, Transition& transition);
 };
 
@@ -46,9 +48,10 @@ public:
 	std::vector<std::string> alphabet;
 	Automaton(TiXmlDocument& doc);
 	Automaton();
-	//~Automaton();
+	~Automaton();
 	std::string readAttribute(TiXmlElement* elem, const char* tag);
 	std::string& get_name();
+	void set_name(std::string _name);
 	std::string readElement(TiXmlElement* elem, const char* tag);
 	std::string readElement(TiXmlElement* elem);
 	void parse_nodes(TiXmlElement* root);
@@ -59,9 +62,9 @@ public:
 	State* get_state(std::string name);
 	Transition* get_trans(std::string name, std::string label);
 	friend std::ostream& operator << (std::ostream& out, Automaton& automaton);
-	Automaton& operator*=(const Automaton& auto2);
+	//Automaton& operator*=(const Automaton& auto2);
 };
-Automaton operator*(Automaton auto1, Automaton auto2);
+Automaton operator*(Automaton& auto1, Automaton& auto2);
 
 
 #endif /* ALGORITHM_H_ */

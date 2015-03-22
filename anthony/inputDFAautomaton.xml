@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<AUTOMATON name="DFA1">
+  <ALPHABET>
+    <SYMBOL>0</SYMBOL>
+    <SYMBOL>1</SYMBOL>
+  </ALPHABET>
+  <STATES>
+    <START>
+      <STATE name = "A"></STATE>
+    </START>
+    <STATE name = "B"></STATE>
+    <END>
+      <STATE name = "C"></STATE>
+      <STATE name = "D"></STATE>
+    </END>
+  </STATES>
+  <TRANSITIONS>
+    <TRANSITION from="A" symbol="0" to="A"></TRANSITION>
+    <TRANSITION from="A" symbol="1" to="A"></TRANSITION>
+    <TRANSITION from="A" symbol="1" to="B"></TRANSITION>
+    <TRANSITION from="B" symbol="0" to="C"></TRANSITION>
+    <TRANSITION from="B" symbol="1" to="C"></TRANSITION>
+    <TRANSITION from="C" symbol="0" to="D"></TRANSITION>
+    <TRANSITION from="C" symbol="1" to="D"></TRANSITION>
+  </TRANSITIONS>
+
+</AUTOMATON>
