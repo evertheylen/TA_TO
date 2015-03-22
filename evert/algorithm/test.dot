@@ -1,0 +1,32 @@
+digraph automaton {
+    node [shape=none]; start;
+    node [shape=doublecircle]; error;
+    node [shape=circle];
+    start -> {q0};
+    "error" -> "error" [label="+, -, ., 0, 1, "];
+    "{q0}" -> "{q1}" [label="+"];
+    "{q1}" -> "error" [label="+"];
+    "{q1}" -> "error" [label="-"];
+    "{q1}" -> "error" [label="."];
+    "{q1}" -> "{q2, q4}" [label="0"];
+    "{q2, q4}" -> "error" [label="+"];
+    "{q2, q4}" -> "error" [label="-"];
+    "{q2, q4}" -> "error" [label="."];
+    "{q2, q4}" -> "{q3}" [label="0"];
+    "{q3}" -> "error" [label="+"];
+    "{q3}" -> "error" [label="-"];
+    "{q3}" -> "error" [label="."];
+    "{q3}" -> "{q3}" [label="0"];
+    "{q3}" -> "{q3, q3}" [label="1"];
+    "{q3, q3}" -> "error" [label="+"];
+    "{q3, q3}" -> "error" [label="-"];
+    "{q3, q3}" -> "error" [label="."];
+    "{q3, q3}" -> "error" [label="0"];
+    "{q3, q3}" -> "error" [label="1"];
+    "{q2, q4}" -> "{q3, q3}" [label="1"];
+    "{q1}" -> "{q2, q4, q4}" [label="1"];
+    "{q0}" -> "{q1, q1}" [label="-"];
+    "{q0}" -> "error" [label="."];
+    "{q0}" -> "error" [label="0"];
+    "{q0}" -> "error" [label="1"];
+}
