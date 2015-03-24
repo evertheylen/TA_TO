@@ -2,7 +2,7 @@ INCLUDE = 	 -ITinyXML
 
 CXX =		g++
 
-CXXFLAGS =	-c -Wall -std=c++11 $(INCLUDE)
+CXXFLAGS =	-c -Wall -fstack-protector-all -std=c++11 $(INCLUDE)
 
 LDFLAGS=
 

@@ -29,9 +29,11 @@ State* _end;
 std::string _label;
 public:
 std::string getLabel();
+void setLabel(std::string newlabel);
 State* get_from();
 State* get_to();
 Transition(State* begin, std::string label, State* end);
+~Transition();
 };
 
 class Automaton{
