@@ -23,12 +23,13 @@ int main() {
 	
 	Run<str_DFA> r(D);
 	
-	cout << r.current << endl;
+	cout << r.walker.current << endl;
 	
-	r.input("1");
+	r.process({"1"});
 	cout << "after input 1:\n";
 	
-	cout << r.current << endl;
+	cout << r.walker.current << endl;
+	
 	
 	
 	cout << "\n--- NFA: ---\n";
@@ -37,7 +38,7 @@ int main() {
 		{"q0", "q1", "q2", "q3", "q4"},
 		{"1", "0"},
 		str_NFA::Delta(),
-		{"q0"},
+		"q0",
 		{"q2"}
 	);
 	
@@ -45,7 +46,7 @@ int main() {
 	N.d["q1"]["0"] = {"q3", "q4"};
 	
 	#define print_current(r)\
-		for (auto s: r.current) {\
+		for (auto s: r.walker.current) {\
 			cout << s << endl;\
 		}
 	
@@ -53,13 +54,45 @@ int main() {
 	
 	print_current(rn);
 	
-	rn.input("1");
+	rn.process({"1"});
 	cout << "after input 1:\n";
 	
 	print_current(rn);
 	
-	rn.input("0");
-	cout << "after input 1:\n";
+	rn.process({"0"});
+	cout << "after input 0:\n";
 	
 	print_current(rn);
+	
+	
+	
+	cout << "\n--- eNFA: ---\n";
+	
+	str_eNFA M(
+		{"q0", "q1", "q2", "q3", "q4"},
+		{"1", "0"},
+		str_eNFA::Delta(),
+		"q0",
+		{"q2"},
+		"eps"
+	);
+	
+	M.d["q0"]["eps"] = {"q4"};
+	M.d["q0"]["1"] = {"q1", "q2"};
+	M.d["q1"]["0"] = {"q3", "q4"};
+	
+	Run<str_eNFA> rm(M);
+	
+	print_current(rm);
+	
+	rm.process({"1"});
+	cout << "after input 1:\n";
+	
+	print_current(rm);
+	
+	rm.process({"0"});
+	cout << "after input 0:\n";
+	
+	print_current(rm);
+	
 }
