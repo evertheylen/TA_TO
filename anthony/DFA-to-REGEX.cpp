@@ -93,8 +93,8 @@ string Automaton::StateEliminationTechnique(){
 	vector<Transition*> new_trans;
 	//Iterates over the vector of transitions and checks if there are transitions to the same state
 	for (unsigned int i =0; i< this->transitions.size(); i++){
+		//This is a transition to itself
 		if (this->transitions.at(i)->get_from() == this->transitions.at(i)->get_to()){
-			//This is a transition to itself
 			cout << this->transitions.at(i)->get_from()->getName() << "=" << this->transitions.at(i)->get_to()->getName() <<"	" << this->transitions.at(i)->getLabel()<< " end\n";
 			bool isPresent = false; //Helps to verify if there are more transitions to the same state
 			if (new_trans.size() == 0){		//First item of vector
@@ -125,6 +125,14 @@ string Automaton::StateEliminationTechnique(){
 				}
 			}
 		continue;
+		}
+		for (unsigned int z=i+1; z< this->transitions.size(); z++){
+			if (this->transitions.at(i)->get_from() == this->transitions.at(z)->get_from() and this->transitions.at(i)->get_to() == this->transitions.at(z)->get_to()){
+				cout << "Not a transition to the same state" << endl;
+				cout << this->transitions.at(i)->get_from()->getName() << "=" << this->transitions.at(i)->get_to()->getName() << "	" << this->transitions.at(i)->getLabel()<< " end\n";
+				cout << this->transitions.at(z)->get_from()->getName() << "=" << this->transitions.at(z)->get_to()->getName() << "	" << this->transitions.at(z)->getLabel()<< " end\n";
+
+			}
 		}
 		new_trans.push_back(this->transitions.at(i));
 	}
