@@ -54,12 +54,12 @@ int Automaton::readXML(TiXmlDocument input_automaton){
 						this->total.push_back(pointer);
 				}
 			}
-			cout <<"Aantal eindstaten"<< endl;
-			cout << this->end.size() << endl;
-			cout <<"Aantal gewone staten"<< endl;
-			cout << this->total.size() - this->end.size() - this->start.size()<< endl;
-			cout <<"Aantal beginstaten" << endl;
-			cout << this->start.size() << endl;
+//			cout <<"Aantal eindstaten"<< endl;
+//			cout << this->end.size() << endl;
+//			cout <<"Aantal gewone staten"<< endl;
+//			cout << this->total.size() - this->end.size() - this->start.size()<< endl;
+//			cout <<"Aantal beginstaten" << endl;
+//			cout << this->start.size() << endl;
 
 		}
 		if (elemName == "TRANSITIONS"){
@@ -95,7 +95,7 @@ string Automaton::StateEliminationTechnique(){
 	for (unsigned int i =0; i< this->transitions.size(); i++){
 		//This is a transition to itself
 		if (this->transitions.at(i)->get_from() == this->transitions.at(i)->get_to()){
-			cout << this->transitions.at(i)->get_from()->getName() << "=" << this->transitions.at(i)->get_to()->getName() <<"	" << this->transitions.at(i)->getLabel()<< " end\n";
+			//cout << this->transitions.at(i)->get_from()->getName() << "=" << this->transitions.at(i)->get_to()->getName() <<"	" << this->transitions.at(i)->getLabel()<< " end\n";
 			bool isPresent = false; //Helps to verify if there are more transitions to the same state
 			if (new_trans.size() == 0){		//First item of vector
 				new_trans.push_back(this->transitions.at(i));
@@ -104,8 +104,7 @@ string Automaton::StateEliminationTechnique(){
 			for (unsigned int j =0; j< new_trans.size(); j++){
 				if (transitions.at(i)->get_from() == new_trans.at(j)->get_from() and transitions.at(i)->get_to() == new_trans.at(j)->get_to()){
 					std::string newlabel;
-					cout << new_trans.at(j)->getLabel() << "		" << transitions.at(i)->getLabel() << endl;
-					
+					//cout << new_trans.at(j)->getLabel() << "		" << transitions.at(i)->getLabel() << endl;
 					if (new_trans.at(j)->getLabel() == transitions.at(i)->getLabel()){
 						newlabel = new_trans.at(j)->getLabel();
 						new_trans.at(j)->setLabel(newlabel);
@@ -131,16 +130,26 @@ string Automaton::StateEliminationTechnique(){
 				cout << "Not a transition to the same state" << endl;
 				cout << this->transitions.at(i)->get_from()->getName() << "=" << this->transitions.at(i)->get_to()->getName() << "	" << this->transitions.at(i)->getLabel()<< " end\n";
 				cout << this->transitions.at(z)->get_from()->getName() << "=" << this->transitions.at(z)->get_to()->getName() << "	" << this->transitions.at(z)->getLabel()<< " end\n";
-
+				bool isPresent = false; //Helps to verify if there are more transitions to the same state
+				if (new_trans.size() == 0){		//First item of vector
+					new_trans.push_back(this->transitions.at(i));
+					continue;
+				}
+				for (unsigned int j =0; j< new_trans.size(); j++){
+					if (transitions.at(i)->get_from() == new_trans.at(j)->get_from() and transitions.at(i)->get_to() == new_trans.at(j)->get_to()){
+						std::string newlabel;
+						
+					}
+				}
 			}
 		}
-		new_trans.push_back(this->transitions.at(i));
+	new_trans.push_back(this->transitions.at(i));
 	}
 	cout << this->transitions.size()<< "Het aantal transities before" << endl;
 	this->transitions = new_trans;
 	cout << this->transitions.size()<< "Het aantal transities after" << endl;
 	for (unsigned int i =0; i< this->transitions.size(); i++){
-	cout << this->transitions.at(i)->get_from()->getName() << "=" << this->transitions.at(i)->get_to()->getName() <<"	" << this->transitions.at(i)->getLabel()<< " end\n";
+	cout << this->transitions.at(i)->get_from()->getName() << "==>" << this->transitions.at(i)->get_to()->getName() <<"	label:" << this->transitions.at(i)->getLabel()<< "\n";
 	}
 	
 	return "This will be the regex";
