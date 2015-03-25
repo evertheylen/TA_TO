@@ -1,12 +1,46 @@
 
-#include "FSM.cpp" // guess what, templates
+#include "FSM.tcc" // guess what, templates
+#include "FSM.h"
+
+#include "conv.tcc"
+#include "conv.h"
+
+
 #include <set>
 #include <string>
 #include <iostream>
+#include <fstream>
+#include "tinyxml.h"
 
 using namespace std;
 
-int main() {
+int main(int argc, char const* argv[]) {
+	if (argc < 2) {
+		return -1;
+	}
+	
+	str_eNFA N("eps");
+	
+	TiXmlDocument doc;
+	
+	doc.LoadFile(argv[1]);
+	
+	N.from_xml(doc);
+	
+	std::ofstream output_file;
+	output_file.open(std::string(argv[1]) + ".eNFA.dot");
+	N.to_dot(output_file);
+	output_file.close();
+	
+	auto D = MSSC<str_eNFA, str_DFA>(N);
+	
+	output_file.open(std::string(argv[1]) + ".DFA.dot");
+	D.to_dot(output_file);
+	output_file.close();
+}
+
+
+int altmain() {
 	cout << "--- DFA: ---\n";
 	
 	str_DFA D(
@@ -19,7 +53,7 @@ int main() {
 	
 	D.d["q0"]["1"] = "q2";
 	
-	cout << D.q0 << endl;
+	D.to_dot(cout);
 	
 	Run<str_DFA> r(D);
 	
@@ -50,6 +84,8 @@ int main() {
 			cout << s << endl;\
 		}
 	
+	N.to_dot(cout);
+	
 	Run<str_NFA> rn(N);
 	
 	print_current(rn);
@@ -77,9 +113,12 @@ int main() {
 		"eps"
 	);
 	
-	M.d["q0"]["eps"] = {"q4"};
+	M.d["q0"]["eps"] = {"q4", "q5"};
 	M.d["q0"]["1"] = {"q1", "q2"};
 	M.d["q1"]["0"] = {"q3", "q4"};
+	
+	//M.state_to_dot(cout, "q0", "eps", M.d["q0"]["eps"]);
+	M.to_dot(cout);
 	
 	Run<str_eNFA> rm(M);
 	
@@ -95,4 +134,6 @@ int main() {
 	
 	print_current(rm);
 	
+	
 }
+//*/
