@@ -1,2 +1,2 @@
 This text file contains the regex expression of the specified inputDFA:
-This will be the regex
+REGEX EXPRESSION HERE
