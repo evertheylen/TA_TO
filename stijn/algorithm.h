@@ -46,9 +46,11 @@ public:
 	std::vector<State*> total_states;
 	std::vector<Transition*> transitions;
 	std::vector<std::string> alphabet;
+
 	Automaton(TiXmlDocument& doc);
 	Automaton();
 	~Automaton();
+
 	std::string readAttribute(TiXmlElement* elem, const char* tag);
 	std::string& get_name();
 	void set_name(std::string _name);
@@ -62,9 +64,9 @@ public:
 	State* get_state(std::string name);
 	Transition* get_trans(std::string name, std::string label);
 	friend std::ostream& operator << (std::ostream& out, Automaton& automaton);
-	//Automaton& operator*=(const Automaton& auto2);
 };
-Automaton operator*(Automaton& auto1, Automaton& auto2);
-
+Automaton make_product(Automaton& auto1, Automaton& auto2, bool end_union);
+Automaton Union(Automaton& auto1, Automaton& auto2);
+Automaton Intersection(Automaton& auto1, Automaton& auto2);
 
 #endif /* ALGORITHM_H_ */

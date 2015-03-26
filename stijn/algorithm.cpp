@@ -11,6 +11,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include "assert.h"
 
 Automaton::Automaton() {}
 
@@ -199,7 +200,11 @@ std::ostream& operator << (std::ostream& out, Automaton& automaton) {
 	for (unsigned int i = 0; i != automaton.end.size(); i++){
 		out << " " << automaton.end.at(i)->get_name();
 	}
-	out << ";\n";
+	if (!automaton.end.empty()) {
+		out << ";\n";
+	} else {
+		out << "\n";
+	}
 	out	<< "\tnode [shape=circle];\n";
 	for (unsigned int i = 0; i != automaton.start.size(); i++) {
 		out << "\tstart -> " << automaton.start.at(i)->get_name() << ";\n";
@@ -218,7 +223,11 @@ std::ostream& operator << (std::ostream& out, Automaton& automaton) {
 		for (unsigned int i = 0; i != automaton.end.size(); i++){
 			out << " \"" << automaton.end.at(i)->get_name() << "\"";
 		}
-		out << ";\n";
+		if (!automaton.end.empty()) {
+			out << ";\n";
+		} else {
+			out << "\n";
+		}
 		out	<< "\tnode [shape=circle];\n";
 		for (unsigned int i = 0; i != automaton.start.size(); i++) {
 			out << "\tstart -> \"" << automaton.start.at(i)->get_name() << "\";\n";
@@ -236,34 +245,6 @@ std::ostream& operator << (std::ostream& out, Automaton& automaton) {
 	return out;
 }
 
-/*Automaton& Automaton::operator *=(const Automaton& auto2) {
-	//std::cout << "FEEEEST\n";
-	bool already_in_alphabet = false;
-	for (unsigned int i = 0; i != auto2.alphabet.size(); i++) {
-		for (unsigned int j = 0; j != alphabet.size(); j++) {
-			if (auto2.alphabet.at(i) == alphabet.at(j)) {
-				already_in_alphabet = true;
-			}
-		}
-		if (!already_in_alphabet) {
-			alphabet.push_back(auto2.alphabet.at(i));
-		}
-		already_in_alphabet = false;
-	}
-	/*for (unsigned int j = 0; j != alphabet.size(); j++) {
-		std::cout << alphabet.at(j) << std::endl;
-	}
-
-
-
-	for (unsigned int i = 0; i != transitions.size(); i++) {
-		for (unsigned int j = 0; j != auto2.transitions.size(); j++) {
-
-		}
-	}
-
-	return *this;
-}*/
 bool Automaton::in_start(std::string name) {
 	for (unsigned int i = 0; i != start.size(); i++) {
 		if (start.at(i)->get_name() == name) {
@@ -285,12 +266,20 @@ void Automaton::set_name(std::string _name) {
 	name = _name;
 }
 
-Automaton operator*(Automaton& auto1, Automaton& auto2) {
+Automaton Union(Automaton& auto1, Automaton& auto2) {
+	return make_product(auto1, auto2, true);
+}
+
+Automaton Intersection(Automaton& auto1, Automaton& auto2) {
+	return make_product(auto1, auto2, false);
+}
+
+Automaton make_product(Automaton& auto1, Automaton& auto2, bool end_union) {
+	assert(auto1.alphabet.size() == auto2.alphabet.size()); // Make sure the alphabets of the 2 automata are the same,
+															// the first step is that they have the same size.
 	Automaton product;
 	product.set_name("Temporary Product Automaton");
 	product.product = true;
-	bool end_union = false;	// This bool lets you choose between the union or the intersection of the end states of both automata.
-
 
 	/*
 	 * For the product automaton I use stringstreams to create the names of the states. I create the combination of both names.
@@ -309,14 +298,10 @@ Automaton operator*(Automaton& auto1, Automaton& auto2) {
 		}
 		if (!already_in_alphabet) {
 			std::cerr << "Alphabets aren't equal!\n";
+			assert("alphabets must be equal");
 			return product;
-			//product.alphabet.push_back(auto2.alphabet.at(i));
 		}
 		already_in_alphabet = false;
-	}
-	if (auto1.alphabet.size() != auto2.alphabet.size() ) {
-		std::cerr << "Alphabets aren't equal!\n";
-		return product;
 	}
 
 	// Create the states of the product automaton.
@@ -328,10 +313,7 @@ Automaton operator*(Automaton& auto1, Automaton& auto2) {
 			startname << auto1.total_states.at(i)->get_name() << "/" << auto2.total_states.at(j)->get_name();
 			name = startname.str();
 			startname.str("");	// Clears the stringstream
-			//State start (name);
 			p = new State(name);
-			//*p = start;
-			//product.start.push_back(p);
 			product.total_states.push_back(p);
 			if (auto1.in_start(auto1.total_states.at(i)->get_name()) && auto2.in_start(auto2.total_states.at(j)->get_name())) {
 				product.start.push_back(p);
@@ -357,8 +339,6 @@ Automaton operator*(Automaton& auto1, Automaton& auto2) {
 		std::stringstream name_to;
 		std::string name;
 		for (unsigned int j = 0; j != product.alphabet.size(); j++) {
-			//std::cout << *(auto1.get_trans(p1_from->get_name(), product.alphabet.at(j))) << std::endl;
-			//std::cout << *(auto2.get_trans(p2_from->get_name(), product.alphabet.at(j))) << std::endl;
 			Transition* t1 = auto1.get_trans(p1_from->get_name(), product.alphabet.at(j));
 			Transition* t2 = auto2.get_trans(p2_from->get_name(), product.alphabet.at(j));
 			State* p1_to = t1->get_to();
@@ -367,31 +347,9 @@ Automaton operator*(Automaton& auto1, Automaton& auto2) {
 			name = name_to.str();
 			name_to.str("");
 			Transition* t = new Transition(product.total_states.at(i), product.alphabet.at(j), product.get_state(name));
-			//*t = Transition(product.total_states.at(i), product.alphabet.at(j), product.get_state(name));
 			product.transitions.push_back(t);
 		}
-		//std::cout << p->get_name() << std::endl;
 	}
-
-	std::cout << "Transitions:\n";
-	for (unsigned int i = 0; i != product.transitions.size(); i++) {
-		std::cout << *(product.transitions.at(i)) << std::endl;
-	}
-/*
-	std::cout << "Total states: \n";
-	for (unsigned int i = 0; i != product.total_states.size(); i++) {
-		std::cout << product.total_states.at(i)->get_name() << "\n";
-	}
-
-	std::cout << "Start states: \n";
-
-	for (unsigned int i = 0; i != product.start.size(); i++) {
-		std::cout << product.start.at(i)->get_name() << "\n";
-	}
-	std::cout << "End states: \n";
-	for (unsigned int i = 0; i != product.end.size(); i++) {
-		std::cout << product.end.at(i)->get_name() << "\n";
-	}*/
 	return product;
 }
 
@@ -464,7 +422,7 @@ std::string Automaton::get_second_name(std::string total) {
 
 Automaton::~Automaton() {
 	for (unsigned int i = 0; i != total_states.size(); i++) {
-		std::cout << total_states.at(i)->get_name() << std::endl;
+		//std::cout << total_states.at(i)->get_name() << std::endl;
 		delete(total_states.at(i));
 		total_states.at(i) = NULL;
 		//std::cout << total_states.at(i)->get_name() << std::endl;
@@ -472,7 +430,7 @@ Automaton::~Automaton() {
 	for (unsigned int i = 0; i != transitions.size(); i++) {
 		delete transitions.at(i);
 	}
-	std::cout << "Destructor called for automaton " << name << "!\n";
+	//std::cout << "Destructor called for automaton " << name << "!\n";
 }
 
 

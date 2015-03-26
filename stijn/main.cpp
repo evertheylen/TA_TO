@@ -37,19 +37,29 @@ int main(int argc, char const* argv[]){
 	Automaton auto2(doc_automaton2);
 
 	std::ofstream dot_output;
-
-	dot_output.open("test_automaton1.gv");
+	const char* name = (auto1.get_name() + ".gv").c_str();
+	dot_output.open(name);
 	dot_output << auto1;
 	dot_output.close();
 
-	dot_output.open("test_automaton2.gv");
+	name = (auto2.get_name() + ".gv").c_str();
+	dot_output.open(name);
 	dot_output << auto2;
 	dot_output.close();
 	//auto1 *= auto2;
-	Automaton product = auto1 * auto2;
-	product.set_name("End Product Automaton");
-	dot_output.open("test_product_automaton1.gv");
+	Automaton product = Union(auto1, auto2);
+	product.set_name("product_union");
+
+	name = (product.get_name() + ".gv").c_str();
+	dot_output.open(name);
 	dot_output << product;
+	dot_output.close();
+	Automaton product2 = Intersection(auto1, auto2);
+	product2.set_name("product_intersection");
+
+	name = (product2.get_name() + ".gv").c_str();
+	dot_output.open(name);
+	dot_output << product2;
 	dot_output.close();
 }
 
