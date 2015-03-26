@@ -1,7 +1,6 @@
 <?xml version="1.0" ?>
-<!-- based on example 2.18 on page 73 -->
 
-<AUTOMATON name = "Binary decimal numbers">
+<AUTOMATON name = "blabla">
 	<ALPHABET>
 		<SYMBOL>0</SYMBOL>
 		<SYMBOL>1</SYMBOL>
@@ -22,6 +21,6 @@
 	
 	<TRANSITIONS>
 		<TRANSITION from="q0" symbol="eps" to="q1"></TRANSITION>
-		
+		<TRANSITION from="q1" symbol="1" to="q2"></TRANSITION>
 	</TRANSITIONS>
 </AUTOMATON>

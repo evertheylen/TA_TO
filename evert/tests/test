@@ -1,0 +1,6 @@
+#!/bin/bash
+
+../algo epsilon-NFA.xml
+dot -Tpng epsilon-NFA.xml.eNFA.dot -o eNFA.png
+dot -Tpng epsilon-NFA.xml.DFA.dot -o DFA.png
+

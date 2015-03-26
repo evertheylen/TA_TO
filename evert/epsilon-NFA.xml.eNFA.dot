@@ -1,0 +1,7 @@
+digraph automaton {
+    node [shape=none]; start;
+    node [shape=doublecircle]; q2;
+    node [shape=circle];
+    start -> q0;
+    q0 -> q1 [label="&epsilon;"];
+}
