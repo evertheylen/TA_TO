@@ -1,4 +1,4 @@
-CXXFLAGS   = -g3 -O0 -fstack-protector-all -std=c++14
+CXXFLAGS   = -g3 -O0 -fstack-protector-all -std=c++11
 #CXXFLAGS   = -O3 -std=c++14
 LDFLAGS    =
 EXECUTABLE = test
