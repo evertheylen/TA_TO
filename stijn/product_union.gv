@@ -1,0 +1,24 @@
+digraph product_union {
+	node [shape=none]; start;
+	node [shape=doublecircle]; "D/C" "E/A" "E/B" "E/C";
+	node [shape=circle];
+	start -> "D/A";
+	"D/A" -> "D/A" [label=0];
+	"D/A" -> "E/B" [label=1];
+	"D/A" -> "D/C" [label=2];
+	"D/B" -> "D/A" [label=0];
+	"D/B" -> "E/B" [label=1];
+	"D/B" -> "D/C" [label=2];
+	"D/C" -> "D/A" [label=0];
+	"D/C" -> "E/B" [label=1];
+	"D/C" -> "D/C" [label=2];
+	"E/A" -> "D/A" [label=0];
+	"E/A" -> "E/B" [label=1];
+	"E/A" -> "E/C" [label=2];
+	"E/B" -> "D/A" [label=0];
+	"E/B" -> "E/B" [label=1];
+	"E/B" -> "E/C" [label=2];
+	"E/C" -> "D/A" [label=0];
+	"E/C" -> "E/B" [label=1];
+	"E/C" -> "E/C" [label=2];
+}

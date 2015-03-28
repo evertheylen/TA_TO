@@ -9,17 +9,18 @@
 		<START>
 			<STATE name = "D"></STATE>
 		</START>
+		
 		<END>
 			<STATE name = "E"></STATE>
-		</END>		
+		</END>
 	</STATES>
 	<TRANSITIONS>
-		<TRANSITION from="D" symbol="0" to="E"></TRANSITION>
-		<TRANSITION from="D" symbol="1" to="D"></TRANSITION>
+		<TRANSITION from="D" symbol="0" to="D"></TRANSITION>
+		<TRANSITION from="D" symbol="1" to="E"></TRANSITION>
 		<TRANSITION from="D" symbol="2" to="D"></TRANSITION>
 		<TRANSITION from="E" symbol="0" to="D"></TRANSITION>
 		<TRANSITION from="E" symbol="1" to="E"></TRANSITION>
-		<TRANSITION from="E" symbol="2" to="D"></TRANSITION>
+		<TRANSITION from="E" symbol="2" to="E"></TRANSITION>
 	</TRANSITIONS>
 	
 </AUTOMATON>
