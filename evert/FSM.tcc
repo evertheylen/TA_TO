@@ -67,6 +67,8 @@ public:
 	Automaton(States _Q, Alphabet _sigma, Delta _d, State _q0, States _F);
 	Automaton();
 	
+	//TODO void lazy_evaluation();
+	
 	// Input
 	void from_xml(TiXmlDocument& doc);
 	virtual void read_transition(TiXmlElement* el);
@@ -100,6 +102,7 @@ Automaton<DTT, StateT, SymbolT>::Automaton():
 		q0(),
 		F()
 		{}
+
 
 
 // General function to print to dot

@@ -11,18 +11,11 @@
 	</ALPHABET>
 	
 	<STATES>
-		<START>
-			<STATE name = "q0"></STATE>
-		</START>
-		
+		<STATE name = "q0"></STATE>
 		<STATE name = "q1"></STATE>
 		<STATE name = "q2"></STATE>
 		<STATE name = "q3"></STATE>
 		<STATE name = "q4"></STATE>
-		
-		<END>
-			<STATE name = "q5"></STATE>
-		</END>
 	</STATES>
 	
 	<TRANSITIONS>
