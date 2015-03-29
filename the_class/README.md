@@ -82,7 +82,9 @@ Opnieuw, vrij simpel, hetzelfde voor alle klassen.
     
 ## Meer stuff?
 
-Voila, een soort van contract (**DeltaResult** is het type wat delta teruggeeft: int voor een DFA, std::vector<int> voor een NFA)
+Voila, een soort van contract.
+
+**DeltaResult** is het type wat delta teruggeeft: **int** voor een DFA, **std::vector<int>** voor een NFA.
     
     int ID(std::string naam);
     
@@ -101,3 +103,6 @@ Voor de eNFA is er natuurlijk ook nog:
 
     std::set<int> ECLOSE(int ID);
 
+## Work In Progress
+
+Het doorlopen van een DFA, NFA of eNFA. Dit zal een aparte klasse `Run` worden.
