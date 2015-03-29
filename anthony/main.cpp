@@ -22,7 +22,7 @@ int main(int argc, char const* argv[]){
 		cerr << "Problems with the loading of the DFA ==> shut down.\n";
 		return 0;
 	}
-	
+
 	Automaton DFA;
 	DFA.readXML(input_DFA);
 
