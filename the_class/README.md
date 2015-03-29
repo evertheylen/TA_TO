@@ -14,7 +14,7 @@ Alle drie slagen ze staten op als strings, en symbolen als chars.
 
 Je moet enkel FSM.h includen.
 
-    #include <FSM.h>
+    #include "FSM.h"
 
 ## Hoe werkt het?
 
