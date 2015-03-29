@@ -3,6 +3,7 @@
 #include "catch.hpp"
 
 #include "FSM.h"
+#include "Run.h"
 #include <fstream>
 #include "tinyxml/tinyxml.h"
 
@@ -101,3 +102,76 @@ TEST_CASE("eNFA", "epsilon madness") {
 	}
 }
 
+/*
+TEST_CASE("eNFA_Walker", "Just imagine an epsilon transition between yourself and the moon") {
+	s_eNFA N({"q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9"},
+			{'a', 'b', 'c'},
+			0, {2, 7});
+	
+	N.set_delta(0, 'e', {1, 2});
+	N.set_delta(1, 'a', {8, 3});
+	N.set_delta(2, 'b', {3});
+	N.set_delta(3, 'e', {4});
+	N.set_delta(4, 'e', {4, 5, 6});
+	N.set_delta(4, 'b', {9});
+	N.set_delta(5, 'c', {7});
+	N.set_delta(6, 'e', {6});
+	N.set_delta(8, 'e', {8});
+	
+	s_eNFA_Walker r(N);
+	
+	#define do(symb)\
+		r.input(symb);\
+		std::cout << "Input symbol: " << symb << "\n";\
+		for (auto s: r.current) { std::cout << N.realState(s) << ", "; }\
+		std::cout << "\n";\
+	
+	for (auto s: r.current) { std::cout << N.realState(s) << ", "; }
+	std::cout << "\n";
+	
+	do('a');
+	do('b');
+	do('b');
+	do('c');
+	do('a');
+	do('c');
+	
+}
+*/
+
+
+TEST_CASE("Runners", "Run Forrest, run!") {
+	SECTION("DFA") {
+		s_DFA D({"e_e", "e_o", "o_e", "o_o"},
+				{'Z', 'A'},
+				0, {0});
+		
+		D.set_delta(0, '0', 2);
+		D.set_delta(0, '1', 1);
+		D.set_delta(1, '0', 3);
+		D.set_delta(1, '1', 0);
+		D.set_delta(2, '0', 0);
+		D.set_delta(2, '1', 3);
+		D.set_delta(3, '0', 1);
+		D.set_delta(3, '1', 2);
+		
+		// Accepts if an even number of ones and zeroes is encountered.
+		
+		s_DFA_Runner r(D);
+		
+		REQUIRE(r.process(""));
+		REQUIRE(r.process("000000111111"));
+		REQUIRE(! r.process("0010101100010"));
+		REQUIRE(r.process("110011"));
+		REQUIRE(r.process(std::string("0011001111")));
+		REQUIRE(r.process(std::vector<char>({'0', '1', '1', '0'})));
+	}
+	
+	SECTION("NFA") {
+		// TODO
+	}
+	
+	SECTION("eNFA") {
+		// TODO
+	}
+}

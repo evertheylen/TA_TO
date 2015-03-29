@@ -1,5 +1,5 @@
 
-#include "FSM.tcc"
+#include "FSM.h"
 
 // XML_Casts here. (and in header)
 template <>

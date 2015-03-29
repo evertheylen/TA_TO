@@ -19,7 +19,7 @@ To XML_Cast(std::string s) {
 template <	typename StateT,              // State type
 			typename SymbolT,             // Symbol type
 			typename DeltaResultT = int>  // Delta type (difference between NFA and DFA)
-			                              // you should be using int or std::vector<int> for this.
+			                              // you should be using int or std::set<int> for this.
 class FSM {
 public:
 	// some typedefs
@@ -66,6 +66,10 @@ public:
 	
 	State realState(int _ID) {
 		return map.left.at(_ID);
+	}
+	
+	bool isFinal(int _ID) {
+		return (F.find(_ID) != F.end());
 	}
 	
 	// function to use delta
@@ -302,22 +306,22 @@ public:
 
 template<	typename StateT,
 			typename SymbolT>
-class NFA: public FSM<StateT, SymbolT, std::vector<int>> {
+class NFA: public FSM<StateT, SymbolT, std::set<int>> {
 public:
 	// some typedefs
 	typedef StateT State;
-	typedef std::vector<State> States;  // only used in constructor, and ECLOSE
+	typedef std::vector<State> States;  // only used in constructor
 	typedef std::set<int> StateIDs;
 	typedef SymbolT Symbol;
 	typedef std::set<Symbol> Alphabet;
-	typedef std::vector<int> DeltaResult;
+	typedef std::set<int> DeltaResult;
 	typedef std::map<int, std::map<Symbol, DeltaResult>> Delta;
 	typedef boost::bimap<int, State> Bimap;
 	
 	NFA(States states, Alphabet _sigma, int _q0, StateIDs _F):
-		FSM<StateT, SymbolT, std::vector<int>>(states, _sigma, _q0, _F) {}
+		FSM<StateT, SymbolT, std::set<int>>(states, _sigma, _q0, _F) {}
 	
-	NFA(): FSM<StateT, SymbolT, std::vector<int>>() {}
+	NFA(): FSM<StateT, SymbolT, std::set<int>>() {}
 
 	// puts the (old) IDs of all the used states in used_states
 	// NFA version
@@ -356,7 +360,7 @@ public:
 			// all transitions from s_ID should be used, otherwise this function
 			// shouldn't be called!
 			for (auto state: symb_it.second) {
-				new_d_data[ new_ID ][ symb_it.first ].push_back(new_stateID[state]);
+				new_d_data[ new_ID ][ symb_it.first ].insert(new_stateID[state]);
 			}
 		}
 		
@@ -376,7 +380,7 @@ public:
 		int from = this->ID(XML_Cast<State>(el->Attribute("from")));
 		Symbol symbol = XML_Cast<Symbol>(el->Attribute("symbol"));
 		int to = this->ID(XML_Cast<State>(el->Attribute("to")));
-		this->d_data[from][symbol].push_back(to);
+		this->d_data[from][symbol].insert(to);
 	}
 };
 
@@ -396,7 +400,7 @@ public:
 	typedef std::set<int> StateIDs;
 	typedef SymbolT Symbol;
 	typedef std::set<Symbol> Alphabet;
-	typedef std::vector<int> DeltaResult;
+	typedef std::set<int> DeltaResult;
 	typedef std::map<int, std::map<Symbol, DeltaResult>> Delta;
 	typedef boost::bimap<int, State> Bimap;
 	
@@ -464,11 +468,10 @@ public:
 			symbol = XML_Cast<Symbol>(symbol_str); // may still be == epsilon
 		}
 		int to = this->ID(XML_Cast<State>(el->Attribute("to")));
-		this->d_data[from][symbol].push_back(to);
+		this->d_data[from][symbol].insert(to);
 	}
 	
-private:
-	void _ECLOSE(int s_ID, std::set<int>& eclosure) {
+	void _ECLOSE(int s_ID, DeltaResult& eclosure) {
 		if (eclosure.find(s_ID) != eclosure.end()) {
 			return;
 		}

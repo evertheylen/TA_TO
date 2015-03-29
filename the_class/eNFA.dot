@@ -5,12 +5,12 @@ digraph automaton {
     start -> q0;
     q0 -> q1 [label="&epsilon;"];
     q1 -> q2 [label="&epsilon;"];
-    q2 -> q3 [label="&epsilon;"];
     q2 -> q1 [label="&epsilon;"];
-    q3 -> q4 [label="&epsilon;"];
+    q2 -> q3 [label="&epsilon;"];
     q3 -> q1 [label="&epsilon;"];
-    q4 -> q4 [label="&epsilon;"];
+    q3 -> q4 [label="&epsilon;"];
     q4 -> q0 [label="&epsilon;"];
+    q4 -> q4 [label="&epsilon;"];
     q4 -> q7 [label="&epsilon;"];
     unused1 -> unused1 [label="a"];
     unused1 -> unused2 [label="a"];

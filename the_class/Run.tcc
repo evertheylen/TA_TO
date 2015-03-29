@@ -1,199 +1,182 @@
-/*
+
 #include <string>
 #include <iostream>
 #include <set>
-#include <unordered_map>
-#include <type_traits>
+#include <typeinfo>
 
-//BEGIN -----[ Walker ]--------------------------------
+#include "FSM.h"
 
-template <typename FSM>
+//BEGIN -----[ Walker (abstract base) ]-----------------------
+
+// this class is not really used yet
+// (and it shouldn't be for performance (because of inheritance etc))
+template <typename FSMT>
 class Walker {
 public:
-	FSM automaton; // can be a reference (?)
-	typename FSM::DT current; // current state
 	
-	Walker(FSM _automaton);
+	FSMT& automaton;
+	typename FSMT::DeltaResult current;
 	
-	bool input(typename FSM::Symbol symbol);
+	Walker(FSMT _automaton, typename FSMT::DeltaResult _current):
+			automaton(_automaton), current(_current) {}
+	
+	virtual void input(typename FSMT::Symbol symb) = 0;
 };
 
-
-template <typename FSM>
-Walker<FSM>::Walker(FSM _automaton):
-	automaton(_automaton), current(_automaton.q0)
-	{}
-
-template <typename FSM>
-bool Walker<FSM>::input(typename FSM::Symbol symbol) {
-	if (this->automaton.sigma.find(symbol) == this->automaton.sigma.end()) {
-		return false;
-	}
-	
-	this->current = this->automaton.d[this->current][symbol];
-	
-	return true;
-}
+//END
 
 
-//BEGIN --- Walker: NFA specialization ---
+//BEGIN -----[ Walker for DFA ]-------------------------------
 
-
-// NFA specialization
 template <typename StateT, typename SymbolT>
-class Walker<NFA<StateT, SymbolT>> {
+class Walker<DFA<StateT,SymbolT>> {
 public:
-	NFA<StateT, SymbolT> automaton; // can be a reference (?)
-	typename NFA<StateT, SymbolT>::DT current; // current state
+	using D = DFA<StateT,SymbolT>;
 	
-	Walker(NFA<StateT, SymbolT> _automaton);
-	
-	bool input(SymbolT symbol);
-};
+	D& automaton;
+	typename D::DeltaResult current;
 
-template <typename StateT, typename SymbolT>
-Walker<NFA<StateT, SymbolT>>::Walker(NFA<StateT, SymbolT> _automaton):
-	automaton(_automaton), current({_automaton.q0})
-	{}
-
-template <typename StateT, typename SymbolT>
-bool Walker<NFA<StateT, SymbolT>>::input(SymbolT symbol) {
-	typename std::set<StateT> newcurrent;
+	Walker(D& _automaton):
+			automaton(_automaton), current(_automaton.q0) {}
 	
-	if (this->automaton.sigma.find(symbol) == this->automaton.sigma.end()) {
-		return false;
+	void input(typename D::Symbol symb) {
+		// ATTENTION I assume it's actually a valid DFA, so you should specify each and every
+		// transition possible, it will fail otherwise!
+		
+		current = automaton.d_data[current][symb];
 	}
 	
-	// for all states in the current multistate
-	for (auto s: this->current) {
-		// if d contains it
-		if (this->automaton.d.find(s) != this->automaton.d.end()) {
-			// find symbol
-			if (this->automaton.d[s].find(symbol) != this->automaton.d[s].end()) {
-				// for all states in d[s][symbol] (which is of type std::set, hence the specialization)
-				for (auto new_s: automaton.d[s][symbol]) {
-					newcurrent.insert(new_s);
+	bool accepted() {
+		return automaton.isFinal(current);
+	}
+};
+
+//END
+
+
+
+//BEGIN -----[ Walker for NFA ]------------------------------
+
+template <typename StateT, typename SymbolT>
+class Walker<NFA<StateT,SymbolT>> {
+public:
+	using N = NFA<StateT,SymbolT>;
+	
+	N& automaton;
+	typename N::DeltaResult current;
+	
+	Walker(N& _automaton):
+			automaton(_automaton), current({_automaton.q0}) {}
+	
+	void input(typename N::Symbol symb) {
+		typename N::DeltaResult new_current;
+		for (auto from_ID: current) {
+			auto second_d_data = automaton.d_data.find(from_ID);
+			if (second_d_data != automaton.d_data.end()) {
+				auto third_d_data = second_d_data->second.find(symb);
+				if (third_d_data != second_d_data->second.end()) {
+					new_current.insert(third_d_data->second.begin(), third_d_data->second.end());
 				}
-			} else {
-				// symbol not found, add s, original state remains
-				newcurrent.insert(s);
 			}
-		} else {
-			// state not found, add s, original state remains
-			newcurrent.insert(s);
 		}
+		current = new_current;
 	}
 	
-	this->current = newcurrent;
-	
-	return true;
-}
-
-//END
-
-
-//BEGIN --- Walker: eNFA specialization ---
-
-// eNFA specialization
-template <typename StateT, typename SymbolT>
-class Walker<eNFA<StateT, SymbolT>> {
-public:
-	eNFA<StateT, SymbolT> automaton; // can be a reference (?)
-	typename eNFA<StateT, SymbolT>::DT current; // current state
-	
-	Walker(eNFA<StateT, SymbolT> _automaton);
-	
-	bool input(SymbolT symbol);
-};
-
-template <typename StateT, typename SymbolT>
-Walker<eNFA<StateT, SymbolT>>::Walker(eNFA<StateT, SymbolT> _automaton):
-		automaton(_automaton), current({_automaton.q0}) {
-	// Also insert ECLOSE(q0)
-	for (auto estate: _automaton.ECLOSE(_automaton.q0)) {
-		current.insert(estate);
-	}
-}
-
-template <typename StateT, typename SymbolT>
-bool Walker<eNFA<StateT, SymbolT>>::input(SymbolT symbol) {
-	// Assumption: the current states in current are already ECLOSE'd
-	
-	typename std::set<StateT> newcurrent;
-	
-	if (this->automaton.sigma.find(symbol) == this->automaton.sigma.end()
-		&& symbol != this->automaton.epsilon) {
+	bool accepted() {
+		for (auto s: current) {
+			if (automaton.isFinal(s)) {
+				return true;
+			}
+		}
 		return false;
 	}
-	
-	// for all states in the current multistate
-	for (auto s: this->current) {
-		// if d contains it
-		if (this->automaton.d.find(s) != this->automaton.d.end()) {
-			// find symbol
-			if (this->automaton.d[s].find(symbol) != this->automaton.d[s].end()) {
-				// for all states in d[s][symbol] (which is of type std::set, hence the specialization)
-				for (auto new_s: automaton.d[s][symbol]) {
-					newcurrent.insert(new_s);
-					// Also insert the ECLOSE version
-					for (auto eclosed_state: this->automaton.ECLOSE(new_s)) {
-						newcurrent.insert(new_s);
-					}
-				}
-			} else {
-				// symbol not found, add s, original state remains
-				newcurrent.insert(s);
-			}
-		} else {
-			// state not found, add s, original state remains
-			newcurrent.insert(s);
-		}
-	}
-	
-	this->current = newcurrent;
-	
-	return true;
-}
-
-//END
-
-//END
-
-
-//BEGIN -----[ Run ]-----------------------------------
-
-template <typename FSM>
-class Run {
-public:
-	Walker<FSM> walker;
-	
-	Run(FSM _automaton);
-	
-	void process(std::vector<typename FSM::Symbol> str);
-	
-	bool isFinal();
 };
 
-template <typename FSM>
-Run<FSM>::Run(FSM _automaton):
-	walker(_automaton)
-	{}
+//END
 
-template <typename FSM>
-void Run<FSM>::process(std::vector<typename FSM::Symbol> str) {
-	for (auto symbol: str) {
-		this->walker.input(symbol);
+
+//BEGIN -----[ Walker for eNFA ]----------------------------
+
+// Does not inherit
+template <typename StateT, typename SymbolT, SymbolT epsilon>
+class Walker<eNFA<StateT,SymbolT,epsilon>> {
+public:
+	using E = eNFA<StateT,SymbolT,epsilon>;
+	
+	E& automaton;
+	typename E::DeltaResult current;
+	
+	Walker(E& _automaton):
+			automaton(_automaton), current(_automaton.ECLOSE(_automaton.q0)) {}
+	
+	void input(typename E::Symbol symb) {
+		typename E::DeltaResult new_current;
+		_input(symb, current, new_current);
+		_input(epsilon, current, new_current);
+		
+		for (auto s: new_current) {
+			automaton._ECLOSE(s, new_current);
+		}
+		
+		current = new_current;
 	}
-}
-
-template <typename FSM>
-bool Run<FSM>::isFinal() {
-	for (auto s: this->walker.current) {
-		if (this->walker.automaton.F.find(s) != this->walker.automaton.F.end()) {
-			return true;
+	
+	// as always, eNFA's are a PITA
+	void _input(typename E::Symbol symb, typename E::DeltaResult const& from_states, typename E::DeltaResult& to_states) {
+		// Basically the input() from the NFA
+		for (auto from_ID: from_states) {
+			auto second_d_data = automaton.d_data.find(from_ID);
+			if (second_d_data != automaton.d_data.end()) {
+				auto third_d_data = second_d_data->second.find(symb);
+				if (third_d_data != second_d_data->second.end()) {
+					to_states.insert(third_d_data->second.begin(), third_d_data->second.end());
+				}
+			}
 		}
 	}
-	return false;
-}
+	
+	// What do you think is more maintainable? Some copy-pasting or templated inheritance? /s
+	bool accepted() {
+		for (auto s: current) {
+			if (automaton.isFinal(s)) {
+				return true;
+			}
+		}
+		return false;
+	}
+};
 
-//END*/
+//END
+
+
+//BEGIN -----[ Runner (for all) ]--------------------------
+
+template <typename FSMT>
+class Runner {
+public:
+	FSMT& automaton;
+	
+	Runner(FSMT& _a): automaton(_a) {}
+	
+	template <typename T>
+	bool process(T str) {
+		Walker<FSMT> walker(automaton);
+		for (auto symb: str) {
+			walker.input(symb);
+		}
+		return walker.accepted();
+	}
+	
+	bool process(const char* str) {
+		Walker<FSMT> walker(automaton);
+		const char* symb = str;
+		while (*symb != 0) {
+			walker.input(*symb);
+			++symb;
+		}
+		return walker.accepted();
+	}
+};
+
+
+//END

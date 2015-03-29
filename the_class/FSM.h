@@ -1,7 +1,8 @@
-#include "FSM.tcc"
 
 #ifndef _FSM
 #define _FSM
+
+#include "FSM.tcc"
 
 template <>
 char XML_Cast<char>(std::string s);
