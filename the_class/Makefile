@@ -3,7 +3,7 @@ CXXFLAGS   = -g3 -O0 -fstack-protector-all -std=c++14
 LDFLAGS    =
 EXECUTABLE = test
 EXTENSION  = cpp
-SOURCES    = $(basename $(shell find . -maxdepth 1 -name '*.$(EXTENSION)'))
+SOURCES    = $(basename $(shell find . -name '*.$(EXTENSION)' -not -path "./experimentjes/*"))
 
 
 $(EXECUTABLE): $(addsuffix .o,$(SOURCES))

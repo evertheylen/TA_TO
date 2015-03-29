@@ -11,11 +11,11 @@
 	</ALPHABET>
 	
 	<STATES>
-		<STATE name = "q0"></STATE>
+		<STATE name = "q0" start="true" ></STATE>
 		<STATE name = "q1"></STATE>
 		<STATE name = "q2"></STATE>
 		<STATE name = "q3"></STATE>
-		<STATE name = "q4"></STATE>
+		<STATE name = "q4" end="true"></STATE>
 	</STATES>
 	
 	<TRANSITIONS>
@@ -41,3 +41,4 @@
 		
 	</TRANSITIONS>
 </AUTOMATON>
+ 
