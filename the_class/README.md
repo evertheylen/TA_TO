@@ -103,6 +103,11 @@ Voor de eNFA is er natuurlijk ook nog:
 
     std::set<int> ECLOSE(int ID);
 
+## Testen
+
+Ik heb een testframework genaam CATCH gebruikt voor de tests. Het is zoals gtest, maar dan zonder de vreselijk irritante manier om
+te includen. Het zou zichzelf grotendeels moeten uitwijzen, mocht je geinteresseerd zijn in de tests.
+    
 ## Work In Progress
 
 Het doorlopen van een DFA, NFA of eNFA. Dit zal een aparte klasse `Run` worden.
