@@ -4,7 +4,7 @@
 #include <set>
 #include <map>
 #include <boost/bimap.hpp>
-#include "tinyxml/tinyxml.h"
+#include "tinyxml.h"
 
 
 template <typename To>
