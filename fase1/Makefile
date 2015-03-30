@@ -59,4 +59,6 @@ RE-eNFA:
 
 .PHONY: Product
 Product:
-	
+	make clean
+	make all
+	# Stijn, voer zelf u tests maar uit, ik weet niet of ge intersection of union wilt testen.
