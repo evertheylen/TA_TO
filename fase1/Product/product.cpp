@@ -24,6 +24,7 @@ s_DFA product(s_DFA D1, s_DFA D2, bool intersection) {
 	 * I will create temporary pares of original states, to be able to check their original delta-function.
 	 * At the end of the algorithm I will transform them to normal states and insert them into the product automaton.
 	 */
+
 	std::stringstream ss;
 	ss << D1.realState(D1.q0) << "/" << D2.realState(D2.q0);
 	std::string str = ss.str();

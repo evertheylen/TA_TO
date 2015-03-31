@@ -3,22 +3,25 @@
 
 <AUTOMATON>
 	<ALPHABET>
-		<SYMBOL>0</SYMBOL>
-		<SYMBOL>1</SYMBOL>
+		<SYMBOL>a</SYMBOL>
+		<SYMBOL>b</SYMBOL>
 	</ALPHABET>
 	
 	<STATES>
-		<STATE name = "q0" start="true"></STATE>
-		<STATE name = "q1"></STATE>
-		<STATE name = "q2" end="true"></STATE>
+		<STATE name = "A" start="true"></STATE>
+		<STATE name = "B"></STATE>
+		<STATE name = "C" end="true"></STATE>
+		<STATE name = "D"></STATE>
 	</STATES>
 	
 	<TRANSITIONS>
-		<TRANSITION from="q0" symbol="1" to="q1"></TRANSITION>
-		<TRANSITION from="q0" symbol="0" to="q1"></TRANSITION>
-		<TRANSITION from="q1" symbol="1" to="q2"></TRANSITION>
-		<TRANSITION from="q1" symbol="0" to="q2"></TRANSITION>
-		<TRANSITION from="q2" symbol="1" to="q0"></TRANSITION>
-		<TRANSITION from="q2" symbol="0" to="q1"></TRANSITION>
+		<TRANSITION from="A" symbol="b" to="A"></TRANSITION>
+		<TRANSITION from="A" symbol="a" to="B"></TRANSITION>
+		<TRANSITION from="B" symbol="b" to="B"></TRANSITION>
+		<TRANSITION from="B" symbol="a" to="C"></TRANSITION>
+		<TRANSITION from="C" symbol="b" to="C"></TRANSITION>
+		<TRANSITION from="C" symbol="a" to="D"></TRANSITION>
+		<TRANSITION from="D" symbol="b" to="D"></TRANSITION>
+		<TRANSITION from="D" symbol="a" to="D"></TRANSITION>
 	</TRANSITIONS>
 </AUTOMATON>
