@@ -1,1 +1,8 @@
-/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/the_class/FSM.cpp
+
+#include "FSM.h"
+
+// XML_Casts here. (and in header)
+template <>
+char XML_Cast<char>(std::string s) {
+	return s.at(0);
+}
