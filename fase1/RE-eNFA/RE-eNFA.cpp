@@ -1,15 +1,15 @@
 #include "RE-eNFA.h"
-#include "FSM.h"
+#include "../lib/FSM/FSM.h"
 
 #include <string>
 
 s_eNFA RE_to_eNFA(std::string& str) {
-	s_eNFA N({"q0"},
-			{},
-			0, {0});
+	s_eNFA N({"q0"},//states
+			{},		//alphabet
+			0, {0});//from -> to
 	
-	// algoritme hier :)
-	// Maak zoveel extra bestanden aan als ge wilt.
+	
+	
 	
 	return N;
 }
