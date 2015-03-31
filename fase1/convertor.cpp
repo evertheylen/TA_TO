@@ -53,7 +53,7 @@ int main(int argc, char const* argv[]) {
 		
 		write_dot(&opt_D, arg + ".dot");
 	} else if (mode == "eNFA-DFA") {
-		// TODO
+		
 	} else if (mode == "union" || mode == "intersection") {
 		if (argc < 4) {
 			cout << "Not enough arguments given for creating the product automaton.\n";
