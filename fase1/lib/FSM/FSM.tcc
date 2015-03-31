@@ -196,11 +196,11 @@ public:
 			<< "    node [shape=none]; start;\n";
 		
 		for (auto f_state: this->F) {
-			out << "    node [shape=doublecircle]; " << realState(f_state) << ";\n";
+			out << "    node [shape=doublecircle]; \"" << realState(f_state) << "\";\n";
 		}
 		
 		out << "    node [shape=circle];\n"
-			<< "    start -> " << realState(this->q0) << ";\n";
+			<< "    start -> \"" << realState(this->q0) << "\";\n";
 		
 		for (auto it_from: this->d_data) {
 			// it_from.first == start state
