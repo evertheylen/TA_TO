@@ -59,7 +59,7 @@ s_DFA product(s_DFA D1, s_DFA D2, bool intersection) {
 			for (auto k: product.sigma) {
 				int D1_to = D1.delta(i, k);
 				int D2_to = D2.delta(j, k);
-				product.set_delta(i*D1.num_states + j, k, D1_to*D1.num_states + D2_to);
+				product.set_delta(i*D2.num_states + j, k, D1_to*D2.num_states + D2_to);
 			}
 		}
 	}
