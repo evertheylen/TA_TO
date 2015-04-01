@@ -1,3 +1,6 @@
+# no executables pls
+convertor
+
 # Binary images, don't want that!
 *.png
 *.jpeg
