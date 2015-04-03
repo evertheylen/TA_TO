@@ -51,7 +51,6 @@ DFA_T MSSC(eNFA_T& N) {
 	// For every set in the powerset
 	for (auto set: powerset) {
 		auto set_name = concatenate(set);
-		std::set<typename DFA_T::State> to_set;
 		
 		// For every symbol in the alphabet
 		for (auto symbol: D.sigma) {

@@ -7,6 +7,7 @@
 #include "TFA.h"
 #include "FSM.h"
 #include "tinyxml.h"
+#include "eNFA-DFA.h"
 
 using namespace std;
 
@@ -53,7 +54,13 @@ int main(int argc, char const* argv[]) {
 		
 		write_dot(&opt_D, arg + ".dot");
 	} else if (mode == "eNFA-DFA") {
+		s_eNFA N;
+		auto doc = read(arg);
+		N.from_xml(doc);
 		
+		s_DFA D = MSSC(N);
+		
+		write_dot(&D, arg+".dot");
 	} else if (mode == "union" || mode == "intersection") {
 		if (argc < 4) {
 			cout << "Not enough arguments given for creating the product automaton.\n";
