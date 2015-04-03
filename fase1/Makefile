@@ -1,9 +1,9 @@
-CXXFLAGS   = -g3 -O0 -fstack-protector-all -std=c++11 $(shell find -type d -exec echo "-I {}" \;)
+CXXFLAGS   = -g3 -O0 -fstack-protector-all -std=c++11 $(shell find . -type d -exec echo "-I {}" \;)
 #CXXFLAGS   = -O3 -std=c++14
 LDFLAGS    =
 EXECUTABLE = convertor
 EXTENSION  = cpp
-INCLUDES   = $(shell find -type d -exec echo "-I {}" \;)
+INCLUDES = $(shell find . -type d -exec echo "-I {}" \;)
 SOURCES    = $(basename $(shell find . -name '*.$(EXTENSION)'))
 SHELL      = /bin/bash
 
