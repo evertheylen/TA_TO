@@ -105,6 +105,8 @@ Voila, een soort van contract.
     
     bool isFinal(int ID);
     
+    bool isInSigma(char symb);
+    
 Voor de eNFA is er natuurlijk ook nog:
 
     std::set<int> ECLOSE(int ID);
