@@ -85,9 +85,7 @@ s_DFA MSSC(s_eNFA N) {
 	}
 	
 // 	std::cout << "eNFA start state is " << N.q0 << "\n";
-	
 // 	std::cout << "DFA Start state is " << D.q0 << "\n";
-	
 // 	std::cout << "I created a DFA with " << D.num_states << " states.\n";
 	D.lazy_evaluation();
 // 	std::cout << "Optimized version only contains " << D.num_states << " states.\n";

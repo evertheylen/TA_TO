@@ -72,6 +72,10 @@ public:
 		return (F.find(_ID) != F.end());
 	}
 	
+	bool isInSigma(Symbol symb) {
+		return (sigma.find(symb) != sigma.end());
+	}
+	
 	// function to use delta
 	DeltaResultT delta(int from, Symbol symbol) {
 		return d_data[from][symbol];
