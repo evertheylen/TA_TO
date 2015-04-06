@@ -8,6 +8,7 @@
 #include "FSM.h"
 #include "tinyxml.h"
 #include "eNFA-DFA.h"
+#include "suffix.h"
 
 using namespace std;
 
@@ -79,6 +80,15 @@ int main(int argc, char const* argv[]) {
 		s_DFA P = product(D1, D2, mode == "intersection");  // true --> intersection
 		
 		write_dot(&P, "product_"+arg+"_"+arg2+".dot");
+	} else if (mode == "suffix") {
+		string arg2 = string(argv[3]);
+
+		SuffixTree s(arg);
+
+		std::ofstream output_file;
+		output_file.open(arg2);
+		output_file << s;
+		output_file.close();
 	} else {
 		cout << "I don't understand " << mode << endl;
 	}
