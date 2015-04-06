@@ -63,3 +63,8 @@ Product:
 	make clean
 	make all
 	# Stijn, voer zelf u tests maar uit, ik weet niet of ge intersection of union wilt testen.
+
+.PHONY: Suffix
+Suffix:
+	make clean
+	make all
