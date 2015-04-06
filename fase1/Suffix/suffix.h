@@ -14,10 +14,11 @@
 
 class Node {
 public:
-	Node(char tag);
+	Node(std::string tag);
 	~Node();
 	Node* get_firstchild();
-	char get_tag();
+	void set_firstchild(Node* firstchild);
+	std::string get_tag();
 
 	std::list <Node*> children;
 
@@ -25,7 +26,7 @@ public:
 
 private:
 	Node* _firstchild;
-	char _tag;
+	std::string _tag;
 	//Node* next_child;
 };
 
@@ -33,8 +34,10 @@ class SuffixTree {
 public:
 	SuffixTree(std::string text);
 	~SuffixTree();
-	void add_node(char tag);
+	void add_node(std::string tag);
 	Node* get_root();
+
+	void fix_leaves(); // TODO implement; this function removes all the $i from the tags of the nodes and adds a leaf with the index.
 
 	friend std::ostream& operator<<(std::ostream& stream, SuffixTree& tree);
 
