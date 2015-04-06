@@ -15,7 +15,7 @@ s_eNFA RE_to_eNFA(std::string& str) {
 	stack <int> brackets;			//Helpt bij het behouden startstaat, dus juiste beginpunt
 	int states=1;
 	int current_start_state = N.ID("q0"); //Houdt de ID van de staat bij waar je moet beginnen
-	int current_end_state;
+	int current_end_state= 0;
 	cout << "Converting the regex string" << endl;
 	for (string::iterator it = str.begin(); it!= str.end(); it++){
 		cout << *it << endl;
@@ -30,7 +30,7 @@ s_eNFA RE_to_eNFA(std::string& str) {
 		}
 		if (*it == '+'){
 			//Hier moet de juiste staat terug gezet worden
-			
+
 			continue;
 		}
 		if (*it == '*'){
@@ -64,13 +64,13 @@ s_eNFA RE_to_eNFA(std::string& str) {
 		}
 	}
 	cout << "Het aantal staten = " << states << endl;
-	
+
 	//Tijdelijk printen naar dot
 	std::ofstream test;
 	test.open("RE_eNFA.dot");
 	N.to_dot(test);
 	test.close();
-	
+
 	//Geeft overeenkomende eNFA terug
 	return N;
 }
