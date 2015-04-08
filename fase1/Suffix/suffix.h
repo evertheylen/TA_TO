@@ -17,8 +17,9 @@ public:
 	Node(std::string tag);
 	~Node();
 	Node* get_firstchild();
-	void set_firstchild(Node* firstchild);
+	void add_child(Node* child);
 	std::string get_tag();
+	void set_tag(std::string tag);
 
 	std::list <Node*> children;
 
@@ -37,7 +38,7 @@ public:
 	void add_node(std::string tag);
 	Node* get_root();
 
-	void fix_leaves(); // TODO implement; this function removes all the $i from the tags of the nodes and adds a leaf with the index.
+	void fix_leaves(Node* current_node = nullptr); // TODO implement; this function removes all the $i from the tags of the nodes and adds a leaf with the index.
 
 	friend std::ostream& operator<<(std::ostream& stream, SuffixTree& tree);
 

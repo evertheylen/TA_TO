@@ -1,1 +1,4 @@
 The root of this tree is: root
+it's children are: t, gt, cgt, acgt, 
+Next row:
+3, 2, 1, 0, 
