@@ -8,6 +8,7 @@
 #include "suffix.h"
 #include <sstream>
 #include <vector>
+#include <fstream>
 
 Node::Node(std::string tag) {
 	_tag = tag;
@@ -110,17 +111,23 @@ void SuffixTree::add_node(std::string tag) {
 				} else if (i != 0) {
 					std::string str1 = child->get_tag().substr(0, i);
 					std::string str2 = child->get_tag().substr(i, child->get_tag().length()-1);
-
-					current_node = *child;
-					current_node.set_tag(str1);
+					std::ofstream output_file;
+					output_file.open("Before splitting " + child->get_tag() + ".txt");
+					output_file << *this;
+					output_file.close();
+					Node& new_current_node = *child;
+					new_current_node.set_tag(str1);
 					new_node = new Node(str2);
-					current_node.add_child(new_node);
+					new_current_node.add_child(new_node);
 
 					std::string str3 = tag.substr(i, tag.length()-1);
 					new_node = new Node(str3);
-					current_node.add_child(new_node);
+					new_current_node.add_child(new_node);
 
 					std::cout << "Branch " << child->get_tag() << " is splitted!  Root: " << str1 << "  Original child: " << str2 << "  Newly added child: " << str3 << std::endl;
+					output_file.open("After splitting " + child->get_tag() + ".txt");
+					output_file << *this;
+					output_file.close();
 					return;
 				} else {
 					break;
@@ -142,11 +149,13 @@ std::ostream& operator<<(std::ostream& stream, SuffixTree& tree) {
 std::ostream& operator<<(std::ostream& stream, Node& node) {
 	if (node.get_firstchild() != nullptr) {
 		for (auto child: node.children) {
-			stream << child->get_tag() << " --> ";
+			stream << "PARENT: " << node.get_tag() << "\n";
+			stream << "CHILD:  ";
+			stream << child->get_tag() << "\n";
 			stream << *child;
 		}
-	} else {
 		stream << "\n\n------------\n NEW BRANCH \n------------\n\n";
+	} else {
 		return stream;
 	}
 }

@@ -1,0 +1,15 @@
+The root of this tree is: root
+PARENT: root
+CHILD:  t$7
+PARENT: root
+CHILD:  gt$6
+PARENT: root
+CHILD:  cgt$5
+PARENT: root
+CHILD:  acgt$4
+
+
+------------
+ NEW BRANCH 
+------------
+
