@@ -15,18 +15,17 @@ s_eNFA RE_to_eNFA(std::string& str) {
 	stack <int> brackets;			//Helpt bij het behouden endstaat, dus juiste beginpunt
 	stack <int> begin;
 	stack <int> end;
-	string new_state1,new_state2, new_state3;
+	string new_state1,new_state2, new_state3,alphabet, new_begin_state;
+	int temp_state, beginstate;
 	string::iterator it_temp;
 	bool next = true;
 	bool endstate = false;
+	bool start = false;
 	int count = 0;
-	int temp_state;
-	int states=1;
+	int states = 1;
 	int current_start_state = N.ID("q0");	//Houdt de ID van de staat bij waar je moet beginnen
 	int current_end_state = -100;				//Houdt de ID van de staat bij waar je eindigt
-	int beginstate;
 	for (string::iterator it = str.begin(); it!= str.end(); it++){
-		cout << *it << endl;
 		if (*it == '('){
 			next = false;
 			begin.push(current_start_state);
@@ -36,8 +35,10 @@ s_eNFA RE_to_eNFA(std::string& str) {
 			current_start_state = brackets.top();
 			beginstate = begin.top();
 			next = true;
+			count=0;
 			brackets.pop();
 			begin.pop();
+			end.pop();
 			continue;
 		}
 		if (*it == '+'){
@@ -60,22 +61,19 @@ s_eNFA RE_to_eNFA(std::string& str) {
 			new_state3 = "q" + to_string(states);
 			states++;
 			it_temp = it + 1;
-			if (it_temp == str.end()){//Verifieert of het * symbool het laatste teken is
-				cout << "The end is near " << endl;
-				N.F.erase(N.q0);
-				endstate = true;
-			}
-			N.add_state(new_state3 ,endstate);
-			endstate = false;
+			N.add_state(new_state3 ,false);
 			temp = N.delta(current_end_state, 'e');
 			temp.insert(N.ID(new_state3));
 			N.set_delta(current_end_state, 'e',temp);
 			
 			//Eerste epsilon pijl
-			string new_begin_state = "q" + to_string(states);
+			new_begin_state = "q" + to_string(states);
 			N.add_state(new_begin_state, false);
 			states++;
-			N.q0 = N.ID(new_begin_state);
+			if (start == false){
+				N.q0 = N.ID(new_begin_state);
+				start = true;
+			}
 			temp = N.delta(N.ID(new_begin_state), 'e');
 			temp.insert(beginstate);
 			temp.insert(current_end_state);
@@ -88,6 +86,11 @@ s_eNFA RE_to_eNFA(std::string& str) {
 			if (N.isInSigma(*it) == false){
 				cout << "Inserting in alphabet: " <<  *it << endl;
 				N.sigma.insert(*it);
+				alphabet.push_back(*it);
+			}
+			if (begin.empty() and start == false){
+				N.q0 = N.ID(N.realState(current_start_state));
+				start = true;
 			}
 			new_state1 = "q" + to_string(states);
 			N.add_state(new_state1 ,false);
@@ -95,15 +98,15 @@ s_eNFA RE_to_eNFA(std::string& str) {
 			new_state2 = "q" + to_string(states);
 			N.add_state(new_state2 ,false);
 			states++;
-			if (current_end_state == -100 or next == true){
+			it_temp = it+1;
+			if (*it_temp == '+' or *it_temp == ')' or *it_temp == '*'  or *it_temp == '('){
+				if (current_end_state == -100 or next == true){
 				new_state3 = "q" + to_string(states);
 				N.add_state(new_state3 ,false);
 				current_end_state = N.ID(new_state3);
 				brackets.push(current_end_state);
 				states++;
-			}
-			it_temp = it+1;
-			if (*it_temp == '+' or *it_temp == ')' or *it_temp == '*'  or *it_temp == '('){
+				}
 				set <int> temp;
 				if (count == 0){
 					temp = N.delta(current_start_state,'e');
@@ -152,6 +155,31 @@ s_eNFA RE_to_eNFA(std::string& str) {
 				count++;
 			}
 		}
+	}
+//	cout << alphabet << endl;
+	bool transitions = true;
+	for (int i = 0; i < N.num_states; i++){
+		set <int> temp;
+		temp = N.delta(i, 'e');
+		if (temp.empty() == true){
+			int count_empty=0;
+			for ( string::iterator it = alphabet.begin(); it != alphabet.end(); it++){
+				temp = N.delta(i, *it);
+				if (temp.empty()){
+					count_empty++;
+					continue;
+				}
+				break;
+			}
+			
+			if (count_empty == alphabet.size()){
+				N.F.clear();
+				N.F.insert(i);
+				break;
+			}
+			continue;
+		}
+		continue;
 	}
 	cout << "Het aantal staten = " << states << endl;
 
