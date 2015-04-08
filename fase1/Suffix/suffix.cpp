@@ -55,7 +55,7 @@ SuffixTree::SuffixTree(std::string text) {
 		str = sstr2.str();
 		sstr1.str("");
 		sstr2.str("");
-		std::cout << str << std::endl;
+		//std::cout << str << std::endl;
 		add_node(str, *_root);
 	}
 	fix_leaves();
@@ -99,18 +99,18 @@ Node* SuffixTree::get_root() {
 void SuffixTree::add_node(std::string tag, Node& current_node) {
 	Node* new_node;
 	if (current_node.get_firstchild() == nullptr) {
-		std::cout << "nullptr so I added a new firstchild\n";
+		//std::cout << "nullptr so I added a new firstchild\n";
 		new_node = new Node(tag);
 		current_node.add_child(new_node);
 		return;
 	}
 	Node* remembered = nullptr;
 	for (auto child: current_node.children) {
-		std::cout << "Looping over all the children\n";
+		//std::cout << "Looping over all the children\n";
 		for (unsigned int i = 0; i < child->get_tag().length(); i++) {
 			if (tag == "agtacgt$0") {
-				std::cout << child->get_tag() << std::endl;
-				std::cout << tag[i] << "\n";
+				//std::cout << child->get_tag() << std::endl;
+				//std::cout << tag[i] << "\n";
 			}
 			if (tag[i] == child->get_tag()[i] && i != child->get_tag().length() - 1) {
 
@@ -131,14 +131,14 @@ void SuffixTree::add_node(std::string tag, Node& current_node) {
 				new_node = new Node(str3);
 				new_current_node.add_child(new_node);
 
-				std::cout << "Branch " << child->get_tag() << " is splitted!  Root: " << str1 << "  Original child: " << str2 << "  Newly added child: " << str3 << std::endl;
+				//std::cout << "Branch " << child->get_tag() << " is splitted!  Root: " << str1 << "  Original child: " << str2 << "  Newly added child: " << str3 << std::endl;
 				/*output_file.open("After splitting " + child->get_tag() + ".txt");
 				output_file << *this;
 				output_file.close();*/
 				return;
 			} else if ( i != 0 || (i == child->get_tag().length() - 1 && tag[i] == child->get_tag()[i])) {
 				remembered = child;
-				std::cout << "Remembering: " << child->get_tag() << std::endl;
+				//std::cout << "Remembering: " << child->get_tag() << std::endl;
 				break;
 			} else {
 				break;
@@ -148,7 +148,7 @@ void SuffixTree::add_node(std::string tag, Node& current_node) {
 	if (remembered != nullptr) {
 		for (unsigned int i = 0; i < remembered->get_tag().length(); i++) {
 			if ( i != 0 || i == remembered->get_tag().length() - 1) {
-				std::cout << "Going down to next child for " << tag  << " Parent: " << remembered->get_tag() << "\n";
+				//std::cout << "Going down to next child for " << tag  << " Parent: " << remembered->get_tag() << "\n";
 				std::string str = tag.substr(i+1, tag.length());
 				add_node(str, *remembered);
 				return;
@@ -157,7 +157,7 @@ void SuffixTree::add_node(std::string tag, Node& current_node) {
 	}
 	new_node = new Node(tag);
 	current_node.add_child(new_node);
-	std::cout << "New branch added for " << tag << std::endl;
+	//std::cout << "New branch added for " << tag << std::endl;
 	return;
 }
 
