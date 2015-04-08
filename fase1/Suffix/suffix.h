@@ -11,7 +11,6 @@
 
 #ifndef SUFFIX_SUFFIX_H_
 #define SUFFIX_SUFFIX_H_
-int counter = 0;
 class Node {
 public:
 	Node(std::string tag);

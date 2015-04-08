@@ -170,6 +170,7 @@ std::ostream& operator<<(std::ostream& stream, SuffixTree& tree) {
 }
 
 std::ostream& operator<<(std::ostream& stream, Node& node) {
+	int static counter = 0;
 	if (node.get_firstchild() != nullptr) {
 		stream << '\t' << counter << " [label= " << '"' << node.get_tag() << '"' << "];" << "\n";
 		int parent_counter = counter;
