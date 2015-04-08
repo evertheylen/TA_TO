@@ -1,4 +1,25 @@
 The root of this tree is: root
-it's children are: t, gt, cgt, acgt, 
-Next row:
-3, 2, 1, 0, 
+t --> 3 --> 
+
+------------
+ NEW BRANCH 
+------------
+
+gt --> 2 --> 
+
+------------
+ NEW BRANCH 
+------------
+
+cgt --> 1 --> 
+
+------------
+ NEW BRANCH 
+------------
+
+acgt --> 0 --> 
+
+------------
+ NEW BRANCH 
+------------
+

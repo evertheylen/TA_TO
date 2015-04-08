@@ -135,21 +135,18 @@ void SuffixTree::add_node(std::string tag) {
 }
 
 std::ostream& operator<<(std::ostream& stream, SuffixTree& tree) {
-	stream << "The root of this tree is: " << *tree.get_root() << "\n";
-	stream << "it's children are: ";
-	for (auto child: tree.get_root()->children) {
-		stream << child->get_tag() << ", ";
-	}
-	stream << "\nNext row:\n";
-	for (auto child: tree.get_root()->children) {
-		for (auto child2: child->children) {
-			stream << child2->get_tag() << ", ";
-		}
-	}
+	stream << "The root of this tree is: " << tree.get_root()->get_tag() << "\n" << *tree.get_root();
 	return stream;
 }
 
 std::ostream& operator<<(std::ostream& stream, Node& node) {
-	stream << node.get_tag();
-	return stream;
+	if (node.get_firstchild() != nullptr) {
+		for (auto child: node.children) {
+			stream << child->get_tag() << " --> ";
+			stream << *child;
+		}
+	} else {
+		stream << "\n\n------------\n NEW BRANCH \n------------\n\n";
+		return stream;
+	}
 }
