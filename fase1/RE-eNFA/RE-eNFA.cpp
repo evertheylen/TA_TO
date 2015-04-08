@@ -17,8 +17,10 @@ s_eNFA RE_to_eNFA(std::string& str) {
 	stack <int> end;
 	string new_state1,new_state2, new_state3;
 	string::iterator it_temp;
-	//cout << countOccurences(str) << "Het aantal tekens van het alfabet" << endl;
 	bool next = true;
+	bool endstate = false;
+	int count = 0;
+	int temp_state;
 	int states=1;
 	int current_start_state = N.ID("q0");	//Houdt de ID van de staat bij waar je moet beginnen
 	int current_end_state = -100;				//Houdt de ID van de staat bij waar je eindigt
@@ -44,6 +46,7 @@ s_eNFA RE_to_eNFA(std::string& str) {
 			current_end_state = brackets.top();
 			end.push(current_end_state);
 			next = false;
+			count = 0;
 			continue;
 		}
 		if (*it == '*'){
@@ -56,7 +59,14 @@ s_eNFA RE_to_eNFA(std::string& str) {
 			//Laatste epsilon pijl
 			new_state3 = "q" + to_string(states);
 			states++;
-			N.add_state(new_state3 ,false);
+			it_temp = it + 1;
+			if (it_temp == str.end()){//Verifieert of het * symbool het laatste teken is
+				cout << "The end is near " << endl;
+				N.F.erase(N.q0);
+				endstate = true;
+			}
+			N.add_state(new_state3 ,endstate);
+			endstate = false;
 			temp = N.delta(current_end_state, 'e');
 			temp.insert(N.ID(new_state3));
 			N.set_delta(current_end_state, 'e',temp);
@@ -65,7 +75,7 @@ s_eNFA RE_to_eNFA(std::string& str) {
 			string new_begin_state = "q" + to_string(states);
 			N.add_state(new_begin_state, false);
 			states++;
-			
+			N.q0 = N.ID(new_begin_state);
 			temp = N.delta(N.ID(new_begin_state), 'e');
 			temp.insert(beginstate);
 			temp.insert(current_end_state);
@@ -92,44 +102,54 @@ s_eNFA RE_to_eNFA(std::string& str) {
 				brackets.push(current_end_state);
 				states++;
 			}
-//			it_temp = it + 1;
-//			while(*it_temp!='+' or *it_temp!=')' or *it_temp!='(' or *it_temp!='*'){
-//				string temp1,temp2,temp3;
-//				set <int> temp_delta;
-//				temp1 = "q" + to_string(states);
-//				N.add_state(temp1 ,false);
-//				states++;
-//				temp2 = "q" + to_string(states);
-//				N.add_state(temp2 ,false);
-//				states++;
-//				temp3 = "q" + to_string(states);
-//				N.add_state(temp3 ,false);
-//				states++;
-//				temp_delta = N.delta(N.ID(temp1),'e');
-//				temp_delta.insert(N.ID(temp1));
-//				N.set_delta(N.ID(temp1), 'e', temp_delta);
-//				temp_delta = N.delta(N.ID(temp2),'e');
-//				temp_delta.insert(N.ID(temp2));
-//				N.set_delta(N.ID(temp2), 'e', temp_delta);
-//				temp_delta = N.delta(N.ID(temp3),'e');
-//				temp_delta.insert(N.ID(temp3));
-//				N.set_delta(N.ID(temp3), 'e', temp_delta);
-//				it_temp++;
-//			}
-//			it = it_temp;
-			set<int> temp = N.delta(current_start_state,'e');
-			temp.insert(N.ID(new_state1));
-			N.set_delta(current_start_state, 'e', temp);
-			temp = N.delta(N.ID(new_state1),*it);
-			temp.insert(N.ID(new_state2));
-			N.set_delta(N.ID(new_state1), *it , temp);
-			temp = N.delta(N.ID(new_state2),'e');
-			temp.insert(current_end_state);
-			N.set_delta(N.ID(new_state2), 'e' , temp);
-			if (next == true){
-				current_start_state = current_end_state;
-				current_end_state = -100;
-				continue;
+			it_temp = it+1;
+			if (*it_temp == '+' or *it_temp == ')' or *it_temp == '*'  or *it_temp == '('){
+				set <int> temp;
+				if (count == 0){
+					temp = N.delta(current_start_state,'e');
+					temp.insert(N.ID(new_state1));
+					N.set_delta(current_start_state, 'e', temp);
+				}
+				if (count != 0){
+					temp = N.delta(temp_state,'e');
+					temp.insert(N.ID(new_state1));
+					N.set_delta(temp_state, 'e', temp);
+				}
+				temp = N.delta(N.ID(new_state1),*it);
+				temp.insert(N.ID(new_state2));
+				N.set_delta(N.ID(new_state1), *it , temp);
+				temp = N.delta(N.ID(new_state2),'e');
+				temp.insert(current_end_state);
+				N.set_delta(N.ID(new_state2), 'e' , temp);
+				if (next == true){
+					current_start_state = current_end_state;
+					current_end_state = -100;
+					continue;
+				}
+			}
+			else{
+				set <int> temp;
+				if (count == 0){
+					temp = N.delta(current_start_state,'e');
+					temp.insert(N.ID(new_state1));
+					N.set_delta(current_start_state, 'e', temp);
+				}
+				if (count != 0){
+					temp = N.delta(temp_state,'e');
+					temp.insert(N.ID(new_state1));
+					N.set_delta(temp_state, 'e', temp);
+				}
+				temp = N.delta(N.ID(new_state1),*it);
+				temp.insert(N.ID(new_state2));
+				N.set_delta(N.ID(new_state1), *it , temp);
+				temp = N.delta(N.ID(new_state2),'e');
+				new_state3 = "q" + to_string(states);
+				N.add_state(new_state3 ,false);
+				states++;
+				temp.insert(N.ID(new_state3));
+				N.set_delta(N.ID(new_state2), 'e' , temp);
+				temp_state = N.ID(new_state3);
+				count++;
 			}
 		}
 	}
@@ -142,7 +162,7 @@ s_eNFA RE_to_eNFA(std::string& str) {
 int countOccurences(std::string str){
 	int counter=0;
 	for (string::iterator it = str.begin(); it!= str.end(); it++){
-		if (*it == '+' or *it == '(' or *it == ')' or  *it == '*'){
+		if (*it == '+' or *it == '(' or *it == ')'){
 			continue;
 		}
 		counter++;
