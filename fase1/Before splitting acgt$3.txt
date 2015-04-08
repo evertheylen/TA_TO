@@ -4,17 +4,7 @@ CHILD:  t
 PARENT: t
 CHILD:  $7
 PARENT: t
-CHILD:  a
-PARENT: a
-CHILD:  cgt$3
-PARENT: a
-CHILD:  gtacgt$0
-
-
-------------
- NEW BRANCH 
-------------
-
+CHILD:  acgt$3
 
 
 ------------

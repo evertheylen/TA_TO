@@ -35,7 +35,7 @@ class SuffixTree {
 public:
 	SuffixTree(std::string text);
 	~SuffixTree();
-	void add_node(std::string tag);
+	void add_node(std::string tag, Node& current_node);
 	Node* get_root();
 
 	void fix_leaves(Node* current_node = nullptr); // TODO implement; this function removes all the $i from the tags of the nodes and adds a leaf with the index.
