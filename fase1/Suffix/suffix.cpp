@@ -7,6 +7,8 @@
 
 #include "suffix.h"
 #include <sstream>
+#include <vector>
+#include <fstream>
 
 Node::Node(std::string tag) {
 	_tag = tag;
@@ -19,8 +21,13 @@ Node::~Node() {
 	}
 }
 
-void Node::set_firstchild(Node* firstchild) {
-	_firstchild = firstchild;
+void Node::add_child(Node* child) {
+	if (_firstchild == nullptr) {
+		_firstchild = child;
+		children.push_back(child);
+	} else {
+		children.push_back(child);
+	}
 }
 
 std::string Node::get_tag() {
@@ -29,6 +36,10 @@ std::string Node::get_tag() {
 
 Node* Node::get_firstchild() {
 	return _firstchild;
+}
+
+void Node::set_tag(std::string tag) {
+	_tag = tag;
 }
 
 SuffixTree::SuffixTree(std::string text) {
@@ -44,14 +55,37 @@ SuffixTree::SuffixTree(std::string text) {
 		str = sstr2.str();
 		sstr1.str("");
 		sstr2.str("");
-		std::cout << str << std::endl;
-		add_node(str);
+		//std::cout << str << std::endl;
+		add_node(str, *_root);
 	}
 	fix_leaves();
 }
 
-void SuffixTree::fix_leaves() {
-
+void SuffixTree::fix_leaves(Node* current_node) {
+	if (current_node == nullptr) {
+		current_node = _root;
+	}
+	if (current_node->get_firstchild() != nullptr) {
+		for (auto child: current_node->children) {
+			this->fix_leaves(child);
+		}
+	} else {
+		for (unsigned int i = 0; i < current_node->get_tag().length(); i++) {
+			char s = current_node->get_tag()[i];
+			if ('$' == s && i != 0) {
+				std::string str1 = current_node->get_tag().substr(0, i);
+				std::string str2 = current_node->get_tag().substr(i+1, current_node->get_tag().length()-1);
+				current_node->set_tag(str1);
+				Node* new_node = new Node(str2);
+				current_node->add_child(new_node);
+				return;
+			}
+			else if ('$' == s) {
+				std::string str1 = current_node->get_tag().substr(1, current_node->get_tag().length()-1);
+				current_node->set_tag(str1);
+			}
+		}
+	}
 }
 
 SuffixTree::~SuffixTree() {
@@ -62,41 +96,91 @@ Node* SuffixTree::get_root() {
 	return _root;
 }
 
-void SuffixTree::add_node(std::string tag) {
-	Node current_node = *_root;
+void SuffixTree::add_node(std::string tag, Node& current_node) {
 	Node* new_node;
-	bool done = false;
-	while (!done) {
-		if (current_node.get_firstchild() == nullptr) {
-			std::cout << "nullptr so I added a new firstchild\n";
-			new_node = new Node(tag);
-			current_node.set_firstchild(new_node);
-			return;
-		}
-		for (auto child: current_node.children) {
-			std::cout << "Looping over all the children\n";
-			for (unsigned int i = 0; i < child->get_tag().length(); i++) {
-				std::cout << "Looping over all the chars of " << child->get_tag() << std::endl;
-				if (tag[i] == child->get_tag()[i]) {
-					continue;
-				} else if (i != 0) {
-					std::string str1 = child->get_tag().substr(0, i);
-					std::string str2 = child->get_tag().substr(i, child->get_tag().length()-1);
+	if (current_node.get_firstchild() == nullptr) {
+		//std::cout << "nullptr so I added a new firstchild\n";
+		new_node = new Node(tag);
+		current_node.add_child(new_node);
+		return;
+	}
+	Node* remembered = nullptr;
+	for (auto child: current_node.children) {
+		//std::cout << "Looping over all the children\n";
+		for (unsigned int i = 0; i < child->get_tag().length(); i++) {
+			if (tag == "agtacgt$0") {
+				//std::cout << child->get_tag() << std::endl;
+				//std::cout << tag[i] << "\n";
+			}
+			if (tag[i] == child->get_tag()[i] && i != child->get_tag().length() - 1) {
 
-					std::cout << "Original string: " << child->get_tag() << "  First part: " << str1 << "  Second part: " << str2 << std::endl;
-				}
+				continue;
+			} else if (i != 0 && child->get_firstchild() == nullptr) {
+				std::string str1 = child->get_tag().substr(0, i);
+				std::string str2 = child->get_tag().substr(i, child->get_tag().length()-1);
+				/*std::ofstream output_file;
+				output_file.open("Before splitting " + child->get_tag() + ".txt");
+				output_file << *this;
+				output_file.close();*/
+				Node& new_current_node = *child;
+				new_current_node.set_tag(str1);
+				new_node = new Node(str2);
+				new_current_node.add_child(new_node);
+
+				std::string str3 = tag.substr(i, tag.length()-1);
+				new_node = new Node(str3);
+				new_current_node.add_child(new_node);
+
+				//std::cout << "Branch " << child->get_tag() << " is splitted!  Root: " << str1 << "  Original child: " << str2 << "  Newly added child: " << str3 << std::endl;
+				/*output_file.open("After splitting " + child->get_tag() + ".txt");
+				output_file << *this;
+				output_file.close();*/
+				return;
+			} else if ( i != 0 || (i == child->get_tag().length() - 1 && tag[i] == child->get_tag()[i])) {
+				remembered = child;
+				//std::cout << "Remembering: " << child->get_tag() << std::endl;
+				break;
+			} else {
+				break;
 			}
 		}
-		return;	//TODO Make a working while loop XD
 	}
+	if (remembered != nullptr) {
+		for (unsigned int i = 0; i < remembered->get_tag().length(); i++) {
+			if ( i != 0 || i == remembered->get_tag().length() - 1) {
+				//std::cout << "Going down to next child for " << tag  << " Parent: " << remembered->get_tag() << "\n";
+				std::string str = tag.substr(i+1, tag.length());
+				add_node(str, *remembered);
+				return;
+			}
+		}
+	}
+	new_node = new Node(tag);
+	current_node.add_child(new_node);
+	//std::cout << "New branch added for " << tag << std::endl;
+	return;
 }
 
 std::ostream& operator<<(std::ostream& stream, SuffixTree& tree) {
-	stream << "The root of this tree is: " << *tree.get_root() << "\n";
+	//stream << "The root of this tree is: " << tree.get_root()->get_tag() << "\n" << *tree.get_root();
+	stream << "digraph suffix {\n" << "\tnode [shape = circle];\n";
+	stream << *tree.get_root();
+	stream << '}';
 	return stream;
 }
 
 std::ostream& operator<<(std::ostream& stream, Node& node) {
-	stream << node.get_tag();
-	return stream;
+	int static counter = 0;
+	if (node.get_firstchild() != nullptr) {
+		stream << '\t' << counter << " [label= " << '"' << node.get_tag() << '"' << "];" << "\n";
+		int parent_counter = counter;
+		for (auto child: node.children) {
+			counter++;
+			stream << '\t' << counter << " [label= " << '"' << child->get_tag() << '"' << "];\n";
+			stream << '\t' << parent_counter << " -> " << counter << ";\n";
+			stream << *child;
+		}
+	} else {
+		return stream;
+	}
 }

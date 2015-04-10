@@ -6,7 +6,13 @@ digraph automaton {
     "q0" -> "q1" [label="&epsilon;"];
     "q0" -> "q4" [label="&epsilon;"];
     "q1" -> "q2" [label="0"];
+<<<<<<< HEAD
     "q2" -> "q0" [label="&epsilon;"];
     "q4" -> "q5" [label="1"];
     "q5" -> "q0" [label="&epsilon;"];
+=======
+    "q2" -> "q3" [label="&epsilon;"];
+    "q4" -> "q5" [label="1"];
+    "q5" -> "q3" [label="&epsilon;"];
+>>>>>>> ea275c158259e28828544c12bfd584b10fe9c8c8
 }
