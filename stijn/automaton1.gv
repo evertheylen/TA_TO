@@ -1,9 +1,0 @@
-digraph automaton1 {
-	node [shape=none]; start;
-	node [shape=doublecircle];
-	node [shape=circle];
-	y0 -> y1 [label=0];
-	y0 -> y1 [label=1];
-	y1 -> y0 [label=1];
-	y1 -> y0 [label=0];
-}
