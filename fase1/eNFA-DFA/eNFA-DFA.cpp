@@ -22,9 +22,11 @@ std::vector<int> getOnLocations(int a) {
 	return result;
 }
 
-
-s_DFA MSSC(s_eNFA N) {
-	s_DFA D;
+template<	typename StateT,
+			typename SymbolT,
+			SymbolT epsilon>
+DFA<StateT, SymbolT> MSSC(eNFA<StateT, SymbolT, epsilon> N) {
+	DFA<StateT, SymbolT> D;
 
 	D.sigma = N.sigma;
 	D.q0 = 0;
