@@ -5,6 +5,5 @@
 #include <string>
 #include "RE-eNFA.tcc"
 
-//int countOccurences(std::string str);
 
 #endif

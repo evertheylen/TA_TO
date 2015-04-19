@@ -60,8 +60,8 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 			set<int> temp = N.delta(current_end_state, 'e');
 			temp.insert(beginstate);
 			N.set_delta(current_end_state, 'e',temp);
-			
-			
+
+
 			//Laatste epsilon pijl
 			new_state3 = "q" + to_string(states);
 			states++;
@@ -70,7 +70,7 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 			temp = N.delta(current_end_state, 'e');
 			temp.insert(N.ID(new_state3));
 			N.set_delta(current_end_state, 'e',temp);
-			
+
 			//Eerste epsilon pijl
 			new_begin_state = "q" + to_string(states);
 			N.add_state(new_begin_state, false);
@@ -89,7 +89,7 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 		else{
 			//Gaat na of het element in het alfabet zit, zo niet voeg toe
 			if (N.isInSigma(*it) == false){
-				cout << "Inserting in alphabet: " <<  *it << endl;
+				//cout << "Inserting in alphabet: " <<  *it << endl;
 				N.sigma.insert(*it);
 				alphabet.push_back(*it);
 			}
@@ -176,7 +176,7 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 				}
 				break;
 			}
-			
+
 			if (count_empty == alphabet.size()){
 				N.F.clear();
 				N.F.insert(i);
@@ -186,19 +186,8 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 		}
 		continue;
 	}
-	cout << "Het aantal staten = " << states << endl;
+	//cout << "Het aantal staten = " << states << endl;
 
 	//Geeft overeenkomende eNFA terug
 	return N;
-}
-
-int countOccurences(std::string str){
-	int counter=0;
-	for (string::iterator it = str.begin(); it!= str.end(); it++){
-		if (*it == '+' or *it == '(' or *it == ')'){
-			continue;
-		}
-		counter++;
-	}
-	return counter;
 }
