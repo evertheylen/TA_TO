@@ -1,3 +1,7 @@
-#include "FSM.h"
+#ifndef _eNFA
+#define _eNFA
 
-s_DFA MSSC(s_eNFA N);
+#include "FSM.h"
+#include "eNFA-DFA.tcc"
+
+#endif

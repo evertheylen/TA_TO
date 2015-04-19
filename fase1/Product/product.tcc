@@ -1,4 +1,3 @@
-#include "product.h"
 #include "assert.h"
 #include <map>
 #include <sstream>
@@ -6,7 +5,10 @@
 #include <string>
 #include <vector>
 
-s_DFA product(s_DFA D1, s_DFA D2, bool intersection) {
+
+template<	typename StateT,
+			typename SymbolT>
+DFA<StateT, SymbolT> product(DFA<StateT, SymbolT> D1, DFA<StateT, SymbolT> D2, bool intersection) {
 	// Insert bug-free quality code here
 
 	/*
@@ -16,7 +18,7 @@ s_DFA product(s_DFA D1, s_DFA D2, bool intersection) {
 	 */
 
 	assert(D1.sigma == D2.sigma);
-	s_DFA product;
+	DFA<StateT, SymbolT> product;
 
 	product.sigma = D1.sigma;
 

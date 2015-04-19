@@ -1,4 +1,3 @@
-#include "RE-eNFA.h"
 #include "FSM.h"
 
 #include <string>
@@ -8,10 +7,16 @@
 #include <set>
 using namespace std;
 
-s_eNFA RE_to_eNFA(std::string& str) {
-	s_eNFA N({"q0"},				//staten
+template<	typename StateT,
+			typename SymbolT,
+			SymbolT epsilon>
+eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
+	eNFA <StateT, SymbolT, epsilon> N({"q0"},				//staten
 			{'e'},					//alfabet
 			0, {0});				//from -> to
+	/*s_eNFA N({"q0"},				//staten
+			{'e'},					//alfabet
+			0, {0});				//from -> to*/
 	stack <int> brackets;			//Helpt bij het behouden endstaat, dus juiste beginpunt
 	stack <int> begin;
 	stack <int> end;

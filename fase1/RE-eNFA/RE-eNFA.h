@@ -1,6 +1,10 @@
+#ifndef _REeNFA
+#define _REeNFA
+
 #include "FSM.h"
 #include <string>
+#include "RE-eNFA.tcc"
 
-s_eNFA RE_to_eNFA(std::string& str);
+//int countOccurences(std::string str);
 
-int countOccurences(std::string str);
+#endif

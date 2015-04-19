@@ -1,4 +1,7 @@
+#ifndef _product
+#define _product
+
 #include "FSM.h"
+#include "product.tcc"
 
-s_DFA product(s_DFA D1, s_DFA D2, bool intersection);
-
+#endif

@@ -43,7 +43,7 @@ int main(int argc, char const* argv[]) {
 		}
 		string filename = string(argv[3]);
 		
-		s_eNFA N = RE_to_eNFA(arg);
+		eNFA <std::string, char, 'e'> N = RE_to_eNFA<std::string, char, 'e'>(arg);
 		
 		write_dot(&N, filename);
 	} else if (mode == "TFA") {
@@ -70,15 +70,16 @@ int main(int argc, char const* argv[]) {
 		string arg2 = string(argv[3]);
 		
 		s_DFA D1;
+		//DFA <std::string, char> D1;
+		//DFA <std::string, char> D2;
 		auto doc = read(arg);
 		D1.from_xml(doc);
 		
 		s_DFA D2;
 		doc = read(arg2);
 		D2.from_xml(doc);
-		
-		s_DFA P = product(D1, D2, mode == "intersection");  // true --> intersection
-		
+
+		DFA <std::string, char> P = product(D1, D2, mode == "intersection");  // true --> intersection
 		write_dot(&P, "product_"+arg+"_"+arg2+".dot");
 	} else if (mode == "suffix") {
 		string arg2 = string(argv[3]);

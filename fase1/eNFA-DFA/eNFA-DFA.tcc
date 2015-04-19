@@ -5,9 +5,6 @@
 #include <vector>
 #include <iostream>
 
-#include "eNFA-DFA.h"
-
-
 // Returns which bits are on in the integer a
 std::vector<int> getOnLocations(int a) {
 	std::vector<int> result;
