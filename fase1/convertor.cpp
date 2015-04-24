@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <list>
 #include <fstream>
 
 #include "RE-eNFA.h"
@@ -86,10 +87,19 @@ int main(int argc, char const* argv[]) {
 
 		SuffixTree s(arg);
 
-		std::ofstream output_file;
-		output_file.open(arg2);
+		ofstream output_file;
+		output_file.open(arg+".gv");
 		output_file << s;
 		output_file.close();
+
+		list<int> index = s.search_string(arg2);
+		if (index.size() == 0) {
+			cout << "No matches where found with string " << arg2 << " in text " << arg <<".\n";
+		}
+		for (int i = 0; i != index.size(); i++) {
+			cout << "Match at index " << index.front() << endl;
+			index.pop_front();
+		}
 	} else {
 		cout << "I don't understand " << mode << endl;
 	}

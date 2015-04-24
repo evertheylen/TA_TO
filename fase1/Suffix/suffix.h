@@ -84,6 +84,16 @@ public:
 	 * returns a pointer to the root of the suffix tree.
 	 */
 
+	int get_leaves(Node* current_node, std::list<int>& leaves);
+	/*
+	 * Returns a list of all the leaves or indeces beneath the current_node;
+	 */
+
+	std::list<int> search_string(std::string str);
+	/*
+	 * Returns a list of indeces of where the substring occurs in your text. Returns an empty list if the string doesn't occur in the text.
+	 */
+
 	void fix_leaves(Node* current_node = nullptr);
 	/*
 	 * This function is called at the end of the constructor.
