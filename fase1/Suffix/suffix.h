@@ -84,7 +84,7 @@ public:
 	 * returns a pointer to the root of the suffix tree.
 	 */
 
-	int get_leaves(Node* current_node, std::list<int>& leaves);
+	std::list<int> get_leaves(Node* current_node);
 	/*
 	 * Returns a list of all the leaves or indeces beneath the current_node;
 	 */

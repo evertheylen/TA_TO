@@ -185,18 +185,19 @@ std::ostream& operator<<(std::ostream& stream, Node& node) {
 	}
 }
 
-int SuffixTree::get_leaves(Node* current_node, std::list<int>& leaves) {
+std::list<int> SuffixTree::get_leaves(Node* current_node) {
+	static std::list<int> results;
 	if (current_node->get_firstchild() != nullptr) {
 		for (auto child: current_node->children) {
-			std::cout << "Getting leaves from " << child->get_tag() << std::endl;
-			leaves.push_back(this->get_leaves(child, leaves));
+			//std::cout << "Getting leaves from " << child->get_tag() << std::endl;
+			get_leaves(child);
 		}
 	} else {
-		std::cout << "Got leaf: " << current_node->get_tag().c_str() << std::endl;
+		//std::cout << "Got leaf: " << current_node->get_tag().c_str() << std::endl;
 		int result = atoi(current_node->get_tag().c_str());
-		return result;
+		results.push_back(result);
 	}
-	return leaves.back();
+	return results;
 }
 
 std::list<int> SuffixTree::search_string(std::string str) {
@@ -204,18 +205,23 @@ std::list<int> SuffixTree::search_string(std::string str) {
 	Node* current_node = _root;
 	for (int i = 0; i < str.length(); i++){
 		for (auto child: current_node->children) {
+			//std::cout << " Searching " << child->get_tag() << "...\n";
 			if (str[i] != child->get_tag()[0]) {
 				continue;
 			} else {
-				for (int j = 0; j < child->get_tag().length(); j++) {
+				//std::cout << "Match with " << child->get_tag()[0] << " at first position\n";
+				for (int j = 0; j < child->get_tag().length() && i < str.length(); j++) {
 					if (str[i] != child->get_tag()[j]) {
-						std::cerr << i << "th position in " << str << " doesn't match " << j << "th position in " << child->get_tag() << ".\n";
+					//	std::cerr << i << "th position in " << str << " doesn't match " << j << "th position in " << child->get_tag() << ".\n";
 					} else {
 						i++;
 					}
 				}
 				if (i < str.length()) {
 					current_node = child;
+					i--;
+					//std::cout << current_node->get_tag() << " is the tag of the next current_node.\n";
+					break;
 				} else {
 					current_node = child;
 					/*std::list<int> leaves;
@@ -224,11 +230,11 @@ std::list<int> SuffixTree::search_string(std::string str) {
 						result.push_back(leaves.front());
 						leaves.pop_front();
 					}*/
-					get_leaves(current_node, result);
-					for (int k = 0; k < result.size(); k++) {
+					result = get_leaves(current_node);
+					/*for (int k = 0; k < result.size(); k++) {
 						std::cout << result.front() << std::endl;
 						result.pop_front();
-					}
+					}*/
 					return result;
 				}
 			}

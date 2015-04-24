@@ -96,9 +96,8 @@ int main(int argc, char const* argv[]) {
 		if (index.size() == 0) {
 			cout << "No matches where found with string " << arg2 << " in text " << arg <<".\n";
 		}
-		for (int i = 0; i != index.size(); i++) {
-			cout << "Match at index " << index.front() << endl;
-			index.pop_front();
+		for (std::list<int>::const_iterator i = index.begin(); i != index.end(); i++) {
+			cout << "Match at index " << *i << endl;
 		}
 	} else {
 		cout << "I don't understand " << mode << endl;
