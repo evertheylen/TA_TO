@@ -92,12 +92,13 @@ int main(int argc, char const* argv[]) {
 		output_file << s;
 		output_file.close();
 
-		list<int> index = s.search_string(arg2);
+		list<int> index = s.search_string(arg2, 1);
+		cout << "Longest common prefix of " << arg << " and " << arg2 << " is " << s.longest_common_prefix(arg, arg2) << std::endl;
 		if (index.size() == 0) {
 			cout << "No matches where found with string " << arg2 << " in text " << arg <<".\n";
 		}
 		for (std::list<int>::const_iterator i = index.begin(); i != index.end(); i++) {
-			cout << "Match at index " << *i << endl;
+			cout << "Match at index " << *i << " between " << arg << " and " << arg2 << " with amount of errors = " << 1 << endl;
 		}
 	} else {
 		cout << "I don't understand " << mode << endl;
