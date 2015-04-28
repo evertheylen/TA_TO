@@ -86,10 +86,24 @@ Opnieuw, vrij simpel, hetzelfde voor alle klassen.
     
 ### Meer stuff?
 
-Voila, een soort van contract.
+Voila, een soort van contract. Al de variabelen en methodes die hier niet vernoemd zijn, zijn in principe niet erg belangrijk.
 
 **DeltaResult** is het type wat delta teruggeeft: **int** voor een DFA, **std::set<int>** voor een NFA.
+
+#### (public) Variabelen en typedefs
     
+	typedef std::set<int> StateIDs;
+	typedef std::set<char> Alphabet;
+	typedef std::map<int, std::map<char, DeltaResult>> Delta;
+	
+	int num_states;       // Alle staten zijn dan in principe [0, num_states]
+	Alphabet sigma;
+	Delta d_data;
+	int q0;
+	StateIDs F;
+
+#### Member functions
+
     int ID(std::string naam);
     
     std::string realState(int _ID);
