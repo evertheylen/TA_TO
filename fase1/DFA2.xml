@@ -8,17 +8,17 @@
 	</ALPHABET>
 	
 	<STATES>
-		<STATE name = "E" start="true"></STATE>
-		<STATE name = "F"></STATE>
-		<STATE name = "G" end="true"></STATE>
+		<STATE name = "C" start="true"></STATE>
+		<STATE name = "D"></STATE>
+		<STATE name = "E" end="true"></STATE>
 	</STATES>
 	
 	<TRANSITIONS>
-		<TRANSITION from="E" symbol="a" to="E"></TRANSITION>
-		<TRANSITION from="E" symbol="b" to="F"></TRANSITION>
-		<TRANSITION from="F" symbol="a" to="F"></TRANSITION>
-		<TRANSITION from="F" symbol="b" to="G"></TRANSITION>
-		<TRANSITION from="G" symbol="a" to="G"></TRANSITION>
-		<TRANSITION from="G" symbol="b" to="G"></TRANSITION>
+		<TRANSITION from="C" symbol="a" to="D"></TRANSITION>
+		<TRANSITION from="C" symbol="b" to="E"></TRANSITION>
+		<TRANSITION from="D" symbol="a" to="E"></TRANSITION>
+		<TRANSITION from="D" symbol="b" to="C"></TRANSITION>
+		<TRANSITION from="E" symbol="a" to="C"></TRANSITION>
+		<TRANSITION from="E" symbol="b" to="D"></TRANSITION>
 	</TRANSITIONS>
 </AUTOMATON>

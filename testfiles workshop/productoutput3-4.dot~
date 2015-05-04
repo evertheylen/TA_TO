@@ -1,0 +1,18 @@
+digraph automaton {
+	rankdir=LR
+	start [style=invisible]
+	start -> "A,C" [label=start]
+	"B,E" [shape=doublecircle]
+    "A,C" -> "A,D" [label="a"]
+    "A,C" -> "B,E" [label="b"]
+    "A,D" -> "A,E" [label="a"]
+    "A,D" -> "B,C" [label="b"]
+    "A,E" -> "A,C" [label="a"]
+    "A,E" -> "B,D" [label="b"]
+    "B,C" -> "B,D" [label="a"]
+    "B,C" -> "A,E" [label="b"]    
+    "B,D" -> "B,E" [label="a"]
+    "B,D" -> "A,C" [label="b"]
+    "B,E" -> "A,D" [label="b"]
+    "B,E" -> "B,C" [label="a"]
+}
