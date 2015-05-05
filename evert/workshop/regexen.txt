@@ -1,0 +1,2 @@
+A*B*C*D*E*
+(A+(B+C+(D*+EFG*(HI*K*(L+M)*)+N)*)OPQ)RS*TUVW(X+Y+Z)
