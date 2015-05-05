@@ -2,7 +2,7 @@ digraph automaton {
     node [shape=none]; start;
     node [shape=doublecircle]; "q8";
     node [shape=circle];
-    start -> "q9";
+    start -> "q0";
     "q0" -> "q1" [label="&epsilon;"];
     "q0" -> "q4" [label="&epsilon;"];
     "q0" -> "q6" [label="&epsilon;"];

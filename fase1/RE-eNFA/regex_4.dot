@@ -1,8 +1,8 @@
 digraph automaton {
     node [shape=none]; start;
-    node [shape=doublecircle]; "q13";
+    node [shape=doublecircle]; "q16";
     node [shape=circle];
-    start -> "q10";
+    start -> "q0";
     "q0" -> "q1" [label="&epsilon;"];
     "q0" -> "q7" [label="&epsilon;"];
     "q1" -> "q2" [label="0"];
@@ -19,4 +19,7 @@ digraph automaton {
     "q10" -> "q6" [label="&epsilon;"];
     "q11" -> "q12" [label="4"];
     "q12" -> "q13" [label="&epsilon;"];
+    "q13" -> "q14" [label="&epsilon;"];
+    "q14" -> "q15" [label="9"];
+    "q15" -> "q16" [label="&epsilon;"];
 }

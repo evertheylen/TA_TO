@@ -60,6 +60,8 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 			if(end.size() != 0){
 				end.pop();
 			}
+			//Kleine verandering, als ergens start fout geplaatst wordt zie hier
+			start = true;
 			//std::cout << "Closing bracket3" << std::endl;
 			continue;
 		}
