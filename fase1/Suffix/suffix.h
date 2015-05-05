@@ -84,6 +84,16 @@ public:
 	 * returns a pointer to the root of the suffix tree.
 	 */
 
+	std::list<int> get_leaves(Node* current_node);
+	/*
+	 * Returns a list of all the leaves or indeces beneath the current_node;
+	 */
+
+	std::list<int> search_string(std::string& str);
+	/*
+	 * Returns a list of indeces of where the substring occurs in your text. Returns an empty list if the string doesn't occur in the text.
+	 */
+
 	void fix_leaves(Node* current_node = nullptr);
 	/*
 	 * This function is called at the end of the constructor.
@@ -96,8 +106,27 @@ public:
 	 * Output operator overloading, optimised for dot-language (.gv-file).
 	 */
 
+	std::string longest_common_prefix(std::string& str1, std::string& str2);
+	/*
+	 * Returns the longest common prefix of the two strings str1 and str2.
+	 * Example: aabbaab & aabaaba --> LCP: aab.
+	 */
+
+	std::string longest_common_prefix(int i, int j);
+	/*
+	 * Returns the longest common prefix of the two strings going from root to leaf i and from root to leaf j.
+	 * Example: aabbaab & aabaaba --> LCP: aab.
+	 */
+
+	std::list<int> search_string(std::string& str, int r);
+	/*
+	 * Returns a list of indeces of where the substring occurs in your text. Returns an empty list if the string doesn't occur in the text.
+	 * r is the amount of errors that may occur in the comparison of the str and the text.
+	 */
+
 private:
 	Node* _root;
+	std::string _text;
 };
 
 #endif /* SUFFIX_SUFFIX_H_ */

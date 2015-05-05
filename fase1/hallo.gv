@@ -1,0 +1,32 @@
+digraph suffix {
+	node [shape = circle];
+	0 [label= "root"];
+	1 [label= "o"];
+	0 -> 1;
+	1 [label= "o"];
+	2 [label= "4"];
+	1 -> 2;
+	3 [label= "l"];
+	0 -> 3;
+	3 [label= "l"];
+	4 [label= "o"];
+	3 -> 4;
+	4 [label= "o"];
+	5 [label= "3"];
+	4 -> 5;
+	6 [label= "lo"];
+	3 -> 6;
+	6 [label= "lo"];
+	7 [label= "2"];
+	6 -> 7;
+	8 [label= "allo"];
+	0 -> 8;
+	8 [label= "allo"];
+	9 [label= "1"];
+	8 -> 9;
+	10 [label= "hallo"];
+	0 -> 10;
+	10 [label= "hallo"];
+	11 [label= "0"];
+	10 -> 11;
+}

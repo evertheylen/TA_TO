@@ -1,0 +1,24 @@
+alfabet:
+0
+1
+
+states:
+A
+B
+
+
+transitions:
+A b A
+A a B
+B b B
+B a C
+C b C
+C a D
+D b D
+D a D
+
+start:
+A
+
+accept:
+B

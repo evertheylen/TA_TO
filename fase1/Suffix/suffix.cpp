@@ -44,6 +44,7 @@ void Node::set_tag(std::string tag) {
 
 SuffixTree::SuffixTree(std::string text) {
 	_root = new Node("root");
+	_text = text;
 	std::stringstream sstr1, sstr2;
 	std::string str = "\0";
 	std::string prev = "\0";
@@ -183,4 +184,119 @@ std::ostream& operator<<(std::ostream& stream, Node& node) {
 	} else {
 		return stream;
 	}
+}
+
+std::list<int> SuffixTree::get_leaves(Node* current_node) {
+	static std::list<int> results;
+	if (current_node->get_firstchild() != nullptr) {
+		for (auto child: current_node->children) {
+			//std::cout << "Getting leaves from " << child->get_tag() << std::endl;
+			get_leaves(child);
+		}
+	} else {
+		//std::cout << "Got leaf: " << current_node->get_tag().c_str() << std::endl;
+		int result = atoi(current_node->get_tag().c_str());
+		results.push_back(result);
+	}
+	return results;
+}
+
+std::list<int> SuffixTree::search_string(std::string& str) {
+	std::list<int> result;
+	Node* current_node = _root;
+	for (int i = 0; i < str.length(); i++){
+		for (auto child: current_node->children) {
+			//std::cout << " Searching " << child->get_tag() << "...\n";
+			if (str[i] != child->get_tag()[0]) {
+				continue;
+			} else {
+				//std::cout << "Match with " << child->get_tag()[0] << " at first position\n";
+				for (int j = 0; j < child->get_tag().length() && i < str.length(); j++) {
+					if (str[i] != child->get_tag()[j]) {
+					//	std::cerr << i << "th position in " << str << " doesn't match " << j << "th position in " << child->get_tag() << ".\n";
+					} else {
+						i++;
+					}
+				}
+				if (i < str.length()) {
+					current_node = child;
+					i--;
+					//std::cout << current_node->get_tag() << " is the tag of the next current_node.\n";
+					break;
+				} else {
+					current_node = child;
+					/*std::list<int> leaves;
+					get_leaves(current_node, leaves);
+					for (int k = 0; k < leaves.size(); k++) {
+						result.push_back(leaves.front());
+						leaves.pop_front();
+					}*/
+					result = get_leaves(current_node);
+					/*for (int k = 0; k < result.size(); k++) {
+						std::cout << result.front() << std::endl;
+						result.pop_front();
+					}*/
+					return result;
+				}
+			}
+		}
+	}
+	return result;
+}
+
+std::list<int> SuffixTree::search_string(std::string& str, int r) {
+	std::list<int> result;
+	std::stringstream text;
+	text << str << "#" << _text;
+	std::string suffixtree = text.str();
+	SuffixTree s(suffixtree);
+	for (int p = 0; p < _text.length(); p++) {
+		int i = 0;
+		int j = p + str.length() + 1;
+		int n = 0;		// # errors.
+		while (i < str.length()/* && n <= r*/) {
+			//std::cout << "i " << i << " j " << j << " n " << n << std::endl;
+			std::string w = s.longest_common_prefix(i, j);	//Should be O(1)?
+			//std::cout << w << " is the longest common prefix.\n";
+			if (w.length() == 0) {
+				i++;				// It's a mismatch.
+				j++;
+				n++;
+			} else {
+				i += w.length();	// we have |w| matches.
+				j++;
+			}
+		}
+		if (n <= r && str.length() <= _text.substr(p, _text.size()).length()) {
+			result.push_back(p);
+			std::cout << str << " occurs at position " << p << " with " << n << " errors.\n";
+		}
+	}
+	return result;
+}
+std::string SuffixTree::longest_common_prefix(int i, int j) {
+	std::string result;
+	std::string str1 = _text.substr(i, _text.size());
+	std::string str2;
+	if (j <= _text.size()) {
+		str2 = _text.substr(j, _text.size());
+	} else {
+		str2 = "";
+	}
+	//std::cout << str1 << ", " << str2 << "\n";
+	result = longest_common_prefix(str1, str2);
+	return result;
+}
+
+std::string SuffixTree::longest_common_prefix(std::string& str1, std::string& str2) {
+	std::stringstream result;
+	for (int i = 0; i < str1.length(); i++) {
+		if (str1[i] == str2[i]) {
+			result << str1[i];
+		} else {
+			break;
+		}
+	}
+	std::string resultstr = result.str();
+	return resultstr;
 }
