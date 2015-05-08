@@ -20,7 +20,7 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 	int states = 1;									/**Counter van de staten */
 	stack<int> start,end; 					/**Startstaat,eindstaat bijhouden*/
 	for (string::iterator it = str.begin(); it!= str.end(); it++){
-		std::cout << *it << std::endl;
+		//std::cout << *it << std::endl;
 		if (*it == '('){
 			// start.push(start.top());
 			// end.push(currentstate);
@@ -31,7 +31,7 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 			continue;
 		}
 		if (*it == '+'){
-			cout << "Popping the start state from the start stack\n";
+			//cout << "Popping the start state from the start stack\n";
 			end.push(currentstate);
 			currentstate = start.top();
 			start.pop();
