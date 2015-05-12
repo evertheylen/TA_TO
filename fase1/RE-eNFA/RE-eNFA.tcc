@@ -7,6 +7,16 @@
 #include <set>
 using namespace std;
 
+bool isInAlphabet(string str, char c){
+	for (string::iterator it = str.begin(); it!= str.end(); it++){
+		if (*it == c){
+			return true;
+		}
+		continue;
+	}
+	return false;
+
+}
 template<	typename StateT,
 			typename SymbolT,
 			SymbolT epsilon>
@@ -14,8 +24,22 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 	eNFA <StateT, SymbolT, epsilon> N({"q0"},				/** Staten (met initieel de startstaat)*/
 			{'e'},																			/**alfabet (met standaard de epsilon)*/
 			0, {0});													/**Transities van een staat naar een verzameling van staten*/
-
 	string alphabet;													/**	Vergemakkelijkt het vinden van de eindstaat	*/
+	for (string::iterator k = str.begin(); k!= str.end(); k++){
+		if (*k == '+' or *k == '(' or *k == ')' or *k == '*' or *k == '.'){
+			continue;
+		}
+		else{
+			/**Gaat na of het element in het alfabet zit, zo niet voeg toe*/
+			if (N.isInSigma(*k) == false){
+				N.sigma.insert(*k);
+				alphabet.push_back(*k);
+			}
+		continue;
+		}
+	}
+	// std::cout << alphabet << std::endl;
+	// std::cout << isInAlphabet(alphabet, '0') << std::endl;
 	int currentstate = N.ID("q0");						/** 				Houdt de huidige staat bij					*/
 	int states = 1;														/**						Counter van de staten 						*/
 	stack<int> start,end; 										/**				Startstaat,eindstaat bijhouden				*/
@@ -23,7 +47,7 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 	for (string::iterator it = str.begin(); it!= str.end(); it++){
 		if (*it == '('){
 			/**startstack is niet leeg */
-			if (it != str.begin() and *(it-1) != '.'){
+			if (it != str.begin() and isInAlphabet(alphabet,*(it-1)) == false){
 				bracketsstart.push(start.top());
 			}
 			/** '(' komt als eerste voor of startstack is leeg */
@@ -120,15 +144,7 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 			}
 			continue;
 		}
-		if(*it == '.'){
-			continue;
-		}
 		else{
-			/**Gaat na of het element in het alfabet zit, zo niet voeg toe*/
-			if (N.isInSigma(*it) == false){
-				N.sigma.insert(*it);
-				alphabet.push_back(*it);
-			}
 			/**Label:Eerste staat*/
 			string new_state1 = "q" + to_string(states);
 			N.add_state(new_state1, false);
@@ -168,7 +184,7 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 			}
 			else{
 				/**Case: Er is een concatenatie met een ander element ==> voeg derde staat toe */
-				if(*(it+1) == '.'){
+				if(isInAlphabet(alphabet,*(it+1)) == true){
 					string new_state3 = "q" + to_string(states);
 					N.add_state(new_state3, false);
 					states++;
