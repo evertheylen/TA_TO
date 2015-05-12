@@ -9,6 +9,7 @@
 #include "suffix.h"
 #include <fstream>
 #include <sstream>
+#include <list>
 #include <iostream>
 
 File::File(std::string filename) {
@@ -19,7 +20,7 @@ File::File(std::string filename) {
     	//suffixfile.open(filename.c_str());
     	std::stringstream comments;
     	//std::stringstream suffix;
-    	std::string line;
+    	//std::string line;
     	char input;
     	SuffixTree s;
     	while (f.good()) {
@@ -49,7 +50,15 @@ File::File(std::string filename) {
     	}*/
 
     	//SuffixTree s(f);
-		std::ofstream output_file;
+    	s.fix_leaves();
+    	std::string search = "CATGCAAGTCGAGC";
+    	std::list<int> result = s.search_string(search);
+    	int size = result.size();
+    	for (int i =0; i < size; i++) {
+    		std::cout << "Match at " << result.front() << std::endl;
+    		result.pop_front();
+    	}
+    	std::ofstream output_file;
 		output_file.open("Commentsofthefastafile.txt");
 		output_file << "comments: \n" << comments.str();
 		//output_file << "suffix: \n" << suffix.str();

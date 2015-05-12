@@ -52,6 +52,7 @@ void SuffixTree::create(char c, int x) {
 	std::string input;
 	sstr1 << c << "$" << x;
 	input = sstr1.str();
+	std::cout << "  [adding " << input << " ] \n";
 	add_node(input, *_root);
 }
 
@@ -148,12 +149,7 @@ void SuffixTree::add_node(std::string tag, Node& current_node) {
 	for (auto child: current_node.children) {
 		//std::cout << "Looping over all the children\n";
 		for (unsigned int i = 0; i < child->get_tag().length(); i++) {
-			if (tag == "agtacgt$0") {
-				//std::cout << child->get_tag() << std::endl;
-				//std::cout << tag[i] << "\n";
-			}
 			if (tag[i] == child->get_tag()[i] && i != child->get_tag().length() - 1) {
-
 				continue;
 			} else if (i != 0 && child->get_firstchild() == nullptr) {
 				std::string str1 = child->get_tag().substr(0, i);
