@@ -1,6 +1,8 @@
 # no executables pls
 convertor
 
+*.gv
+
 # Binary images, don't want that!
 *.jpeg
 *.jpg
