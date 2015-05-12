@@ -53,7 +53,7 @@ public:
         pushButton_2->setGeometry(QRect(0, 230, 141, 51));
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(230, 60, 231, 111));
+        label->setGeometry(QRect(220, 60, 231, 111));
         label->setPixmap(QPixmap(QString::fromUtf8("HELIX2_negatief.png")));
         label->setScaledContents(true);
         MainWindow->setCentralWidget(centralWidget);

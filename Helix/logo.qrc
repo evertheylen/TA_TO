@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/logo">
+    <qresource prefix="/">
         <file>HELIX2_negatief.png</file>
     </qresource>
 </RCC>
