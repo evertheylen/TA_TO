@@ -1,7 +1,6 @@
 
 CXXFLAGS   = -g3 -O0 -fstack-protector-all -std=c++11 $(shell find . -type d -exec echo "-I {}" \;)
 #CXXFLAGS   = -O3 -std=c++14
-LDFLAGS    = -lboost_system -lboost_filesystem
 EXECUTABLE = convertor
 EXTENSION  = cpp
 INCLUDES = $(shell find . -type d -exec echo "-I {}" \;)
