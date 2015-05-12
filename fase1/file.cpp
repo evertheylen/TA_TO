@@ -11,6 +11,7 @@
 #include <sstream>
 #include <list>
 #include <iostream>
+#include "ukkonen_suffix.h"
 
 File::File(std::string filename) {
 	std::fstream f(filename.c_str());
@@ -22,7 +23,7 @@ File::File(std::string filename) {
     	//std::stringstream suffix;
     	//std::string line;
     	char input;
-    	SuffixTree s;
+    	/*SuffixTree s;
     	while (f.good()) {
     		f.get(input);
     		if (f.eof()) {
@@ -40,16 +41,15 @@ File::File(std::string filename) {
     		} else {
     			loc++;
     		}
-    	}
+    	}*/
     	/*while (std::getline(suffixfile, line)) {
     		if (line[0] != '>') {
     			suffix << line << std::endl;
     		} else {
     			comments << line << std::endl;
     		}
-    	}*/
+    	}
 
-    	//SuffixTree s(f);
     	s.fix_leaves();
     	std::string search = "CATGCAAGTCGAGC";
     	std::list<int> result = s.search_string(search);
@@ -57,14 +57,15 @@ File::File(std::string filename) {
     	for (int i =0; i < size; i++) {
     		std::cout << "Match at " << result.front() << std::endl;
     		result.pop_front();
-    	}
+    	}*/
+    	SuffixTree2 s(f);
     	std::ofstream output_file;
 		output_file.open("Commentsofthefastafile.txt");
 		output_file << "comments: \n" << comments.str();
 		//output_file << "suffix: \n" << suffix.str();
 		output_file.close();
 		output_file.open("fastasuffixtree.gv");
-		output_file << s;
+		//output_file << s;
 		output_file.close();
     } else {
         throw 1;
