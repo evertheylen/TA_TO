@@ -36,7 +36,7 @@ public:
 
 class SuffixTree2 {
 public:
-	SuffixTree2(std::fstream& file);
+	SuffixTree2(std::fstream& file, std::string filename);
 	~SuffixTree2();
 
 	void resolve(Node2* current_node);
@@ -46,6 +46,7 @@ public:
 
 private:
 	std::fstream& _file;
+	std::string filename;
 	Node2* _root;
 	int _loc;
 };

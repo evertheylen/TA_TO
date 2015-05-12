@@ -58,7 +58,7 @@ File::File(std::string filename) {
     		std::cout << "Match at " << result.front() << std::endl;
     		result.pop_front();
     	}*/
-    	SuffixTree2 s(f);
+    	SuffixTree2 s(f, filename);
     	std::ofstream output_file;
 		output_file.open("Commentsofthefastafile.txt");
 		output_file << "comments: \n" << comments.str();

@@ -32,7 +32,7 @@ Node2::~Node2() {
 	}
 }
 
-SuffixTree2::SuffixTree2(std::fstream& file): _file(file){
+SuffixTree2::SuffixTree2(std::fstream& file, std::string _filename): _file(file), filename(_filename){
 	char input;
 	_loc = 0;
 	std::stringstream comments;
@@ -79,14 +79,19 @@ void SuffixTree2::resolve(Node2* current_node) {
 	}
 	std::cout << current_node->e.b << std::endl;
 	if (current_node->e.a != -2) {
-		int length = current_node->e.b - current_node->e.a-1;
+		std::ifstream file(filename.c_str());
+		int length = current_node->e.b - current_node->e.a - 1;
 		char * buffer = new char [length];
-		_file.seekg(current_node->e.a);
-		_file.read(buffer, length);
-		std::string tag = buffer;
+		file.seekg(current_node->e.a+1);
+		file.read(buffer, length);
+		std::string tag;
+		for (int i = 0; i < length; i++) {
+			tag += buffer[i];
+		}
 		std::cout << length <<std::endl;
 		delete[] buffer;
 		current_node->tag = tag;
+		file.close();
 	} else {
 		current_node->tag = "root";
 	}
