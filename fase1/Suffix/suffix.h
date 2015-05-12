@@ -69,6 +69,10 @@ public:
 	 * Creates a suffixtree on the base of a file, the result will be a tree with all the possible suffixes and their starting places.
 	 */
 
+	SuffixTree();
+
+	void create(char c, int x);
+
 	SuffixTree(std::string& text);
 	/*
 	 * Creates a suffixtree on the base of 'text', the result will be a tree with all the possible suffixes and their starting places.

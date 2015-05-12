@@ -43,6 +43,18 @@ void Node::set_tag(std::string tag) {
 	_tag = tag;
 }
 
+SuffixTree::SuffixTree() {
+	_root = new Node("root");
+}
+
+void SuffixTree::create(char c, int x) {
+	std::stringstream sstr1;
+	std::string input;
+	sstr1 << c << "$" << x;
+	input = sstr1.str();
+	add_node(input, *_root);
+}
+
 SuffixTree::SuffixTree(std::ifstream& file) {
 	_root = new Node("root");
 	int length;
