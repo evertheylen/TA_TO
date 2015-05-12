@@ -54,7 +54,7 @@ public:
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(220, 60, 231, 111));
-        label->setPixmap(QPixmap(QString::fromUtf8("HELIX2_negatief.png")));
+        label->setPixmap(QPixmap(QString::fromUtf8(":/:/logos/HELIX2_negatief.png")));
         label->setScaledContents(true);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);

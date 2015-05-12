@@ -25,7 +25,6 @@ void MainWindow::on_pushButton_clicked()
     secdialog.exec();
 }
 
-
 void MainWindow::on_pushButton_2_clicked()
 {
     this->close();

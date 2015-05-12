@@ -53,7 +53,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>HELIX2_negatief.png</pixmap>
+     <pixmap resource="logo.qrc">:/:/logos/HELIX2_negatief.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -93,6 +93,8 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="logo.qrc"/>
+ </resources>
  <connections/>
 </ui>
