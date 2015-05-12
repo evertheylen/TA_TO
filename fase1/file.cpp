@@ -12,17 +12,19 @@
 #include <iostream>
 
 File::File(std::string filename) {
-	std::ifstream f(filename.c_str());
+	std::fstream f(filename.c_str());
     if (f.good()) {
-    	f.open(filename);
+    	std::fstream suffixfile;
+    	suffixfile.open(filename.c_str());
     	std::stringstream comments;
     	std::stringstream suffix;
-    	for( std::string line; getline(f, line ); ){
-    		std::cout << line <<std::endl;
-    		if (line[0] == '>') {
-    			comments << line << std::endl;
-    		} else {
+    	std::string line;
+    	while (std::getline(suffixfile, line)) {
+    		std::cout << line << std::endl;
+    		if (line[0] != '>') {
     			suffix << line << std::endl;
+    		} else {
+    			comments << line << std::endl;
     		}
     	}
 
