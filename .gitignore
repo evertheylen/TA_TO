@@ -2,7 +2,6 @@
 convertor
 
 # Binary images, don't want that!
-*.png
 *.jpeg
 *.jpg
 *.gif
