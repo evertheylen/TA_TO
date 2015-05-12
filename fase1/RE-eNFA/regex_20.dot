@@ -1,6 +1,6 @@
 digraph automaton {
     node [shape=none]; start;
-    node [shape=doublecircle]; "q31";
+    node [shape=doublecircle]; "q28";
     node [shape=circle];
     start -> "q0";
     "q0" -> "q1" [label="&epsilon;"];
@@ -33,7 +33,4 @@ digraph automaton {
     "q25" -> "q26" [label="&epsilon;"];
     "q26" -> "q27" [label="6"];
     "q27" -> "q28" [label="&epsilon;"];
-    "q28" -> "q29" [label="&epsilon;"];
-    "q29" -> "q30" [label="6"];
-    "q30" -> "q31" [label="&epsilon;"];
 }
