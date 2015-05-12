@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/:/logos">
+        <file>HELIX2_negatief.png</file>
+    </qresource>
+</RCC>
