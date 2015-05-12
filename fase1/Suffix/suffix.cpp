@@ -14,6 +14,9 @@
 Node::Node(std::string tag) {
 	_tag = tag;
 	_firstchild = nullptr;
+	active.active_node = nullptr;
+	active.active_edge = "\0x";
+	active.active_length = 0;
 }
 
 Node::~Node() {
@@ -47,12 +50,24 @@ SuffixTree::SuffixTree() {
 	_root = new Node("root");
 }
 
-void SuffixTree::create(char c, int x) {
+void SuffixTree::Ukkonens_algorithm(char tag, int pos) {
+	static int loc = 1;
+	std::stringstream sstr;
+	sstr << "[" << pos << ",#]";
+	std::string str = sstr.str();
+	std::cout << str << std::endl;
+	Node* new_node = new Node(str);
+	_root->add_child(new_node);
+	loc++;
+	return;
+}
+
+void SuffixTree::create(std::string c, int x) {
 	std::stringstream sstr1;
 	std::string input;
 	sstr1 << c << "$" << x;
 	input = sstr1.str();
-	std::cout << "  [adding " << input << " ] \n";
+	//std::cout << "  [adding " << input << " ] \n";
 	add_node(input, *_root);
 }
 
@@ -80,6 +95,7 @@ SuffixTree::SuffixTree(std::ifstream& file) {
 	}
 	fix_leaves();
 }
+
 SuffixTree::SuffixTree(std::string& text) {
 	_root = new Node("root");
 	_text = text;

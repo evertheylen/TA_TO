@@ -12,6 +12,14 @@
 
 #ifndef SUFFIX_SUFFIX_H_
 #define SUFFIX_SUFFIX_H_
+
+class Node;
+
+struct active_point {
+	Node* active_node;
+	std::string active_edge;
+	int active_length;
+};
 class Node {
 public:
 
@@ -57,6 +65,10 @@ public:
 	 * Output operator overloading, optimised for output in dot-language (.gv-file).
 	 */
 
+	Node* suffix_link = nullptr;
+	int remainder = 0;
+	struct active_point active;
+
 private:
 	Node* _firstchild;
 	std::string _tag;
@@ -71,7 +83,7 @@ public:
 
 	SuffixTree();
 
-	void create(char c, int x);
+	void create(std::string c, int x);
 
 	SuffixTree(std::string& text);
 	/*
@@ -82,6 +94,8 @@ public:
 	/*
 	 * Destroys the suffixtree and makes sure all heap blocks are freed.
 	 */
+
+	void Ukkonens_algorithm(char tag, int pos);
 
 	void add_node(std::string tag, Node& current_node);
 	/*
@@ -133,6 +147,7 @@ public:
 	 * Returns a list of indeces of where the substring occurs in your text. Returns an empty list if the string doesn't occur in the text.
 	 * r is the amount of errors that may occur in the comparison of the str and the text.
 	 */
+	int loc = 0;
 
 private:
 	Node* _root;
