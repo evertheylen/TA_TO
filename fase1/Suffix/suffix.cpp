@@ -9,6 +9,7 @@
 #include <sstream>
 #include <vector>
 #include <fstream>
+#include <streambuf>
 
 Node::Node(std::string tag) {
 	_tag = tag;
@@ -42,14 +43,40 @@ void Node::set_tag(std::string tag) {
 	_tag = tag;
 }
 
-SuffixTree::SuffixTree(std::string text) {
+SuffixTree::SuffixTree(std::ifstream& file) {
 	_root = new Node("root");
-	_text = text;
+	int length;
+	std::stringstream sstr;
+	sstr << file.rdbuf();
+	_text = sstr.str();
 	std::stringstream sstr1, sstr2;
 	std::string str = "\0";
 	std::string prev = "\0";
+
+
+	for (int x = _text.length()-1; x >=0; x--){
+		sstr1 << _text[x];
+		sstr2 << sstr1.str() << prev;
+		prev = sstr2.str();
+		sstr2 << "$" << x;
+		str = sstr2.str();
+		sstr1.str("");
+		sstr2.str("");
+		//std::cout << str << std::endl;
+		add_node(str, *_root);
+	}
+	fix_leaves();
+}
+SuffixTree::SuffixTree(std::string& text) {
+	_root = new Node("root");
+	_text = text;
+	std::cout << _text << std::endl;
+	std::stringstream sstr1, sstr2;
+	std::string str = "\0";
+	std::string prev = "\0";
+
 	for (int x = text.length()-1; x >=0; x--){
-		sstr1 << text[x];
+		sstr1 << _text[x];
 		sstr2 << sstr1.str() << prev;
 		prev = sstr2.str();
 		sstr2 << "$" << x;

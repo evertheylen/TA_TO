@@ -92,7 +92,6 @@ int main(int argc, char const* argv[]) {
 			std::cerr << "Error: The specified file doesn't exist!";
 			return x;
 		}
-
 		SuffixTree s(arg);
 
 		ofstream output_file;

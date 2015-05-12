@@ -6,6 +6,7 @@
  */
 
 #include <string>
+#include <fstream>
 
 #ifndef FILE_H_
 #define FILE_H_
@@ -17,8 +18,10 @@ public:
 	 */
 	File(std::string filename);
 
+	~File();
+
 	/*
-	 * Returns all FAST comments (lines starting with '>' or ';').
+	 * Returns all FASTA comments (lines starting with '>' or ';').
 	 */
 	const std::string& get_description() const;
 
@@ -26,6 +29,8 @@ public:
 	 * Returns the filename.
 	 */
 	const std::string& get_name() const;
+private:
+	std::ifstream file;
 };
 
 

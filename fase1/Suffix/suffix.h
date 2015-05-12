@@ -7,6 +7,7 @@
 
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <list>
 
 #ifndef SUFFIX_SUFFIX_H_
@@ -63,7 +64,12 @@ private:
 
 class SuffixTree {
 public:
-	SuffixTree(std::string text);
+	SuffixTree(std::ifstream& file);
+	/*
+	 * Creates a suffixtree on the base of a file, the result will be a tree with all the possible suffixes and their starting places.
+	 */
+
+	SuffixTree(std::string& text);
 	/*
 	 * Creates a suffixtree on the base of 'text', the result will be a tree with all the possible suffixes and their starting places.
 	 */
