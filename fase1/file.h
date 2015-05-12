@@ -18,8 +18,6 @@ public:
 	 */
 	File(std::string filename);
 
-	~File();
-
 	/*
 	 * Returns all FASTA comments (lines starting with '>' or ';').
 	 */

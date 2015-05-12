@@ -18,6 +18,7 @@ File::File(std::string filename) {
     	std::stringstream comments;
     	std::stringstream suffix;
     	for( std::string line; getline(f, line ); ){
+    		std::cout << line <<std::endl;
     		if (line[0] == '>') {
     			comments << line << std::endl;
     		} else {
@@ -25,7 +26,7 @@ File::File(std::string filename) {
     		}
     	}
 
-    	//SuffixTree s(suffix);
+    	//SuffixTree s(f);
 		std::ofstream output_file;
 		output_file.open("filetestsuffix.gv");
 		output_file << "comments: \n" << comments.str();
