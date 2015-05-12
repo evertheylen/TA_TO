@@ -1,0 +1,8 @@
+root points to abcdefg end of branch!
+and	bcdefg end of branch!
+and	cdefg end of branch!
+and	defg end of branch!
+and	efg end of branch!
+and	fg end of branch!
+and	g end of branch!
+and	

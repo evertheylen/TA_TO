@@ -64,8 +64,8 @@ File::File(std::string filename) {
 		output_file << "comments: \n" << comments.str();
 		//output_file << "suffix: \n" << suffix.str();
 		output_file.close();
-		output_file.open("fastasuffixtree.gv");
-		//output_file << s;
+		output_file.open("resultofukonnen.txt");
+		output_file << s << std::endl;
 		output_file.close();
     } else {
         throw 1;

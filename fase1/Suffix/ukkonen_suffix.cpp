@@ -73,11 +73,11 @@ void SuffixTree2::resolve(Node2* current_node) {
 			resolve(child);
 		}
 	}
-	std::cout << "Edge: From " << current_node->e.a << " to ";
+	//std::cout << "Edge: From " << current_node->e.a << " to ";
 	if (current_node->e.b == -1) {
 		current_node->e.b = _loc;
 	}
-	std::cout << current_node->e.b << std::endl;
+	//std::cout << current_node->e.b << std::endl;
 	if (current_node->e.a != -2) {
 		std::ifstream file(filename.c_str());
 		int length = current_node->e.b - current_node->e.a - 1;
@@ -88,26 +88,29 @@ void SuffixTree2::resolve(Node2* current_node) {
 		for (int i = 0; i < length; i++) {
 			tag += buffer[i];
 		}
-		std::cout << length <<std::endl;
+		//std::cout << length << std::endl;
 		delete[] buffer;
 		current_node->tag = tag;
 		file.close();
 	} else {
 		current_node->tag = "root";
 	}
-	std::cout << current_node->tag << std::endl;
+	//std::cout << current_node->tag << std::endl;
 }
 
 std::ostream& operator<< (std::ostream& out, SuffixTree2& tree) {
-	out << tree._root;
+	out << *tree._root;
 	return out;
 }
 std::ostream& operator<<(std::ostream& out, Node2& n) {
 	if (n.firstchild != nullptr) {
+		out << n.tag << " points to ";
 		for (auto child: n.children) {
-			out << child;
+			out << *child;
+			out << "and\t";
 		}
 	} else {
+		out << n.tag << " end of branch!" << std::endl;
 	}
 	return out;
 }
