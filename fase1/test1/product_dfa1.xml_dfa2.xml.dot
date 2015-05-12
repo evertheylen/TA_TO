@@ -1,0 +1,26 @@
+digraph automaton {
+//    rankdir = LR
+    node [shape=none]; start;
+    node [shape=doublecircle]; "C/F";
+    node [shape=circle];
+    start -> "A/D";
+    "A/D" -> "C/E" [label="0"];
+    "A/D" -> "B/E" [label="1"];
+    "A/E" -> "C/D" [label="0"];
+    "A/E" -> "B/F" [label="1"];
+    "A/F" -> "C/E" [label="0"];
+    "A/F" -> "B/D" [label="1"];
+    "B/D" -> "A/E" [label="0"];
+    "B/D" -> "C/E" [label="1"];
+    "B/E" -> "A/D" [label="0"];
+    "B/E" -> "C/F" [label="1"];
+    "C/D" -> "C/E" [label="0"];
+    "C/D" -> "A/E" [label="1"];
+    "C/E" -> "C/D" [label="0"];
+    "C/E" -> "A/F" [label="1"];
+    "C/F" -> "C/E" [label="0"];
+    "C/F" -> "A/D" [label="1"];
+    "B/F" -> "A/E" [label="0"];
+    "B/F" -> "C/D" [label="1"];
+
+}

@@ -10,6 +10,7 @@
 #include "tinyxml.h"
 #include "eNFA-DFA.h"
 #include "suffix.h"
+#include "file.h"
 
 using namespace std;
 
@@ -84,6 +85,13 @@ int main(int argc, char const* argv[]) {
 		write_dot(&P, "product_"+arg+"_"+arg2+".dot");
 	} else if (mode == "suffix") {
 		string arg2 = string(argv[3]);
+
+		try {
+			File f(arg);
+		} catch (int x) {
+			std::cerr << "Error: The specified file doesn't exist!";
+			return x;
+		}
 
 		SuffixTree s(arg);
 

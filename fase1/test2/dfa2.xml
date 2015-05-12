@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+
+<AUTOMATON>
+    <ALPHABET>
+        <SYMBOL>0</SYMBOL>
+        <SYMBOL>1</SYMBOL>
+    </ALPHABET>
+
+    <STATES>
+        <STATE name = "C" start="true"></STATE>
+        <STATE name = "D"></STATE>
+        <STATE name = "E"></STATE>
+        <STATE name = "F" end="true"></STATE>
+    </STATES>
+
+    <TRANSITIONS>
+        <TRANSITION from="C" symbol="0" to="D"></TRANSITION>
+        <TRANSITION from="C" symbol="1" to="F"></TRANSITION>
+        <TRANSITION from="D" symbol="0" to="E"></TRANSITION>
+        <TRANSITION from="D" symbol="1" to="C"></TRANSITION>
+        <TRANSITION from="E" symbol="0" to="D"></TRANSITION>
+        <TRANSITION from="E" symbol="1" to="F"></TRANSITION>
+        <TRANSITION from="F" symbol="0" to="E"></TRANSITION>
+        <TRANSITION from="F" symbol="1" to="D"></TRANSITION>
+
+    </TRANSITIONS>
+</AUTOMATON>
