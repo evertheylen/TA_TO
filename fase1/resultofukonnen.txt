@@ -1,8 +1,41 @@
-root points to abcdefg end of branch!
-and	bcdefg end of branch!
-and	cdefg end of branch!
-and	defg end of branch!
-and	efg end of branch!
-and	fg end of branch!
-and	g end of branch!
-and	
+digraph suffix {
+	node [shape = circle];
+	0 [label= "root"];
+	1 [label= "ab"];
+	0 -> 1;
+	1 [label= "ab"];
+	2 [label= "c"];
+	1 -> 2;
+	2 [label= "c"];
+	3 [label= "abxabcd$"];
+	2 -> 3;
+	4 [label= "d$"];
+	2 -> 4;
+	5 [label= "xabcd$"];
+	1 -> 5;
+	6 [label= "b"];
+	0 -> 6;
+	6 [label= "b"];
+	7 [label= "c"];
+	6 -> 7;
+	7 [label= "c"];
+	8 [label= "abxabcd$"];
+	7 -> 8;
+	9 [label= "d$"];
+	7 -> 9;
+	10 [label= "xabcd$"];
+	6 -> 10;
+	11 [label= "c"];
+	0 -> 11;
+	11 [label= "c"];
+	12 [label= "abxabcd$"];
+	11 -> 12;
+	13 [label= "d$"];
+	11 -> 13;
+	14 [label= "xabcd$"];
+	0 -> 14;
+	15 [label= "d$"];
+	0 -> 15;
+	16 [label= "$"];
+	0 -> 16;
+}
