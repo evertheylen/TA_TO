@@ -51,6 +51,8 @@ public:
 
 	void add_suffix(char tag);
 
+	std::string get_tag(Node2* n);
+
 	int check_presence(char tag);
 
 	friend std::ostream& operator<< (std::ostream& out, SuffixTree2& tree);
@@ -64,7 +66,5 @@ private:
 	int _loc;
 	int remainder;
 };
-
-
 
 #endif /* SUFFIX_UKKONEN_SUFFIX_H_ */
