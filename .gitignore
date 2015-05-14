@@ -3,6 +3,12 @@ convertor
 
 *.gv
 
+# No suffix weird test shit :p
+FASTAex.txt
+resultofukonnen.txt
+Commentsofthefastafile.txt
+suffix.png
+
 # Binary images, don't want that!
 *.jpeg
 *.jpg
