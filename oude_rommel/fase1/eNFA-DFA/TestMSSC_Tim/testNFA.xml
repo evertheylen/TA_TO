@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<!-- based on example 2.18 on page 73 -->
+
+<AUTOMATON name = "test1">
+	<ALPHABET>
+		<SYMBOL>0</SYMBOL>
+		<SYMBOL>1</SYMBOL>
+	</ALPHABET>
+	
+	<STATES>
+		<STATE name = "q0" start="true"></STATE>
+		<STATE name = "q1"></STATE>
+		<STATE name = "q2"></STATE>
+		<STATE name = "q3"></STATE>
+		<STATE name = "q4"></STATE>
+		<STATE name = "q5"></STATE>
+	</STATES>
+	
+	<TRANSITIONS>
+		<TRANSITION from="q0" symbol="eps" to="q1"></TRANSITION>
+		<TRANSITION from="q0" symbol="eps" to="q3"></TRANSITION>
+		<TRANSITION from="q1" symbol="0" to="q2"></TRANSITION>
+		<TRANSITION from="q3" symbol="1" to="q4"></TRANSITION>
+		<TRANSITION from="q2" symbol="eps" to="q5"></TRANSITION>
+		<TRANSITION from="q4" symbol="eps" to="q5"></TRANSITION>
+		
+		
+	</TRANSITIONS>
+</AUTOMATON>
