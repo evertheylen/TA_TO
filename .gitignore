@@ -1,13 +1,23 @@
 # no executables pls
 convertor
+Helix
 
-*.gv
+# Kinda like precompiled C++
+Helix/GUI/Helix.pro.user.9298148
+Helix/GUI/moc_*.cpp
+Helix/GUI/moc_*.cpp
+Helix/GUI/qrc_*.cpp
+Helix/GUI/ui_*.h
+Helix/GUI/ui_*.h
 
 # No suffix weird test shit :p
 FASTAex.txt
 resultofukonnen.txt
 Commentsofthefastafile.txt
-suffix.png
+
+*~
+
+*.gv
 
 # Binary images, don't want that!
 *.jpeg
@@ -15,6 +25,7 @@ suffix.png
 *.gif
 *.bmp
 *.jpe
+*.png
 
 # Evert
 *.kdevelop
