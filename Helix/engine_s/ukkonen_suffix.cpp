@@ -237,6 +237,32 @@ int SuffixTree2::check_presence(char tag) {
 				std::string tagstr2;
 				tagstr2 += buffer[0];
 				delete[] buffer;
+				int end = child->e.b;
+				if (end == -1) {
+					end = _loc;
+				}
+				/*file.seekg(child->e.a);
+				file.read(buffer, end - child->e.a);
+				buffer = new char [end - child->e.a];
+				std::string tagstr3;
+				for (int i = 0; i < end - child->e.a; i++) {
+					tagstr3 += buffer[i];
+				}*/
+				bool ending = true;
+				for (int i = 0; i < get_tag(child).length(); i++) {
+					if (get_tag(child)[i] != remaining_suffix[i]) {
+						ending = false;
+						break;
+					}
+				}
+				//delete[] buffer;
+				if (ending) {
+					//std::cout << tag << " is at the end of the edge!\n";
+					active.node = child;
+					active.edge = '\0x';
+					active.length = 0;
+					return 2;
+				}
 				if (tagstr2[0] == tag) {
 					active.p = &child->e;
 					int end = child->e.b;
@@ -244,13 +270,13 @@ int SuffixTree2::check_presence(char tag) {
 						end = _loc;
 					}
 					//std::cout << "End: " << end-1 << " start+length: " << child->e.a+active.length+1 << std::endl;
-					if (child->e.a+active.length+1 == end) {
+					/*if (child->e.a+active.length+1 == end) {
 						//std::cout << tag << " is at the end of the edge!\n";
 						active.node = child;
 						active.edge = '\0x';
 						active.length = 0;
 						return 2;
-					}
+					}*/
 					//std::cout << tag << " is already in " << child->e.a+1 << std::endl;
 					file.close();
 					return 1;
