@@ -3,7 +3,7 @@ convertor
 Helix
 
 # Kinda like precompiled C++
-Helix/GUI/Helix.pro.user.9298148
+Helix/GUI/*.pro.user.*
 Helix/GUI/moc_*.cpp
 Helix/GUI/moc_*.cpp
 Helix/GUI/qrc_*.cpp
@@ -16,6 +16,8 @@ resultofukonnen.txt
 Commentsofthefastafile.txt
 
 *~
+
+*.core
 
 *.gv
 
