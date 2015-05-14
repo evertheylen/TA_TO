@@ -789,6 +789,50 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/usr/include/qt5/QtWidgets/qtabwidget.h \
 		/usr/include/qt5/QtGui/qicon.h \
 		ui_mainwindow.h \
+		/usr/include/qt5/QtCore/QVariant \
+		/usr/include/qt5/QtWidgets/QAction \
+		/usr/include/qt5/QtWidgets/qaction.h \
+		/usr/include/qt5/QtWidgets/qactiongroup.h \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
+		/usr/include/qt5/QtWidgets/QButtonGroup \
+		/usr/include/qt5/QtWidgets/qbuttongroup.h \
+		/usr/include/qt5/QtWidgets/QHeaderView \
+		/usr/include/qt5/QtWidgets/qheaderview.h \
+		/usr/include/qt5/QtWidgets/qabstractitemview.h \
+		/usr/include/qt5/QtWidgets/qabstractscrollarea.h \
+		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtCore/qabstractitemmodel.h \
+		/usr/include/qt5/QtCore/qitemselectionmodel.h \
+		/usr/include/qt5/QtWidgets/qabstractitemdelegate.h \
+		/usr/include/qt5/QtWidgets/qstyleoption.h \
+		/usr/include/qt5/QtWidgets/qabstractspinbox.h \
+		/usr/include/qt5/QtGui/qvalidator.h \
+		/usr/include/qt5/QtCore/qregularexpression.h \
+		/usr/include/qt5/QtWidgets/qslider.h \
+		/usr/include/qt5/QtWidgets/qabstractslider.h \
+		/usr/include/qt5/QtWidgets/qstyle.h \
+		/usr/include/qt5/QtWidgets/qtabbar.h \
+		/usr/include/qt5/QtWidgets/qrubberband.h \
+		/usr/include/qt5/QtWidgets/QLabel \
+		/usr/include/qt5/QtWidgets/qlabel.h \
+		/usr/include/qt5/QtWidgets/QMenu \
+		/usr/include/qt5/QtWidgets/qmenu.h \
+		/usr/include/qt5/QtWidgets/QMenuBar \
+		/usr/include/qt5/QtWidgets/qmenubar.h \
+		/usr/include/qt5/QtWidgets/QPushButton \
+		/usr/include/qt5/QtWidgets/qpushbutton.h \
+		/usr/include/qt5/QtWidgets/qabstractbutton.h \
+		/usr/include/qt5/QtWidgets/QStatusBar \
+		/usr/include/qt5/QtWidgets/qstatusbar.h \
+		/usr/include/qt5/QtWidgets/QToolBar \
+		/usr/include/qt5/QtWidgets/qtoolbar.h \
+		/usr/include/qt5/QtWidgets/QWidget \
 		secdialog.h \
 		/usr/include/qt5/QtWidgets/QDialog \
 		/usr/include/qt5/QtWidgets/qdialog.h \
@@ -827,10 +871,8 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/usr/include/qt5/QtCore/qtemporarydir.h \
 		/usr/include/qt5/QtCore/QScopedPointer \
 		/usr/include/qt5/QtCore/qtemporaryfile.h \
-		/usr/include/qt5/QtCore/qabstractitemmodel.h \
 		/usr/include/qt5/QtCore/qabstractproxymodel.h \
 		/usr/include/qt5/QtCore/qidentityproxymodel.h \
-		/usr/include/qt5/QtCore/qitemselectionmodel.h \
 		/usr/include/qt5/QtCore/qsortfilterproxymodel.h \
 		/usr/include/qt5/QtCore/qstringlistmodel.h \
 		/usr/include/qt5/QtCore/qjsonarray.h \
@@ -838,10 +880,8 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/usr/include/qt5/QtCore/qjsondocument.h \
 		/usr/include/qt5/QtCore/qjsonobject.h \
 		/usr/include/qt5/QtCore/qabstracteventdispatcher.h \
-		/usr/include/qt5/QtCore/qeventloop.h \
 		/usr/include/qt5/QtCore/qabstractnativeeventfilter.h \
 		/usr/include/qt5/QtCore/qbasictimer.h \
-		/usr/include/qt5/QtCore/qcoreapplication.h \
 		/usr/include/qt5/QtCore/qmath.h \
 		/usr/include/qt5/QtCore/qmetaobject.h \
 		/usr/include/qt5/QtCore/qmimedata.h \
@@ -895,7 +935,6 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/usr/include/qt5/QtCore/qlinkedlist.h \
 		/usr/include/qt5/QtCore/qmessageauthenticationcode.h \
 		/usr/include/qt5/QtCore/qqueue.h \
-		/usr/include/qt5/QtCore/qregularexpression.h \
 		/usr/include/qt5/QtCore/qscopedvaluerollback.h \
 		/usr/include/qt5/QtCore/qstack.h \
 		/usr/include/qt5/QtCore/qtextboundaryfinder.h \
@@ -922,8 +961,6 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/usr/include/qt5/QtGui/qdrag.h \
 		/usr/include/qt5/QtGui/qgenericplugin.h \
 		/usr/include/qt5/QtGui/qgenericpluginfactory.h \
-		/usr/include/qt5/QtGui/qguiapplication.h \
-		/usr/include/qt5/QtGui/qinputmethod.h \
 		/usr/include/qt5/QtGui/qoffscreensurface.h \
 		/usr/include/qt5/QtGui/qsurface.h \
 		/usr/include/qt5/QtGui/qsurfaceformat.h \
@@ -984,7 +1021,6 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/usr/include/qt5/QtGui/qtextlist.h \
 		/usr/include/qt5/QtGui/qtexttable.h \
 		/usr/include/qt5/QtGui/qdesktopservices.h \
-		/usr/include/qt5/QtGui/qvalidator.h \
 		/usr/include/qt5/QtGui/qtguiversion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
@@ -1098,7 +1134,42 @@ secdialog.o: secdialog.cpp secdialog.h \
 		/usr/include/qt5/QtCore/qfiledevice.h \
 		/usr/include/qt5/QtGui/qvector2d.h \
 		/usr/include/qt5/QtGui/qtouchdevice.h \
-		ui_secdialog.h
+		ui_secdialog.h \
+		/usr/include/qt5/QtCore/QVariant \
+		/usr/include/qt5/QtWidgets/QAction \
+		/usr/include/qt5/QtWidgets/qaction.h \
+		/usr/include/qt5/QtGui/qicon.h \
+		/usr/include/qt5/QtWidgets/qactiongroup.h \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
+		/usr/include/qt5/QtWidgets/QButtonGroup \
+		/usr/include/qt5/QtWidgets/qbuttongroup.h \
+		/usr/include/qt5/QtWidgets/QHeaderView \
+		/usr/include/qt5/QtWidgets/qheaderview.h \
+		/usr/include/qt5/QtWidgets/qabstractitemview.h \
+		/usr/include/qt5/QtWidgets/qabstractscrollarea.h \
+		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtCore/qabstractitemmodel.h \
+		/usr/include/qt5/QtCore/qitemselectionmodel.h \
+		/usr/include/qt5/QtWidgets/qabstractitemdelegate.h \
+		/usr/include/qt5/QtWidgets/qstyleoption.h \
+		/usr/include/qt5/QtWidgets/qabstractspinbox.h \
+		/usr/include/qt5/QtGui/qvalidator.h \
+		/usr/include/qt5/QtCore/qregularexpression.h \
+		/usr/include/qt5/QtWidgets/qslider.h \
+		/usr/include/qt5/QtWidgets/qabstractslider.h \
+		/usr/include/qt5/QtWidgets/qstyle.h \
+		/usr/include/qt5/QtWidgets/qtabbar.h \
+		/usr/include/qt5/QtWidgets/qtabwidget.h \
+		/usr/include/qt5/QtWidgets/qrubberband.h \
+		/usr/include/qt5/QtWidgets/QPushButton \
+		/usr/include/qt5/QtWidgets/qpushbutton.h \
+		/usr/include/qt5/QtWidgets/qabstractbutton.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o secdialog.o secdialog.cpp
 
 qrc_logo.o: qrc_logo.cpp 

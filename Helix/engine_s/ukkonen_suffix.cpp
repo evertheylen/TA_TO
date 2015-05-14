@@ -39,7 +39,7 @@ SuffixTree2::SuffixTree2(std::fstream& file, std::string _filename): _file(file)
 	std::stringstream comments;
 	_root = new Node2(-2);
 	active.node = _root;
-	active.edge = '\0x';
+	active.edge = '\0';
 	active.length = 0;
 	active.p = nullptr;
 	while (file.good()) {
@@ -52,7 +52,7 @@ SuffixTree2::SuffixTree2(std::fstream& file, std::string _filename): _file(file)
 			_loc++;
 			add_suffix(input);
 
-			/*if (_loc == 20) {
+			/*if (_loc == 25) {
 				resolve(_root);
 				return;
 			}*/
@@ -65,8 +65,10 @@ SuffixTree2::SuffixTree2(std::fstream& file, std::string _filename): _file(file)
 		} else {
 			_loc++;
 		}
-	}
-	remainder++;
+	} //if (remainder > 0) {
+		//add_suffix('$'); TODO Try to get rid of this
+	//}
+	//remainder++;
 	//add_suffix('$');
 	//_loc++;
 	resolve(_root);
@@ -102,6 +104,30 @@ void SuffixTree2::add_suffix(char tag) {
 		remainder--;
 		remaining_suffix.erase(0,1);
 		active.edge = remaining_suffix[0];
+	} else if (active.edge == '\0' && active.length == 0) {		// TODO This is wrong because it gets called after the previous check_presence returned 2;
+		Node2* n = new Node2(_loc - (remaining_suffix.length()-2));
+		active.node->add_child(n);
+		remainder--;
+		remaining_suffix.erase(0,1);
+		if (suffix1 != nullptr) {
+			suffix1->suffix_link = active.node;
+			std::cout << "Setted up a suffix link between " << suffix1 << " and " << active.node << " after we just created a new branch!" << std::endl;
+		}
+		suffix1 = active.node;
+		if (active.node == _root) {
+			active.edge = remaining_suffix[0];
+		} else {
+			if (active.node->suffix_link != nullptr) {
+				std::cout << "Following the suffix link from " << get_tag(active.node);
+				active.node = active.node->suffix_link;
+				std::cout << " to " << get_tag(active.node) << std::endl;
+				std::cout << "New active edge: " << active.edge << " and length: " << active.length << std::endl;
+				//return;
+			} else {
+				active.node = _root;
+			}
+		}
+		add_remainder = false;
 	} else {
 		for (auto child: active.node->children) {
 			if (child->e.a == active.p->a && child->e.b == active.p->b) {
@@ -150,6 +176,7 @@ void SuffixTree2::add_suffix(char tag) {
 						active.node = active.node->suffix_link;
 						std::cout << " to " << get_tag(active.node) << std::endl;
 						std::cout << "New active edge: " << active.edge << " and length: " << active.length << std::endl;
+						//return;
 					} else {
 						active.node = _root;
 					}
@@ -209,7 +236,7 @@ int SuffixTree2::check_presence(char tag) {
 				if (child->e.a+active.length == end) {
 					//std::cout << tag << " is at the end of the edge!\n";
 					active.node = child;
-					active.edge = '\0x';
+					active.edge = '\0';
 					active.length = 0;
 					return 2;
 				}
@@ -259,7 +286,7 @@ int SuffixTree2::check_presence(char tag) {
 				if (ending) {
 					//std::cout << tag << " is at the end of the edge!\n";
 					active.node = child;
-					active.edge = '\0x';
+					active.edge = '\0';
 					active.length = 0;
 					return 2;
 				}
