@@ -6,7 +6,7 @@
  */
 
 
-#include <fstream>
+/*#include <fstream>
 #include <list>
 
 #ifndef SUFFIX_UKKONEN_SUFFIX_H_
@@ -65,6 +65,6 @@ private:
 	Node2* _root;
 	int _loc;
 	int remainder;
-};
+};*/
 
 #endif /* SUFFIX_UKKONEN_SUFFIX_H_ */

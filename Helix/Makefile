@@ -16,7 +16,7 @@ LIBS       = $(addsuffix .o, $(basename $(LIB_FILES)))
 TEST_FILES = $(shell find . -mindepth 2 \( -name '*.cpp' -or -name '*.c' \) -and -path './tests/*')
 TESTS      = $(addsuffix .o, $(basename $(TEST_FILES)))
 
-SHELL      = /usr/bin/bash
+SHELL      = /bin/bash
 TARGETS    = convertor GUI test
 
 
