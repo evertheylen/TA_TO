@@ -14,6 +14,8 @@ struct Path {
 	Node3* node;
 	
 	Path(int _errors, int _p, Node3* _node);
+
+	friend std::ostream& operator<<(std::ostream& out, Path& p);
 };
 
 

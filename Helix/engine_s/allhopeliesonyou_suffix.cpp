@@ -10,6 +10,10 @@
 Path::Path(int _errors, int _p, Node3* _node):
 		errors(_errors), pos_in_node(_p), node(_node) {}
 
+std::ostream& operator<<(std::ostream& out, Path& p) {
+	out << "Path at location " << p.node->tag << " position " << p.pos_in_node << " and " << p.errors << " errors.\n";
+	return out;
+}
 
 void generate_dot(Suffix3& s, std::string name, int i) {
 	//std::cout << "called!!!!!!!!!!!!!\n";
@@ -163,43 +167,44 @@ std::vector<int> Suffix3::search_string(std::string& str, int errors) {
 	// paths solely go forward, not backward (parent) or right or left (siblings).
 	
 	for (int i=0; i<str.length(); i++) {
-		for (Path p: paths) {
+		std::vector<Path> new_paths;
+
+		for (Path& p: paths) {
 			if (p.pos_in_node+1 < p.node->tag.size()) {
 				// we are still in this node
 				if (str[i] != p.node->tag[p.pos_in_node+1]) {
 					p.errors++;
 				}
+				p.pos_in_node++;
 			} else {
 				// we need to take a new path!
-				// but what if the road ends here?
-				if (p.node->children.empty()) {
-					p.errors = std::numeric_limits<int>::max();
-				} else {
-					// check all children for first character
-					for (Node3* child: p.node->children) {
-						paths.push_back(Path(p.errors+int(child->tag[0] != str[i]), 0, child));
-					}
+
+				// check all children for first character
+				for (Node3* child: p.node->children) {
+					new_paths.push_back(Path(p.errors+int(child->tag[0] != str[i]), 0, child));
 				}
+				p.errors = std::numeric_limits<int>::max();
 			}
 		}
-		
-		/*
+		paths.insert(paths.end(), new_paths.begin(), new_paths.end());
 		// delete paths over their error count
 		for (int j=0; j<paths.size(); j++) {
-			if (paths[i].errors > errors) {
+			if (paths[j].errors > errors) {
 				// delete!
-				paths.erase(paths.begin()+i);
-				i--; // next time, i is same as now, but we deleted, so next path
+				paths.erase(paths.begin()+j);
+				j--; // next time, i is same as now, but we deleted, so next path
 			}
 		}
-		*/
+		for (Path p: paths) {
+			std::cout << p;
+		}
+		std::cout << "--------\n";
 	}
-	
+
 	std::vector<int> result;
 	for (Path p: paths) {
-		if (p.errors <= errors) {
-			get_leaves(p.node, str.length(), result);
-		}
+		std::cout << p.node->tag << std::endl;
+		get_leaves(p.node, str.length(), result);
 	}
 	
 	return result;
@@ -207,7 +212,15 @@ std::vector<int> Suffix3::search_string(std::string& str, int errors) {
 
 
 void Suffix3::get_leaves(Node3* current_node, int length, std::vector<int>& leaves) {
-	if (!current_node->children.empty()) {
+	int shorter_length = length-current_node->tag.size();
+	if (current_node->children.empty()) {
+		leaves.push_back(shorter_length);
+	} else {
+		for (Node3* child: current_node->children) {
+			get_leaves(child, shorter_length, leaves);
+		}
+	}
+	/* if (!current_node->children.empty()) {
 		for (auto child: current_node->children) {
 			int original_length = length;
 			int length2 = length;
@@ -217,7 +230,7 @@ void Suffix3::get_leaves(Node3* current_node, int length, std::vector<int>& leav
 		}
 	} else {
 		leaves.push_back(str_length - length);
-	}
+	}*/
 }
 
 /*
