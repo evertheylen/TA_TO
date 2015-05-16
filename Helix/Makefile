@@ -4,7 +4,7 @@ INCLUDES = -I ./lib -I ./lib/FSM -I ./lib/tinyxml  -I ./engine_r -I ./engine_s -
 
 CXX        = g++
 CXXFLAGS   = -g3 -O0 -std=c++11 -Werror=nonnull -Werror=return-type -Werror=main -Werror=missing-include-dirs -fstack-protector-all $(INCLUDES)
-#CXXFLAGS   = -O3 -std=c++14
+#CXXFLAGS   = -O3 -std=c++11
 
 OBJ_FILES  = $(shell find . -mindepth 2 \( -name '*.cpp' -or -name '*.c' \) -and -not -path './lib/*' -and -not -path './tests/*'-and -not -path './GUI/*')
 OBJS       = $(addsuffix .o, $(basename $(OBJ_FILES)))

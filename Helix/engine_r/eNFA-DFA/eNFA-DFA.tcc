@@ -4,6 +4,11 @@
 #include <assert.h>
 #include <vector>
 #include <iostream>
+#include <set>
+#include <map>
+
+#include "Run.h"
+
 
 // Returns which bits are on in the integer a
 std::vector<int> getOnLocations(int a) {
@@ -18,6 +23,92 @@ std::vector<int> getOnLocations(int a) {
 	}
 	return result;
 }
+
+/*
+
+template<typename T>
+void print(std::set<T> s) {
+	std::cout << "{";
+	for (auto e: s) {
+		std::cout << e << ", ";
+	}
+	std::cout << "}\n";
+}
+
+
+template<	typename StateT,
+			typename SymbolT,
+			SymbolT epsilon>
+DFA<StateT, SymbolT> MSSC_old(eNFA<StateT, SymbolT, epsilon>& N) {
+	DFA<StateT, SymbolT> D;
+	
+	D.sigma = N.sigma;
+	D.q0 = 0;  // by definition the first state
+	
+	
+	std::map<std::set<int>, int> states;
+	std::set<int> start = N.ECLOSE(N.q0);
+	states[start] = 0;
+	recursive_add(D, N, states, start);
+	
+	D.num_states = states.size();
+	std::cout << "states.size = " << states.size() << "\n";
+	
+	/*
+	for (auto state: states) {
+		D.map.left.insert(typename DFA<StateT,SymbolT>::Bimap::left_value_type(state.second, "whatever"));
+		std::cout << state.second << "\n";
+	}
+	*/
+	
+	/*
+	
+	for (int i=0; i<=D.num_states; i++) {
+		D.map.left.insert(typename DFA<StateT,SymbolT>::Bimap::left_value_type(i, states));
+	}
+	
+	return D;
+}
+
+
+template<	typename StateT,
+			typename SymbolT,
+			SymbolT epsilon>
+void recursive_add(DFA<StateT, SymbolT>& D, eNFA<StateT, SymbolT, epsilon>& N,
+		std::map<std::set<int>, int>& states, std::set<int>& current) {
+	std::cout << "recursive_add called! states = {\n";
+	for (auto s: states) {
+		print(s.first);
+	}
+	std::cout << "}\n";
+	print(current);
+	
+	Walker<eNFA<StateT, SymbolT, epsilon>> w(N, current);
+	
+	for (SymbolT symb: D.sigma) {
+		std::cout << "before: ";
+		print(w.current);
+		w.input(symb);
+		std::cout << "after: ";
+		print(w.current);
+		auto wtf = states.find(w.current);
+		if (wtf == states.end()) {
+			states[w.current] = states.size();
+			recursive_add(D, N, states, w.current);
+		} else {
+			print(wtf->first);
+			std::cout << "skipping\n";
+		}
+		
+		D.set_delta(states.at(current), symb, states.at(w.current));
+		
+		w.current = current; // reset
+	}
+}
+
+*/
+
+
 
 template<	typename StateT,
 			typename SymbolT,

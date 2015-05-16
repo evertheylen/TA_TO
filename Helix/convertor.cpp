@@ -13,6 +13,8 @@
 
 #include "suffix.h"
 
+#include "allhopeliesonyou_suffix.h"
+
 #include "file.h"
 
 using namespace std;
@@ -29,6 +31,20 @@ void write_dot(FSM<R,S,T>* F, string name) {
 	output_file.open(name);
 	F->to_dot(output_file);
 	output_file.close();
+}
+
+std::string get_file_contents(std::string& filename) {
+	std::ifstream in(filename, std::ios::in | std::ios::binary);
+	if (in) {
+		std::string contents;
+		in.seekg(0, std::ios::end);
+		contents.resize(in.tellg());
+		in.seekg(0, std::ios::beg);
+		in.read(&contents[0], contents.size());
+		in.close();
+		return contents;
+	}
+	throw errno;
 }
 
 
@@ -60,12 +76,14 @@ int main(int argc, char const* argv[]) {
 		
 		write_dot(&opt_D, arg + ".dot");
 	} else if (mode == "eNFA-DFA") {
+		std::cout << "MSSC\n";
 		s_eNFA N;
 		auto doc = read(arg);
 		N.from_xml(doc);
 		
 		s_DFA D = MSSC(N);
 		
+		write_dot(&N, arg+".org_dot");
 		write_dot(&D, arg+".dot");
 	} else if (mode == "union" || mode == "intersection") {
 		if (argc < 4) {
@@ -87,7 +105,7 @@ int main(int argc, char const* argv[]) {
 		DFA <std::string, char> P = product(D1, D2, mode == "intersection");  // true --> intersection
 		write_dot(&P, "product_"+arg+"_"+arg2+".dot");
 	} else if (mode == "suffix") {
-		string arg2 = string(argv[3]);
+		/*string arg2 = string(argv[3]);
 
 		try {
 			File f(arg);
@@ -110,6 +128,11 @@ int main(int argc, char const* argv[]) {
 		for (std::list<int>::const_iterator i = index.begin(); i != index.end(); i++) {
 			cout << "Match at index " << *i << " between " << arg << " and " << arg2 << " with amount of errors = " << 1 << endl;
 		}
+		*/
+		
+		std::string content = get_file_contents(arg);
+		Suffix3 suf(content);
+		
 	} else {
 		cout << "I don't understand " << mode << endl;
 	}

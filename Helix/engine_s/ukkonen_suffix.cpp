@@ -39,7 +39,7 @@ SuffixTree2::SuffixTree2(std::fstream& file, std::string _filename): _file(file)
 	std::stringstream comments;
 	_root = new Node2(-2);
 	active.node = _root;
-	active.edge = '\0';
+	active.edge = 0;
 	active.length = 0;
 	active.p = nullptr;
 	while (file.good()) {

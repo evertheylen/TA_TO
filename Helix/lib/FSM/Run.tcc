@@ -39,6 +39,9 @@ public:
 	Walker(D& _automaton):
 			automaton(_automaton), current(_automaton.q0) {}
 	
+	Walker(D& _automaton, typename DFA<StateT,SymbolT>::DeltaResult _current):
+			automaton(_automaton), current(_current) {}
+	
 	void input(typename D::Symbol symb) {
 		// ATTENTION I assume it's actually a valid DFA, so you should specify each and every
 		// transition possible, it will fail otherwise!
@@ -67,6 +70,9 @@ public:
 	
 	Walker(N& _automaton):
 			automaton(_automaton), current({_automaton.q0}) {}
+	
+	Walker(N& _automaton, typename NFA<StateT,SymbolT>::DeltaResult _current):
+			automaton(_automaton), current(_current) {}
 	
 	void input(typename N::Symbol symb) {
 		typename N::DeltaResult new_current;
@@ -108,6 +114,10 @@ public:
 	
 	Walker(E& _automaton):
 			automaton(_automaton), current(_automaton.ECLOSE(_automaton.q0)) {}
+	
+	Walker(E& _automaton, typename eNFA<StateT,SymbolT,epsilon>::DeltaResult _current):
+			automaton(_automaton), current(_current) {}
+	
 	
 	void input(typename E::Symbol symb) {
 		typename E::DeltaResult new_current;
