@@ -8,11 +8,12 @@ class Suffix3;
 
 // Helper structs
 
-struct int_and_node {
-	int pos;
+struct Path {
+	int errors;
+	int pos_in_node;
 	Node3* node;
 	
-	int_and_node(int _pos, Node3* _node);
+	Path(int _errors, int _p, Node3* _node);
 };
 
 
@@ -46,7 +47,9 @@ public:
 	/*
 	 * Returns a vector of indeces of where the substring occurs in your text. Returns an empty list if the string doesn't occur in the text.
 	 */
-
+	
+	std::vector<int> search_string(std::string& std, int errors);
+	
 	void get_leaves(Node3* current, int length, std::vector<int>& leaves);
 
 	friend std::ostream& operator<<(std::ostream& stream, Suffix3& tree);
