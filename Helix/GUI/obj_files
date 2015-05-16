@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 ../engine_r/TFA/TFA.o ../engine_s/suffix.o ../engine_s/ukkonen_suffix.o ../engine_s/allhopeliesonyou_suffix.o ../etc/file.o ../lib/tinyxml/tinyxml.o ../lib/tinyxml/tinyxmlerror.o ../lib/tinyxml/tinystr.o ../lib/tinyxml/tinyxmlparser.o ../lib/FSM/Run.o ../lib/FSM/FSM.o
+=======
+../engine_s/mccreight_suffix.o ../engine_s/suffix.o ../engine_s/ukkonen_suffix.o ../etc/file.o ../engine_r/TFA/TFA.o ../lib/FSM/FSM.o ../lib/FSM/Run.o ../lib/tinyxml/tinystr.o ../lib/tinyxml/tinyxmlerror.o ../lib/tinyxml/tinyxmlparser.o ../lib/tinyxml/tinyxml.o
+>>>>>>> 4d2d64f1453ed79b6cdf8bffeffcb677d2e36e81

@@ -36,7 +36,7 @@ DISTNAME      = Helix1.0.0
 DISTDIR = /Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/GUI/.tmp/Helix1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-O1,--sort-common,--as-needed,-z,relro
-LIBS          = $(SUBLIBS) ../engine_r/TFA/TFA.o ../engine_s/suffix.o ../engine_s/ukkonen_suffix.o ../engine_s/allhopeliesonyou_suffix.o ../etc/file.o ../lib/tinyxml/tinyxml.o ../lib/tinyxml/tinyxmlerror.o ../lib/tinyxml/tinystr.o ../lib/tinyxml/tinyxmlparser.o ../lib/FSM/Run.o ../lib/FSM/FSM.o -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) <<<<<<< HEAD ../engine_r/TFA/TFA.o ../engine_s/suffix.o ../engine_s/ukkonen_suffix.o ../engine_s/allhopeliesonyou_suffix.o ../etc/file.o ../lib/tinyxml/tinyxml.o ../lib/tinyxml/tinyxmlerror.o ../lib/tinyxml/tinystr.o ../lib/tinyxml/tinyxmlparser.o ../lib/FSM/Run.o ../lib/FSM/FSM.o ======= ../engine_s/mccreight_suffix.o >>>>>>> 4d2d64f1453ed79b6cdf8bffeffcb677d2e36e81 -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed

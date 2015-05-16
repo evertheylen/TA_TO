@@ -11,7 +11,7 @@
 #include <sstream>
 #include <list>
 #include <iostream>
-#include "ukkonen_suffix.h"
+//#include "ukkonen_suffix.h"
 
 File::File(std::string filename) {
 	std::fstream f(filename.c_str());
@@ -58,14 +58,14 @@ File::File(std::string filename) {
     		std::cout << "Match at " << result.front() << std::endl;
     		result.pop_front();
     	}*/
-    	SuffixTree2 s(f, filename);
+    	//SuffixTree2 s(f, filename);
     	std::ofstream output_file;
 		output_file.open("Commentsofthefastafile.txt");
 		output_file << "comments: \n" << comments.str();
 		//output_file << "suffix: \n" << suffix.str();
 		output_file.close();
 		output_file.open("resultofukonnen.txt");
-		output_file << s << std::endl;
+		//output_file << s << std::endl;
 		output_file.close();
     } else {
         throw 1;
