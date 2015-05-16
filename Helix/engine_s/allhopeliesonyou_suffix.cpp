@@ -31,6 +31,7 @@ Node3::Node3(std::string _tag):
 
 Suffix3::Suffix3(std::string& s) {
 	int len = s.length();
+	str_length = len;
 	root = new Node3("root");
 	
 	// first run, insert in root
@@ -164,17 +165,17 @@ std::vector<int> Suffix3::search_string(std::string& str) {
 	return result;
 }
 
-void Suffix3::get_leaves(Node3* current_node, int str_length, std::vector<int>& leaves) {
+void Suffix3::get_leaves(Node3* current_node, int length, std::vector<int>& leaves) {
 	if (!current_node->children.empty()) {
 		for (auto child: current_node->children) {
-			int original_length = str_length;
-			int length = str_length;
-			length += child->tag.length();
-			get_leaves(child, length, leaves);
-			length = original_length;
+			int original_length = length;
+			int length2 = length;
+			length2 += child->tag.length();
+			get_leaves(child, length2, leaves);
+			length2 = original_length;
 		}
 	} else {
-		leaves.push_back(str_length);
+		leaves.push_back(str_length - length);
 	}
 }
 

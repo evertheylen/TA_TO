@@ -38,6 +38,8 @@ public:
 	
 // 	int_and_node find_head(std::string& subs);
 	
+	int str_length;
+
 	Node3* root;
 	
 	std::vector<int> search_string(std::string& str);
