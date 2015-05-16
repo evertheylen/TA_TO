@@ -133,7 +133,7 @@ int main(int argc, char const* argv[]) {
 		std::string content = get_file_contents(arg);
 		Suffix3 suf(content);
 		
-		std::cout << "height = " << suf.root->height(0);
+		//std::cout << "height = " << suf.root->height(0);
 		
 // 		std::string search = "x";
 // 		std::vector<int> result = suf.search_string(search, 1);
