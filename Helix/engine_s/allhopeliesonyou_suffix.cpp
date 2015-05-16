@@ -164,7 +164,7 @@ std::vector<int> Suffix3::search_string(std::string& str) {
 	return result;
 }
 
-void get_leaves(Node3* current_node, int str_length, std::vector<int>& leaves) {
+void Suffix3::get_leaves(Node3* current_node, int str_length, std::vector<int>& leaves) {
 	if (!current_node->children.empty()) {
 		for (auto child: current_node->children) {
 			int original_length = str_length;
