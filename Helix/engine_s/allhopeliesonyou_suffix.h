@@ -11,6 +11,9 @@ class Suffix3;
 struct Path {
 	int errors;
 	int pos_in_node;
+
+
+
 	Node3* node;
 	
 	Path(int _errors, int _p, Node3* _node);
@@ -25,7 +28,9 @@ public:
 	
 	std::vector<Node3*> children;
 	
-	Node3(std::string _tag);
+	int index_start;
+
+	Node3(std::string _tag, int index);
 	
 	void add_child(Node3* c);
 	
@@ -52,7 +57,7 @@ public:
 	
 	std::vector<int> search_string(std::string& std, int errors);
 	
-	void get_leaves(Node3* current, int length, std::vector<int>& leaves);
+	void get_leaves(Node3* current, /*int length, */std::vector<int>& leaves);
 
 	friend std::ostream& operator<<(std::ostream& stream, Suffix3& tree);
 	

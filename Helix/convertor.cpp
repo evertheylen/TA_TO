@@ -133,8 +133,8 @@ int main(int argc, char const* argv[]) {
 		std::string content = get_file_contents(arg);
 		Suffix3 suf(content);
 		
-		std::string search = "ssi";
-		std::vector<int> result = suf.search_string(search);
+		std::string search = "x";
+		std::vector<int> result = suf.search_string(search, 1);
 		std::string filename = arg;
 		filename += "_searchfor";
 		filename += search;

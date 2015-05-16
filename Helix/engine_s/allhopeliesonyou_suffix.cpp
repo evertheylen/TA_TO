@@ -30,18 +30,17 @@ void Node3::add_child(Node3* c) {
 	children.push_back(c);
 }
 
-Node3::Node3(std::string _tag):
-		tag(_tag), children() {}  // children een size meegeven
+Node3::Node3(std::string _tag, int index):
+		tag(_tag), index_start(index) {}  // children een size meegeven
 
 
 Suffix3::Suffix3(std::string& s) {
 	int len = s.length();
 	str_length = len;
-	root = new Node3(""); // for the search_string( , int)
+	root = new Node3("",0); // for the search_string( , int)
 	
 	// first run, insert in root
-	Node3* ptr = new Node3(s);
-	root->add_child(ptr);
+	root->add_child(new Node3(s,0));
 	
 	//generate_dot(*this, "blabla", 0);
 	
@@ -80,9 +79,9 @@ Suffix3::Suffix3(std::string& s) {
 						
 						// split!
 						// add children, subs[end_head:] (aka tail) and child->tag[current_pos:]
-						Node3* parent_tail = new Node3(current->tag.substr(current_pos));
+						Node3* parent_tail = new Node3(current->tag.substr(current_pos), current->index_start);
 						parent_tail->children = current->children;
-						Node3* new_tail = new Node3(subs.substr(end_head));
+						Node3* new_tail = new Node3(subs.substr(end_head), i);
 						
 						current->children.clear();
 						current->add_child(parent_tail);
@@ -105,7 +104,7 @@ Suffix3::Suffix3(std::string& s) {
 			// extension of case 1: all childs have been checked
 			//std::cout << subs.length() << "\n";
 			//std::cout << end_head << "\n";
-			current->add_child(new Node3(subs.substr(end_head)));  // add tail [end_head, end...[
+			current->add_child(new Node3(subs.substr(end_head), i));  // add tail [end_head, end...[
 			goto end_while;
 			
 			continue_while:;
@@ -151,7 +150,7 @@ std::vector<int> Suffix3::search_string(std::string& str) {
 					break;
 				} else {
 					current_node = child;
-					get_leaves(current_node, str.length(), result);
+					get_leaves(current_node/*, str_length-1*/, result);
 					return result;
 				}
 			}
@@ -204,33 +203,29 @@ std::vector<int> Suffix3::search_string(std::string& str, int errors) {
 	std::vector<int> result;
 	for (Path p: paths) {
 		std::cout << p.node->tag << std::endl;
-		get_leaves(p.node, str.length(), result);
+		get_leaves(p.node/*, str_length-1*/, result);
 	}
 	
 	return result;
 }
 
 
-void Suffix3::get_leaves(Node3* current_node, int length, std::vector<int>& leaves) {
-	int shorter_length = length-current_node->tag.size();
+void Suffix3::get_leaves(Node3* current_node, /*int length,*/ std::vector<int>& leaves) {
+	/*int shorter_length = length-current_node->tag.size();
 	if (current_node->children.empty()) {
 		leaves.push_back(shorter_length);
 	} else {
 		for (Node3* child: current_node->children) {
 			get_leaves(child, shorter_length, leaves);
 		}
-	}
-	/* if (!current_node->children.empty()) {
-		for (auto child: current_node->children) {
-			int original_length = length;
-			int length2 = length;
-			length2 += child->tag.length();
-			get_leaves(child, length2, leaves);
-			length2 = original_length;
-		}
-	} else {
-		leaves.push_back(str_length - length);
 	}*/
+	if (current_node->children.empty()) {
+		leaves.push_back(current_node->index_start);
+	} else {
+		for (Node3* child: current_node->children) {
+			get_leaves(child, leaves);
+		}
+	}
 }
 
 /*
