@@ -1,6 +1,6 @@
 # no executables pls
 convertor
-Helix
+Helix/GUI/Helix
 
 # Kinda like precompiled C++
 Helix/GUI/*.pro.user.*
