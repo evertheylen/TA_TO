@@ -27,6 +27,8 @@ public:
 	void add_child(Node3* c);
 	
 	void to_dot(std::ostream& stream, int& i);
+	
+	~Node3();
 };
 
 
@@ -39,5 +41,7 @@ public:
 	Node3* root;
 	
 	friend std::ostream& operator<<(std::ostream& stream, Suffix3& tree);
+	
+	~Suffix3();
 };
 

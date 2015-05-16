@@ -132,7 +132,6 @@ int main(int argc, char const* argv[]) {
 		
 		std::string content = get_file_contents(arg);
 		Suffix3 suf(content);
-		
 	} else {
 		cout << "I don't understand " << mode << endl;
 	}

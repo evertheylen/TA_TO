@@ -37,7 +37,7 @@ Suffix3::Suffix3(std::string& s) {
 	Node3* ptr = new Node3(s);
 	root->add_child(ptr);
 	
-	generate_dot(*this, "blabla", 0);
+	//generate_dot(*this, "blabla", 0);
 	
 	// for each substring in s
 	for (int i=1; i<len; i++) {
@@ -135,6 +135,16 @@ int_and_node Suffix3::find_head(std::string& subs) {
 	return int_and_node(44, new Node3("balbal"));
 }
 */
+
+Suffix3::~Suffix3() {
+	delete root;
+}
+
+Node3::~Node3() {
+	for (Node3* child: children) {
+		delete child;
+	}
+}
 
 
 // Dot output
