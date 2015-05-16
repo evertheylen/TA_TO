@@ -121,6 +121,63 @@ Suffix3::Suffix3(std::string& s) {
 	std::cerr << root->children[0]->tag << "\n";
 }
 
+std::vector<int> Suffix3::search_string(std::string& str) {
+	std::vector<int> result;
+	Node3* current_node = root;
+	for (int i = 0; i < str.length(); i++){
+		for (auto child: current_node->children) {
+			//std::cout << " Searching " << child->get_tag() << "...\n";
+			if (str[i] != child->tag[0]) {
+				continue;
+			} else {
+				//std::cout << "Match with " << child->get_tag()[0] << " at first position\n";
+				for (int j = 0; j < child->tag.length() && i < str.length(); j++) {
+					if (str[i] != child->tag[j]) {
+					//	std::cerr << i << "th position in " << str << " doesn't match " << j << "th position in " << child->get_tag() << ".\n";
+					} else {
+						i++;
+					}
+				}
+				if (i < str.length()) {
+					current_node = child;
+					i--;
+					//std::cout << current_node->get_tag() << " is the tag of the next current_node.\n";
+					break;
+				} else {
+					current_node = child;
+					/*std::list<int> leaves;
+					get_leaves(current_node, leaves);
+					for (int k = 0; k < leaves.size(); k++) {
+						result.push_back(leaves.front());
+						leaves.pop_front();
+					}*/
+					get_leaves(current_node, str.length(), result);
+					/*for (int k = 0; k < result.size(); k++) {
+						std::cout << result.front() << std::endl;
+						result.pop_front();
+					}*/
+					return result;
+				}
+			}
+		}
+	}
+	return result;
+}
+
+void get_leaves(Node3* current_node, int str_length, std::vector<int>& leaves) {
+	if (!current_node->children.empty()) {
+		for (auto child: current_node->children) {
+			int original_length = str_length;
+			int length = str_length;
+			length += child->tag.length();
+			get_leaves(child, length, leaves);
+			length = original_length;
+		}
+	} else {
+		leaves.push_back(str_length);
+	}
+}
+
 /*
 int_and_node Suffix3::find_head(std::string& subs) {
 	Node3* current = root;

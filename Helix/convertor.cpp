@@ -132,6 +132,12 @@ int main(int argc, char const* argv[]) {
 		
 		std::string content = get_file_contents(arg);
 		Suffix3 suf(content);
+		std::string search = "ssi";
+		std::vector<int> result = suf.search_string(search);
+		for (int k = 0; k < result.size(); k++) {
+			std::cout << "Result found at position " << result.at(k) << std::endl;
+		}
+
 	} else {
 		cout << "I don't understand " << mode << endl;
 	}

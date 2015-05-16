@@ -40,6 +40,13 @@ public:
 	
 	Node3* root;
 	
+	std::vector<int> search_string(std::string& str);
+	/*
+	 * Returns a vector of indeces of where the substring occurs in your text. Returns an empty list if the string doesn't occur in the text.
+	 */
+
+	void get_leaves(Node3* current, int length, std::vector<int>& leaves);
+
 	friend std::ostream& operator<<(std::ostream& stream, Suffix3& tree);
 	
 	~Suffix3();
