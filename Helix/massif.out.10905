@@ -1,0 +1,941 @@
+desc: (none)
+cmd: ./convertor suffix perftest_32000.test
+time_unit: i
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=12905742
+mem_heap_B=19140594
+mem_heap_extra_B=27854
+mem_stacks_B=0
+heap_tree=detailed
+n2: 19140594 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 19094618 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 19061807 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 19061807 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 19061807 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 8413152 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 8413152 0x43A824: main (convertor.cpp:134)
+     n1: 7301096 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 7301096 0x43A824: main (convertor.cpp:134)
+     n1: 3306336 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 3306336 0x43A824: main (convertor.cpp:134)
+     n0: 41223 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 45976 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=2
+#-----------
+time=25281301
+mem_heap_B=39725179
+mem_heap_extra_B=57381
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=3
+#-----------
+time=33454830
+mem_heap_B=53317818
+mem_heap_extra_B=77542
+mem_stacks_B=0
+heap_tree=detailed
+n2: 53317818 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 53189770 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 53156959 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 53156959 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 53156959 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 23275296 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 23275296 0x43A824: main (convertor.cpp:134)
+     n1: 20528145 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 20528145 0x43A824: main (convertor.cpp:134)
+     n1: 9297024 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 9297024 0x43A824: main (convertor.cpp:134)
+     n0: 56494 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 128048 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=4
+#-----------
+time=38475210
+mem_heap_B=61690263
+mem_heap_extra_B=89953
+mem_stacks_B=0
+heap_tree=detailed
+n2: 61690263 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 61541807 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 61508996 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 61508996 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 61508996 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 27138144 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 27138144 0x43A824: main (convertor.cpp:134)
+     n1: 23802343 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 23802343 0x43A824: main (convertor.cpp:134)
+     n1: 10508256 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 10508256 0x43A824: main (convertor.cpp:134)
+     n0: 60253 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 148456 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=5
+#-----------
+time=46482331
+mem_heap_B=75085732
+mem_heap_extra_B=109516
+mem_stacks_B=0
+heap_tree=detailed
+n2: 75085732 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 74904788 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 74871977 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 74871977 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 74871977 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 32605056 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 32605056 0x43A824: main (convertor.cpp:134)
+     n1: 29270016 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 29270016 0x43A824: main (convertor.cpp:134)
+     n1: 12930720 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 12930720 0x43A824: main (convertor.cpp:134)
+     n0: 66185 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 180944 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=6
+#-----------
+time=59338042
+mem_heap_B=97016678
+mem_heap_extra_B=141266
+mem_stacks_B=0
+heap_tree=detailed
+n2: 97016678 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 96783166 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 96750355 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 96750355 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 96750355 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 41934816 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 41934816 0x43A824: main (convertor.cpp:134)
+     n1: 37455465 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 37455465 0x43A824: main (convertor.cpp:134)
+     n1: 17284608 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 17284608 0x43A824: main (convertor.cpp:134)
+     n0: 75466 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 233512 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=7
+#-----------
+time=70396017
+mem_heap_B=115317166
+mem_heap_extra_B=168698
+mem_stacks_B=0
+heap_tree=detailed
+n2: 115317166 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 115038102 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 115005291 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 115005291 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 115005291 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 49508736 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 49508736 0x43A824: main (convertor.cpp:134)
+     n1: 44858962 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 44858962 0x43A824: main (convertor.cpp:134)
+     n1: 20558016 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 20558016 0x43A824: main (convertor.cpp:134)
+     n0: 79577 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 279064 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=8
+#-----------
+time=78466289
+mem_heap_B=127557579
+mem_heap_extra_B=188669
+mem_stacks_B=0
+heap_tree=detailed
+n2: 127557579 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 127245387 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 127212576 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 127212576 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 127212576 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 54450880 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 54450880 0x43A824: main (convertor.cpp:134)
+     n1: 49811062 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 49811062 0x43A824: main (convertor.cpp:134)
+     n1: 22865248 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 22865248 0x43A824: main (convertor.cpp:134)
+     n0: 85386 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 312192 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=9
+#-----------
+time=84733682
+mem_heap_B=136864111
+mem_heap_extra_B=204385
+mem_stacks_B=0
+heap_tree=detailed
+n2: 136864111 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 136526143 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 136493332 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 136493332 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 136493332 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 58030592 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 58030592 0x43A824: main (convertor.cpp:134)
+     n1: 53964883 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 53964883 0x43A824: main (convertor.cpp:134)
+     n1: 24407552 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 24407552 0x43A824: main (convertor.cpp:134)
+     n0: 90305 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 337968 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=10
+#-----------
+time=92289141
+mem_heap_B=148419507
+mem_heap_extra_B=223541
+mem_stacks_B=0
+heap_tree=detailed
+n2: 148419507 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 148049979 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 148017168 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 148017168 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 148017168 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 62850048 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 62850048 0x43A824: main (convertor.cpp:134)
+     n1: 58487223 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 58487223 0x43A824: main (convertor.cpp:134)
+     n1: 26583968 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 26583968 0x43A824: main (convertor.cpp:134)
+     n0: 95929 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 369528 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=11
+#-----------
+time=104874346
+mem_heap_B=167468407
+mem_heap_extra_B=256137
+mem_stacks_B=0
+heap_tree=detailed
+n2: 167468407 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 167045615 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 167012804 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 167012804 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 167012804 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 71032448 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 71032448 0x43A824: main (convertor.cpp:134)
+     n1: 66631250 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 66631250 0x43A824: main (convertor.cpp:134)
+     n1: 29243104 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 29243104 0x43A824: main (convertor.cpp:134)
+     n0: 106002 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 422792 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=12
+#-----------
+time=112887838
+mem_heap_B=179711387
+mem_heap_extra_B=277469
+mem_stacks_B=0
+heap_tree=detailed
+n2: 179711387 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 179253803 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 179220992 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 179220992 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 179220992 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 76842048 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 76842048 0x43A824: main (convertor.cpp:134)
+     n1: 71779773 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 71779773 0x43A824: main (convertor.cpp:134)
+     n1: 30486720 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 30486720 0x43A824: main (convertor.cpp:134)
+     n0: 112451 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 457584 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=13
+#-----------
+time=124721026
+mem_heap_B=198764851
+mem_heap_extra_B=308245
+mem_stacks_B=0
+heap_tree=detailed
+n2: 198764851 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 198256283 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 198223472 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 198223472 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 198223472 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 84640032 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 84640032 0x43A824: main (convertor.cpp:134)
+     n1: 78986658 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 78986658 0x43A824: main (convertor.cpp:134)
+     n1: 34475680 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 34475680 0x43A824: main (convertor.cpp:134)
+     n0: 121102 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 508568 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=14
+#-----------
+time=135183272
+mem_heap_B=215483544
+mem_heap_extra_B=335624
+mem_stacks_B=0
+heap_tree=detailed
+n2: 215483544 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 214929824 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 214897013 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 214897013 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 214897013 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 91116512 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 91116512 0x43A824: main (convertor.cpp:134)
+     n1: 86193004 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 86193004 0x43A824: main (convertor.cpp:134)
+     n1: 37458208 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 37458208 0x43A824: main (convertor.cpp:134)
+     n0: 129289 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 553720 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=15
+#-----------
+time=142102808
+mem_heap_B=226636737
+mem_heap_extra_B=354183
+mem_stacks_B=0
+heap_tree=detailed
+n2: 226636737 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 226052553 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 226019742 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 226019742 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 226019742 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 95805152 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 95805152 0x43A824: main (convertor.cpp:134)
+     n1: 90837790 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 90837790 0x43A824: main (convertor.cpp:134)
+     n1: 39241984 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 39241984 0x43A824: main (convertor.cpp:134)
+     n0: 134816 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 584184 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=16
+#-----------
+time=153720615
+mem_heap_B=243074669
+mem_heap_extra_B=385619
+mem_stacks_B=0
+heap_tree=detailed
+n2: 243074669 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 242438557 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 242405746 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 242405746 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 242405746 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 102267744 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 102267744 0x43A824: main (convertor.cpp:134)
+     n1: 98699107 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 98699107 0x43A824: main (convertor.cpp:134)
+     n1: 41298912 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 41298912 0x43A824: main (convertor.cpp:134)
+     n0: 139983 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 636112 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=17
+#-----------
+time=160442733
+mem_heap_B=252511167
+mem_heap_extra_B=403761
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=18
+#-----------
+time=168206736
+mem_heap_B=263303642
+mem_heap_extra_B=424966
+mem_stacks_B=0
+heap_tree=detailed
+n2: 263303642 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 262602642 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 262569831 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 262569831 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 262569831 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 110145312 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 110145312 0x43A824: main (convertor.cpp:134)
+     n1: 108250004 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 108250004 0x43A824: main (convertor.cpp:134)
+     n1: 44022464 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 44022464 0x43A824: main (convertor.cpp:134)
+     n0: 152051 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 701000 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=19
+#-----------
+time=175610006
+mem_heap_B=274049555
+mem_heap_extra_B=445485
+mem_stacks_B=0
+heap_tree=detailed
+n2: 274049555 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 273314715 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 273281904 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 273281904 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 273281904 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 114084160 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 114084160 0x43A824: main (convertor.cpp:134)
+     n1: 113082784 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 113082784 0x43A824: main (convertor.cpp:134)
+     n1: 45956960 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 45956960 0x43A824: main (convertor.cpp:134)
+     n0: 158000 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 734840 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=20
+#-----------
+time=183479104
+mem_heap_B=285236813
+mem_heap_extra_B=467731
+mem_stacks_B=0
+heap_tree=detailed
+n2: 285236813 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 284465421 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 284432610 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 284432610 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 284432610 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 118910656 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 118910656 0x43A824: main (convertor.cpp:134)
+     n1: 118050715 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 118050715 0x43A824: main (convertor.cpp:134)
+     n1: 47306528 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 47306528 0x43A824: main (convertor.cpp:134)
+     n0: 164711 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 771392 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=21
+#-----------
+time=191584314
+mem_heap_B=296814905
+mem_heap_extra_B=490999
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=22
+#-----------
+time=201838128
+mem_heap_B=311852666
+mem_heap_extra_B=520030
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=23
+#-----------
+time=212337760
+mem_heap_B=327957137
+mem_heap_extra_B=550535
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=24
+#-----------
+time=225195335
+mem_heap_B=344048056
+mem_heap_extra_B=588520
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=25
+#-----------
+time=231326839
+mem_heap_B=351929138
+mem_heap_extra_B=607214
+mem_stacks_B=0
+heap_tree=detailed
+n2: 351929138 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 350927770 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 350894959 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 350894959 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 350894959 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 148630679 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 148630679 0x43A824: main (convertor.cpp:134)
+     n1: 145583648 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 145583648 0x43A824: main (convertor.cpp:134)
+     n1: 56478144 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 56478144 0x43A824: main (convertor.cpp:134)
+     n0: 202488 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 1001368 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=26
+#-----------
+time=239496777
+mem_heap_B=362602316
+mem_heap_extra_B=631500
+mem_stacks_B=0
+heap_tree=detailed
+n2: 362602316 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 361560580 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 361527769 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 361527769 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 361527769 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 153328210 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 153328210 0x43A824: main (convertor.cpp:134)
+     n1: 149520960 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 149520960 0x43A824: main (convertor.cpp:134)
+     n1: 58469088 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 58469088 0x43A824: main (convertor.cpp:134)
+     n0: 209511 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 1041736 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=27
+#-----------
+time=247953506
+mem_heap_B=373527533
+mem_heap_extra_B=657019
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=28
+#-----------
+time=256673989
+mem_heap_B=385012307
+mem_heap_extra_B=684381
+mem_stacks_B=0
+heap_tree=detailed
+n2: 385012307 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 383883515 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 383850704 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 383850704 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 383850704 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 164310223 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 164310223 0x43A824: main (convertor.cpp:134)
+     n1: 158602144 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 158602144 0x43A824: main (convertor.cpp:134)
+     n1: 60712608 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 60712608 0x43A824: main (convertor.cpp:134)
+     n0: 225729 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 1128792 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=29
+#-----------
+time=268099893
+mem_heap_B=400604236
+mem_heap_extra_B=720596
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=30
+#-----------
+time=279724878
+mem_heap_B=416156342
+mem_heap_extra_B=757778
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=31
+#-----------
+time=286895559
+mem_heap_B=424305052
+mem_heap_extra_B=781084
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=32
+#-----------
+time=294413468
+mem_heap_B=432717665
+mem_heap_extra_B=805463
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=33
+#-----------
+time=303088198
+mem_heap_B=442647348
+mem_heap_extra_B=834116
+mem_stacks_B=0
+heap_tree=detailed
+n2: 442647348 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 441271012 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 441238201 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 441238201 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 441238201 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 193720099 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 193720099 0x43A824: main (convertor.cpp:134)
+     n1: 178335200 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 178335200 0x43A824: main (convertor.cpp:134)
+     n1: 68917024 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 68917024 0x43A824: main (convertor.cpp:134)
+     n0: 265878 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 1376336 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=34
+#-----------
+time=310586822
+mem_heap_B=451552660
+mem_heap_extra_B=859588
+mem_stacks_B=0
+heap_tree=detailed
+n2: 451552660 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 450134100 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 450101289 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 450101289 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 450101289 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 198539807 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 198539807 0x43A824: main (convertor.cpp:134)
+     n1: 180978336 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 180978336 0x43A824: main (convertor.cpp:134)
+     n1: 70309952 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 70309952 0x43A824: main (convertor.cpp:134)
+     n0: 273194 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 1418560 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=35
+#-----------
+time=318275797
+mem_heap_B=460652326
+mem_heap_extra_B=886298
+mem_stacks_B=0
+heap_tree=detailed
+n2: 460652326 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 459189902 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 459157091 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 459157091 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 459157091 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 203339122 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 203339122 0x43A824: main (convertor.cpp:134)
+     n1: 184259488 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 184259488 0x43A824: main (convertor.cpp:134)
+     n1: 71277568 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 71277568 0x43A824: main (convertor.cpp:134)
+     n0: 280913 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 1462424 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=36
+#-----------
+time=325127011
+mem_heap_B=468937081
+mem_heap_extra_B=909967
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=37
+#-----------
+time=332858759
+mem_heap_B=478312351
+mem_heap_extra_B=937345
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=38
+#-----------
+time=341515624
+mem_heap_B=487066105
+mem_heap_extra_B=968719
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=39
+#-----------
+time=351730984
+mem_heap_B=496733954
+mem_heap_extra_B=1006854
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=40
+#-----------
+time=359044911
+mem_heap_B=503859773
+mem_heap_extra_B=1034195
+mem_stacks_B=0
+heap_tree=detailed
+n2: 503859773 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 502153453 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 502120642 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 502120642 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 502120642 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 229578904 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 229578904 0x43A824: main (convertor.cpp:134)
+     n1: 196701920 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 196701920 0x43A824: main (convertor.cpp:134)
+     n1: 75518912 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 75518912 0x43A824: main (convertor.cpp:134)
+     n0: 320906 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 1706320 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=41
+#-----------
+time=369220194
+mem_heap_B=513991499
+mem_heap_extra_B=1073405
+mem_stacks_B=0
+heap_tree=detailed
+n2: 513991499 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 512220699 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 512187888 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 512187888 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 512187888 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 236058376 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 236058376 0x43A824: main (convertor.cpp:134)
+     n1: 199508640 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 199508640 0x43A824: main (convertor.cpp:134)
+     n1: 76288192 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 76288192 0x43A824: main (convertor.cpp:134)
+     n0: 332680 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 1770800 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=42
+#-----------
+time=377294920
+mem_heap_B=522253477
+mem_heap_extra_B=1105083
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=43
+#-----------
+time=382358276
+mem_heap_B=527424816
+mem_heap_extra_B=1125232
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=44
+#-----------
+time=390830681
+mem_heap_B=534871526
+mem_heap_extra_B=1159754
+mem_stacks_B=0
+heap_tree=detailed
+n2: 534871526 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 532958494 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 532925683 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 532925683 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 532925683 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 250039247 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 250039247 0x43A824: main (convertor.cpp:134)
+     n1: 205193568 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 205193568 0x43A824: main (convertor.cpp:134)
+     n1: 77338400 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 77338400 0x43A824: main (convertor.cpp:134)
+     n0: 354468 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 1913032 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=45
+#-----------
+time=401522498
+mem_heap_B=542477028
+mem_heap_extra_B=1205284
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=46
+#-----------
+time=408778203
+mem_heap_B=547875839
+mem_heap_extra_B=1236489
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=47
+#-----------
+time=420112695
+mem_heap_B=556534758
+mem_heap_extra_B=1286378
+mem_stacks_B=0
+heap_tree=detailed
+n2: 556534758 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 554413590 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 554380779 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 554380779 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 554380779 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 269172535 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 269172535 0x43A824: main (convertor.cpp:134)
+     n1: 208969216 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 208969216 0x43A824: main (convertor.cpp:134)
+     n1: 75846368 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 75846368 0x43A824: main (convertor.cpp:134)
+     n0: 392660 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 2121168 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=48
+#-----------
+time=427230956
+mem_heap_B=562098192
+mem_heap_extra_B=1318384
+mem_stacks_B=0
+heap_tree=detailed
+n2: 562098192 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 559924328 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 559891517 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 559891517 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 559891517 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 273900278 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 273900278 0x43A824: main (convertor.cpp:134)
+     n1: 209938848 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 209938848 0x43A824: main (convertor.cpp:134)
+     n1: 75649920 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 75649920 0x43A824: main (convertor.cpp:134)
+     n0: 402471 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 2173864 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=49
+#-----------
+time=433296356
+mem_heap_B=566220578
+mem_heap_extra_B=1348726
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=50
+#-----------
+time=437039344
+mem_heap_B=567682909
+mem_heap_extra_B=1370507
+mem_stacks_B=0
+heap_tree=detailed
+n2: 567682909 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 565432973 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 565400162 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 565400162 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 565400162 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 280479457 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 280479457 0x43A824: main (convertor.cpp:134)
+     n1: 209568868 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 209568868 0x43A824: main (convertor.cpp:134)
+     n1: 74940238 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 74940238 0x43A824: main (convertor.cpp:134)
+     n0: 411599 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 2249936 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=51
+#-----------
+time=442062776
+mem_heap_B=569399463
+mem_heap_extra_B=1399721
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=52
+#-----------
+time=447083777
+mem_heap_B=570856107
+mem_heap_extra_B=1429005
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=53
+#-----------
+time=452104958
+mem_heap_B=572054621
+mem_heap_extra_B=1458515
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=54
+#-----------
+time=457126489
+mem_heap_B=573027113
+mem_heap_extra_B=1488783
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=55
+#-----------
+time=458614939
+mem_heap_B=573250386
+mem_heap_extra_B=1497886
+mem_stacks_B=0
+heap_tree=peak
+n2: 573250386 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 570823250 0x4EF1687: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/libstdc++.so.6.0.20)
+  n1: 570790439 0x42B40E: char* std::string::_S_construct<char*>(char*, char*, std::allocator<char> const&, std::forward_iterator_tag) (basic_string.tcc:138)
+   n1: 570790439 0x4EF2FBF: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::string const&, unsigned long, unsigned long) (in /usr/lib/libstdc++.so.6.0.20)
+    n4: 570790439 0x4EF3013: std::string::substr(unsigned long, unsigned long) const (in /usr/lib/libstdc++.so.6.0.20)
+     n1: 295444502 0x425670: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:82)
+      n0: 295444502 0x43A824: main (convertor.cpp:134)
+     n1: 204864728 0x4256E3: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:84)
+      n0: 204864728 0x43A824: main (convertor.cpp:134)
+     n1: 70038845 0x425827: Suffix3::Suffix3(std::string&) (allhopeliesonyou_suffix.cpp:107)
+      n0: 70038845 0x43A824: main (convertor.cpp:134)
+     n0: 442364 in 2 places, all below massif's threshold (01.00%)
+  n0: 32811 in 2 places, all below massif's threshold (01.00%)
+ n0: 2427136 in 8 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=56
+#-----------
+time=463635701
+mem_heap_B=573838565
+mem_heap_extra_B=1529147
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=57
+#-----------
+time=468657780
+mem_heap_B=574147749
+mem_heap_extra_B=1561091
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=58
+#-----------
+time=473678208
+mem_heap_B=499859055
+mem_heap_extra_B=1370089
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=59
+#-----------
+time=478698837
+mem_heap_B=398910506
+mem_heap_extra_B=1092934
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=60
+#-----------
+time=483719461
+mem_heap_B=297983733
+mem_heap_extra_B=815563
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=61
+#-----------
+time=488740000
+mem_heap_B=196725783
+mem_heap_extra_B=538401
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=62
+#-----------
+time=493760587
+mem_heap_B=96840468
+mem_heap_extra_B=261556
+mem_stacks_B=0
+heap_tree=empty

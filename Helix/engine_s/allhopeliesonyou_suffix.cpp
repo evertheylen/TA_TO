@@ -2,7 +2,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
 #include <limits>
+#include <stdlib.h>
 
 #include "allhopeliesonyou_suffix.h"
 
@@ -11,9 +13,22 @@ Path::Path(int _errors, int _p, Node3* _node):
 		errors(_errors), pos_in_node(_p), node(_node) {}
 
 std::ostream& operator<<(std::ostream& out, Path& p) {
-	out << "Path at location " << p.node->tag << " position " << p.pos_in_node << " and " << p.errors << " errors.\n";
+	out << "Path at location [" << p.node->start << ":" << p.node->end << "[ " << " position " << p.pos_in_node << " and " << p.errors << " errors.\n";
 	return out;
 }
+
+void print_substring(std::string& s, Node3* n, std::ostream& out) {
+	out << s.substr(n->start, n->start - n->end);
+}
+
+bool eq(std::string& s, int a, int b) {
+	return (*(s.c_str()+a) == *(s.c_str()+b));
+}
+
+bool eq(const char* cstr, int a, int b) {
+	return (*(cstr+a) == *(cstr+b));
+}
+
 
 void generate_dot(Suffix3& s, std::string name, int i) {
 	//std::cout << "called!!!!!!!!!!!!!\n";
@@ -26,77 +41,99 @@ void generate_dot(Suffix3& s, std::string name, int i) {
 	f.close();
 }
 
+
 void Node3::add_child(Node3* c) {
 	children.push_back(c);
 }
 
-Node3::Node3(std::string _tag, int index):
-		tag(_tag), index_start(index) {}  // children een size meegeven
+Node3::Node3(int _start, int _end):
+		start(_start), end(_end) {}  // children een size meegeven? TODO
+
+int Node3::height(int above) {
+	int max = above;
+	for (Node3* child: children) {
+		int childheight = child->height(above+1);
+		if (childheight > max) max = childheight;
+	}
+	return max;
+}
 
 
-Suffix3::Suffix3(std::string& s) {
+Suffix3::Suffix3(std::string& _s):
+		s(_s) {
+	const char* cstr = s.c_str();
 	int len = s.length();
-	str_length = len;
-	root = new Node3("",0); // for the search_string( , int)
+	root = new Node3(0,0); // for the search_string( , int)
 	
 	// first run, insert in root
-	root->add_child(new Node3(s,0));
-	
-	//generate_dot(*this, "blabla", 0);
+	root->add_child(new Node3(0,len));
 	
 	// for each substring in s
 	for (int i=1; i<len; i++) {
-		std::string subs = s.substr(i);  // TODO optimalisation!
-		//std::cout << "\n--------------------------------\n";
-		//std::cout << subs << "\n";
-				
+		//std::string subs = s.substr(i);  // TODO optimalisation!
+		// subs = s[i:[
+		std::cout << "subs = " << s.substr(i, len-i) << "\n";
+		
 		// Step 1: find head and tail and locus?
 		Node3* current = root;
-		int end_head = 0;  // head = subs[0:end_head[
+		int end_head = 0;  // head = subs[i:i+end_head[
+		std::cout << "head = " << s.substr(i,i+end_head) << "\n";
 		
 		while (true) {
 			// for each child
 			for (Node3* child: current->children) {
-				//std::cout << "start for\n";
 				// compare char by char the tag of the child
 					// 3 cases:
 						// differs on first char --> check other child
 						// differs on some other char --> split! (end_head+++)
 						// does not differ --> current = child; end_head+++; break
-				if (child->tag[0] != subs[end_head]) {
+				//if (child->tag[0] != subs[end_head]) {
+				if (eq(cstr, child->start, i+end_head)) {
 					// check other child
-					//std::cout << "case 1, continue\n";
+					std::cout << "check other child\n";
 					continue;
 				}
 				
 				int current_pos=1;
-				for (; current_pos<child->tag.length(); current_pos++) {
-					//std::cout << "checking " << child->tag[current_pos] << " != " << subs[end_head+current_pos] << "\n";
-					if (child->tag[current_pos] != subs[end_head+current_pos]) {
+				int child_len = child->end - child->start;
+				for (; current_pos<child_len; current_pos++) {
+					//if (child->tag[current_pos] != subs[end_head+current_pos]) {
+					if (! eq(cstr, child->start+current_pos, i+end_head+current_pos)) {
 						// update stuff
 						end_head += current_pos;
+						std::cout << "  new head = " << s.substr(i,end_head) << "\n";
 						current = child;
 						
 						// split!
 						// add children, subs[end_head:] (aka tail) and child->tag[current_pos:]
-						Node3* parent_tail = new Node3(current->tag.substr(current_pos), current->index_start);
+						//Node3* parent_tail = new Node3(current->tag.substr(current_pos), current->index_start);
+						Node3* parent_tail = new Node3(current->start+current_pos, current->end);
+						std::cout << "  parent_tail = "; print_substring(s, parent_tail, std::cout); std::cout << "\n";
 						parent_tail->children = current->children;
-						Node3* new_tail = new Node3(subs.substr(end_head), i);
+						//Node3* new_tail = new Node3(subs.substr(end_head), i);
+						// ......i.....[ subs.substr(end_head) ]
+						// ............(i+end_head).............
+						// ......[         subs                ]
+						// .....................................(len)
+						Node3* new_tail = new Node3(i+end_head, len-i-end_head);
+						std::cout << "  new_tail = "; print_substring(s, new_tail, std::cout); std::cout << "\n";
 						
 						current->children.clear();
 						current->add_child(parent_tail);
 						current->add_child(new_tail);
 						
 						// set tag
-						current->tag = current->tag.substr(0, current_pos);
+						//current->tag = current->tag.substr(0, current_pos);
+						current->end = current->start + current_pos+1;
+						std::cout << "  new current = "; print_substring(s, current, std::cout); std::cout << "\n";
 						
-						//std::cout << "case 2, end_while\n";
 						goto end_while;
 					}
 				}
 				
 				current = child;
 				end_head += current_pos;
+				std::cout << " head = " << s.substr(i,end_head) << "\n";
 				//std::cout << "case 3, continue_while\n";
 				goto continue_while;
 			}
@@ -104,20 +141,14 @@ Suffix3::Suffix3(std::string& s) {
 			// extension of case 1: all childs have been checked
 			//std::cout << subs.length() << "\n";
 			//std::cout << end_head << "\n";
-			current->add_child(new Node3(subs.substr(end_head), i));  // add tail [end_head, end...[
+			//current->add_child(new Node3(subs.substr(end_head), i));  // add tail [end_head, end...[
+			current->add_child(new Node3(i+end_head, len));
+			std::cout << "add child = " << s.substr(i+end_head, end_head) << "\n";
 			goto end_while;
 			
 			continue_while:;
 		}
-		
 		end_while:;
-		
-		// Step 2: find locus and split if necessary (insert other stuff)  <-- tree may contain node with 1 child
-		
-		// Step 3: insert tail
-		
-		// Step 4: SsuUuUUUuUuuuUUUuuUUuuuuFfffFffFFffFFFFfFFfFFffFfFfIiIiiiiIIIIIiIiIiIiiiiXXxxXXXxXXXXXXxxX links
-		
 	}
 	
 	generate_dot(*this, "end", 0);
@@ -127,7 +158,7 @@ Suffix3::Suffix3(std::string& s) {
 }
 
 std::vector<int> Suffix3::search_string(std::string& str) {
-	std::vector<int> result;
+	std::vector<int> result; /*
 	Node3* current_node = root;
 	for (int i = 0; i < str.length(); i++){
 		for (auto child: current_node->children) {
@@ -150,21 +181,20 @@ std::vector<int> Suffix3::search_string(std::string& str) {
 					break;
 				} else {
 					current_node = child;
-					get_leaves(current_node/*, str_length-1*/, result);
+					get_leaves(current_node, result);
 					return result;
 				}
 			}
 		}
-	}
+	}*/
 	return result;
 }
 
 // we only support max_int-1 errors :)
 std::vector<int> Suffix3::search_string(std::string& str, int errors) {
 	std::vector<Path> paths = {Path(0, 0, root)};
-	
-	// paths solely go forward, not backward (parent) or right or left (siblings).
-	
+	/*
+	// paths solely go forward, not backward (parent) or right or left (siblings).	
 	for (int i=0; i<str.length(); i++) {
 		std::vector<Path> new_paths;
 
@@ -186,6 +216,7 @@ std::vector<int> Suffix3::search_string(std::string& str, int errors) {
 			}
 		}
 		paths.insert(paths.end(), new_paths.begin(), new_paths.end());
+		
 		// delete paths over their error count
 		for (int j=0; j<paths.size(); j++) {
 			if (paths[j].errors > errors) {
@@ -200,27 +231,19 @@ std::vector<int> Suffix3::search_string(std::string& str, int errors) {
 		std::cout << "--------\n";
 	}
 
+	*/
 	std::vector<int> result;
 	for (Path p: paths) {
-		std::cout << p.node->tag << std::endl;
-		get_leaves(p.node/*, str_length-1*/, result);
+		std::cout << p.node << std::endl;
+		get_leaves(p.node, result);
 	}
-	
 	return result;
 }
 
 
 void Suffix3::get_leaves(Node3* current_node, /*int length,*/ std::vector<int>& leaves) {
-	/*int shorter_length = length-current_node->tag.size();
 	if (current_node->children.empty()) {
-		leaves.push_back(shorter_length);
-	} else {
-		for (Node3* child: current_node->children) {
-			get_leaves(child, shorter_length, leaves);
-		}
-	}*/
-	if (current_node->children.empty()) {
-		leaves.push_back(current_node->index_start);
+		leaves.push_back(current_node->start); // NOT THE SAME DAMNIT TODO
 	} else {
 		for (Node3* child: current_node->children) {
 			get_leaves(child, leaves);
@@ -228,20 +251,6 @@ void Suffix3::get_leaves(Node3* current_node, /*int length,*/ std::vector<int>& 
 	}
 }
 
-/*
-int_and_node Suffix3::find_head(std::string& subs) {
-	Node3* current = root;
-	int end_head = 0;
-	
-	while (! different char) {
-		// for each child
-			// compare char by char the tag of the child
-	}
-	
-	
-	return int_and_node(44, new Node3("balbal"));
-}
-*/
 
 Suffix3::~Suffix3() {
 	delete root;
@@ -260,20 +269,25 @@ std::ostream& operator<<(std::ostream& stream, Suffix3& tree) {
 	//stream << "The root of this tree is: " << tree.get_root()->get_tag() << "\n" << *tree.get_root();
 	stream << "digraph suffix {\n" << "\tnode [shape = circle];\n";
 	int counter = 0;
-	tree.root->to_dot(stream, counter);
+	tree.root->to_dot(stream, counter, tree.s);
 	stream << '}';
 	return stream;
 }
 
-void Node3::to_dot(std::ostream& stream, int& i) {
+
+void Node3::to_dot(std::ostream& stream, int& i, std::string& s) {
 	if (! children.empty()) {
-		stream << '\t' << i << " [label= " << '"' << tag << '"' << "];" << "\n";
+		stream << '\t' << i << " [label= \"";
+		print_substring(s, this, stream);
+		stream << "\"];\n";
 		int parent_counter = i;
 		for (auto child: children) {
 			i++;
-			stream << '\t' << i << " [label= " << '"' << child->tag << '"' << "];\n";
+			stream << '\t' << i << " [label= \"";
+			print_substring(s, child, stream);
+			stream << "\"];\n";
 			stream << '\t' << parent_counter << " -> " << i << ";\n";
-			child->to_dot(stream, i);
+			child->to_dot(stream, i, s);
 		}
 	}
 }

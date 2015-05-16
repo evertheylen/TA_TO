@@ -6,12 +6,14 @@
 class Node3;
 class Suffix3;
 
+void print_substring(std::string& s, Node3* n, std::ostream& out);
+
+
 // Helper structs
 
 struct Path {
 	int errors;
 	int pos_in_node;
-
 
 
 	Node3* node;
@@ -24,17 +26,20 @@ struct Path {
 
 class Node3 {
 public:
-	std::string tag;
+	//std::string tag;  == s[start:end[
+	int start;
+	int end;
 	
 	std::vector<Node3*> children;
 	
-	int index_start;
 
-	Node3(std::string _tag, int index);
+	Node3(int _start, int _end);
 	
 	void add_child(Node3* c);
 	
-	void to_dot(std::ostream& stream, int& i);
+	void to_dot(std::ostream& stream, int& i, std::string& s);
+	
+	int height(int);
 	
 	~Node3();
 };
@@ -46,7 +51,7 @@ public:
 	
 // 	int_and_node find_head(std::string& subs);
 	
-	int str_length;
+	std::string s;
 
 	Node3* root;
 	

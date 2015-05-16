@@ -133,17 +133,19 @@ int main(int argc, char const* argv[]) {
 		std::string content = get_file_contents(arg);
 		Suffix3 suf(content);
 		
-		std::string search = "x";
-		std::vector<int> result = suf.search_string(search, 1);
-		std::string filename = arg;
-		filename += "_searchfor";
-		filename += search;
-		std::ofstream f(filename);
-		f << "Occurrences of the pattern " << search << " in " << content << std::endl;
- 		for (int k = 0; k < result.size(); k++) {
-			f << "Result found at position " << result.at(k) << "\n";
-		}
-		f.close();
+		std::cout << "height = " << suf.root->height(0);
+		
+// 		std::string search = "x";
+// 		std::vector<int> result = suf.search_string(search, 1);
+// 		std::string filename = arg;
+// 		filename += "_searchfor";
+// 		filename += search;
+// 		std::ofstream f(filename);
+// 		f << "Occurrences of the pattern " << search << " in " << content << std::endl;
+//  		for (int k = 0; k < result.size(); k++) {
+// 			f << "Result found at position " << result.at(k) << "\n";
+// 		}
+// 		f.close();
 
 	} else {
 		cout << "I don't understand " << mode << endl;
