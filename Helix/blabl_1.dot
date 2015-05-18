@@ -1,7 +1,0 @@
-digraph suffix {
-	node [shape = circle];
-	0 [label= ""];
-	1 [label= "mississippi$
-"];
-	0 -> 1;
-}
