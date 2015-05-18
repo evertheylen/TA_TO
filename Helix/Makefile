@@ -35,7 +35,7 @@ GUI: $(OBJS) $(LIBS)
 	@echo -e "\033[1;38;2;20;255;20;48;2;0;0;0m --> Building GUI \033[0m"
 	@echo -e "  |-> Preparing qmake"
 	@echo "$(OBJS) $(LIBS)" > ./GUI/obj_files  # 'communicating' with qmake
-	@sed -i "s:\./:\.\./:g" GUI/obj_files          # replacing ./ with ../
+	@sed -i '' "s:\./:\.\./:g" GUI/obj_files          # replacing ./ with ../
 	@echo -e "  |-> Calling qmake in GUI"
 	@cd GUI; qmake;
 	@echo -e "  |-> Calling make in GUI"
