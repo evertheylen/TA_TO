@@ -91,7 +91,7 @@ clean_tests:
 
 .PHONY: clean_GUI
 clean_GUI:
-	@find -name '*.o' -path './GUI/*' -delete
+	@find . -name '*.o' -path './GUI/*' -delete
 	@cd GUI; make clean;
 	@echo -e "\033[1;38;2;250;170;0;48;2;0;0;0m --> Cleaned GUI object files \033[0m"
 
