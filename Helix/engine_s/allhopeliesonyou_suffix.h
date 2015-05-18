@@ -30,6 +30,8 @@ public:
 	int start;
 	int end;
 	
+	Node3* suffix_link;
+
 	std::vector<Node3*> children;
 	
 

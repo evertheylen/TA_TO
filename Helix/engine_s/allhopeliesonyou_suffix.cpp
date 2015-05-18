@@ -48,7 +48,7 @@ void Node3::add_child(Node3* c) {
 }
 
 Node3::Node3(int _start, int _end):
-		start(_start), end(_end) {}  // children een size meegeven? TODO
+		start(_start), end(_end), suffix_link(nullptr) {}  // children een size meegeven? TODO
 
 int Node3::height(int above) {
 	int max = above;
@@ -68,17 +68,17 @@ Suffix3::Suffix3(std::string& _s):
 	
 	// first run, insert in root
 	root->add_child(new Node3(0,len));
-	
+	Node3* current = root;
 	// for each substring in s
-	for (int i=1; i<len; i++) {
+	for (int i=1; i<len-1; i++) {			// TODO Just for attention :) changed from len to len-1
 		//std::cout << "----------------------------------\n";
-		//generate_dot(*this, "blabl", i);
+		generate_dot(*this, "blabl", i);
 		
 		//std::string subs = s.substr(i);  // TODO optimalisation!
 		// subs = s[i:[
 		//std::cout << "subs = " << s.substr(i, len-i) << "\n";
-		
-		Node3* current = root;
+		Node3* previous_insert = nullptr;
+
 		int end_head = 0;  // head = subs[i:i+end_head[
 		//std::cout << "head = " << s.substr(i,end_head) << "\n";
 		
@@ -106,7 +106,6 @@ Suffix3::Suffix3(std::string& _s):
 						end_head += current_pos;
 						//std::cout << "  new head = " << s.substr(i,end_head) << "\n";
 						current = child;
-						
 						// split!
 						// add children, subs[end_head:] (aka tail) and child->tag[current_pos:]
 						//Node3* parent_tail = new Node3(current->tag.substr(current_pos), current->index_start);
@@ -118,7 +117,7 @@ Suffix3::Suffix3(std::string& _s):
 						// ............(i+end_head).............
 						// ......[         subs                ]
 						// .....................................(len)
-						Node3* new_tail = new Node3(i+end_head, len-i-end_head);
+						Node3* new_tail = new Node3(i+end_head, len/*-i-end_head*/);	//TODO Also for attention changed from len -i - end_head to len.
 						//std::cout << "  new_tail = "; print_substring(s, new_tail, //std::cout); //std::cout << "\n";
 						
 						current->children.clear();
@@ -131,6 +130,13 @@ Suffix3::Suffix3(std::string& _s):
 						//std::cout << "  new current = "; print_substring(s, current, //std::cout); //std::cout << "\n";
 						//std::cout << current->end - current->start << " == " << current_pos+1 << "\n";
 						
+						if (previous_insert != nullptr && end_head > 1) {
+							current->suffix_link = previous_insert;
+						} else {
+							current->suffix_link = root;
+						}
+						previous_insert = current;
+
 						goto end_while;
 					}
 				}
@@ -146,16 +152,22 @@ Suffix3::Suffix3(std::string& _s):
 			////std::cout << subs.length() << "\n";
 			////std::cout << end_head << "\n";
 			//current->add_child(new Node3(subs.substr(end_head), i));  // add tail [end_head, end...[
-			current->add_child(new Node3(i+end_head, len));
+			previous_insert = new Node3(i+end_head, len);
+			current->add_child(previous_insert);
 			//std::cout << "add child = " << s.substr(i+end_head, end_head) << "\n";
 			goto end_while;
 			
 			continue_while:;
 		}
 		end_while:;
+		if (current->suffix_link != nullptr) {
+			current = current->suffix_link;
+		} else {
+			current = root;
+		}
 	}
 	
-	//generate_dot(*this, "end", 0);
+	generate_dot(*this, "end", 0);
 	
 	//std::cerr << "Done.\n";
 	//std::cerr << root->children[0]->tag << "\n";
