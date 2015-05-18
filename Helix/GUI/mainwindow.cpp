@@ -20,7 +20,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     secDialog secdialog;
-    secdialog.setWindowTitle("The real Helix");
+    secdialog.setWindowTitle("The Real Helix");
     secdialog.setModal(true);
     secdialog.exec();
 }
