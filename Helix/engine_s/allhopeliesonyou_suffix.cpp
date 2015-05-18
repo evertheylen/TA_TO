@@ -72,7 +72,7 @@ Suffix3::Suffix3(std::string& _s):
 	// for each substring in s
 	for (int i=1; i<len-1; i++) {			// TODO Just for attention :) changed from len to len-1
 		//std::cout << "----------------------------------\n";
-		generate_dot(*this, "blabl", i);
+		//generate_dot(*this, "blabl", i);
 		
 		//std::string subs = s.substr(i);  // TODO optimalisation!
 		// subs = s[i:[
@@ -167,7 +167,7 @@ Suffix3::Suffix3(std::string& _s):
 		}
 	}
 	
-	generate_dot(*this, "end", 0);
+	//generate_dot(*this, "end", 0);
 	
 	//std::cerr << "Done.\n";
 	//std::cerr << root->children[0]->tag << "\n";
