@@ -9,6 +9,9 @@ Helix/GUI/moc_*.cpp
 Helix/GUI/qrc_*.cpp
 Helix/GUI/ui_*.h
 Helix/GUI/ui_*.h
+Helix/GUI/*.user*
+Helix/GUI/*.user
+Helix/GUI/Makefile
 
 # No suffix weird test shit :p
 FASTAex.txt
