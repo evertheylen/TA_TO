@@ -1,6 +1,7 @@
 # no executables pls
 convertor
 Helix/GUI/Helix
+Helix/perftests_suffix/execs/*
 
 # Kinda like precompiled C++
 Helix/GUI/*.pro.user.*
