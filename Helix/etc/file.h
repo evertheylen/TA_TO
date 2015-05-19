@@ -5,11 +5,12 @@
  *      Author: stijn
  */
 
-#include <string>
-#include <fstream>
-
 #ifndef FILE_H_
 #define FILE_H_
+
+#include <string>
+#include <fstream>
+#include "allhopeliesonyou_suffix.h"
 
 class File {
 public:
@@ -27,8 +28,12 @@ public:
 	 * Returns the filename.
 	 */
 	const std::string& get_name() const;
+
+	Suffix3* suffixtree;
 private:
 	std::ifstream file;
+
+	std::string name;
 };
 
 

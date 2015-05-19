@@ -2,6 +2,8 @@
 #define SECDIALOG_H
 
 #include <QDialog>
+#include "QLineEdit"
+#include "../etc/file.h"
 
 namespace Ui {
 class secDialog;
@@ -21,6 +23,7 @@ private slots:
 
 private:
     Ui::secDialog *ui;
+  // QLineEdit searchstr;
 };
 
 #endif // SECDIALOG_H

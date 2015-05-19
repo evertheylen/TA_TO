@@ -2,6 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <list>
+#include "../etc/file.h"
+
+struct testsearch {
+    int error;
+    std::string searchstr;
+};
 
 namespace Ui {
 class MainWindow;
@@ -13,6 +20,10 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+
+    std::list <testsearch> tests;
+    Suffix3* suffixtree;
+
     ~MainWindow();
 
 private slots:

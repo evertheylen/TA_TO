@@ -1,4 +1,7 @@
 
+#ifndef suffix3_H_
+#define suffix3_H_
+
 #include <string>
 #include <vector>
 #include <iostream>
@@ -73,3 +76,4 @@ public:
 	~Suffix3();
 };
 
+#endif

@@ -6,7 +6,6 @@
  */
 
 #include "file.h"
-#include "allhopeliesonyou_suffix.h"
 #include <fstream>
 #include <sstream>
 #include <list>
@@ -17,6 +16,7 @@ File::File(std::string filename) {
 	std::fstream f(filename.c_str());
 	int loc = 0;
     if (f.good()) {
+    	name = filename;
     	std::fstream suffixfile;
     	suffixfile.open(filename.c_str());
     	std::stringstream comments;
@@ -37,9 +37,9 @@ File::File(std::string filename) {
     		}
     	}
     	std::string str = suffix.str();
-    	Suffix3 s(str);
-    	std::string search = "CATTAC";
-    	std::vector<int> result = s.search_string(search);
+    	suffixtree = new Suffix3(str);
+    	/*std::string search = "sss";
+    	std::vector<int> result = suffixtree->search_string(search, 1);
     	int size = result.size();
     	std::ofstream output_file;
 		output_file.open("Commentsofthefastafile.txt");
@@ -52,11 +52,14 @@ File::File(std::string filename) {
  		f << "Occurrences of the pattern " << search << std::endl;
   		for (int k = 0; k < result.size(); k++) {
  			f << "Result found at position " << result.at(k) << "\n";
- 		}
+ 		}*/
     } else {
         throw 1;
     }
     f.close();
+}
 
+const std::string& File::get_name() const {
+	return name;
 }
 

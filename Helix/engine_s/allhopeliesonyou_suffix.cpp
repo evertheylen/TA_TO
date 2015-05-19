@@ -40,7 +40,7 @@ bool eq(const char* cstra, int a, const char* cstrb, int b) {
 
 
 void generate_dot(Suffix3& s, std::string name, int i) {
-	////std::cout << "called!!!!!!!!!!!!!\n";
+	//std::cout << "called!!!!!!!!!!!!!\n";
 	name += "_";
 	name += std::to_string(i);
 	name += ".dot";
@@ -175,7 +175,7 @@ Suffix3::Suffix3(std::string& _s):
 		}
 	}
 	
-	//generate_dot(*this, "end", 0);
+	generate_dot(*this, "end", 0);
 	
 	//std::cerr << "Done.\n";
 	//std::cerr << root->children[0]->tag << "\n";
