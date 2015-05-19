@@ -30,12 +30,14 @@ public:
 	int start;
 	int end;
 	
+	int index;
+
 	Node3* suffix_link;
 
 	std::vector<Node3*> children;
 	
 
-	Node3(int _start, int _end);
+	Node3(int _start, int _end, int _index);
 	
 	void add_child(Node3* c);
 	

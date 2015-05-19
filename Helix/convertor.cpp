@@ -129,16 +129,21 @@ int main(int argc, char const* argv[]) {
 			cout << "Match at index " << *i << " between " << arg << " and " << arg2 << " with amount of errors = " << 1 << endl;
 		}
 		*/
-		
-		std::string content = get_file_contents(arg);
-		Suffix3 suf(content);
+		try {
+			File f(arg);
+		} catch (int x) {
+			std::cerr << "Error: The specified file doesn't exist!";
+			return x;
+		}
+		/*std::string content = get_file_contents(arg);
+		Suffix3 suf(content);*/
 		
 		//std::cout << "height = " << suf.root->height(0);
-		
- 		std::string search = "CAT";
- 		std::vector<int> result = suf.search_string(search);
+		/*
+ 		std::string search = "sss";
+ 		std::vector<int> result = suf.search_string(search, 1);
  		std::string filename = arg;
- 		filename += "_searchfor";
+ 		filename += "_search_for_";
 		filename += search;
  		std::ofstream f(filename);
  		f << "Occurrences of the pattern " << search << " in " << content << std::endl;
@@ -146,7 +151,7 @@ int main(int argc, char const* argv[]) {
  			f << "Result found at position " << result.at(k) << "\n";
  		}
  		f.close();
-
+		*/
 	} else {
 		cout << "I don't understand " << mode << endl;
 	}

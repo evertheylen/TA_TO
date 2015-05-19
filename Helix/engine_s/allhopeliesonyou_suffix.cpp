@@ -30,6 +30,14 @@ bool eq(const char* cstr, int a, int b) {
 	return (*(cstr+a) == *(cstr+b));
 }
 
+bool eq(std::string& sa, int a, std::string& sb, int b) {
+	return (*(sa.c_str()+a) == *(sb.c_str()+b));
+}
+
+bool eq(const char* cstra, int a, const char* cstrb, int b) {
+	return (*(cstra+a) == *(cstrb+b));
+}
+
 
 void generate_dot(Suffix3& s, std::string name, int i) {
 	////std::cout << "called!!!!!!!!!!!!!\n";
@@ -47,8 +55,8 @@ void Node3::add_child(Node3* c) {
 	children.push_back(c);
 }
 
-Node3::Node3(int _start, int _end):
-		start(_start), end(_end), suffix_link(nullptr) {}  // children een size meegeven? TODO
+Node3::Node3(int _start, int _end, int _index):
+		start(_start), end(_end), index(_index), suffix_link(nullptr) {}  // children een size meegeven? TODO
 
 int Node3::height(int above) {
 	int max = above;
@@ -64,10 +72,10 @@ Suffix3::Suffix3(std::string& _s):
 		s(_s) {
 	const char* cstr = s.c_str();
 	int len = s.length();
-	root = new Node3(0,0); // for the search_string( , int)
+	root = new Node3(0,0,0); // for the search_string( , int)
 	
 	// first run, insert in root
-	root->add_child(new Node3(0,len));
+	root->add_child(new Node3(0,len,0));
 	Node3* current = root;
 	// for each substring in s
 	for (int i=1; i<len-1; i++) {			// TODO Just for attention :) changed from len to len-1
@@ -109,7 +117,7 @@ Suffix3::Suffix3(std::string& _s):
 						// split!
 						// add children, subs[end_head:] (aka tail) and child->tag[current_pos:]
 						//Node3* parent_tail = new Node3(current->tag.substr(current_pos), current->index_start);
-						Node3* parent_tail = new Node3(current->start+current_pos, current->end);
+						Node3* parent_tail = new Node3(current->start+current_pos, current->end, current->index);
 						//std::cout << "  parent_tail = "; print_substring(s, parent_tail, //std::cout); //std::cout << "\n";
 						parent_tail->children = current->children;
 						//Node3* new_tail = new Node3(subs.substr(end_head), i);
@@ -117,7 +125,7 @@ Suffix3::Suffix3(std::string& _s):
 						// ............(i+end_head).............
 						// ......[         subs                ]
 						// .....................................(len)
-						Node3* new_tail = new Node3(i+end_head, len/*-i-end_head*/);	//TODO Also for attention changed from len -i - end_head to len.
+						Node3* new_tail = new Node3(i+end_head, len/*-i-end_head*/, i);	//TODO Also for attention changed from len -i - end_head to len.
 						//std::cout << "  new_tail = "; print_substring(s, new_tail, //std::cout); //std::cout << "\n";
 						
 						current->children.clear();
@@ -152,7 +160,7 @@ Suffix3::Suffix3(std::string& _s):
 			////std::cout << subs.length() << "\n";
 			////std::cout << end_head << "\n";
 			//current->add_child(new Node3(subs.substr(end_head), i));  // add tail [end_head, end...[
-			previous_insert = new Node3(i+end_head, len);
+			previous_insert = new Node3(i+end_head, len, i);
 			current->add_child(previous_insert);
 			//std::cout << "add child = " << s.substr(i+end_head, end_head) << "\n";
 			goto end_while;
@@ -174,21 +182,17 @@ Suffix3::Suffix3(std::string& _s):
 }
 
 std::vector<int> Suffix3::search_string(std::string& str) {
-	std::vector<int> result; /*
+	std::vector<int> result;
 	Node3* current_node = root;
 	for (int i = 0; i < str.length(); i++){
 		for (auto child: current_node->children) {
 			////std::cout << " Searching " << child->get_tag() << "...\n";
-			if (str[i] != child->tag[0]) {
+			if (!eq(str, i, s, child->start)) {
 				continue;
 			} else {
 				////std::cout << "Match with " << child->get_tag()[0] << " at first position\n";
-				for (int j = 0; j < child->tag.length() && i < str.length(); j++) {
-					if (str[i] != child->tag[j]) {
-					//	//std::cerr << i << "th position in " << str << " doesn't match " << j << "th position in " << child->get_tag() << ".\n";
-					} else {
-						i++;
-					}
+				for (int j = 0; j < child->end - child->start && i < str.length(); j++) {
+					i++;
 				}
 				if (i < str.length()) {
 					current_node = child;
@@ -202,22 +206,24 @@ std::vector<int> Suffix3::search_string(std::string& str) {
 				}
 			}
 		}
-	}*/
+	}
 	return result;
 }
 
 // we only support max_int-1 errors :)
 std::vector<int> Suffix3::search_string(std::string& str, int errors) {
 	std::vector<Path> paths = {Path(0, 0, root)};
-	/*
+
 	// paths solely go forward, not backward (parent) or right or left (siblings).	
 	for (int i=0; i<str.length(); i++) {
 		std::vector<Path> new_paths;
 
 		for (Path& p: paths) {
-			if (p.pos_in_node+1 < p.node->tag.size()) {
+			//if (p.pos_in_node+1 < p.node->tag.size()) {
+			if (p.pos_in_node+1 < p.node->end - p.node->start) {
 				// we are still in this node
-				if (str[i] != p.node->tag[p.pos_in_node+1]) {
+				//if (str[i] != p.node->tag[p.pos_in_node+1]) {
+				if (! eq(str, i, s, p.node->start + p.pos_in_node + 1)) {
 					p.errors++;
 				}
 				p.pos_in_node++;
@@ -226,7 +232,8 @@ std::vector<int> Suffix3::search_string(std::string& str, int errors) {
 
 				// check all children for first character
 				for (Node3* child: p.node->children) {
-					new_paths.push_back(Path(p.errors+int(child->tag[0] != str[i]), 0, child));
+					//new_paths.push_back(Path(p.errors+int(child->tag[0] != str[i]), 0, child));
+					new_paths.push_back(Path(p.errors+int(!eq(s, child->start, str, i)), 0, child));
 				}
 				p.errors = std::numeric_limits<int>::max();
 			}
@@ -247,7 +254,7 @@ std::vector<int> Suffix3::search_string(std::string& str, int errors) {
 		//std::cout << "--------\n";
 	}
 
-	*/
+
 	std::vector<int> result;
 	for (Path p: paths) {
 		//std::cout << p.node << std::endl;
@@ -259,7 +266,7 @@ std::vector<int> Suffix3::search_string(std::string& str, int errors) {
 
 void Suffix3::get_leaves(Node3* current_node, /*int length,*/ std::vector<int>& leaves) {
 	if (current_node->children.empty()) {
-		leaves.push_back(current_node->start); // NOT THE SAME DAMNIT TODO
+		leaves.push_back(current_node->index);
 	} else {
 		for (Node3* child: current_node->children) {
 			get_leaves(child, leaves);
