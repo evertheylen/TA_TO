@@ -10,6 +10,7 @@
 #include "iostream"
 #include "QProcess"
 #include "QLabel"
+#include "QMessageBox"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -31,6 +32,7 @@ void MainWindow::on_pushButton_clicked()
 
     File f(fileName_str);
     suffixtree = f.suffixtree;
+    QMessageBox::information(this, tr("Suffixtree"), tr("The file was loaded and the suffixtree was created"));
     std::cout << f.get_name() << std::endl;
 
     QProcess dot_to_png;
