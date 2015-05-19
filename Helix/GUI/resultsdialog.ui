@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>resultsdialog</class>
  <widget class="QDialog" name="resultsdialog">
@@ -5,14 +6,70 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>634</width>
+    <height>366</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>10</y>
+     <width>59</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>0</y>
+     <width>81</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="logo.qrc">:/:/logos/HELIX2_negatief.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>50</y>
+     <width>631</width>
+     <height>311</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QTextBrowser" name="textBrowser"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="gobackttomainfromresults">
+      <property name="text">
+       <string>Go back</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="logo.qrc"/>
+ </resources>
  <connections/>
 </ui>

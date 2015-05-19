@@ -16,6 +16,7 @@ public:
     ~secDialog();
 
 private slots:
+    void on_ADD_clicked();
     void on_pushButton_clicked();
 
 private:

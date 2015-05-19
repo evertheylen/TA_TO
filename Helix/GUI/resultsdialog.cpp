@@ -12,3 +12,8 @@ resultsdialog::~resultsdialog()
 {
     delete ui;
 }
+
+void resultsdialog::on_gobackttomainfromresults_clicked()
+{
+    this->close();
+}

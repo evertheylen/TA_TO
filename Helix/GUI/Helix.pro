@@ -25,13 +25,19 @@ INCLUDEPATH += ../lib ../lib/FSM ../lib/tinyxml  ../engine_r ../engine_s ../etc
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    secdialog.cpp
+    secdialog.cpp \
+    addtestdialog.cpp \
+    resultsdialog.cpp
 
 HEADERS  += mainwindow.h \
-    secdialog.h
+    secdialog.h \
+    addtestdialog.h \
+    resultsdialog.h
 
 FORMS    += mainwindow.ui \
-    secdialog.ui
+    secdialog.ui \
+    addtestdialog.ui \
+    resultsdialog.ui
 
 RESOURCES += \
     logo.qrc

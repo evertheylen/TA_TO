@@ -14,48 +14,8 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: lightblue;</string>
+   <string notr="true"/>
   </property>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>310</y>
-     <width>186</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>-1</pointsize>
-     <weight>75</weight>
-     <italic>false</italic>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: lightgreen;
-    border-style: outset;
-    border-width: 2px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
-    min-width: 10em;
-    padding: 6px;</string>
-   </property>
-   <property name="text">
-    <string>Go back</string>
-   </property>
-   <property name="autoDefault">
-    <bool>true</bool>
-   </property>
-   <property name="default">
-    <bool>false</bool>
-   </property>
-   <property name="flat">
-    <bool>false</bool>
-   </property>
-  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
@@ -75,33 +35,94 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>10</y>
-     <width>181</width>
-     <height>21</height>
+     <y>21</y>
+     <width>651</width>
+     <height>341</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Specify the FASTA files here:</string>
-   </property>
-  </widget>
-  <widget class="QPlainTextEdit" name="plainTextEdit">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>30</y>
-     <width>151</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: white;
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0" colspan="2">
+     <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <pointsize>18</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Specify the FASTA file here:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="2">
+     <widget class="QPlainTextEdit" name="plainTextEdit">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
 </string>
-   </property>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="pushButton">
+      <property name="font">
+       <font>
+        <family>Helvetica</family>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>Go back</string>
+      </property>
+      <property name="autoDefault">
+       <bool>true</bool>
+      </property>
+      <property name="default">
+       <bool>false</bool>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QPushButton" name="ADD">
+      <property name="font">
+       <font>
+        <family>Helvetica</family>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>Add file</string>
+      </property>
+      <property name="autoDefault">
+       <bool>true</bool>
+      </property>
+      <property name="default">
+       <bool>false</bool>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
+  <zorder>pushButton</zorder>
+  <zorder>label</zorder>
+  <zorder>label_2</zorder>
+  <zorder>plainTextEdit</zorder>
+  <zorder>label_2</zorder>
+  <zorder>ADD</zorder>
  </widget>
  <resources>
   <include location="logo.qrc"/>

@@ -12,3 +12,14 @@ addtestdialog::~addtestdialog()
 {
     delete ui;
 }
+
+
+void addtestdialog::on_gobacktomain_clicked()
+{
+   this->close();
+}
+
+void addtestdialog::on_pushButton_clicked()
+{
+    //This function will add a test file thats specified in the plain text edit frame
+}

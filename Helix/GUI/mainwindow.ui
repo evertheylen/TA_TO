@@ -23,47 +23,40 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>250</y>
-      <width>186</width>
-      <height>51</height>
+      <x>0</x>
+      <y>0</y>
+      <width>181</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: lightgreen;
-    border-style: outset;
-    border-width: 2px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
-    min-width: 10em;
-    padding: 6px;</string>
+     <string notr="true">
+</string>
     </property>
     <property name="text">
-     <string>Open Helix</string>
+     <string>Add FASTA file</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="quitprogram">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>250</y>
+      <x>480</x>
+      <y>270</y>
       <width>186</width>
-      <height>51</height>
+      <height>31</height>
      </rect>
     </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
     <property name="autoFillBackground">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: lightgreen;
-    border-style: outset;
-    border-width: 2px;
-    border-radius: 10px;
-    border-color: beige;
-    font: bold 14px;
-    min-width: 10em;
-    padding: 6px;</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>Quit</string>
@@ -72,10 +65,10 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>30</y>
-      <width>381</width>
-      <height>171</height>
+      <x>580</x>
+      <y>0</y>
+      <width>81</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
@@ -86,6 +79,71 @@
     </property>
     <property name="scaledContents">
      <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="addtestbutton">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>20</y>
+      <width>181</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Add test file</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="runtests">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>270</y>
+      <width>181</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Run tests</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="results">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>140</y>
+      <width>181</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Watch result details</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>40</y>
+      <width>111</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Summary results:</string>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="textBrowser">
+    <property name="geometry">
+     <rect>
+      <x>385</x>
+      <y>61</y>
+      <width>281</width>
+      <height>211</height>
+     </rect>
     </property>
    </widget>
   </widget>
@@ -99,15 +157,11 @@
     </rect>
    </property>
    <widget class="QMenu" name="menuHELIX">
-    <property name="title">
-     <string>HELIX</string>
+    <property name="styleSheet">
+     <string notr="true">border:none;</string>
     </property>
    </widget>
-   <widget class="QMenu" name="menuDNA_matching">
-    <property name="title">
-     <string>DNA matching</string>
-    </property>
-   </widget>
+   <widget class="QMenu" name="menuDNA_matching"/>
    <addaction name="menuHELIX"/>
    <addaction name="menuDNA_matching"/>
   </widget>

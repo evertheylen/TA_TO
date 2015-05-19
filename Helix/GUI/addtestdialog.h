@@ -15,6 +15,12 @@ public:
     explicit addtestdialog(QWidget *parent = 0);
     ~addtestdialog();
 
+private slots:
+    void on_pushButton_clicked();
+
+    void on_gobacktomain_clicked();
+
+
 private:
     Ui::addtestdialog *ui;
 };

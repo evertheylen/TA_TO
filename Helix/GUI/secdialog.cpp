@@ -17,3 +17,8 @@ void secDialog::on_pushButton_clicked()
 {
     this->close();
 }
+
+void secDialog::on_ADD_clicked()
+{
+    //Function to load the fasta file
+}
