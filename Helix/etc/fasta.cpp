@@ -13,56 +13,44 @@ using namespace std;
 string fastaReplace(string str){
 	string returnVal;
 	
-	for (string::iterator it = str.begin(); it != str.end(); it++){
-		if (*it == 'A' or *it == 'C' or *it == 'U' or *it == 'T' or *it == 'G'){
-			returnVal += *it;
-			continue;
+	for (char c: str){
+		switch (c) {
+			case 'R':
+				returnVal += "(A+G)";
+				break;
+			case 'Y':
+				returnVal += "(C+T+U)";
+				break;
+			case 'K':
+				returnVal += "(G+T+U)";
+				break;
+			case 'M':
+				returnVal += "(A+C)";
+				break;
+			case 'S':
+				returnVal += "(C+G)";
+				break;
+			case 'W':
+				returnVal += "(A+T+U)";
+				break;
+			case 'B':
+				returnVal += "(C+G+T+U)";
+				break;
+			case 'D':
+				returnVal += "(A+G+T+U)";
+				break;
+			case 'H':
+				returnVal += "(A+C+T+U)";
+				break;
+			case 'V':
+				returnVal += "(A+C+G)";
+				break;
+			case 'N':
+				returnVal += "(A+C+G+T+U)";
+				break;
+			default:
+				returnVal += c;
 		}
-		if (*it == 'R'){
-			returnVal += "(A+G)";
-			continue;
-		}
-		if (*it == 'Y'){
-			returnVal += "(C+T+U)";
-			continue;
-		}
-		if (*it == 'K'){
-			returnVal += "(G+T+U)";
-			continue;
-		}
-		if (*it == 'M'){
-			returnVal += "(A+C)";
-			continue;
-		}
-		if (*it == 'S'){
-			returnVal += "(C+G)";
-			continue;
-		}
-		if (*it == 'W'){
-			returnVal += "(A+T+U)";
-			continue;
-		}
-		if (*it == 'B'){
-			returnVal += "(C+G+T+U)";
-			continue;
-		}
-		if (*it == 'D'){
-			returnVal += "(A+G+T+U)";
-			continue;
-		}
-		if (*it == 'H'){
-			returnVal += "(A+C+T+U)";
-			continue;
-		}
-		if (*it == 'V'){
-			returnVal += "(A+C+G)";
-			continue;
-		}
-		if (*it == 'N'){
-			returnVal += "(A+C+G+T+U)";
-			continue;
-		}
-		continue;
 	}
 	
 	return returnVal;
