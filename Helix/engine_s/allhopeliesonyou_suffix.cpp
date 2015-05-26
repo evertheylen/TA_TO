@@ -67,9 +67,13 @@ int Node3::height(int above) {
 	return max;
 }
 
+Suffix3::Suffix3(): s(""), root(nullptr) {}
 
-Suffix3::Suffix3(std::string& _s):
-		s(_s) {
+void Suffix3::add_char(char c) {
+	s += c;
+}
+
+void Suffix3::build() {
 	const char* cstr = s.c_str();
 	int len = s.length();
 	root = new Node3(0,0,0); // for the search_string( , int)

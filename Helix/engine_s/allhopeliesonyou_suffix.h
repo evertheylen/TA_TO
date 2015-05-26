@@ -54,7 +54,11 @@ public:
 
 class Suffix3 {
 public:
-	Suffix3(std::string& s);
+	Suffix3();
+
+	//Suffix3(std::string& s);
+
+	void build();
 	
 // 	int_and_node find_head(std::string& subs);
 	
@@ -62,6 +66,8 @@ public:
 
 	Node3* root;
 	
+	void add_char(char c);
+
 	std::vector<int> search_string(std::string& str);
 	/*
 	 * Returns a vector of indeces of where the substring occurs in your text. Returns an empty list if the string doesn't occur in the text.

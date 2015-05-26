@@ -19,26 +19,28 @@ File::File(std::string filename) {
     	name = filename;
     	std::fstream suffixfile;
     	suffixfile.open(filename.c_str());
-    	std::stringstream comments;
-    	std::stringstream suffix;
+    	std::string comments;
+    	//std::stringstream suffix;
     	char input;
+    	suffixtree = new Suffix3();
     	while (f.good()) {
     		f.get(input);
     		if (f.eof()) {
     			break;
     		}
     		if (input != '>' && input != '\n') {
-    			suffix << input;
+    			suffixtree->add_char(input);
     		} else if (input == '>'){
     			while (input != '\n') {
     				f.get(input);
-    				comments << input;
+    				comments += input;
     			}
     		}
     	}
-    	std::string str = suffix.str();
-    	content = str;
-    	suffixtree = new Suffix3(str);
+
+    	suffixtree->build();
+
+    	//suffixtree = new Suffix3(str);
     	/*std::string search = "sss";
     	std::vector<int> result = suffixtree->search_string(search, 1);
     	int size = result.size();
@@ -69,8 +71,8 @@ bool File::test(std::string search, int error) {
 	if (error == 0) {
 		for (int i = 0; i < result.size(); i++) {
 			for (int j = 0; j < search.length(); j++) {
-				if (search[j] != content[result.at(i)+j]) {
-					std::cerr << "Error: " << search << " doesn't equal " << content[result.at(i)] << " in the file at position " << result.at(i) << std::endl;
+				if (search[j] != suffixtree->s[result.at(i)+j]) {
+					std::cerr << "Error: " << search << " doesn't equal " << suffixtree->s[result.at(i)] << " in the file at position " << result.at(i) << std::endl;
 					return false;
 				}
 			}
@@ -79,11 +81,11 @@ bool File::test(std::string search, int error) {
 		for (int i = 0; i < result.size(); i++) {
 		int k = 0;
 			for (int j = 0; j < search.length(); j++) {
-				if (search[j] != content[result.at(i)+j]) {
+				if (search[j] != suffixtree->s[result.at(i)+j]) {
 					//std::cerr << "Error: " << search << " doesn't equal " << content[result.at(i)] << " in the file at position " << result.at(i) << std::endl;
 					k++;
 					if (k > error) {
-						std::cerr << "Error: " << search << " doesn't equal " << content[result.at(i)] << " in the file at position " << result.at(i) << std::endl;
+						std::cerr << "Error: " << search << " doesn't equal " << suffixtree->s[result.at(i)] << " in the file at position " << result.at(i) << std::endl;
 						return false;
 					}
 				}
