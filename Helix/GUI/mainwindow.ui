@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>665</width>
-    <height>337</height>
+    <width>1238</width>
+    <height>678</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -39,8 +39,8 @@
    <widget class="QPushButton" name="quitprogram">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>270</y>
+      <x>1050</x>
+      <y>600</y>
       <width>186</width>
       <height>31</height>
      </rect>
@@ -64,8 +64,8 @@
    <widget class="QLabel" name="helixlogo">
     <property name="geometry">
      <rect>
-      <x>580</x>
-      <y>0</y>
+      <x>1150</x>
+      <y>10</y>
       <width>81</width>
       <height>51</height>
      </rect>
@@ -125,8 +125,8 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>40</y>
+      <x>650</x>
+      <y>50</y>
       <width>121</width>
       <height>16</height>
      </rect>
@@ -138,10 +138,10 @@
    <widget class="QTextBrowser" name="textBrowser">
     <property name="geometry">
      <rect>
-      <x>385</x>
-      <y>61</y>
-      <width>281</width>
-      <height>211</height>
+      <x>645</x>
+      <y>71</y>
+      <width>591</width>
+      <height>481</height>
      </rect>
     </property>
    </widget>
@@ -151,7 +151,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>665</width>
+     <width>1238</width>
      <height>25</height>
     </rect>
    </property>

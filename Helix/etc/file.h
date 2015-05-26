@@ -24,6 +24,11 @@ public:
 	 */
 	const std::string& get_description() const;
 
+	bool test(std::string search, int error = 0);
+	/*
+	 * Returns whether or not the suffix tree is correctly build through a real test.
+	 */
+
 	/*
 	 * Returns the filename.
 	 */
@@ -32,7 +37,7 @@ public:
 	Suffix3* suffixtree;
 private:
 	std::ifstream file;
-
+	std::string content;
 	std::string name;
 };
 

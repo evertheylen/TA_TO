@@ -37,6 +37,7 @@ File::File(std::string filename) {
     		}
     	}
     	std::string str = suffix.str();
+    	content = str;
     	suffixtree = new Suffix3(str);
     	/*std::string search = "sss";
     	std::vector<int> result = suffixtree->search_string(search, 1);
@@ -61,5 +62,34 @@ File::File(std::string filename) {
 
 const std::string& File::get_name() const {
 	return name;
+}
+
+bool File::test(std::string search, int error) {
+	std::vector<int> result = suffixtree->search_string(search, error);
+	if (error == 0) {
+		for (int i = 0; i < result.size(); i++) {
+			for (int j = 0; j < search.length(); j++) {
+				if (search[j] != content[result.at(i)+j]) {
+					std::cerr << "Error: " << search << " doesn't equal " << content[result.at(i)] << " in the file at position " << result.at(i) << std::endl;
+					return false;
+				}
+			}
+		}
+	} else {
+		for (int i = 0; i < result.size(); i++) {
+		int k = 0;
+			for (int j = 0; j < search.length(); j++) {
+				if (search[j] != content[result.at(i)+j]) {
+					//std::cerr << "Error: " << search << " doesn't equal " << content[result.at(i)] << " in the file at position " << result.at(i) << std::endl;
+					k++;
+					if (k > error) {
+						std::cerr << "Error: " << search << " doesn't equal " << content[result.at(i)] << " in the file at position " << result.at(i) << std::endl;
+						return false;
+					}
+				}
+			}
+		}
+	}
+	return true;
 }
 
