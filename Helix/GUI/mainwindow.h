@@ -20,7 +20,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-
+    int testcount;
     std::list <testsearch> tests;
     Suffix3* suffixtree;
 

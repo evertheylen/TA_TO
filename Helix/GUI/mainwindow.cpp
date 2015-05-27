@@ -13,13 +13,13 @@
 #include "QMessageBox"
 #include "QTableWidgetItem"
 #include "QTableWidget"
+#include <string>
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
+    QMainWindow(parent),testcount(1),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
 }
 
 MainWindow::~MainWindow()
@@ -66,7 +66,19 @@ void MainWindow::on_addtestbutton_clicked()     // Input new query knop
     secDialog secdialog(this);
     secdialog.setWindowTitle("Search patterns for suffix tree");
     secdialog.setModal(true);
-    secdialog.exec();/*
+    secdialog.exec();
+
+    std::cout << tests.size() << std::endl;
+    for (int i=0;i<tests.size();i++){
+        std::string newtest;
+        ui->tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        ui->tableWidget->insertColumn(ui->tableWidget->columnCount());
+        newtest = "Test " + std::to_string(testcount);
+        testcount++;
+        ui->tableWidget->setHorizontalHeaderItem(ui->tableWidget->columnCount()-1, new QTableWidgetItem(QString::fromStdString(newtest)));
+        ui->tableWidget->resizeColumnsToContents();
+    }
+    /*
     addtestdialog addtest;
     addtest.setWindowTitle("Add test file");
     addtest.setModal(true);

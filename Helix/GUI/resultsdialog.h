@@ -19,6 +19,7 @@ private slots:
 
     void on_gobackttomainfromresults_clicked();
 
+
 private:
     Ui::resultsdialog *ui;
 };
