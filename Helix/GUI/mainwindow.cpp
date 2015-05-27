@@ -109,3 +109,8 @@ void MainWindow::on_runtests_clicked()
     }
 }
 
+
+void MainWindow::on_tableWidget_cellClicked(int row, int column)
+{
+     QMessageBox::information(this, tr("Fasta comments"), tr("The comments of the fasta file will appear here: "));
+}
