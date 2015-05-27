@@ -1,0 +1,2 @@
+/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/gtest/CMakeFiles/gtest.dir
+/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/gtest/CMakeFiles/gtest_main.dir

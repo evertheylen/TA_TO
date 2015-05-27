@@ -1,3 +1,7 @@
+
+#ifndef _H_CompactDFA
+#define _H_CompactDFA
+
 #include <vector>
 
 #include "FSM.h"
@@ -67,3 +71,5 @@ public:
 	bool is_final(int s);
 };
 
+
+#endif

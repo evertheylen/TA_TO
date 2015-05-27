@@ -100,7 +100,7 @@ void MainWindow::on_runtests_clicked()
     double progress = 0.0;
     double progress_advance = 100/(size-1);
     for (int i = 0; i < size; i++) {
-        std::vector<int> result = suffixtree->search_string(tests.front().searchstr, tests.front().error);
+        std::vector<int> result = {}; // suffixtree->search_string(tests.front().searchstr, tests.front().error);
         QString input = "Results for search ";
         input += QString::fromStdString(tests.front().searchstr);
         input += " with ";

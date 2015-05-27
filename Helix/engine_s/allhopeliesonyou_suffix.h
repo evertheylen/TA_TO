@@ -11,6 +11,8 @@ class Suffix3;
 
 void print_substring(std::string& s, Node3* n, std::ostream& out);
 
+void generate_dot(Suffix3& s, std::string name, int i);
+
 
 // Helper structs
 
@@ -51,6 +53,7 @@ public:
 	~Node3();
 };
 
+class SuffixPosition;
 
 class Suffix3 {
 public:
@@ -67,7 +70,9 @@ public:
 	Node3* root;
 	
 	void add_char(char c);
-
+	
+	char get(SuffixPosition& pos);
+	
 	std::vector<int> search_string(std::string& str);
 	/*
 	 * Returns a vector of indeces of where the substring occurs in your text. Returns an empty list if the string doesn't occur in the text.

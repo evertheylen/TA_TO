@@ -76,7 +76,7 @@ const std::string& File::get_name() const {
 }
 
 bool File::test(std::string search, int error) {
-	std::vector<int> result = suffixtree->search_string(search, error);
+	std::vector<int> result = {}; //suffixtree->search_string(search, error); TODO
 	if (error == 0) {
 		for (int i = 0; i < result.size(); i++) {
 			for (int j = 0; j < search.length(); j++) {
