@@ -27,7 +27,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_results_clicked();
+    //void on_results_clicked();
 
     void on_addtestbutton_clicked();
 

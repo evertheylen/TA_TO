@@ -11,6 +11,8 @@
 #include "QProcess"
 #include "QLabel"
 #include "QMessageBox"
+#include "QTableWidgetItem"
+#include "QTableWidget"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -25,7 +27,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_pushButton_clicked()        // Input file knop :p
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),"",tr("Files (*.txt)"));
     std::string fileName_str = fileName.toUtf8().constData();
@@ -33,18 +35,22 @@ void MainWindow::on_pushButton_clicked()
     File f(fileName_str);
     suffixtree = f.suffixtree;
     QMessageBox::information(this, tr("Suffixtree"), tr("The file was loaded and the suffixtree was created"));
-    std::cout << f.get_name() << std::endl;
+    ui->tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+    ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, new QTableWidgetItem(QString::fromStdString(f.get_name())));
+    ui->tableWidget->resizeColumnsToContents();
+    //std::cout << f.get_name() << std::endl;
 
-    QProcess dot_to_png;
+    //QProcess dot_to_png;
 
-    dot_to_png.start("dot -Tpng end_0.dot -o suffix.png");
-    dot_to_png.waitForFinished(-1);
+    //dot_to_png.start("dot -Tpng end_0.dot -o suffix.png");
+    //dot_to_png.waitForFinished(-1);
 
-    QLabel * label_img = new QLabel (this);
+    /*QLabel * label_img = new QLabel (this);
     label_img->setWindowFlags(Qt::Window);
 
     label_img->setPixmap(QPixmap("suffix.png", 0, Qt::AutoColor));
-    label_img->show();
+    label_img->show();*/
     //QString path = QDir::toNativeSeparators(QApplication::applicationDirPath());
     //QDesktopServices::openUrl(QUrl("file:///" + path));
 
@@ -55,7 +61,7 @@ void MainWindow::on_quitprogram_clicked()
     this->close();
 }
 
-void MainWindow::on_addtestbutton_clicked()
+void MainWindow::on_addtestbutton_clicked()     // Input new query knop
 {
     secDialog secdialog(this);
     secdialog.setWindowTitle("Search patterns for suffix tree");
@@ -67,18 +73,20 @@ void MainWindow::on_addtestbutton_clicked()
     addtest.exec();*/
 }
 
-void MainWindow::on_results_clicked()
+/*void MainWindow::on_results_clicked()
 {
     //This button will show us the detailed results from the test
     resultsdialog results;
     results.setWindowTitle("Detailed results");
     results.setModal(true);
     results.exec();
-}
+}*/
 
 void MainWindow::on_runtests_clicked()
 {
     int size = tests.size();
+    double progress = 0.0;
+    double progress_advance = 100/(size-1);
     for (int i = 0; i < size; i++) {
         std::vector<int> result = suffixtree->search_string(tests.front().searchstr, tests.front().error);
         QString input = "Results for search ";
@@ -94,6 +102,9 @@ void MainWindow::on_runtests_clicked()
             index += QString::number(result.at(j));
             ui->textBrowser->append(index);
         }
+        progress += progress_advance;
+        ui->progressBar->setValue(progress);
+
         tests.pop_front();
     }
 }

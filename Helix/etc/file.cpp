@@ -9,7 +9,7 @@
 #include <fstream>
 #include <sstream>
 #include <list>
-#include <iostream>
+#include <iostream> 
 //#include "ukkonen_suffix.h"
 
 File::File(std::string filename) {
@@ -17,6 +17,15 @@ File::File(std::string filename) {
 	int loc = 0;
     if (f.good()) {
     	name = filename;
+    	std::string good_name;
+    	for (int i = name.length()-1; i >= 0; i--) {
+            if (name[i] == '/') {    	
+                break;
+            } else {
+                good_name += name[i];
+            }
+    	}
+    	name = std::string(good_name.rbegin(), good_name.rend());
     	std::fstream suffixfile;
     	suffixfile.open(filename.c_str());
     	std::string comments;

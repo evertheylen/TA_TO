@@ -24,7 +24,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
+      <y>50</y>
       <width>181</width>
       <height>31</height>
      </rect>
@@ -33,7 +33,7 @@
      <string notr="true"/>
     </property>
     <property name="text">
-     <string>Add FASTA file</string>
+     <string>Add new file</string>
     </property>
    </widget>
    <widget class="QPushButton" name="quitprogram">
@@ -61,30 +61,11 @@
      <string>Quit</string>
     </property>
    </widget>
-   <widget class="QLabel" name="helixlogo">
-    <property name="geometry">
-     <rect>
-      <x>1150</x>
-      <y>10</y>
-      <width>81</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="logo.qrc">:/:/logos/HELIX2_negatief.png</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QPushButton" name="addtestbutton">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>30</y>
+      <y>80</y>
       <width>181</width>
       <height>31</height>
      </rect>
@@ -93,40 +74,27 @@
      <string notr="true"/>
     </property>
     <property name="text">
-     <string>Input new test</string>
+     <string>Input new query</string>
     </property>
    </widget>
    <widget class="QPushButton" name="runtests">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>270</y>
+      <x>1000</x>
+      <y>40</y>
       <width>181</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>Run tests</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="results">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>140</y>
-      <width>181</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Watch result details</string>
+     <string>Run all queries</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>50</y>
+      <x>820</x>
+      <y>250</y>
       <width>121</width>
       <height>16</height>
      </rect>
@@ -138,12 +106,65 @@
    <widget class="QTextBrowser" name="textBrowser">
     <property name="geometry">
      <rect>
-      <x>645</x>
-      <y>71</y>
-      <width>591</width>
-      <height>481</height>
+      <x>790</x>
+      <y>270</y>
+      <width>421</width>
+      <height>281</height>
      </rect>
     </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>231</y>
+      <width>771</width>
+      <height>331</height>
+     </rect>
+    </property>
+    <column>
+     <property name="text">
+      <string>Files</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>10</y>
+      <width>502</width>
+      <height>183</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="helixlogo">
+       <property name="maximumSize">
+        <size>
+         <width>500</width>
+         <height>150</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="logo.qrc">:/:/logos/HELIX2_negatief.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item alignment="Qt::AlignVCenter">
+      <widget class="QProgressBar" name="progressBar">
+       <property name="value">
+        <number>0</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

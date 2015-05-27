@@ -18,7 +18,7 @@ CXXFLAGS      = -m64 -pipe -std=c++11 -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I. -I../lib -I../lib/FSM -I../lib/tinyxml -I../engine_r -I../engine_s -I../etc -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -I.
 LINK          = g++
 LFLAGS        = -m64 -Wl,-O1
-LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 ../engine_s/mccreight_suffix.o ../engine_s/suffix.o ../engine_s/allhopeliesonyou_suffix.o ../engine_s/ukkonen_suffix.o ../etc/file.o ../engine_r/TFA/TFA.o ../lib/FSM/FSM.o ../lib/FSM/Run.o ../lib/tinyxml/tinystr.o ../lib/tinyxml/tinyxmlerror.o ../lib/tinyxml/tinyxmlparser.o ../lib/tinyxml/tinyxml.o -lQt5Widgets -L/usr/lib/x86_64-linux-gnu -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 ../engine_s/mccreight_suffix.o ../engine_s/suffix.o ../engine_s/allhopeliesonyou_suffix.o ../engine_s/ukkonen_suffix.o ../etc/fasta.o ../etc/file.o ../engine_r/TFA/TFA.o ../lib/FSM/CompactDFA.o ../lib/FSM/FSM.o ../lib/FSM/Run.o ../lib/tinyxml/tinystr.o ../lib/tinyxml/tinyxmlerror.o ../lib/tinyxml/tinyxmlparser.o ../lib/tinyxml/tinyxml.o -lQt5Widgets -L/usr/lib/x86_64-linux-gnu -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
@@ -1078,9 +1078,14 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/usr/include/qt5/QtWidgets/qmenu.h \
 		/usr/include/qt5/QtWidgets/QMenuBar \
 		/usr/include/qt5/QtWidgets/qmenubar.h \
+		/usr/include/qt5/QtWidgets/QProgressBar \
+		/usr/include/qt5/QtWidgets/qprogressbar.h \
 		/usr/include/qt5/QtWidgets/QPushButton \
 		/usr/include/qt5/QtWidgets/qpushbutton.h \
 		/usr/include/qt5/QtWidgets/qabstractbutton.h \
+		/usr/include/qt5/QtWidgets/QTableWidget \
+		/usr/include/qt5/QtWidgets/qtablewidget.h \
+		/usr/include/qt5/QtWidgets/qtableview.h \
 		/usr/include/qt5/QtWidgets/QTextBrowser \
 		/usr/include/qt5/QtWidgets/qtextbrowser.h \
 		/usr/include/qt5/QtWidgets/qtextedit.h \
@@ -1091,6 +1096,11 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/usr/include/qt5/QtGui/qpen.h \
 		/usr/include/qt5/QtWidgets/QToolBar \
 		/usr/include/qt5/QtWidgets/qtoolbar.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
 		/usr/include/qt5/QtWidgets/QWidget \
 		secdialog.h \
 		/usr/include/qt5/QtWidgets/QDialog \
@@ -1286,7 +1296,8 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/usr/include/qt5/QtWidgets/qfiledialog.h \
 		/usr/include/qt5/QtCore/QProcess \
 		/usr/include/qt5/QtWidgets/QMessageBox \
-		/usr/include/qt5/QtWidgets/qmessagebox.h
+		/usr/include/qt5/QtWidgets/qmessagebox.h \
+		/usr/include/qt5/QtWidgets/QTableWidgetItem
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 secdialog.o: secdialog.cpp secdialog.h \
@@ -1423,6 +1434,9 @@ secdialog.o: secdialog.cpp secdialog.h \
 		/usr/include/qt5/QtGui/qinputmethod.h \
 		/usr/include/qt5/QtWidgets/QButtonGroup \
 		/usr/include/qt5/QtWidgets/qbuttongroup.h \
+		/usr/include/qt5/QtWidgets/QCheckBox \
+		/usr/include/qt5/QtWidgets/qcheckbox.h \
+		/usr/include/qt5/QtWidgets/qabstractbutton.h \
 		/usr/include/qt5/QtWidgets/QGridLayout \
 		/usr/include/qt5/QtWidgets/qgridlayout.h \
 		/usr/include/qt5/QtWidgets/qlayout.h \
@@ -1450,11 +1464,8 @@ secdialog.o: secdialog.cpp secdialog.h \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/QPushButton \
 		/usr/include/qt5/QtWidgets/qpushbutton.h \
-		/usr/include/qt5/QtWidgets/qabstractbutton.h \
 		/usr/include/qt5/QtWidgets/QSpinBox \
 		/usr/include/qt5/QtWidgets/qspinbox.h \
-		/usr/include/qt5/QtWidgets/QVBoxLayout \
-		/usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtCore/QString \
 		mainwindow.h \
 		/usr/include/qt5/QtWidgets/QMainWindow \
