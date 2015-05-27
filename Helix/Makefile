@@ -30,6 +30,13 @@ convertor: $(OBJS) $(LIBS) convertor.o
 	@echo -e "\033[1;38;2;20;255;20;48;2;0;0;0m --> Compiling and linking $@ \033[0m"
 	$(CXX) $(CXXFLAGS) -o $@ $(OBJS) $(LIBS) convertor.o
 
+
+.PHONY: evert_gedoe
+evert_gedoe: $(OBJS) $(LIBS) evert_gedoe.o
+	@echo -e "\033[1;38;2;20;255;20;48;2;0;0;0m --> Compiling and linking $@ \033[0m"
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS) $(LIBS) evert_gedoe.o
+
+
 .PHONY: GUI
 GUI: $(OBJS) $(LIBS)
 	@echo -e "\033[1;38;2;20;255;20;48;2;0;0;0m --> Building GUI \033[0m"
