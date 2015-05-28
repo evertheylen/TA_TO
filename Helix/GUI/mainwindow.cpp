@@ -30,7 +30,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()        // Input file knop :p
 {
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),"",tr("Files (*.txt)"));
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),"",tr("Files (*.*)"));
     std::string fileName_str = fileName.toUtf8().constData();
 
     File f(fileName_str);
