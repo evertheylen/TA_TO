@@ -48,12 +48,18 @@ DFA<StateT, SymbolT> MSSC(eNFA<StateT, SymbolT, epsilon>& N) {
 	typedef typename DFA<StateT, SymbolT>::Bimap::value_type insert_type;
 	
 	for (auto it: states) {
+		bool final = false;
 		std::string s = "{";
 		for (auto subs: it.first) {
 			s += N.realState(subs) + ",";
+			if (N.isFinal(subs)) {
+				final = true;
+			}
 		}
 		s += "}";
 		D.map.insert(insert_type(it.second, s));
+		
+		if (final) D.F.insert(it.second);
 	}
 	
 	return D;
@@ -72,7 +78,7 @@ void recursive_add(DFA<StateT, SymbolT>& D, eNFA<StateT, SymbolT, epsilon>& N,
 		//print(w.current);
 		auto wtf = states.find(w.current);
 		if (wtf == states.end()) {
-			states[w.current] = states.size();
+			states[w.current] = states.size()-1; // this -1 is a *bit* weird
 			recursive_add(D, N, states, w.current);
 		} else {
 			//print(wtf->first);

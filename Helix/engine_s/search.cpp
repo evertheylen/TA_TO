@@ -93,7 +93,7 @@ DFAPosition::DFAPosition(int s, char c):
 std::vector<DFAPosition> DFAPosition::branch(CompactDFA& D) {
 	std::vector<DFAPosition> result;
 	for (int i_a=0; i_a<D.sigma.size(); i_a++) {
-		if (!D.is_dead(D.d_data[state][i_a])) {
+		if (!D.is_dead(D.d_data.at(state).at(i_a))) {
 			result.emplace_back(DFAPosition(D.d_data[state][i_a], D.sigma[i_a]));
 		}
 	}
@@ -162,8 +162,8 @@ Match::Match(FancyPath& p, Suffix3& suf):
 		FancyPath(p) {
 	// Save locations
 	suf.get_leaves(p.suf_pos.node, locations);
-	for (int& i: locations) {
-		i += p.suf_pos.pos_in_node;
+	for (int i=0; i<locations.size(); i++) {
+		locations[i] += p.suf_pos.pos_in_node;
 	}
 }
 
@@ -183,19 +183,23 @@ std::string Match::format(File& file) {
 			firstline << ' ';
 		}
 		
-		if (fc.s == current) {
-			// Keep going in the right color
-			secondline << fc.c;
-		} else {
+		if (fc.s != current) {
 			html_close_status(current, secondline);
 			current = fc.s;
 			html_open_status(current, secondline);
 		}
+		secondline << fc.c;
 	}
+	html_close_status(current, secondline);
 	
 	// merge the two lines
-	firstline << "\n" << secondline.str();
-	return firstline.str();
+	//firstline << "\n";
+	//firstline << secondline.str();
+	//return std::string(firstline.str());
+	
+	std::cout << "first: " << firstline.str() << "\n";
+	std::cout << "secnd: " << secondline.str() << "\n";
+	return std::string("");
 }
 
 
@@ -205,10 +209,9 @@ std::string Match::format(File& file) {
 
 Result::Result(std::vector<FancyPath>& paths, File& f, Query& q):
 			file(f), query(q) {
-	std::cout << "creating results\n";
 	for (FancyPath& fp: paths) {
-		std::cout << "Adding path:\n";
-		fp.print(std::cout, *(file.suffixtree));
+// 		std::cout << "Adding path:\n";
+// 		fp.print(std::cout, *(file.suffixtree));
 		matches.push_back(Match(fp, *(file.suffixtree)));
 	}
 }
@@ -225,9 +228,19 @@ Query::Query(std::string& fancypattern, int f, int s, int r, int i, int m):
 	// All of the theory and algorithms have led up to this:
 	// Converting the fancypattern to a single DFA.
 	std::vector<std::string> pats = fastaReplace(fancypattern);
-	std::cout << "Query about to create DFA\n";
+// 	std::cout << "Query about to create DFA\n";
 	if (pats.size() == 1) {
 		auto DFA = to_DFA<std::string, char, 'e'>(pats[0]);
+		
+		
+// 		std::cout << "####### DFA ########\n";
+// 		for (int s=0; s<DFA.num_states; s++) {
+// 			for (char c: DFA.sigma) {
+// 				std::cout << "delta[" << s << "][" << c << "] = " << DFA.d_data.at(s).at(c) << "\n";
+// 			}
+// 		}
+// 		std::cout << "###################\n";
+		
 		D = CompactDFA(DFA);
 	} else {
 		// at least two DFA's
@@ -240,6 +253,15 @@ Query::Query(std::string& fancypattern, int f, int s, int r, int i, int m):
 		}
 		D = CompactDFA(currentD);
 	}
+	
+	// DFA Table
+// 	std::cout << "###################\n";
+// 	for (int s=0; s<D.num_states; s++) {
+// 		for (int ia=0; ia<D.sigma.size(); ia++) {
+// 			std::cout << "delta[" << s << "][" << D.sigma[ia] << "] = " << D.d_data.at(s).at(ia) << "\n";
+// 		}
+// 	}
+// 	std::cout << "###################\n";
 }
 
 Result Query::search(File& f) {
@@ -305,7 +327,7 @@ std::vector<FancyPath> Query::real_search(Suffix3& suf) {
 					if (new_dfa_pos.prev_char != new_char) {
 						// Fake character!
 						if (can_add_fake) {
-							new_path.add_fake(new_char);
+							new_path.add_fake(new_dfa_pos.prev_char);
 							new_set.push_back(new_path);
 						}
 					} else {
@@ -337,9 +359,9 @@ std::vector<FancyPath> Query::real_search(Suffix3& suf) {
 		}
 		
 		working_set = new_set;
-
+		
 		// kill paths with too much errors or dead states --> Not needed anymore! yay!
-
+		
 		// insert final paths into result
 		for (FancyPath& path: working_set) {
 			if (D.is_final(path.dfa_pos.state)) {

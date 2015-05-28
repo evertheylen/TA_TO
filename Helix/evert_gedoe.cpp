@@ -85,7 +85,7 @@ int main() {
 // 	
 // 	generate_dot(suf, "Tadaa", 0);
 	
-	std::string regex = "TA*T";
+	std::string regex = "T(AA+A)T";
 	
 	auto E = RE_to_eNFA<std::string, char, 'e'>(regex);
 	s_eNFA_Runner Erun(E);
@@ -98,9 +98,10 @@ int main() {
 	#define test(a) std::cout << "testing '" << a << "' : " << Erun.process(a) << " == " << Drun.process(a) << "\n"
 	test("TAAAT");
 	test("TT");
+	test("TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT");
 	
 	
-	Query q(regex, 2, 0, 0, 0, 2);
+	Query q(regex, 1, 0, 0, 0, 1);
 	
 	File f("simpelDNA.txt");
 	Result r = q.search(f);
@@ -109,7 +110,7 @@ int main() {
 		std::cout << "no matches :(\n";
 	} else {
 		for (Match& m: r.matches) {
-			std::cout << r.matches[0].format(f);
+			std::cout << m.format(f);
 		}
 	}
 }

@@ -46,6 +46,7 @@ public:
 		
 		// Build Dead
 		// (assuming that TFA will have optimized all possible dead states into one)
+		std::cout << "num_states of DFA is " << num_states << "\n";
 		for (int s=0; s<num_states; s++) {
 			if (Final[s]) {
 				continue;
