@@ -65,7 +65,7 @@ public:
 	}
 	
 	State realState(int _ID) {
-		std::cout << "realState(" << _ID << ") max:" << num_states << "\n";
+		//std::cout << "realState(" << _ID << ") max:" << num_states << "\n";
 		return map.left.at(_ID);
 	}
 	

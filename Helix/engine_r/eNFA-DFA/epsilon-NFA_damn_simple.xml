@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<!-- based on example 2.18 on page 73 -->
+
+<AUTOMATON name = "Binary decimal numbers">
+	<ALPHABET>
+		<SYMBOL>a</SYMBOL>
+		<SYMBOL>b</SYMBOL>
+	</ALPHABET>
+	
+	<STATES>
+		<STATE name = "q0" start="true"></STATE>
+		<STATE name = "q1"></STATE>
+		<STATE name = "q2"></STATE>
+	</STATES>
+	
+	<TRANSITIONS>
+		<TRANSITION from="q0" symbol="b" to="q1"/>
+		<TRANSITION from="q1" symbol="a" to="q0"/>
+		<TRANSITION from="q0" symbol="eps" to="q2"/>
+	</TRANSITIONS>
+</AUTOMATON>

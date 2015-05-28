@@ -101,6 +101,16 @@ public:
 //END
 
 
+template<typename T>
+void setprint_(std::set<T> s) {
+	std::cout << "{";
+	for (auto e: s) {
+		std::cout << e << ", ";
+	}
+	std::cout << "}";
+}
+
+
 //BEGIN -----[ Walker for eNFA ]----------------------------
 
 // Does not inherit
@@ -122,27 +132,36 @@ public:
 	void input(typename E::Symbol symb) {
 		typename E::DeltaResult new_current;
 		_input(symb, current, new_current);
-		_input(epsilon, current, new_current);
+// 		std::cout << "new_current="; setprint_(new_current);
+// 		std::cout << "\n";
+		std::cout << "INPUT after _input " << symb; setprint_(new_current);
 		
+		typename E::DeltaResult new_current_eps;
 		for (auto s: new_current) {
-			automaton._ECLOSE(s, new_current);
+			automaton._ECLOSE(s, new_current_eps);
 		}
 		
-		current = new_current;
+		std::cout << "\nINPUT after ECLOSE: "; setprint_(new_current_eps);
+		std::cout << "\n";
+		
+		current = new_current_eps;
 	}
 	
 	// as always, eNFA's are a PITA
-	void _input(typename E::Symbol symb, typename E::DeltaResult const& from_states, typename E::DeltaResult& to_states) {
+	bool _input(typename E::Symbol symb, typename E::DeltaResult const& from_states, typename E::DeltaResult& to_states) {
 		// Basically the input() from the NFA
+		bool status = false;
 		for (auto from_ID: from_states) {
 			auto second_d_data = automaton.d_data.find(from_ID);
 			if (second_d_data != automaton.d_data.end()) {
 				auto third_d_data = second_d_data->second.find(symb);
 				if (third_d_data != second_d_data->second.end()) {
 					to_states.insert(third_d_data->second.begin(), third_d_data->second.end());
+					status = true; // yes, I did insert!
 				}
 			}
 		}
+		return status;
 	}
 	
 	// What do you think is more maintainable? Some copy-pasting or templated inheritance? /s

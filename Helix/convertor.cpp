@@ -131,7 +131,7 @@ int main(int argc, char const* argv[]) {
 		*/
 		try {
 			File f(arg);
-			f.test("sss", 1);
+			//f.test("sss", 1);
 		} catch (int x) {
 			std::cerr << "Error: The specified file doesn't exist!";
 			return x;
