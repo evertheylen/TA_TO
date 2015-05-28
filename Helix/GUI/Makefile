@@ -36,7 +36,7 @@ DISTNAME      = Helix1.0.0
 DISTDIR = /Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/GUI/.tmp/Helix1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-O1,--sort-common,--as-needed,-z,relro
-LIBS          = $(SUBLIBS) ../tests/test_various.o ../tests/test_S_engine.o ../tests/filecompare.o ../tests/test_R_engine.o ../tests/test_search.o ../tests/test_classes.o ../engine_r/TFA/TFA.o ../engine_s/search.o ../engine_s/mccreight_suffix.o ../engine_s/suffix.o ../engine_s/ukkonen_suffix.o ../engine_s/allhopeliesonyou_suffix.o ../etc/file.o ../etc/fasta.o ../lib/tinyxml/tinyxml.o ../lib/tinyxml/tinyxmlerror.o ../lib/tinyxml/tinystr.o ../lib/tinyxml/tinyxmlparser.o ../lib/FSM/CompactDFA.o ../lib/FSM/Run.o ../lib/FSM/FSM.o -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) ../tests/test_various.o ../tests/test_S_engine.o ../tests/filecompare.o ../tests/test_R_engine.o ../tests/test_search.o ../tests/test_classes.o ../engine_r/RE-eNFA/RE-eNFA.o ../engine_r/TFA/TFA.o ../engine_s/search.o ../engine_s/suffix.o ../etc/file.o ../etc/fasta.o ../lib/tinyxml/tinyxml.o ../lib/tinyxml/tinyxmlerror.o ../lib/tinyxml/tinystr.o ../lib/tinyxml/tinyxmlparser.o ../lib/FSM/CompactDFA.o ../lib/FSM/Run.o ../lib/FSM/FSM.o -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -663,12 +663,12 @@ compiler_moc_header_make_all: moc_mainwindow.cpp moc_secdialog.cpp moc_addtestdi
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_mainwindow.cpp moc_secdialog.cpp moc_addtestdialog.cpp moc_resultsdialog.cpp
 moc_mainwindow.cpp: ../etc/file.h \
-		../engine_s/allhopeliesonyou_suffix.h \
+		../engine_s/suffix.h \
 		mainwindow.h
 	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/GUI -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/FSM -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/tinyxml -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/engine_r -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/engine_s -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/etc -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/4.9.2 -I/usr/include/c++/4.9.2/x86_64-unknown-linux-gnu -I/usr/include/c++/4.9.2/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.2/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.2/include-fixed -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
 moc_secdialog.cpp: ../etc/file.h \
-		../engine_s/allhopeliesonyou_suffix.h \
+		../engine_s/suffix.h \
 		secdialog.h
 	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/GUI -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/FSM -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/tinyxml -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/engine_r -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/engine_s -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/etc -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/4.9.2 -I/usr/include/c++/4.9.2/x86_64-unknown-linux-gnu -I/usr/include/c++/4.9.2/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.2/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.2/include-fixed -I/usr/include secdialog.h -o moc_secdialog.cpp
 
@@ -676,7 +676,7 @@ moc_addtestdialog.cpp: addtestdialog.h
 	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/GUI -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/FSM -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/tinyxml -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/engine_r -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/engine_s -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/etc -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/4.9.2 -I/usr/include/c++/4.9.2/x86_64-unknown-linux-gnu -I/usr/include/c++/4.9.2/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.2/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.2/include-fixed -I/usr/include addtestdialog.h -o moc_addtestdialog.cpp
 
 moc_resultsdialog.cpp: ../etc/file.h \
-		../engine_s/allhopeliesonyou_suffix.h \
+		../engine_s/suffix.h \
 		resultsdialog.h
 	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/GUI -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/FSM -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/tinyxml -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/engine_r -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/engine_s -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/etc -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/4.9.2 -I/usr/include/c++/4.9.2/x86_64-unknown-linux-gnu -I/usr/include/c++/4.9.2/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.2/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.2/include-fixed -I/usr/include resultsdialog.h -o moc_resultsdialog.cpp
 
@@ -709,12 +709,12 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 
 main.o: main.cpp mainwindow.h \
 		../etc/file.h \
-		../engine_s/allhopeliesonyou_suffix.h
+		../engine_s/suffix.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindow.o: mainwindow.cpp mainwindow.h \
 		../etc/file.h \
-		../engine_s/allhopeliesonyou_suffix.h \
+		../engine_s/suffix.h \
 		ui_mainwindow.h \
 		secdialog.h \
 		addtestdialog.h \
@@ -723,7 +723,7 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 
 secdialog.o: secdialog.cpp secdialog.h \
 		../etc/file.h \
-		../engine_s/allhopeliesonyou_suffix.h \
+		../engine_s/suffix.h \
 		ui_secdialog.h \
 		mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o secdialog.o secdialog.cpp
@@ -734,7 +734,7 @@ addtestdialog.o: addtestdialog.cpp addtestdialog.h \
 
 resultsdialog.o: resultsdialog.cpp resultsdialog.h \
 		../etc/file.h \
-		../engine_s/allhopeliesonyou_suffix.h \
+		../engine_s/suffix.h \
 		ui_resultsdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o resultsdialog.o resultsdialog.cpp
 

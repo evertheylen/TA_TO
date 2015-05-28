@@ -145,11 +145,11 @@ public:
 
 	int max_total;
 	
-	//std::vector<File*> files;
+	std::map<int, Result> results_per_file;
 
 	Query(std::string& fancypattern, int f, int s, int r, int i, int m);
 	
-	Result search(File& f);
+	void search(File& f);
 	
 private:
 	std::vector<FancyPath> real_search(Suffix3& suf);

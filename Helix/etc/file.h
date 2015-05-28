@@ -17,7 +17,7 @@ public:
 	/*
 	 * Raises exception when file not found.
 	 */
-	File(std::string filename);
+	File(std::string filename, int _ID);
 
 	/*
 	 * Returns all FASTA comments (lines starting with '>' or ';').
@@ -31,6 +31,8 @@ public:
 
 	Suffix3* suffixtree;
 	std::string comments;
+	int ID;
+	
 private:
 	std::ifstream file;
 	std::string content;

@@ -35,15 +35,10 @@ void secDialog::on_ADD_clicked()
     int ignore_error  = ui->erroramount_6->value();
     //std::cout << error << std::endl;
 
-    testsearch t;
-    t.total_error = total_error;
-    t.fake_error = fake_error;
-    t.skip_error = skip_error;
-    t.repetition_error = repetition_error;
-    t.ignore_error = ignore_error;
-    t.searchstr = search;
-    ((MainWindow*)parentWidget())->tests.push_back(t);
-    QMessageBox::information(this, tr("New test"),tr("The test was added successfully"));
+	((MainWindow*)parentWidget())->queries.emplace_back(
+				Query(search, fake_error, skip_error, repetition_error, ignore_error, total_error));
+
+	QMessageBox::information(this, tr("New test"),tr("The test was added successfully"));
 
     //std::cout << "test added successfully search for " << search << " with " << error << " amount of errors.\n";
    // this->parent()->tests.push_back(t);

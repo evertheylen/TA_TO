@@ -14,7 +14,8 @@
 #include <exception>
 
 
-File::File(std::string filename) {
+File::File(std::string filename, int _ID):
+		ID(_ID) {
 	std::fstream f(filename.c_str());
 	int loc = 0;
     if (f.good()) {

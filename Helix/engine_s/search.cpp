@@ -265,8 +265,10 @@ Query::Query(std::string& fancypattern, int f, int s, int r, int i, int m):
 }
 
 Result Query::search(File& f) {
-	auto raw_results = real_search(*f.suffixtree);
-	return Result(raw_results, f, *this);
+	if (results_per_file.find(f.ID) != results_per_file.end()) {
+		auto raw_results = real_search(*f.suffixtree);
+		results_per_file[f.ID] = Result(raw_results, f, *this);
+	}
 }
 
 

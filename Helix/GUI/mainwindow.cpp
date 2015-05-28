@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+	ui->tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);  // ?
 }
 
 MainWindow::~MainWindow()
@@ -32,14 +33,10 @@ void MainWindow::on_pushButton_clicked()        // Input file knop :p
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),"",tr("Files (*.*)"));
     std::string fileName_str = fileName.toUtf8().constData();
-    if (fileName_str == ""){
-         QMessageBox::critical(this, tr("Error"),tr("There was no file opened!!"));
-    }
-    else{
-        File f(fileName_str);
-        suffixtrees.push_back(f.suffixtree);
+	if (fileName_str != "") {
+		files.emplace_back(File(fileName_str, files.size()));  // emplace_back zorgt ervoor dat het direct op de juiste plaats wordt geinit
+
         QMessageBox::information(this, tr("Suffixtree"), tr("The file was loaded and the suffixtree was created"));
-        ui->tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         ui->tableWidget->insertRow(ui->tableWidget->rowCount());
         QTableWidgetItem* item = new QTableWidgetItem(QString::fromStdString(f.get_name()));
         QString comments = QString::fromStdString(f.comments);
@@ -66,6 +63,13 @@ void MainWindow::on_pushButton_clicked()        // Input file knop :p
     }
 }
 
+// enkel te gebruiken voor cellen te vervangen
+void MainWindow::rebuild_table() {
+	for (File& f: files) {
+
+	}
+}
+
 void MainWindow::on_quitprogram_clicked()
 {
     this->close();
@@ -79,7 +83,7 @@ void MainWindow::on_addtestbutton_clicked()     // Input new query knop
     secdialog.exec();
 
  //   std::cout << tests.size() << std::endl;
-    for (int i=testcount-1;i<tests.size();i++){
+	for (int i=testcount-1; i<tests.size(); i++) {
         std::string newtest;
         ui->tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         ui->tableWidget->insertColumn(ui->tableWidget->columnCount());

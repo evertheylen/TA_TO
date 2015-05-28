@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <vector>
 #include "../etc/file.h"
+#include "../engine_s/search.h"
 
 struct testsearch {
     int total_error;
@@ -24,9 +25,10 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    int testcount;
-    std::vector <testsearch> tests;
-   std::vector <Suffix3*> suffixtrees;
+	int querycount;
+
+	std::vector <Query> queries;
+	std::vector <File> files;
 
     ~MainWindow();
 
@@ -45,6 +47,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+	void rebuild_table();
 };
 
 #endif // MAINWINDOW_H
