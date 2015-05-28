@@ -1,8 +1,39 @@
 
 
 #include "search.h"
+#include <sstream>
+#include "../etc/fasta.h"
+
+#include "../engine_r/eNFA-DFA/eNFA-DFA.h"
+#include "../engine_r/Product/product.h"
+#include "../engine_r/RE-eNFA/RE-eNFA.h"
+#include "../engine_r/TFA/TFA.h"
+#include "../engine_r/extra.h"
 
 // ----[ FChar ]-------------
+
+void html_open_status(Status s, std::ostream& out) {
+	switch (s) {
+		case Status::Fake:
+			out << "<font color='#FF8C00'>";  // orange
+			break;
+		case Status::Skip:
+			out << "<font color='#0040FF'>";  // blue
+			break;
+		case Status::Repetition:
+			out << "<font color='#00FF00'>";  // green
+			break;
+		case Status::Ignore:
+			out << "<font color='#EE0000'>";  // red
+			break;
+	} // Perfects aren't colored
+}
+
+void html_close_status(Status s, std::ostream& out) {
+	if (s != Status::Perfect) {
+		out << "</font>";
+	}
+}
 
 FChar::FChar(char _c, Status _s):
 	c(_c), s(_s) {}
@@ -125,10 +156,96 @@ void FancyPath::print(std::ostream& out, Suffix3& tree) {
 
 
 
+// -----[ Match ]-------------
+
+Match::Match(FancyPath& p, Suffix3& suf):
+		FancyPath(p) {
+	// Save locations
+	suf.get_leaves(p.suf_pos.node, locations);
+	for (int& i: locations) {
+		i += p.suf_pos.pos_in_node;
+	}
+}
+
+std::string Match::format(File& file) {
+	std::stringstream firstline;  // FASTA
+	std::stringstream secondline; // pattern
+	
+	int fasta_i = locations.at(0);  // if there's no match, something serious is wrong
+	Status current = Status::Perfect;
+	
+	for (FChar& fc: text) {
+		// print fasta character, unless it's a skip
+		if (fc.s != Status::Skip) {
+			firstline << file.suffixtree->s[fasta_i];
+			fasta_i++;
+		} else {
+			firstline << ' ';
+		}
+		
+		if (fc.s == current) {
+			// Keep going in the right color
+			secondline << fc.c;
+		} else {
+			html_close_status(current, secondline);
+			current = fc.s;
+			html_open_status(current, secondline);
+		}
+	}
+	
+	// merge the two lines
+	firstline << "\n" << secondline.str();
+	return firstline.str();
+}
+
+
+
+
+// -----[ Result]---------------
+
+Result::Result(std::vector<FancyPath>& paths, File& f, Query& q):
+			file(f), query(q) {
+	std::cout << "creating results\n";
+	for (FancyPath& fp: paths) {
+		std::cout << "Adding path:\n";
+		fp.print(std::cout, *(file.suffixtree));
+		matches.push_back(Match(fp, *(file.suffixtree)));
+	}
+}
+
+
+
+
+
+
 // -----[ Query ]----------------
 
-Query::Query(CompactDFA _D, int f, int s, int r, int i, int m):
-		D(_D), max_fakes(f), max_skips(s), max_reps(r), max_ignores(i), max_total(m) {}
+Query::Query(std::string& fancypattern, int f, int s, int r, int i, int m):
+		max_fakes(f), max_skips(s), max_reps(r), max_ignores(i), max_total(m) {
+	// All of the theory and algorithms have led up to this:
+	// Converting the fancypattern to a single DFA.
+	std::vector<std::string> pats = fastaReplace(fancypattern);
+	std::cout << "Query about to create DFA\n";
+	if (pats.size() == 1) {
+		auto DFA = to_DFA<std::string, char, 'e'>(pats[0]);
+		D = CompactDFA(DFA);
+	} else {
+		// at least two DFA's
+		s_DFA currentD = product<std::string, char>(to_DFA<std::string, char, 'e'>(pats[0]),
+													to_DFA<std::string, char, 'e'>(pats[1]), true);
+		s_DFA newD;
+		for (int i=2; i<pats.size(); i++) {
+			newD = to_DFA<std::string, char, 'e'>(pats[i]);
+			currentD = product<std::string, char>(currentD, newD, true);
+		}
+		D = CompactDFA(currentD);
+	}
+}
+
+Result Query::search(File& f) {
+	auto raw_results = real_search(*f.suffixtree);
+	return Result(raw_results, f, *this);
+}
 
 
 //
@@ -153,7 +270,7 @@ Query::Query(CompactDFA _D, int f, int s, int r, int i, int m):
 
 
 // The one and only search
-std::vector<FancyPath> Query::search(Suffix3& suf) {
+std::vector<FancyPath> Query::real_search(Suffix3& suf) {
 	std::vector<FancyPath> result;
 
 	std::vector<FancyPath> working_set = {FancyPath(SuffixPosition(suf.root, 0), DFAPosition(D.q0, '\0'))};

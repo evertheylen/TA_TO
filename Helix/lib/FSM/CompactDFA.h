@@ -64,6 +64,8 @@ public:
 		}
 	}
 	
+	CompactDFA() {}
+	
 	int delta(int s, char c);
 	
 	bool is_dead(int s);

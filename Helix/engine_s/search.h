@@ -14,7 +14,7 @@
 #include "CompactDFA.h"
 
 #include "suffix.h"
-#include "allhopeliesonyou_suffix.h"
+#include "../etc/file.h"
 
 // table about DFA+suffix is in search.cpp
 
@@ -25,6 +25,9 @@ enum class Status: char {
 	Repetition,
 	Ignore
 };
+
+void html_open_status(Status s, std::ostream& out);
+void html_close_status(Status s, std::ostream& out);
 
 struct FChar {
 	char c;
@@ -37,10 +40,11 @@ struct FChar {
 
 std::ostream& operator<<(std::ostream& out, std::vector<FChar>& v);
 
+
 // For more advanced suffix tree states
 class SuffixPosition {
 public:
-	std::vector<Node3*> parents;
+	std::vector<Node3*> parents; // TODO remove me, not necessary
 	Node3* node;
 	int pos_in_node;
 
@@ -51,7 +55,7 @@ public:
 	void print(std::ostream& out,  Suffix3& tree);
 };
 
-
+// For more advanced DFAPositions, obviously
 class DFAPosition {
 public:
 	int state;
@@ -103,6 +107,33 @@ public:
 };
 
 
+
+class Match: public FancyPath {
+public:
+	std::vector<int> locations;  // in the suffix tree
+	
+	Match(FancyPath& p, Suffix3& suf);
+	
+	std::string format(File& file);
+};
+
+
+class Query;
+
+// Turns std::vector<FancyPath> into a more useful class
+class Result {
+public:
+	std::vector<Match> matches;
+	
+	File& file;
+	Query& query;
+	
+	Result(std::vector<FancyPath>& paths, File& f, Query& q);
+};
+
+
+
+
 class Query {
 public:
 	CompactDFA D;
@@ -113,10 +144,15 @@ public:
 	int max_ignores;
 
 	int max_total;
+	
+	//std::vector<File*> files;
 
-	Query(CompactDFA D, int f, int s, int r, int i, int m);
-
-	std::vector<FancyPath> search(Suffix3& suf);
+	Query(std::string& fancypattern, int f, int s, int r, int i, int m);
+	
+	Result search(File& f);
+	
+private:
+	std::vector<FancyPath> real_search(Suffix3& suf);
 };
 
 #endif

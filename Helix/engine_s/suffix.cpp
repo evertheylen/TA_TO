@@ -1,352 +1,252 @@
-/*
- * suffix.cpp
- *
- *  Created on: 6 Apr 2015
- *      Author: stijn
- */
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cstring>
+#include <limits>
+#include <stdlib.h>
 
 #include "suffix.h"
-#include <sstream>
-#include <vector>
-#include <fstream>
-#include <streambuf>
 
-Node::Node(std::string tag) {
-	_tag = tag;
-	_firstchild = nullptr;
-	active.active_node = nullptr;
-	active.active_edge = "\0x";
-	active.active_length = 0;
+#include "search.h"
+
+// Lelijk
+Path::Path(int _errors, int _p, Node3* _node):
+		errors(_errors), pos_in_node(_p), node(_node) {}
+
+std::ostream& operator<<(std::ostream& out, Path& p) {
+	out << "Path at location [" << p.node->start << ":" << p.node->end << "[ " << " position " << p.pos_in_node << " and " << p.errors << " errors.\n";
+	return out;
 }
 
-Node::~Node() {
-	for (auto child: children) {
+void print_substring(std::string& s, Node3* n, std::ostream& out) {
+	//std::cout << "                " << n->end - n->start << "\n";
+	out << s.substr(n->start, n->end - n->start);
+}
+
+bool eq(std::string& s, int a, int b) {
+	return (*(s.c_str()+a) == *(s.c_str()+b));
+}
+
+bool eq(const char* cstr, int a, int b) {
+	return (*(cstr+a) == *(cstr+b));
+}
+
+bool eq(std::string& sa, int a, std::string& sb, int b) {
+	return (*(sa.c_str()+a) == *(sb.c_str()+b));
+}
+
+bool eq(const char* cstra, int a, const char* cstrb, int b) {
+	return (*(cstra+a) == *(cstrb+b));
+}
+
+
+void generate_dot(Suffix3& s, std::string name, int i) {
+	//std::cout << "called!!!!!!!!!!!!!\n";
+	name += "_";
+	name += std::to_string(i);
+	name += ".dot";
+	std::ofstream f(name);
+	////std::cout << name << "\n";
+	f << s;
+	f.close();
+}
+
+
+void Node3::add_child(Node3* c) {
+	children.push_back(c);
+}
+
+Node3::Node3(int _start, int _end, int _index):
+		start(_start), end(_end), index(_index), suffix_link(nullptr) {}  // children een size meegeven? TODO
+
+int Node3::height(int above) {
+	int max = above;
+	for (Node3* child: children) {
+		int childheight = child->height(above+1);
+		if (childheight > max) max = childheight;
+	}
+	return max;
+}
+
+
+
+
+// ------[ Suffix ]---------------------------
+
+Suffix3::Suffix3(std::string _filename): s(""), root(nullptr), filename(_filename) {
+    //std::cout << filename << std::endl;
+}
+
+void Suffix3::add_char(char c) {
+	s += c;
+}
+
+void Suffix3::build() {
+	const char* cstr = s.c_str();
+	int len = s.length();
+	root = new Node3(0,0,0); // for the search_string( , int)
+	
+	// first run, insert in root
+	root->add_child(new Node3(0,len,0));
+	Node3* current = root;
+	// for each substring in s
+	for (int i=1; i<len-1; i++) {			// TODO Just for attention :) changed from len to len-1
+		//std::cout << "----------------------------------\n";
+		//generate_dot(*this, "blabl", i);
+		
+		//std::string subs = s.substr(i);  // TODO optimalisation!
+		// subs = s[i:[
+		//std::cout << "subs = " << s.substr(i, len-i) << "\n";
+		Node3* previous_insert = nullptr;
+
+		int end_head = 0;  // head = subs[i:i+end_head[
+		//std::cout << "head = " << s.substr(i,end_head) << "\n";
+		
+		while (true) {
+			// for each child
+			for (Node3* child: current->children) {
+				// compare char by char the tag of the child
+					// 3 cases:
+						// differs on first char --> check other child
+						// differs on some other char --> split! (end_head+++)
+						// does not differ --> current = child; end_head+++; break
+				//if (child->tag[0] != subs[end_head]) {
+				if (! eq(cstr, child->start, i+end_head)) {
+					// check other child
+					//std::cout << "check other child\n";
+					continue;
+				}
+				
+				int current_pos=1;
+				int child_len = child->end - child->start;
+				for (; current_pos<child_len; current_pos++) {
+					//if (child->tag[current_pos] != subs[end_head+current_pos]) {
+					if (! eq(cstr, child->start+current_pos, i+end_head+current_pos)) {
+						// update stuff
+						end_head += current_pos;
+						//std::cout << "  new head = " << s.substr(i,end_head) << "\n";
+						current = child;
+						// split!
+						// add children, subs[end_head:] (aka tail) and child->tag[current_pos:]
+						//Node3* parent_tail = new Node3(current->tag.substr(current_pos), current->index_start);
+						Node3* parent_tail = new Node3(current->start+current_pos, current->end, current->index);
+						//std::cout << "  parent_tail = "; print_substring(s, parent_tail, //std::cout); //std::cout << "\n";
+						parent_tail->children = current->children;
+						//Node3* new_tail = new Node3(subs.substr(end_head), i);
+						// ......i.....[ subs.substr(end_head) ]
+						// ............(i+end_head).............
+						// ......[         subs                ]
+						// .....................................(len)
+						Node3* new_tail = new Node3(i+end_head, len/*-i-end_head*/, i);	//TODO Also for attention changed from len -i - end_head to len.
+						//std::cout << "  new_tail = "; print_substring(s, new_tail, //std::cout); //std::cout << "\n";
+						
+						current->children.clear();
+						current->add_child(parent_tail);
+						current->add_child(new_tail);
+						
+						// set tag
+						//current->tag = current->tag.substr(0, current_pos);
+						current->end = current->start + current_pos;
+						//std::cout << "  new current = "; print_substring(s, current, //std::cout); //std::cout << "\n";
+						//std::cout << current->end - current->start << " == " << current_pos+1 << "\n";
+						
+						if (previous_insert != nullptr && end_head > 1) {
+							current->suffix_link = previous_insert;
+						} else {
+							current->suffix_link = root;
+						}
+						previous_insert = current;
+
+						goto end_while;
+					}
+				}
+				
+				current = child;
+				end_head += current_pos;
+				//std::cout << " head = " << s.substr(i,end_head) << "\n";
+				////std::cout << "case 3, continue_while\n";
+				goto continue_while;
+			}
+			
+			// extension of case 1: all childs have been checked
+			////std::cout << subs.length() << "\n";
+			////std::cout << end_head << "\n";
+			//current->add_child(new Node3(subs.substr(end_head), i));  // add tail [end_head, end...[
+			previous_insert = new Node3(i+end_head, len, i);
+			current->add_child(previous_insert);
+			//std::cout << "add child = " << s.substr(i+end_head, end_head) << "\n";
+			goto end_while;
+			
+			continue_while:;
+		}
+		end_while:;
+		if (current->suffix_link != nullptr) {
+			current = current->suffix_link;
+		} else {
+			current = root;
+		}
+	}
+	
+	generate_dot(*this, "end", 0);
+	
+	//std::cerr << "Done.\n";
+	//std::cerr << root->children[0]->tag << "\n";
+}
+
+
+void Suffix3::get_leaves(Node3* current_node, std::vector<int>& leaves) {
+	if (current_node->children.empty()) {
+		leaves.push_back(current_node->index);
+	} else {
+		for (Node3* child: current_node->children) {
+			get_leaves(child, leaves);
+		}
+	}
+}
+
+
+char Suffix3::get(SuffixPosition& pos) {
+	return s[pos.node->start + pos.pos_in_node];
+}
+
+
+Suffix3::~Suffix3() {
+	delete root;
+}
+
+Node3::~Node3() {
+	for (Node3* child: children) {
 		delete child;
 	}
 }
 
-void Node::add_child(Node* child) {
-	if (_firstchild == nullptr) {
-		_firstchild = child;
-		children.push_back(child);
-	} else {
-		children.push_back(child);
-	}
-}
 
-std::string Node::get_tag() {
-	return _tag;
-}
+// Dot output
 
-Node* Node::get_firstchild() {
-	return _firstchild;
-}
-
-void Node::set_tag(std::string tag) {
-	_tag = tag;
-}
-
-SuffixTree::SuffixTree() {
-	_root = new Node("root");
-}
-
-void SuffixTree::Ukkonens_algorithm(char tag, int pos) {
-	static int loc = 1;
-	std::stringstream sstr;
-	sstr << "[" << pos << ",#]";
-	std::string str = sstr.str();
-	std::cout << str << std::endl;
-	Node* new_node = new Node(str);
-	_root->add_child(new_node);
-	loc++;
-	return;
-}
-
-void SuffixTree::create(std::string c, int x) {
-	std::stringstream sstr1;
-	std::string input;
-	sstr1 << c << "$" << x;
-	input = sstr1.str();
-	//std::cout << "  [adding " << input << " ] \n";
-	add_node(input, *_root);
-}
-
-SuffixTree::SuffixTree(std::ifstream& file) {
-	_root = new Node("root");
-	int length;
-	std::stringstream sstr;
-	sstr << file.rdbuf();
-	_text = sstr.str();
-	std::stringstream sstr1, sstr2;
-	std::string str = "\0";
-	std::string prev = "\0";
-
-
-	for (int x = _text.length()-1; x >=0; x--){
-		sstr1 << _text[x];
-		sstr2 << sstr1.str() << prev;
-		prev = sstr2.str();
-		sstr2 << "$" << x;
-		str = sstr2.str();
-		sstr1.str("");
-		sstr2.str("");
-		//std::cout << str << std::endl;
-		add_node(str, *_root);
-	}
-	fix_leaves();
-}
-
-SuffixTree::SuffixTree(std::string& text) {
-	_root = new Node("root");
-	_text = text;
-	std::cout << _text << std::endl;
-	std::stringstream sstr1, sstr2;
-	std::string str = "\0";
-	std::string prev = "\0";
-
-	for (int x = text.length()-1; x >=0; x--){
-		sstr1 << _text[x];
-		sstr2 << sstr1.str() << prev;
-		prev = sstr2.str();
-		sstr2 << "$" << x;
-		str = sstr2.str();
-		sstr1.str("");
-		sstr2.str("");
-		//std::cout << str << std::endl;
-		add_node(str, *_root);
-	}
-	fix_leaves();
-}
-
-void SuffixTree::fix_leaves(Node* current_node) {
-	if (current_node == nullptr) {
-		current_node = _root;
-	}
-	if (current_node->get_firstchild() != nullptr) {
-		for (auto child: current_node->children) {
-			this->fix_leaves(child);
-		}
-	} else {
-		for (unsigned int i = 0; i < current_node->get_tag().length(); i++) {
-			char s = current_node->get_tag()[i];
-			if ('$' == s && i != 0) {
-				std::string str1 = current_node->get_tag().substr(0, i);
-				std::string str2 = current_node->get_tag().substr(i+1, current_node->get_tag().length()-1);
-				current_node->set_tag(str1);
-				Node* new_node = new Node(str2);
-				current_node->add_child(new_node);
-				return;
-			}
-			else if ('$' == s) {
-				std::string str1 = current_node->get_tag().substr(1, current_node->get_tag().length()-1);
-				current_node->set_tag(str1);
-			}
-		}
-	}
-}
-
-SuffixTree::~SuffixTree() {
-	delete _root;
-}
-
-Node* SuffixTree::get_root() {
-	return _root;
-}
-
-void SuffixTree::add_node(std::string tag, Node& current_node) {
-	Node* new_node;
-	if (current_node.get_firstchild() == nullptr) {
-		//std::cout << "nullptr so I added a new firstchild\n";
-		new_node = new Node(tag);
-		current_node.add_child(new_node);
-		return;
-	}
-	Node* remembered = nullptr;
-	for (auto child: current_node.children) {
-		//std::cout << "Looping over all the children\n";
-		for (unsigned int i = 0; i < child->get_tag().length(); i++) {
-			if (tag[i] == child->get_tag()[i] && i != child->get_tag().length() - 1) {
-				continue;
-			} else if (i != 0 && child->get_firstchild() == nullptr) {
-				std::string str1 = child->get_tag().substr(0, i);
-				std::string str2 = child->get_tag().substr(i, child->get_tag().length()-1);
-				/*std::ofstream output_file;
-				output_file.open("Before splitting " + child->get_tag() + ".txt");
-				output_file << *this;
-				output_file.close();*/
-				Node& new_current_node = *child;
-				new_current_node.set_tag(str1);
-				new_node = new Node(str2);
-				new_current_node.add_child(new_node);
-
-				std::string str3 = tag.substr(i, tag.length()-1);
-				new_node = new Node(str3);
-				new_current_node.add_child(new_node);
-
-				//std::cout << "Branch " << child->get_tag() << " is splitted!  Root: " << str1 << "  Original child: " << str2 << "  Newly added child: " << str3 << std::endl;
-				/*output_file.open("After splitting " + child->get_tag() + ".txt");
-				output_file << *this;
-				output_file.close();*/
-				return;
-			} else if ( i != 0 || (i == child->get_tag().length() - 1 && tag[i] == child->get_tag()[i])) {
-				remembered = child;
-				//std::cout << "Remembering: " << child->get_tag() << std::endl;
-				break;
-			} else {
-				break;
-			}
-		}
-	}
-	if (remembered != nullptr) {
-		for (unsigned int i = 0; i < remembered->get_tag().length(); i++) {
-			if ( i != 0 || i == remembered->get_tag().length() - 1) {
-				//std::cout << "Going down to next child for " << tag  << " Parent: " << remembered->get_tag() << "\n";
-				std::string str = tag.substr(i+1, tag.length());
-				add_node(str, *remembered);
-				return;
-			}
-		}
-	}
-	new_node = new Node(tag);
-	current_node.add_child(new_node);
-	//std::cout << "New branch added for " << tag << std::endl;
-	return;
-}
-
-std::ostream& operator<<(std::ostream& stream, SuffixTree& tree) {
+std::ostream& operator<<(std::ostream& stream, Suffix3& tree) {
 	//stream << "The root of this tree is: " << tree.get_root()->get_tag() << "\n" << *tree.get_root();
 	stream << "digraph suffix {\n" << "\tnode [shape = circle];\n";
-	stream << *tree.get_root();
+	int counter = 0;
+	tree.root->to_dot(stream, counter, tree.s);
 	stream << '}';
 	return stream;
 }
 
-std::ostream& operator<<(std::ostream& stream, Node& node) {
-	int static counter = 0;
-	if (node.get_firstchild() != nullptr) {
-		stream << '\t' << counter << " [label= " << '"' << node.get_tag() << '"' << "];" << "\n";
-		int parent_counter = counter;
-		for (auto child: node.children) {
-			counter++;
-			stream << '\t' << counter << " [label= " << '"' << child->get_tag() << '"' << "];\n";
-			stream << '\t' << parent_counter << " -> " << counter << ";\n";
-			stream << *child;
-		}
-	} 
-	return stream;  // heb ik veranderd (Evert) zie fb conversatie 5/14, 2:21pm
-}
 
-std::list<int> SuffixTree::get_leaves(Node* current_node) {
-	static std::list<int> results;
-	if (current_node->get_firstchild() != nullptr) {
-		for (auto child: current_node->children) {
-			//std::cout << "Getting leaves from " << child->get_tag() << std::endl;
-			get_leaves(child);
-		}
-	} else {
-		//std::cout << "Got leaf: " << current_node->get_tag().c_str() << std::endl;
-		int result = atoi(current_node->get_tag().c_str());
-		results.push_back(result);
-	}
-	return results;
-}
-
-std::list<int> SuffixTree::search_string(std::string& str) {
-	std::list<int> result;
-	Node* current_node = _root;
-	for (int i = 0; i < str.length(); i++){
-		for (auto child: current_node->children) {
-			//std::cout << " Searching " << child->get_tag() << "...\n";
-			if (str[i] != child->get_tag()[0]) {
-				continue;
-			} else {
-				//std::cout << "Match with " << child->get_tag()[0] << " at first position\n";
-				for (int j = 0; j < child->get_tag().length() && i < str.length(); j++) {
-					if (str[i] != child->get_tag()[j]) {
-					//	std::cerr << i << "th position in " << str << " doesn't match " << j << "th position in " << child->get_tag() << ".\n";
-					} else {
-						i++;
-					}
-				}
-				if (i < str.length()) {
-					current_node = child;
-					i--;
-					//std::cout << current_node->get_tag() << " is the tag of the next current_node.\n";
-					break;
-				} else {
-					current_node = child;
-					/*std::list<int> leaves;
-					get_leaves(current_node, leaves);
-					for (int k = 0; k < leaves.size(); k++) {
-						result.push_back(leaves.front());
-						leaves.pop_front();
-					}*/
-					result = get_leaves(current_node);
-					/*for (int k = 0; k < result.size(); k++) {
-						std::cout << result.front() << std::endl;
-						result.pop_front();
-					}*/
-					return result;
-				}
-			}
+void Node3::to_dot(std::ostream& stream, int& i, std::string& s) {
+	if (! children.empty()) {
+		stream << '\t' << i << " [label= \"";
+		print_substring(s, this, stream);
+		stream << "\"];\n";
+		int parent_counter = i;
+		for (auto child: children) {
+			i++;
+			stream << '\t' << i << " [label= \"";
+			print_substring(s, child, stream);
+			stream << "\"];\n";
+			stream << '\t' << parent_counter << " -> " << i << ";\n";
+			child->to_dot(stream, i, s);
 		}
 	}
-	return result;
-}
-
-std::list<int> SuffixTree::search_string(std::string& str, int r) {
-	std::list<int> result;
-	std::stringstream text;
-	text << str << "#" << _text;
-	std::string suffixtree = text.str();
-	SuffixTree s(suffixtree);
-	for (int p = 0; p < _text.length(); p++) {
-		int i = 0;
-		int j = p + str.length() + 1;
-		int n = 0;		// # errors.
-		while (i < str.length()/* && n <= r*/) {
-			//std::cout << "i " << i << " j " << j << " n " << n << std::endl;
-			std::string w = s.longest_common_prefix(i, j);	//Should be O(1)?
-			//std::cout << w << " is the longest common prefix.\n";
-			if (w.length() == 0) {
-				i++;				// It's a mismatch.
-				j++;
-				n++;
-			} else {
-				i += w.length();	// we have |w| matches.
-				j++;
-			}
-		}
-		if (n <= r && str.length() <= _text.substr(p, _text.size()).length()) {
-			result.push_back(p);
-			std::cout << str << " occurs at position " << p << " with " << n << " errors.\n";
-		}
-	}
-	return result;
-}
-std::string SuffixTree::longest_common_prefix(int i, int j) {
-	std::string result;
-	std::string str1 = _text.substr(i, _text.size());
-	std::string str2;
-	if (j <= _text.size()) {
-		str2 = _text.substr(j, _text.size());
-	} else {
-		str2 = "";
-	}
-	//std::cout << str1 << ", " << str2 << "\n";
-	result = longest_common_prefix(str1, str2);
-	return result;
-}
-
-std::string SuffixTree::longest_common_prefix(std::string& str1, std::string& str2) {
-	std::stringstream result;
-	for (int i = 0; i < str1.length(); i++) {
-		if (str1[i] == str2[i]) {
-			result << str1[i];
-		} else {
-			break;
-		}
-	}
-	std::string resultstr = result.str();
-	return resultstr;
 }

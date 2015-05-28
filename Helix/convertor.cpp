@@ -13,8 +13,6 @@
 
 #include "suffix.h"
 
-#include "allhopeliesonyou_suffix.h"
-
 #include "file.h"
 
 using namespace std;

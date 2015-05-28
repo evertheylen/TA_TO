@@ -10,7 +10,7 @@
 
 #include <string>
 #include <fstream>
-#include "allhopeliesonyou_suffix.h"
+#include "suffix.h"
 
 class File {
 public:

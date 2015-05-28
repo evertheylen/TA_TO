@@ -10,8 +10,12 @@
 #include "Run.h"
 #include "CompactDFA.h"
 
+#include "./engine_r/eNFA-DFA/eNFA-DFA.h"
+#include "./engine_r/Product/product.h"
+#include "./engine_r/RE-eNFA/RE-eNFA.h"
+#include "./engine_r/TFA/TFA.h"
+
 #include "suffix.h"
-#include "allhopeliesonyou_suffix.h"
 
 #include "search.h"
 
@@ -30,6 +34,14 @@ void setprint(std::set<T> s) {
 		std::cout << e << ", ";
 	}
 	std::cout << "}\n";
+}
+
+template <typename R, typename S, typename T>
+void _write_dot(FSM<R,S,T>* F, std::string name) {
+	std::ofstream output_file;
+	output_file.open(name);
+	F->to_dot(output_file);
+	output_file.close();
 }
 
 int main() {
@@ -73,22 +85,31 @@ int main() {
 // 	
 // 	generate_dot(suf, "Tadaa", 0);
 	
-	s_eNFA N;
-	TiXmlDocument doc = _read("./engine_r/eNFA-DFA/epsilon-NFA_damn_simple.xml");
-	N.from_xml(doc);
+	std::string regex = "TA*T";
 	
-	Walker<s_eNFA> w(N, N.ECLOSE(N.q0));
-	#define put(a)\
-	std::cout << "input " << a << "\n";\
-	w.input(a);\
-	std::cout << "new state: ";\
-	setprint(w.current);\
-	std::cout << "\n";
+	auto E = RE_to_eNFA<std::string, char, 'e'>(regex);
+	s_eNFA_Runner Erun(E);
+	_write_dot(&E, "enfa.dot");
 	
-	std::cout << "start state: ";
-	setprint(w.current);
+	auto bad_D = MSSC(E);
+	s_DFA_Runner Drun(bad_D);
+	_write_dot(&bad_D, "dfa.dot");
 	
-	put('b');
-	put('a');
-	put('e');
+	#define test(a) std::cout << "testing '" << a << "' : " << Erun.process(a) << " == " << Drun.process(a) << "\n"
+	test("TAAAT");
+	test("TT");
+	
+	
+	Query q(regex, 2, 0, 0, 0, 2);
+	
+	File f("simpelDNA.txt");
+	Result r = q.search(f);
+	
+	if (r.matches.size() == 0) {
+		std::cout << "no matches :(\n";
+	} else {
+		for (Match& m: r.matches) {
+			std::cout << r.matches[0].format(f);
+		}
+	}
 }

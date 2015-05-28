@@ -10,7 +10,9 @@
 #include <sstream>
 #include <list>
 #include <iostream> 
-//#include "ukkonen_suffix.h"
+
+#include <exception>
+
 
 File::File(std::string filename) {
 	std::fstream f(filename.c_str());
@@ -67,7 +69,7 @@ File::File(std::string filename) {
  			f << "Result found at position " << result.at(k) << "\n";
  		}*/
     } else {
-        throw 1;
+        throw std::runtime_error("Something went wrong while loading the file.");
     }
     f.close();
 }

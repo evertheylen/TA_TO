@@ -69,13 +69,13 @@ void recursive_add(DFA<StateT, SymbolT>& D, eNFA<StateT, SymbolT, epsilon>& N,
 	
 	for (SymbolT symb: D.sigma) {
 		w.input(symb);
-		print(w.current);
+		//print(w.current);
 		auto wtf = states.find(w.current);
 		if (wtf == states.end()) {
 			states[w.current] = states.size();
 			recursive_add(D, N, states, w.current);
 		} else {
-			print(wtf->first);
+			//print(wtf->first);
 		}
 		
 		D.set_delta(states.at(current), symb, states.at(w.current));
