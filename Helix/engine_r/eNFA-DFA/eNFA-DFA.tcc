@@ -24,7 +24,6 @@ std::vector<int> getOnLocations(int a) {
 	return result;
 }
 
-/*
 
 template<typename T>
 void print(std::set<T> s) {
@@ -39,7 +38,7 @@ void print(std::set<T> s) {
 template<	typename StateT,
 			typename SymbolT,
 			SymbolT epsilon>
-DFA<StateT, SymbolT> MSSC_old(eNFA<StateT, SymbolT, epsilon>& N) {
+DFA<StateT, SymbolT> MSSC(eNFA<StateT, SymbolT, epsilon>& N) {
 	DFA<StateT, SymbolT> D;
 	
 	D.sigma = N.sigma;
@@ -61,10 +60,15 @@ DFA<StateT, SymbolT> MSSC_old(eNFA<StateT, SymbolT, epsilon>& N) {
 	}
 	*/
 	
-	/*
+	typedef typename DFA<StateT, SymbolT>::Bimap::value_type insert_type;
 	
-	for (int i=0; i<=D.num_states; i++) {
-		D.map.left.insert(typename DFA<StateT,SymbolT>::Bimap::left_value_type(i, states));
+	for (auto it: states) {
+		std::string s = "{";
+		for (auto subs: it.first) {
+			s += N.realState(subs) + ",";
+		}
+		s += "}";
+		D.map.insert(insert_type(it.second, s));
 	}
 	
 	return D;
@@ -106,14 +110,14 @@ void recursive_add(DFA<StateT, SymbolT>& D, eNFA<StateT, SymbolT, epsilon>& N,
 	}
 }
 
-*/
+
 
 
 
 template<	typename StateT,
 			typename SymbolT,
 			SymbolT epsilon>
-DFA<StateT, SymbolT> MSSC(eNFA<StateT, SymbolT, epsilon> N) {
+DFA<StateT, SymbolT> MSSC_old(eNFA<StateT, SymbolT, epsilon> N) {
 	DFA<StateT, SymbolT> D;
 
 	D.sigma = N.sigma;

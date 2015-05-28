@@ -19,16 +19,10 @@ INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I. -I../li
 LINK          = g++
 LFLAGS        = -m64 -Wl,-O1
 LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 ../engine_s/mccreight_suffix.o ../engine_s/suffix.o ../engine_s/allhopeliesonyou_suffix.o ../engine_s/search.o ../engine_s/ukkonen_suffix.o ../etc/fasta.o ../etc/file.o ../engine_r/TFA/TFA.o ../tests/test_various.o ../tests/test_S_engine.o ../tests/test_search.o ../tests/filecompare.o ../tests/test_R_engine.o ../tests/test_classes.o ../lib/FSM/CompactDFA.o ../lib/FSM/FSM.o ../lib/FSM/Run.o ../lib/tinyxml/tinystr.o ../lib/tinyxml/tinyxmlerror.o ../lib/tinyxml/tinyxmlparser.o ../lib/tinyxml/tinyxml.o -lQt5Widgets -L/usr/lib/x86_64-linux-gnu -lQt5Gui -lQt5Core -lGL -lpthread 
-AR            = ar cqs
-RANLIB        = 
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
-TAR           = tar -cf
-COMPRESS      = gzip -9f
 COPY          = cp -f
-SED           = sed
 COPY_FILE     = cp -f
 COPY_DIR      = cp -f -R
-STRIP         = strip
 INSTALL_FILE  = install -m 644 -p
 INSTALL_DIR   = $(COPY_DIR)
 INSTALL_PROGRAM = install -m 755 -p
@@ -36,8 +30,18 @@ DEL_FILE      = rm -f
 SYMLINK       = ln -f -s
 DEL_DIR       = rmdir
 MOVE          = mv -f
-CHK_DIR_EXISTS= test -d
-MKDIR         = mkdir -p
+TAR           = tar -cf
+COMPRESS      = gzip -9f
+DISTNAME      = Helix1.0.0
+DISTDIR = /Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/GUI/.tmp/Helix1.0.0
+LINK          = g++
+LFLAGS        = -Wl,-O1 -Wl,-O1,--sort-common,--as-needed,-z,relro
+LIBS          = $(SUBLIBS) ../tests/test_various.o ../tests/test_S_engine.o ../tests/filecompare.o ../tests/test_R_engine.o ../tests/test_search.o ../tests/test_classes.o ../engine_r/TFA/TFA.o ../engine_s/search.o ../engine_s/mccreight_suffix.o ../engine_s/suffix.o ../engine_s/ukkonen_suffix.o ../engine_s/allhopeliesonyou_suffix.o ../etc/file.o ../etc/fasta.o ../lib/tinyxml/tinyxml.o ../lib/tinyxml/tinyxmlerror.o ../lib/tinyxml/tinystr.o ../lib/tinyxml/tinyxmlparser.o ../lib/FSM/CompactDFA.o ../lib/FSM/Run.o ../lib/FSM/FSM.o -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+AR            = ar cqs
+RANLIB        = 
+SED           = sed
+STRIP         = strip
+
 
 ####### Output directory
 

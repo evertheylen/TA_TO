@@ -1,25 +1,13 @@
 digraph automaton {
     node [shape=none]; start;
     node [shape=circle];
-    start -> "0";
-    "0" -> "2" [label="a"];
-    "0" -> "8" [label="b"];
-    "2" -> "3" [label="a"];
-    "2" -> "4" [label="b"];
-    "3" -> "4" [label="a"];
-    "3" -> "10" [label="b"];
-    "4" -> "5" [label="a"];
-    "4" -> "6" [label="b"];
-    "5" -> "5" [label="a"];
-    "5" -> "5" [label="b"];
-    "6" -> "7" [label="a"];
-    "6" -> "5" [label="b"];
-    "7" -> "8" [label="a"];
-    "7" -> "8" [label="b"];
-    "8" -> "9" [label="a"];
-    "8" -> "5" [label="b"];
-    "9" -> "4" [label="a"];
-    "9" -> "4" [label="b"];
-    "10" -> "7" [label="a"];
-    "10" -> "6" [label="b"];
+    start -> "{q0,q1,}";
+    "{q0,q1,}" -> "{q2,q3,}" [label="a"];
+    "{q0,q1,}" -> "{}" [label="b"];
+    "{q2,q3,}" -> "{}" [label="a"];
+    "{q2,q3,}" -> "{q4,}" [label="b"];
+    "{}" -> "{}" [label="a"];
+    "{}" -> "{}" [label="b"];
+    "{q4,}" -> "{q0,q1,}" [label="a"];
+    "{q4,}" -> "{}" [label="b"];
 }

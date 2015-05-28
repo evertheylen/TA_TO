@@ -1,5 +1,4 @@
 
-//#include "test_etc.h"
 #include "filecompare.h"
 
 /**
