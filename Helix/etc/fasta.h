@@ -9,10 +9,11 @@
 
 #include <stdio.h>
 #include <string>
+#include <vector>
 
 /*
  *This function will replace certain symbols(that are not A,C,G,T) and convert them to A,C,G or T
 */
-std::string fastaReplace(std::string str);
+std::vector< std::string > fastaReplace(std::string str);
 
 #endif /* defined(____fasta__) */

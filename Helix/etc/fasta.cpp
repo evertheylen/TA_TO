@@ -6,52 +6,57 @@
 
 #include "fasta.h"
 #include <string>
+#include <vector>
 #include <iostream>
 
 using namespace std;
 
-string fastaReplace(string str){
-	string returnVal;
-	
+vector<string> fastaReplace(string str){
+	vector<string> returnVal;
+	string new_str;
 	for (char c: str){
 		switch (c) {
+			case ';':
+				returnVal.push_back(new_str);
+				new_str.clear();
+				break;
 			case 'R':
-				returnVal += "(A+G)";
+				new_str += "(A+G)";
 				break;
 			case 'Y':
-				returnVal += "(C+T+U)";
+				new_str += "(C+T+U)";
 				break;
 			case 'K':
-				returnVal += "(G+T+U)";
+				new_str += "(G+T+U)";
 				break;
 			case 'M':
-				returnVal += "(A+C)";
+				new_str += "(A+C)";
 				break;
 			case 'S':
-				returnVal += "(C+G)";
+				new_str += "(C+G)";
 				break;
 			case 'W':
-				returnVal += "(A+T+U)";
+				new_str += "(A+T+U)";
 				break;
 			case 'B':
-				returnVal += "(C+G+T+U)";
+				new_str += "(C+G+T+U)";
 				break;
 			case 'D':
-				returnVal += "(A+G+T+U)";
+				new_str += "(A+G+T+U)";
 				break;
 			case 'H':
-				returnVal += "(A+C+T+U)";
+				new_str += "(A+C+T+U)";
 				break;
 			case 'V':
-				returnVal += "(A+C+G)";
+				new_str += "(A+C+G)";
 				break;
 			case 'N':
-				returnVal += "(A+C+G+T+U)";
+				new_str += "(A+C+G+T+U)";
 				break;
 			default:
-				returnVal += c;
+				new_str += c;
 		}
 	}
-	
+	returnVal.push_back(new_str);
 	return returnVal;
 };
