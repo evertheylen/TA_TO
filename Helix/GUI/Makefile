@@ -664,6 +664,14 @@ compiler_moc_header_clean:
 	-$(DEL_FILE) moc_mainwindow.cpp moc_secdialog.cpp moc_addtestdialog.cpp moc_resultsdialog.cpp
 moc_mainwindow.cpp: ../etc/file.h \
 		../engine_s/suffix.h \
+		../engine_s/search.h \
+		../lib/FSM/FSM.h \
+		../lib/FSM/FSM.tcc \
+		../lib/tinyxml/tinyxml.h \
+		../lib/tinyxml/tinystr.h \
+		../lib/FSM/Run.h \
+		../lib/FSM/Run.tcc \
+		../lib/FSM/CompactDFA.h \
 		mainwindow.h
 	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/GUI -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/FSM -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/tinyxml -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/engine_r -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/engine_s -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/etc -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/4.9.2 -I/usr/include/c++/4.9.2/x86_64-unknown-linux-gnu -I/usr/include/c++/4.9.2/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.2/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.2/include-fixed -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
@@ -709,12 +717,28 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 
 main.o: main.cpp mainwindow.h \
 		../etc/file.h \
-		../engine_s/suffix.h
+		../engine_s/suffix.h \
+		../engine_s/search.h \
+		../lib/FSM/FSM.h \
+		../lib/FSM/FSM.tcc \
+		../lib/tinyxml/tinyxml.h \
+		../lib/tinyxml/tinystr.h \
+		../lib/FSM/Run.h \
+		../lib/FSM/Run.tcc \
+		../lib/FSM/CompactDFA.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindow.o: mainwindow.cpp mainwindow.h \
 		../etc/file.h \
 		../engine_s/suffix.h \
+		../engine_s/search.h \
+		../lib/FSM/FSM.h \
+		../lib/FSM/FSM.tcc \
+		../lib/tinyxml/tinyxml.h \
+		../lib/tinyxml/tinystr.h \
+		../lib/FSM/Run.h \
+		../lib/FSM/Run.tcc \
+		../lib/FSM/CompactDFA.h \
 		ui_mainwindow.h \
 		secdialog.h \
 		addtestdialog.h \
@@ -725,7 +749,15 @@ secdialog.o: secdialog.cpp secdialog.h \
 		../etc/file.h \
 		../engine_s/suffix.h \
 		ui_secdialog.h \
-		mainwindow.h
+		mainwindow.h \
+		../engine_s/search.h \
+		../lib/FSM/FSM.h \
+		../lib/FSM/FSM.tcc \
+		../lib/tinyxml/tinyxml.h \
+		../lib/tinyxml/tinystr.h \
+		../lib/FSM/Run.h \
+		../lib/FSM/Run.tcc \
+		../lib/FSM/CompactDFA.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o secdialog.o secdialog.cpp
 
 addtestdialog.o: addtestdialog.cpp addtestdialog.h \

@@ -85,7 +85,7 @@ int main() {
 // 	
 // 	generate_dot(suf, "Tadaa", 0);
 	
-	std::string regex = "T(AA+A)T";
+	std::string regex = "T(e+A)AT";
 	
 	auto E = RE_to_eNFA<std::string, char, 'e'>(regex);
 	s_eNFA_Runner Erun(E);

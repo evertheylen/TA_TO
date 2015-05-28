@@ -12,7 +12,7 @@
 #include <iostream> 
 
 #include <exception>
-
+#include <stdexcept>
 
 File::File(std::string filename, int _ID):
 		ID(_ID) {
