@@ -132,17 +132,11 @@ public:
 	void input(typename E::Symbol symb) {
 		typename E::DeltaResult new_current;
 		_input(symb, current, new_current);
-// 		std::cout << "new_current="; setprint_(new_current);
-// 		std::cout << "\n";
-		std::cout << "INPUT after _input " << symb; setprint_(new_current);
 		
 		typename E::DeltaResult new_current_eps;
 		for (auto s: new_current) {
 			automaton._ECLOSE(s, new_current_eps);
 		}
-		
-		std::cout << "\nINPUT after ECLOSE: "; setprint_(new_current_eps);
-		std::cout << "\n";
 		
 		current = new_current_eps;
 	}

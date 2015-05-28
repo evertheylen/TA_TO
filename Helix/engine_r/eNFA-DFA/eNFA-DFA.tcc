@@ -10,20 +10,6 @@
 #include "Run.h"
 
 
-// Returns which bits are on in the integer a
-std::vector<int> getOnLocations(int a) {
-	std::vector<int> result;
-	int place = 0;
-	while (a != 0) {
-		if (a & 1) {
-			result.push_back(place);
-		}
-		++place;
-		a >>= 1;
-	}
-	return result;
-}
-
 
 template<typename T>
 void print(std::set<T> s) {
@@ -44,14 +30,13 @@ DFA<StateT, SymbolT> MSSC(eNFA<StateT, SymbolT, epsilon>& N) {
 	D.sigma = N.sigma;
 	D.q0 = 0;  // by definition the first state
 	
-	
 	std::map<std::set<int>, int> states;
 	std::set<int> start = N.ECLOSE(N.q0);
 	states[start] = 0;
 	recursive_add(D, N, states, start);
 	
 	D.num_states = states.size();
-	std::cout << "states.size = " << states.size() << "\n";
+// 	std::cout << "states.size = " << states.size() << "\n";
 	
 	/*
 	for (auto state: states) {
@@ -80,20 +65,10 @@ template<	typename StateT,
 			SymbolT epsilon>
 void recursive_add(DFA<StateT, SymbolT>& D, eNFA<StateT, SymbolT, epsilon>& N,
 		std::map<std::set<int>, int>& states, std::set<int>& current) {
-	std::cout << "recursive_add called! states = {\n";
-	for (auto s: states) {
-		print(s.first);
-	}
-	std::cout << "}\n";
-	print(current);
-	
 	Walker<eNFA<StateT, SymbolT, epsilon>> w(N, current);
 	
 	for (SymbolT symb: D.sigma) {
-		std::cout << "before: ";
-		print(w.current);
 		w.input(symb);
-		std::cout << "after: ";
 		print(w.current);
 		auto wtf = states.find(w.current);
 		if (wtf == states.end()) {
@@ -101,7 +76,6 @@ void recursive_add(DFA<StateT, SymbolT>& D, eNFA<StateT, SymbolT, epsilon>& N,
 			recursive_add(D, N, states, w.current);
 		} else {
 			print(wtf->first);
-			std::cout << "skipping\n";
 		}
 		
 		D.set_delta(states.at(current), symb, states.at(w.current));
@@ -113,7 +87,25 @@ void recursive_add(DFA<StateT, SymbolT>& D, eNFA<StateT, SymbolT, epsilon>& N,
 
 
 
+/*
+// Returns which bits are on in the integer a
+std::vector<int> getOnLocations(int a) {
+	std::vector<int> result;
+	int place = 0;
+	while (a != 0) {
+		if (a & 1) {
+			result.push_back(place);
+		}
+		++place;
+		a >>= 1;
+	}
+	return result;
+}*/
 
+
+/*
+ * This one uses the powerset much more literally
+ * 
 template<	typename StateT,
 			typename SymbolT,
 			SymbolT epsilon>
@@ -185,3 +177,4 @@ DFA<StateT, SymbolT> MSSC_old(eNFA<StateT, SymbolT, epsilon> N) {
 // 	std::cout << "Optimized version only contains " << D.num_states << " states.\n";
 	return D;
 }
+*/
