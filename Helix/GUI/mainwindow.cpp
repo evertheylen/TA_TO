@@ -113,40 +113,49 @@ void MainWindow::on_addtestbutton_clicked()     // Input new query knop
 
 void MainWindow::on_runtests_clicked()
 {
+    if (suffixtrees.size() == 0){
+        QMessageBox::critical(this, tr("Error"),tr("U must specify an input file!!"));
+        return;
+    }
     int size = tests.size();
-    double progress = 0.0;
-    double progress_advance = 100/size;
-    for (int j = 0; j < suffixtrees.size(); j++) {
-        for (int i = 0; i < size; i++) {
-            std::vector<int> result = {};//suffixtrees.at(j)->search_string(tests.at(i).searchstr, tests.at(i).total_error);
-            QString input = "Results for search ";
-            input += QString::fromStdString(tests.at(i).searchstr);
-            input += " with ";
-            input += QString::number(tests.at(i).total_error);
-            input += " errors.\nIn string ";
-            input += QString::fromStdString(suffixtrees.at(j)->s);
-            input += "\n";
-           // ui->textBrowser->append(input);
-            QString match = QString::number(result.size());
-            match += " matches\n";
-            //std::cout << "Setting text for item at " << j+1 << ", " << i+2 << std::endl;
-            //std::cout << "Item found: " <<  ui->tableWidget->item(j+1, i+2) << std::endl;
-            QTableWidgetItem* item = new QTableWidgetItem();
-            item->setText(match);
-            ui->tableWidget->setItem(j, i+1, item);
-            ui->tableWidget->resizeColumnsToContents();
-            //std::cout << ui->tableWidget->item(j, i+1) << std::endl;
-            //ui->tableWidget->item(j+1, i+1)->setText(match);
-            //std::cout << "Set new item to " << match.toStdString() << std::endl;
-            //std::cout << "Done\n";
-            for (int k = 0; k < result.size(); k++) {
-                QString index = "@ index";
-                index += QString::number(result.at(k));
-               //ui->textBrowser->append(index);
+    if (size != 0){
+        double progress = 0.0;
+        double progress_advance = 100/size;
+        for (int j = 0; j < suffixtrees.size(); j++) {
+            for (int i = 0; i < size; i++) {
+                std::vector<int> result = {};//suffixtrees.at(j)->search_string(tests.at(i).searchstr, tests.at(i).total_error);
+                QString input = "Results for search ";
+                input += QString::fromStdString(tests.at(i).searchstr);
+                input += " with ";
+                input += QString::number(tests.at(i).total_error);
+                input += " errors.\nIn string ";
+                input += QString::fromStdString(suffixtrees.at(j)->s);
+                input += "\n";
+               // ui->textBrowser->append(input);
+                QString match = QString::number(result.size());
+                match += " matches\n";
+                //std::cout << "Setting text for item at " << j+1 << ", " << i+2 << std::endl;
+                //std::cout << "Item found: " <<  ui->tableWidget->item(j+1, i+2) << std::endl;
+                QTableWidgetItem* item = new QTableWidgetItem();
+                item->setText(match);
+                ui->tableWidget->setItem(j, i+1, item);
+                ui->tableWidget->resizeColumnsToContents();
+                //std::cout << ui->tableWidget->item(j, i+1) << std::endl;
+                //ui->tableWidget->item(j+1, i+1)->setText(match);
+                //std::cout << "Set new item to " << match.toStdString() << std::endl;
+                //std::cout << "Done\n";
+                for (int k = 0; k < result.size(); k++) {
+                    QString index = "@ index";
+                    index += QString::number(result.at(k));
+                   //ui->textBrowser->append(index);
+                }
+                progress += progress_advance;
+                ui->progressBar->setValue(progress);
             }
-            progress += progress_advance;
-            ui->progressBar->setValue(progress);
         }
+    }
+    else{
+        QMessageBox::critical(this, tr("Error"),tr("U must specify a query!!"));
     }
 }
 
