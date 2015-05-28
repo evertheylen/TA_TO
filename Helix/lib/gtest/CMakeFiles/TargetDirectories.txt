@@ -1,2 +1,2 @@
-/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/gtest/CMakeFiles/gtest.dir
-/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/gtest/CMakeFiles/gtest_main.dir
+/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles/gtest.dir
+/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles/gtest_main.dir

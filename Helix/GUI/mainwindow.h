@@ -2,11 +2,15 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <list>
+#include <vector>
 #include "../etc/file.h"
 
 struct testsearch {
-    int error;
+    int total_error;
+    int fake_error;
+    int skip_error;
+    int ignore_error;
+    int repetition_error;
     std::string searchstr;
 };
 
@@ -21,8 +25,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     int testcount;
-    std::list <testsearch> tests;
-    Suffix3* suffixtree;
+    std::vector <testsearch> tests;
+   std::vector <Suffix3*> suffixtrees;
 
     ~MainWindow();
 

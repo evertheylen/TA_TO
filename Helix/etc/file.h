@@ -35,6 +35,7 @@ public:
 	const std::string& get_name() const;
 
 	Suffix3* suffixtree;
+	std::string comments;
 private:
 	std::ifstream file;
 	std::string content;

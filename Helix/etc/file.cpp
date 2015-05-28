@@ -28,7 +28,6 @@ File::File(std::string filename) {
     	name = std::string(good_name.rbegin(), good_name.rend());
     	std::fstream suffixfile;
     	suffixfile.open(filename.c_str());
-    	std::string comments;
     	//std::stringstream suffix;
     	char input;
     	suffixtree = new Suffix3();

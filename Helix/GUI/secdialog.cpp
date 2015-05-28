@@ -28,11 +28,19 @@ void secDialog::on_ADD_clicked()
     std::string search = content.toUtf8().constData();
     //std::cout << search << std::endl;
 
-    int error  = ui->erroramount->value();
+    int total_error  = ui->erroramount->value();
+    int fake_error  = ui->erroramount_3->value();
+    int skip_error  = ui->erroramount_4->value();
+    int repetition_error  = ui->erroramount_5->value();
+    int ignore_error  = ui->erroramount_6->value();
     //std::cout << error << std::endl;
 
     testsearch t;
-    t.error = error;
+    t.total_error = total_error;
+    t.fake_error = fake_error;
+    t.skip_error = skip_error;
+    t.repetition_error = repetition_error;
+    t.ignore_error = ignore_error;
     t.searchstr = search;
     ((MainWindow*)parentWidget())->tests.push_back(t);
     QMessageBox::information(this, tr("New test"),tr("The test was added successfully"));
