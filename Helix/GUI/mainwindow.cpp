@@ -32,35 +32,38 @@ void MainWindow::on_pushButton_clicked()        // Input file knop :p
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),"",tr("Files (*.*)"));
     std::string fileName_str = fileName.toUtf8().constData();
-
-    File f(fileName_str);
-    suffixtrees.push_back(f.suffixtree);
-    QMessageBox::information(this, tr("Suffixtree"), tr("The file was loaded and the suffixtree was created"));
-    ui->tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-    QTableWidgetItem* item = new QTableWidgetItem(QString::fromStdString(f.get_name()));
-    QString comments = QString::fromStdString(f.comments);
-    if (comments == "") {
-        comments = "no comments available for this file\n";
+    if (fileName_str == ""){
+         QMessageBox::critical(this, tr("Error"),tr("There was no file opened!!"));
     }
-    item->setToolTip(comments);
-    ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, item);
-    ui->tableWidget->resizeColumnsToContents();
-    //std::cout << f.get_name() << std::endl;
+    else{
+        File f(fileName_str);
+        suffixtrees.push_back(f.suffixtree);
+        QMessageBox::information(this, tr("Suffixtree"), tr("The file was loaded and the suffixtree was created"));
+        ui->tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+        QTableWidgetItem* item = new QTableWidgetItem(QString::fromStdString(f.get_name()));
+        QString comments = QString::fromStdString(f.comments);
+        if (comments == "") {
+            comments = "no comments available for this file\n";
+        }
+        item->setToolTip(comments);
+        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, item);
+        ui->tableWidget->resizeColumnsToContents();
+        //std::cout << f.get_name() << std::endl;
 
-    //QProcess dot_to_png;
+        //QProcess dot_to_png;
 
-    //dot_to_png.start("dot -Tpng end_0.dot -o suffix.png");
-    //dot_to_png.waitForFinished(-1);
+        //dot_to_png.start("dot -Tpng end_0.dot -o suffix.png");
+        //dot_to_png.waitForFinished(-1);
 
-    /*QLabel * label_img = new QLabel (this);
-    label_img->setWindowFlags(Qt::Window);
+        /*QLabel * label_img = new QLabel (this);
+        label_img->setWindowFlags(Qt::Window);
 
-    label_img->setPixmap(QPixmap("suffix.png", 0, Qt::AutoColor));
-    label_img->show();*/
-    //QString path = QDir::toNativeSeparators(QApplication::applicationDirPath());
-    //QDesktopServices::openUrl(QUrl("file:///" + path));
-
+        label_img->setPixmap(QPixmap("suffix.png", 0, Qt::AutoColor));
+        label_img->show();*/
+        //QString path = QDir::toNativeSeparators(QApplication::applicationDirPath());
+        //QDesktopServices::openUrl(QUrl("file:///" + path));
+    }
 }
 
 void MainWindow::on_quitprogram_clicked()
