@@ -115,7 +115,7 @@ void MainWindow::on_runtests_clicked()
 {
     int size = tests.size();
     double progress = 0.0;
-    double progress_advance = 100/(size-1);
+    double progress_advance = 100/size;
     for (int j = 0; j < suffixtrees.size(); j++) {
         for (int i = 0; i < size; i++) {
             std::vector<int> result = {};//suffixtrees.at(j)->search_string(tests.at(i).searchstr, tests.at(i).total_error);
