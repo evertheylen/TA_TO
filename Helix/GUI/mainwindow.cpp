@@ -124,5 +124,14 @@ void MainWindow::on_runtests_clicked()
 
 void MainWindow::on_tableWidget_cellClicked(int row, int column)
 {
-     QMessageBox::information(this, tr("Fasta comments"), tr("The comments of the fasta file will appear here: "));
+    if (column == 0){//First column will show the fasta comments
+        QMessageBox::information(this, tr("Fasta comments"), tr("The comments of the fasta file will appear here: "));
+    }
+    else{
+        //This will open a new window with detailed results
+        resultsdialog results;
+        results.setWindowTitle("Detailed results");
+        results.setModal(true);
+        results.exec();
+    }
 }
