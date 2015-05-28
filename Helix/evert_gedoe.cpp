@@ -4,7 +4,7 @@
 #include <list>
 
 #include <vector>
-#include <unordered_map>
+#include <map>
 
 #include "FSM.h"
 #include "Run.h"
@@ -96,15 +96,18 @@ int main() {
 	_write_dot(&bad_D, "dfa.dot");
 	
 	#define test(a) std::cout << "testing '" << a << "' : " << Erun.process(a) << " == " << Drun.process(a) << "\n"
-	test("TAAAT");
+	test("TAAT");
+	test("TAT");
 	test("TT");
 	test("TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT");
 	
 	
 	Query q(regex, 1, 0, 0, 0, 1);
 	
-	File f("simpelDNA.txt");
-	Result r = q.search(f);
+	File f("simpelDNA.txt", 0);
+	q.search(f);
+	
+	Result r = q.results_per_file[0];
 	
 	if (r.matches.size() == 0) {
 		std::cout << "no matches :(\n";

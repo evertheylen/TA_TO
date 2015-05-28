@@ -207,14 +207,16 @@ std::string Match::format(File& file) {
 
 // -----[ Result]---------------
 
-Result::Result(std::vector<FancyPath>& paths, File& f, Query& q):
+Result::Result(std::vector<FancyPath>& paths, File* f, Query* q):
 			file(f), query(q) {
 	for (FancyPath& fp: paths) {
 // 		std::cout << "Adding path:\n";
 // 		fp.print(std::cout, *(file.suffixtree));
-		matches.push_back(Match(fp, *(file.suffixtree)));
+		matches.push_back(Match(fp, *(file->suffixtree)));
 	}
 }
+
+Result::Result() {}
 
 
 
@@ -264,10 +266,11 @@ Query::Query(std::string& fancypattern, int f, int s, int r, int i, int m):
 // 	std::cout << "###################\n";
 }
 
-Result Query::search(File& f) {
-	if (results_per_file.find(f.ID) != results_per_file.end()) {
+void Query::search(File& f) {
+	if (results_per_file.find(f.ID) == results_per_file.end()) {
+		std::cout << "adding results\n";
 		auto raw_results = real_search(*f.suffixtree);
-		results_per_file[f.ID] = Result(raw_results, f, *this);
+		results_per_file.insert(std::pair<int, Result>(f.ID, Result(raw_results, &f, this)));
 	}
 }
 

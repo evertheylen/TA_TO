@@ -125,10 +125,12 @@ class Result {
 public:
 	std::vector<Match> matches;
 	
-	File& file;
-	Query& query;
+	File* file;
+	Query* query;
 	
-	Result(std::vector<FancyPath>& paths, File& f, Query& q);
+	Result();
+	
+	Result(std::vector<FancyPath>& paths, File* f, Query* q);
 };
 
 
