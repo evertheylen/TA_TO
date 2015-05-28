@@ -19,10 +19,16 @@ INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I. -I../li
 LINK          = g++
 LFLAGS        = -m64 -Wl,-O1
 LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 ../engine_s/mccreight_suffix.o ../engine_s/suffix.o ../engine_s/allhopeliesonyou_suffix.o ../engine_s/search.o ../engine_s/ukkonen_suffix.o ../etc/fasta.o ../etc/file.o ../engine_r/TFA/TFA.o ../tests/test_various.o ../tests/test_S_engine.o ../tests/test_search.o ../tests/filecompare.o ../tests/test_R_engine.o ../tests/test_classes.o ../lib/FSM/CompactDFA.o ../lib/FSM/FSM.o ../lib/FSM/Run.o ../lib/tinyxml/tinystr.o ../lib/tinyxml/tinyxmlerror.o ../lib/tinyxml/tinyxmlparser.o ../lib/tinyxml/tinyxml.o -lQt5Widgets -L/usr/lib/x86_64-linux-gnu -lQt5Gui -lQt5Core -lGL -lpthread 
+AR            = ar cqs
+RANLIB        = 
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
+TAR           = tar -cf
+COMPRESS      = gzip -9f
 COPY          = cp -f
+SED           = sed
 COPY_FILE     = cp -f
 COPY_DIR      = cp -f -R
+STRIP         = strip
 INSTALL_FILE  = install -m 644 -p
 INSTALL_DIR   = $(COPY_DIR)
 INSTALL_PROGRAM = install -m 755 -p
@@ -30,18 +36,8 @@ DEL_FILE      = rm -f
 SYMLINK       = ln -f -s
 DEL_DIR       = rmdir
 MOVE          = mv -f
-TAR           = tar -cf
-COMPRESS      = gzip -9f
-DISTNAME      = Helix1.0.0
-DISTDIR = /Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/GUI/.tmp/Helix1.0.0
-LINK          = g++
-LFLAGS        = -Wl,-O1 -Wl,-O1,--sort-common,--as-needed,-z,relro
-LIBS          = $(SUBLIBS) ../tests/test_various.o ../tests/test_S_engine.o ../tests/filecompare.o ../tests/test_R_engine.o ../tests/test_search.o ../tests/test_classes.o ../engine_r/TFA/TFA.o ../engine_s/search.o ../engine_s/mccreight_suffix.o ../engine_s/suffix.o ../engine_s/ukkonen_suffix.o ../engine_s/allhopeliesonyou_suffix.o ../etc/file.o ../etc/fasta.o ../lib/tinyxml/tinyxml.o ../lib/tinyxml/tinyxmlerror.o ../lib/tinyxml/tinystr.o ../lib/tinyxml/tinyxmlparser.o ../lib/FSM/CompactDFA.o ../lib/FSM/Run.o ../lib/FSM/FSM.o -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
-AR            = ar cqs
-RANLIB        = 
-SED           = sed
-STRIP         = strip
-
+CHK_DIR_EXISTS= test -d
+MKDIR         = mkdir -p
 
 ####### Output directory
 
@@ -775,6 +771,9 @@ moc_resultsdialog.cpp: /usr/include/qt5/QtWidgets/QDialog \
 		/usr/include/qt5/QtCore/qfiledevice.h \
 		/usr/include/qt5/QtGui/qvector2d.h \
 		/usr/include/qt5/QtGui/qtouchdevice.h \
+		/usr/include/qt5/QtCore/QString \
+		../etc/file.h \
+		../engine_s/allhopeliesonyou_suffix.h \
 		resultsdialog.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include resultsdialog.h -o moc_resultsdialog.cpp
 
@@ -1059,6 +1058,12 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/usr/include/qt5/QtGui/qinputmethod.h \
 		/usr/include/qt5/QtWidgets/QButtonGroup \
 		/usr/include/qt5/QtWidgets/qbuttongroup.h \
+		/usr/include/qt5/QtWidgets/QGridLayout \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/QHBoxLayout \
 		/usr/include/qt5/QtWidgets/QHeaderView \
 		/usr/include/qt5/QtWidgets/qheaderview.h \
 		/usr/include/qt5/QtWidgets/qabstractitemview.h \
@@ -1090,29 +1095,22 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/usr/include/qt5/QtWidgets/QTableWidget \
 		/usr/include/qt5/QtWidgets/qtablewidget.h \
 		/usr/include/qt5/QtWidgets/qtableview.h \
-		/usr/include/qt5/QtWidgets/QTextBrowser \
-		/usr/include/qt5/QtWidgets/qtextbrowser.h \
-		/usr/include/qt5/QtWidgets/qtextedit.h \
-		/usr/include/qt5/QtGui/qtextdocument.h \
-		/usr/include/qt5/QtGui/qtextoption.h \
-		/usr/include/qt5/QtGui/qtextcursor.h \
-		/usr/include/qt5/QtGui/qtextformat.h \
-		/usr/include/qt5/QtGui/qpen.h \
 		/usr/include/qt5/QtWidgets/QToolBar \
 		/usr/include/qt5/QtWidgets/qtoolbar.h \
 		/usr/include/qt5/QtWidgets/QVBoxLayout \
-		/usr/include/qt5/QtWidgets/qboxlayout.h \
-		/usr/include/qt5/QtWidgets/qlayout.h \
-		/usr/include/qt5/QtWidgets/qlayoutitem.h \
-		/usr/include/qt5/QtWidgets/qgridlayout.h \
 		/usr/include/qt5/QtWidgets/QWidget \
 		secdialog.h \
 		/usr/include/qt5/QtWidgets/QDialog \
 		/usr/include/qt5/QtWidgets/qdialog.h \
 		/usr/include/qt5/QtWidgets/QLineEdit \
 		/usr/include/qt5/QtWidgets/qlineedit.h \
+		/usr/include/qt5/QtGui/qtextcursor.h \
+		/usr/include/qt5/QtGui/qtextformat.h \
+		/usr/include/qt5/QtGui/qpen.h \
+		/usr/include/qt5/QtGui/qtextoption.h \
 		addtestdialog.h \
 		resultsdialog.h \
+		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtGui/QtGui \
 		/usr/include/qt5/QtGui/QtGuiDepends \
 		/usr/include/qt5/QtCore/QtCore \
@@ -1285,6 +1283,7 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/usr/include/qt5/QtGui/qglyphrun.h \
 		/usr/include/qt5/QtGui/qrawfont.h \
 		/usr/include/qt5/QtGui/qfontdatabase.h \
+		/usr/include/qt5/QtGui/qtextdocument.h \
 		/usr/include/qt5/QtGui/qstatictext.h \
 		/usr/include/qt5/QtGui/qsyntaxhighlighter.h \
 		/usr/include/qt5/QtGui/qtextobject.h \
@@ -1294,7 +1293,6 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/usr/include/qt5/QtGui/qtexttable.h \
 		/usr/include/qt5/QtGui/qdesktopservices.h \
 		/usr/include/qt5/QtGui/qtguiversion.h \
-		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtGui/QDesktopServices \
 		/usr/include/qt5/QtWidgets/QFileDialog \
 		/usr/include/qt5/QtWidgets/qfiledialog.h \
@@ -1470,6 +1468,7 @@ secdialog.o: secdialog.cpp secdialog.h \
 		/usr/include/qt5/QtWidgets/qpushbutton.h \
 		/usr/include/qt5/QtWidgets/QSpinBox \
 		/usr/include/qt5/QtWidgets/qspinbox.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
 		/usr/include/qt5/QtCore/QString \
 		mainwindow.h \
 		/usr/include/qt5/QtWidgets/QMainWindow \
@@ -1757,6 +1756,9 @@ resultsdialog.o: resultsdialog.cpp resultsdialog.h \
 		/usr/include/qt5/QtCore/qfiledevice.h \
 		/usr/include/qt5/QtGui/qvector2d.h \
 		/usr/include/qt5/QtGui/qtouchdevice.h \
+		/usr/include/qt5/QtCore/QString \
+		../etc/file.h \
+		../engine_s/allhopeliesonyou_suffix.h \
 		ui_resultsdialog.h \
 		/usr/include/qt5/QtCore/QVariant \
 		/usr/include/qt5/QtWidgets/QAction \
@@ -1777,6 +1779,7 @@ resultsdialog.o: resultsdialog.cpp resultsdialog.h \
 		/usr/include/qt5/QtWidgets/qlayout.h \
 		/usr/include/qt5/QtWidgets/qlayoutitem.h \
 		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/QHBoxLayout \
 		/usr/include/qt5/QtWidgets/QHeaderView \
 		/usr/include/qt5/QtWidgets/qheaderview.h \
 		/usr/include/qt5/QtWidgets/qabstractitemview.h \
@@ -1802,8 +1805,7 @@ resultsdialog.o: resultsdialog.cpp resultsdialog.h \
 		/usr/include/qt5/QtWidgets/qabstractbutton.h \
 		/usr/include/qt5/QtWidgets/QTableWidget \
 		/usr/include/qt5/QtWidgets/qtablewidget.h \
-		/usr/include/qt5/QtWidgets/qtableview.h \
-		/usr/include/qt5/QtWidgets/QWidget
+		/usr/include/qt5/QtWidgets/qtableview.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o resultsdialog.o resultsdialog.cpp
 
 qrc_logo.o: qrc_logo.cpp 

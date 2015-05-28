@@ -2,6 +2,8 @@
 #define RESULTSDIALOG_H
 
 #include <QDialog>
+#include <QString>
+#include <../etc/file.h>
 
 namespace Ui {
 class resultsdialog;
@@ -14,6 +16,8 @@ class resultsdialog : public QDialog
 public:
     explicit resultsdialog(QWidget *parent = 0);
     ~resultsdialog();
+    void set_texts(QString filename, QString searchstr);
+    // hier moet het result komen
 
 private slots:
 

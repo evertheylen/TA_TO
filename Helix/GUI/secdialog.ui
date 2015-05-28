@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>762</width>
-    <height>352</height>
+    <width>657</width>
+    <height>344</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,108 +16,116 @@
   <property name="styleSheet">
    <string notr="true"/>
   </property>
-  <layout class="QGridLayout" name="gridLayout_3">
-   <item row="0" column="1" colspan="2">
-    <widget class="QLabel" name="label">
-     <property name="maximumSize">
-      <size>
-       <width>500</width>
-       <height>500</height>
-      </size>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="pixmap">
-      <pixmap resource="logo.qrc">:/:/logos/HELIX2_negatief.png</pixmap>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
+  <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Input regex: </string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QLineEdit" name="searchstr"/>
-   </item>
-   <item row="2" column="0" rowspan="2" colspan="2">
-    <layout class="QGridLayout" name="gridLayout_4">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Total amount of errors</string>
-       </property>
-      </widget>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Input regex: </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="searchstr"/>
+       </item>
+      </layout>
      </item>
-     <item row="0" column="1">
-      <widget class="QSpinBox" name="erroramount"/>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_8">
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Total amount of errors</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="erroramount"/>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
-   <item row="3" column="2" rowspan="2">
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0" colspan="3">
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <item row="2" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_7">
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="QCheckBox" name="checkBox">
-           <property name="text">
-            <string>Fake errors:</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QCheckBox" name="checkBox">
+             <property name="text">
+              <string>Fake errors:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="erroramount_3"/>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="QSpinBox" name="erroramount_3"/>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <widget class="QCheckBox" name="checkBox_2">
+             <property name="text">
+              <string>Skip errors:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="erroramount_4"/>
+           </item>
+          </layout>
          </item>
-        </layout>
-       </item>
-       <item row="1" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QCheckBox" name="checkBox_2">
-           <property name="text">
-            <string>Skip errors:</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <widget class="QCheckBox" name="checkBox_3">
+             <property name="text">
+              <string>Repetition errors:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="erroramount_5"/>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="QSpinBox" name="erroramount_4"/>
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <item>
+            <widget class="QCheckBox" name="checkBox_4">
+             <property name="text">
+              <string>Ignore errors:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="erroramount_6"/>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
       </layout>
      </item>
-     <item row="1" column="0" colspan="2">
-      <widget class="QCheckBox" name="checkBox_3">
-       <property name="text">
-        <string>Repetition errors:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QSpinBox" name="erroramount_5"/>
-     </item>
-     <item row="2" column="0">
-      <widget class="QCheckBox" name="checkBox_4">
-       <property name="text">
-        <string>Ignore errors:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1" colspan="2">
-      <widget class="QSpinBox" name="erroramount_6"/>
-     </item>
     </layout>
    </item>
-   <item row="4" column="0" colspan="2">
-    <layout class="QHBoxLayout" name="horizontalLayout_6">
+   <item row="3" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_9">
      <item>
       <widget class="QPushButton" name="pushButton">
        <property name="font">
@@ -170,31 +178,25 @@
      </item>
     </layout>
    </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="font">
+      <font>
+       <pointsize>20</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Input new query</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
   </layout>
-  <zorder>layoutWidget</zorder>
-  <zorder>ADD</zorder>
-  <zorder>pushButton</zorder>
-  <zorder>erroramount_3</zorder>
-  <zorder>label_5</zorder>
-  <zorder>checkBox</zorder>
-  <zorder>erroramount_4</zorder>
-  <zorder>checkBox_2</zorder>
-  <zorder>label_6</zorder>
-  <zorder>erroramount_5</zorder>
-  <zorder>checkBox_3</zorder>
-  <zorder>label_7</zorder>
-  <zorder>erroramount_6</zorder>
-  <zorder>checkBox_4</zorder>
-  <zorder>label_8</zorder>
-  <zorder></zorder>
-  <zorder></zorder>
-  <zorder></zorder>
-  <zorder>layoutWidget</zorder>
-  <zorder>label</zorder>
-  <zorder>erroramount</zorder>
  </widget>
- <resources>
-  <include location="logo.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

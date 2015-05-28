@@ -30,7 +30,8 @@ File::File(std::string filename) {
     	suffixfile.open(filename.c_str());
     	//std::stringstream suffix;
     	char input;
-    	suffixtree = new Suffix3();
+    	//std::cout << "Printing name from file  " << name << std::endl;
+    	suffixtree = new Suffix3(name);
     	while (f.good()) {
     		f.get(input);
     		if (f.eof()) {

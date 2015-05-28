@@ -13,109 +13,96 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>10</y>
-     <width>59</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>20</y>
-     <width>31</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>File: </string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>30</y>
-     <width>91</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-  </widget>
-  <widget class="QWidget" name="">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>80</y>
-     <width>631</width>
-     <height>281</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QTableWidget" name="tableWidget">
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>90</number>
-      </attribute>
-      <attribute name="horizontalHeaderMinimumSectionSize">
-       <number>20</number>
-      </attribute>
-      <column>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>Match</string>
+        <string>File: </string>
        </property>
-      </column>
-      <column>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="filename">
        <property name="text">
-        <string>Locations</string>
+        <string>TextLabel</string>
        </property>
-      </column>
-      <column>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label">
        <property name="text">
-        <string>Total errors</string>
+        <string>Query:</string>
        </property>
-      </column>
-      <column>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="searchstring">
        <property name="text">
-        <string>Fake</string>
+        <string>TextLabel</string>
        </property>
-      </column>
-      <column>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0">
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QTableWidget" name="tableWidget">
+       <attribute name="horizontalHeaderDefaultSectionSize">
+        <number>90</number>
+       </attribute>
+       <attribute name="horizontalHeaderMinimumSectionSize">
+        <number>20</number>
+       </attribute>
+       <column>
+        <property name="text">
+         <string>Match</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Locations</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Total errors</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Fake</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Skip</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Repetition</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Ignore</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="gobackttomainfromresults">
        <property name="text">
-        <string>Skip</string>
+        <string>Go back</string>
        </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Repetition</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Ignore</string>
-       </property>
-      </column>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="gobackttomainfromresults">
-      <property name="text">
-       <string>Go back</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

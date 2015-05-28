@@ -57,7 +57,7 @@ class SuffixPosition;
 
 class Suffix3 {
 public:
-	Suffix3();
+	Suffix3(std::string _filename);
 
 	//Suffix3(std::string& s);
 
@@ -66,6 +66,7 @@ public:
 // 	int_and_node find_head(std::string& subs);
 	
 	std::string s;
+	std::string filename;
 
 	Node3* root;
 	

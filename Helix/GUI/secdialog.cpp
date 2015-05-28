@@ -103,6 +103,9 @@ void secDialog::on_erroramount_3_valueChanged(int arg1)
     if (!ui->checkBox->isChecked() && check) {
         ui->checkBox->setChecked(true);
     } check = true;
+    if (ui->erroramount_3->value() > ui->erroramount->value()) {
+        ui->erroramount_3->setValue(ui->erroramount->value());
+    }
 }
 
 void secDialog::on_erroramount_4_valueChanged(int arg1)
@@ -110,6 +113,9 @@ void secDialog::on_erroramount_4_valueChanged(int arg1)
     if (!ui->checkBox_2->isChecked() && check) {
         ui->checkBox_2->setChecked(true);
     } check = true;
+    if (ui->erroramount_4->value() > ui->erroramount->value()) {
+        ui->erroramount_4->setValue(ui->erroramount->value());
+    }
 }
 
 void secDialog::on_erroramount_5_valueChanged(int arg1)
@@ -117,6 +123,9 @@ void secDialog::on_erroramount_5_valueChanged(int arg1)
     if (!ui->checkBox_3->isChecked() && check) {
         ui->checkBox_3->setChecked(true);
     } check = true;
+    if (ui->erroramount_5->value() > ui->erroramount->value()) {
+        ui->erroramount_5->setValue(ui->erroramount->value());
+    }
 }
 
 void secDialog::on_erroramount_6_valueChanged(int arg1)
@@ -124,4 +133,7 @@ void secDialog::on_erroramount_6_valueChanged(int arg1)
     if (!ui->checkBox_4->isChecked() && check) {
         ui->checkBox_4->setChecked(true);
     } check = true;
+    if (ui->erroramount_6->value() > ui->erroramount->value()) {
+        ui->erroramount_6->setValue(ui->erroramount->value());
+    }
 }

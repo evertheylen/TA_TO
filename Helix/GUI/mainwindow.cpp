@@ -14,6 +14,7 @@
 #include "QTableWidgetItem"
 #include "QTableWidget"
 #include <string>
+#include "../etc/file.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),testcount(1),
@@ -74,8 +75,8 @@ void MainWindow::on_addtestbutton_clicked()     // Input new query knop
     secdialog.setModal(true);
     secdialog.exec();
 
-    std::cout << tests.size() << std::endl;
-    for (int i=0;i<tests.size();i++){
+ //   std::cout << tests.size() << std::endl;
+    for (int i=testcount-1;i<tests.size();i++){
         std::string newtest;
         ui->tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         ui->tableWidget->insertColumn(ui->tableWidget->columnCount());
@@ -83,7 +84,9 @@ void MainWindow::on_addtestbutton_clicked()     // Input new query knop
         testcount++;
         QTableWidgetItem* item = new QTableWidgetItem(QString::fromStdString(newtest));
         QString tooltip = "Search for ";
+       // std::cout << " Pre vector ======  Testcount = " << testcount << std::endl;
         testsearch test = tests.at(testcount-2);
+       // std::cout << " Post vector\n";
         tooltip += QString::fromStdString(test.searchstr);
         tooltip += " with ";
         tooltip += QString::number(test.total_error);
@@ -123,20 +126,23 @@ void MainWindow::on_runtests_clicked()
             input += " errors.\nIn string ";
             input += QString::fromStdString(suffixtrees.at(j)->s);
             input += "\n";
-            ui->textBrowser->append(input);
+           // ui->textBrowser->append(input);
             QString match = QString::number(result.size());
             match += " matches\n";
-            std::cout << "Setting text for item at " << j+1 << ", " << i+1 << std::endl;
-            std::cout << "Item found: " <<  ui->tableWidget->item(j+1, i+1) << std::endl;
-            QTableWidgetItem* item = new QTableWidgetItem(match);
-            ui->tableWidget->setItem(j+1, i+1, item);
+            //std::cout << "Setting text for item at " << j+1 << ", " << i+2 << std::endl;
+            //std::cout << "Item found: " <<  ui->tableWidget->item(j+1, i+2) << std::endl;
+            QTableWidgetItem* item = new QTableWidgetItem();
+            item->setText(match);
+            ui->tableWidget->setItem(j, i+1, item);
+            ui->tableWidget->resizeColumnsToContents();
+            //std::cout << ui->tableWidget->item(j, i+1) << std::endl;
             //ui->tableWidget->item(j+1, i+1)->setText(match);
-            std::cout << "Set new item to " << match.toStdString() << std::endl;
-            std::cout << "Done\n";
+            //std::cout << "Set new item to " << match.toStdString() << std::endl;
+            //std::cout << "Done\n";
             for (int k = 0; k < result.size(); k++) {
                 QString index = "@ index";
                 index += QString::number(result.at(k));
-                ui->textBrowser->append(index);
+               //ui->textBrowser->append(index);
             }
             progress += progress_advance;
             ui->progressBar->setValue(progress);
@@ -148,11 +154,13 @@ void MainWindow::on_runtests_clicked()
 void MainWindow::on_tableWidget_cellClicked(int row, int column)
 {
     if (column == 0){//First column will show the fasta comments
-        QMessageBox::information(this, tr("Fasta comments"), tr("The comments of the fasta file will appear here: "));
+      //  QMessageBox::information(this, tr("Fasta comments"), tr("The comments of the fasta file will appear here: "));
     }
     else{
         //This will open a new window with detailed results
         resultsdialog results;
+       // std::cout << " Printing from Qt "  << suffixtrees.at(row)->filename << std::endl;
+        results.set_texts(QString::fromStdString(suffixtrees.at(row)->filename), QString::fromStdString(tests.at(column-1).searchstr));
         results.setWindowTitle("Detailed results");
         results.setModal(true);
         results.exec();
