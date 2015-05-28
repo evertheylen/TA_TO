@@ -19,7 +19,7 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 			0, {0});													/**Transities van een staat naar een verzameling van staten*/
 	string alphabet;													/**	Vergemakkelijkt het vinden van de eindstaat	*/
 	for (string::iterator k = str.begin(); k!= str.end(); k++){
-		if (*k == '+' or *k == '(' or *k == ')' or *k == '*' or *k == '.'){
+		if (*k == '+' or *k == '(' or *k == ')' or *k == '*' or *k == '.' or *k == 'e'){	/** e is epsilon ==> behoort niet tot alphabet*/
 			continue;
 		}
 		else{
@@ -38,6 +38,9 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 	stack<int> start,end; 										/**				Startstaat,eindstaat bijhouden				*/
 	stack<int> bracketsstart,bracketsend;						/**	Brackets start en eind bijhouden*/
 	for (string::iterator it = str.begin(); it!= str.end(); it++){
+		if (*it == 'e'){
+			continue;
+		}
 		if (*it == '('){
 			/**startstack is niet leeg */
 			if (it != str.begin() and isInAlphabet(alphabet,*(it-1)) == false){
@@ -228,6 +231,6 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 	/**
 	*  Geeft overeenkomende eNFA(N) terug
 	*/
-	
+
 	return N;
 }
