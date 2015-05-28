@@ -26,31 +26,12 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>550</x>
-     <y>0</y>
-     <width>81</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="logo.qrc">:/:/logos/HELIX2_negatief.png</pixmap>
-   </property>
-   <property name="scaledContents">
-    <bool>true</bool>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>10</x>
      <y>20</y>
-     <width>21</width>
+     <width>31</width>
      <height>41</height>
     </rect>
    </property>
@@ -58,35 +39,84 @@
     <string>File: </string>
    </property>
   </widget>
-  <widget class="QLabel" name="File">
+  <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>70</x>
+     <x>50</x>
      <y>30</y>
-     <width>59</width>
+     <width>91</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>loll</string>
+    <string>TextLabel</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="gobackttomainfromresults">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>329</y>
-     <width>94</width>
-     <height>32</height>
+     <y>80</y>
+     <width>631</width>
+     <height>281</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Go back</string>
-   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QTableWidget" name="tableWidget">
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>90</number>
+      </attribute>
+      <attribute name="horizontalHeaderMinimumSectionSize">
+       <number>20</number>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Match</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Locations</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Total errors</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Fake</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Skip</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Repetition</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Ignore</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="gobackttomainfromresults">
+      <property name="text">
+       <string>Go back</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
- <resources>
-  <include location="logo.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
