@@ -224,12 +224,16 @@ Result::Result(std::vector<FancyPath>& paths, File* f, Query* q):
 Result::Result() {}
 
 std::string Result::summary() {
-	if (matches.size() == 0) {
+	int total_matched_loc = 0;
+	for (Match& m: matches) {
+		total_matched_loc += m.locations.size();
+	}
+	if (total_matched_loc == 0) {
 		return "no matches";
-	} else if (matches.size() == 1) {
+	} else if (total_matched_loc == 1) {
 		return "1 match";
 	} else {
-		return std::to_string(matches.size()) + " matches";
+		return std::to_string(total_matched_loc) + " matches";
 	}
 }
 
