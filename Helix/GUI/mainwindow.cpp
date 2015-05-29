@@ -83,8 +83,7 @@ void MainWindow::on_addtestbutton_clicked()     // Input new query knop
     secdialog.exec();
 
  //   std::cout << tests.size() << std::endl;
-	for (int i=testcount-1; i<tests.size(); i++) {
-        std::string newtest;
+	for (int i=testcount-1; i<tests.size(); i++) {std::string newtest;
         ui->tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         ui->tableWidget->insertColumn(ui->tableWidget->columnCount());
         newtest = "Test " + std::to_string(testcount);

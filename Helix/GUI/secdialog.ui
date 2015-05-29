@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>657</width>
-    <height>344</height>
+    <height>362</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -138,7 +138,7 @@
         <string notr="true"/>
        </property>
        <property name="text">
-        <string>Go back</string>
+        <string>Done</string>
        </property>
        <property name="autoDefault">
         <bool>true</bool>
@@ -163,7 +163,7 @@
         <string notr="true"/>
        </property>
        <property name="text">
-        <string>Search</string>
+        <string>Add</string>
        </property>
        <property name="autoDefault">
         <bool>true</bool>

@@ -44,7 +44,7 @@ void _write_dot(FSM<R,S,T>* F, std::string name) {
 	output_file.close();
 }
 
-int main() {
+int main(int argc, char* args[]) {
 // 	s_DFA D( {"q0", "q1", "q2", "dead"}, {'T', 'A'}, 0, {2});
 // 	D.set_delta(0, 'T', 1);
 // 	D.set_delta(0, 'A', 3);
@@ -85,8 +85,12 @@ int main() {
 // 	
 // 	generate_dot(suf, "Tadaa", 0);
 	
-	std::string regex = "T(e+A)AT";
+	if (argc != 3) {
+		std::cout << "need two arguments\n";
+	}
 	
+	std::string regex = args[2];
+	/*
 	auto E = RE_to_eNFA<std::string, char, 'e'>(regex);
 	s_eNFA_Runner Erun(E);
 	_write_dot(&E, "enfa.dot");
@@ -100,11 +104,11 @@ int main() {
 	test("TAT");
 	test("TT");
 	test("TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT");
+	*/
 	
+	Query q(regex, 0, 0, 0, 0, 0);
 	
-	Query q(regex, 1, 0, 0, 0, 1);
-	
-	File f("simpelDNA.txt", 0);
+	File f(std::string(args[1]), 0);
 	q.search(f);
 	
 	Result r = q.results_per_file[0];
