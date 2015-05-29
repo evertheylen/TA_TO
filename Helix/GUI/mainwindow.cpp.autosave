@@ -95,7 +95,7 @@ void MainWindow::on_addtestbutton_clicked()     // Input new query knop
         querycount++;
         QTableWidgetItem* item = new QTableWidgetItem(QString::fromStdString(newquery));
         QString tooltip = "Search for ";
-        std::cout << " Pre vector ======  Testcount = " << querycount << " queries.size() = " << queries.size() << std::endl;
+        std::cout << " Pre vector ======  Testcount = " << querycount << " queries.size() = " << queries.size() <<  std::endl;
         Query query = queries.at(querycount-2);
         std::cout << " Post vector\n";
         tooltip += QString::fromStdString(query.input);
