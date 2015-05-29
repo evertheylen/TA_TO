@@ -976,3 +976,43 @@ make[2]: Leaving directory `/home/stijn/Documents/1Ba Informatica/Talen en Autom
 make[1]: Leaving directory `/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
 
 
+Determining if files pthread.h exist passed with the following output:
+Change Dir: /Users/AnthonyHermans/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1814580843/fast"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTryCompileExec1814580843.dir/build.make CMakeFiles/cmTryCompileExec1814580843.dir/build
+/usr/local/bin/cmake -E cmake_progress_report /Users/AnthonyHermans/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1814580843.dir/CheckIncludeFiles.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1814580843.dir/CheckIncludeFiles.c.o   -c /Users/AnthonyHermans/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+Linking C executable cmTryCompileExec1814580843
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1814580843.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTryCompileExec1814580843.dir/CheckIncludeFiles.c.o  -o cmTryCompileExec1814580843  
+
+
+Determining if the pthread_create exist passed with the following output:
+Change Dir: /Users/AnthonyHermans/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec12253448/fast"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTryCompileExec12253448.dir/build.make CMakeFiles/cmTryCompileExec12253448.dir/build
+/usr/local/bin/cmake -E cmake_progress_report /Users/AnthonyHermans/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec12253448.dir/CheckSymbolExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -o CMakeFiles/cmTryCompileExec12253448.dir/CheckSymbolExists.c.o   -c /Users/AnthonyHermans/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec12253448
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec12253448.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTryCompileExec12253448.dir/CheckSymbolExists.c.o  -o cmTryCompileExec12253448  
+
+File /Users/AnthonyHermans/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+

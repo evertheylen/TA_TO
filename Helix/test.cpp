@@ -4,6 +4,8 @@
 #include "gtest/gtest.h"
 
 #include "tests/filecompare.h"
+#include "tests/test_R_engine.cpp"
+#include "tests/test_various.cpp"
 
 TEST(Meta, GTestTest) {
 	EXPECT_TRUE(true);
