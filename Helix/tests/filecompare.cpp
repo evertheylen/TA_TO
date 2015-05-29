@@ -1,6 +1,5 @@
 
 #include "filecompare.h"
-
 /**
 Auxiliary function for file manipulation in unit tests.
 */
