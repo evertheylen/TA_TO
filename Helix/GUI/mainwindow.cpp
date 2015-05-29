@@ -39,11 +39,12 @@ void MainWindow::on_pushButton_clicked()        // Input file knop :p
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),"",tr("Files (*.*)"));
     std::string fileName_str = fileName.toUtf8().constData();
 	if (fileName_str != "") {
-        File* f = new File(fileName_str, files.size());
+		File* f = new File(fileName_str, ui->tableWidget->rowCount()-1);
         files.emplace_back(f);  // emplace_back zorgt ervoor dat het direct op de juiste plaats wordt geinit
 
-        QMessageBox::information(this, tr("Suffixtree"), tr("The file was loaded and the suffixtree was created"));
-        ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+		//QMessageBox::information(this, tr("Suffixtree"), tr("The file was loaded and the suffixtree was created"));
+
+		ui->tableWidget->insertRow(ui->tableWidget->rowCount());
         QTableWidgetItem* item = new QTableWidgetItem(QString::fromStdString(f->get_name()));
         QString comments = QString::fromStdString(f->comments);
         if (comments == "") {
@@ -133,7 +134,7 @@ void MainWindow::on_runtests_clicked()
     int size = queries.size();
     if (size != 0){
         double progress = 0.0;
-        double progress_advance = 100/size;
+		double progress_advance = 100.0/size;
         for (int j = 0; j < files.size(); j++) {
             for (int i = 0; i < size; i++) {
 				queries.at(i).search(*(files.at(j)));
@@ -163,8 +164,10 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column)
       //  QMessageBox::information(this, tr("Fasta comments"), tr("The comments of the fasta file will appear here: "));
     }
     else{
+		std::cout << "clicked\n";
         //This will open a new window with detailed results
-		ResultView resultv;
-		resultv.show();
+		ResultView* resultv = new ResultView();
+		resultv->res = &(queries.at(column-1).results_per_file[files.at(row)->ID]);
+		resultv->show();
     }
 }

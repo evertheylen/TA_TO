@@ -6,9 +6,21 @@ ResultView::ResultView(QWidget *parent) :
 	ui(new Ui::ResultView)
 {
 	ui->setupUi(this);
+
+}
+
+void ResultView::setResult(Result* res) {
+	res = _res;
+
+	// Set text labels:
+
+
+
+
 }
 
 ResultView::~ResultView()
 {
 	delete ui;
+	delete this;
 }

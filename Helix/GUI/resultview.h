@@ -2,6 +2,7 @@
 #define RESULTVIEW_H
 
 #include <QMainWindow>
+#include <QLabel>
 #include "../engine_s/search.h"
 
 namespace Ui {
@@ -15,6 +16,8 @@ class ResultView : public QMainWindow
 public:
 	explicit ResultView(QWidget *parent = 0);
 	~ResultView();
+
+	void setResult(Result* res);
 
 	Result* res;
 
