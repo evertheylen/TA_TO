@@ -37,9 +37,13 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 	stack<int> start,end; 										/**				Startstaat,eindstaat bijhouden				*/
 	stack<int> bracketsstart,bracketsend;						/**	Brackets start en eind bijhouden*/
 	for (string::iterator it = str.begin(); it!= str.end(); it++) {
-// 		if (*it == 'e'){
-// 			continue;
-// 		}
+		if (*it == 'e' and (it != str.end() and *(it+1) != '+')){
+			continue;
+		}
+		if (*it == 'e' and (it != str.end() and *(it+1) == '+')){
+			it = it+1;
+			continue;
+		}
 		if (*it == '(') {
 			/**startstack is niet leeg */
 			if (it != str.begin() and isInAlphabet(alphabet,* (it-1)) == false) {
