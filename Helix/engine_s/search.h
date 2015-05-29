@@ -140,7 +140,7 @@ class Query {
 public:
 	CompactDFA D;
 	
-	std::string& input;
+	std::string input;
 	
 	int max_fakes;
 	int max_skips;
