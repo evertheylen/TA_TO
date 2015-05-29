@@ -17,7 +17,7 @@
 #include "../etc/file.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),testcount(1),
+    QMainWindow(parent),querycount(1),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -26,6 +26,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    for (int i = 0; i < files.size(); i++) {
+        delete files.at(i);
+    }
     delete ui;
 }
 
@@ -34,12 +37,13 @@ void MainWindow::on_pushButton_clicked()        // Input file knop :p
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),"",tr("Files (*.*)"));
     std::string fileName_str = fileName.toUtf8().constData();
 	if (fileName_str != "") {
-		files.emplace_back(File(fileName_str, files.size()));  // emplace_back zorgt ervoor dat het direct op de juiste plaats wordt geinit
+        File* f = new File(fileName_str, files.size());
+        files.emplace_back(f);  // emplace_back zorgt ervoor dat het direct op de juiste plaats wordt geinit
 
         QMessageBox::information(this, tr("Suffixtree"), tr("The file was loaded and the suffixtree was created"));
         ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-        QTableWidgetItem* item = new QTableWidgetItem(QString::fromStdString(f.get_name()));
-        QString comments = QString::fromStdString(f.comments);
+        QTableWidgetItem* item = new QTableWidgetItem(QString::fromStdString(f->get_name()));
+        QString comments = QString::fromStdString(f->comments);
         if (comments == "") {
             comments = "no comments available for this file\n";
         }
@@ -65,7 +69,7 @@ void MainWindow::on_pushButton_clicked()        // Input file knop :p
 
 // enkel te gebruiken voor cellen te vervangen
 void MainWindow::rebuild_table() {
-	for (File& f: files) {
+    for (File* f: files) {
 
 	}
 }
@@ -83,19 +87,20 @@ void MainWindow::on_addtestbutton_clicked()     // Input new query knop
     secdialog.exec();
 
  //   std::cout << tests.size() << std::endl;
-	for (int i=testcount-1; i<tests.size(); i++) {std::string newtest;
+    for (int i=querycount-1; i<queries.size(); i++) {
+        std::string newquery;
         ui->tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         ui->tableWidget->insertColumn(ui->tableWidget->columnCount());
-        newtest = "Test " + std::to_string(testcount);
-        testcount++;
-        QTableWidgetItem* item = new QTableWidgetItem(QString::fromStdString(newtest));
+        newquery = "Query " + std::to_string(querycount);
+        querycount++;
+        QTableWidgetItem* item = new QTableWidgetItem(QString::fromStdString(newquery));
         QString tooltip = "Search for ";
        // std::cout << " Pre vector ======  Testcount = " << testcount << std::endl;
-        testsearch test = tests.at(testcount-2);
+        Query query = queries.at(querycount-2);
        // std::cout << " Post vector\n";
-        tooltip += QString::fromStdString(test.searchstr);
+        tooltip += QString::fromStdString(query.input);
         tooltip += " with ";
-        tooltip += QString::number(test.total_error);
+        tooltip += QString::number(query.max_total);
         tooltip += " as total error amount\n";
         item->setToolTip(tooltip);
         ui->tableWidget->setHorizontalHeaderItem(ui->tableWidget->columnCount()-1, item);
@@ -119,23 +124,23 @@ void MainWindow::on_addtestbutton_clicked()     // Input new query knop
 
 void MainWindow::on_runtests_clicked()
 {
-    if (suffixtrees.size() == 0){
+    if (files.size() == 0){
         QMessageBox::critical(this, tr("Error"),tr("U must specify an input file!!"));
         return;
     }
-    int size = tests.size();
+    int size = queries.size();
     if (size != 0){
         double progress = 0.0;
         double progress_advance = 100/size;
-        for (int j = 0; j < suffixtrees.size(); j++) {
+        for (int j = 0; j < files.size(); j++) {
             for (int i = 0; i < size; i++) {
                 std::vector<int> result = {};//suffixtrees.at(j)->search_string(tests.at(i).searchstr, tests.at(i).total_error);
                 QString input = "Results for search ";
-                input += QString::fromStdString(tests.at(i).searchstr);
+                input += QString::fromStdString(queries.at(i).input);
                 input += " with ";
-                input += QString::number(tests.at(i).total_error);
+                input += QString::number(queries.at(i).max_total);
                 input += " errors.\nIn string ";
-                input += QString::fromStdString(suffixtrees.at(j)->s);
+                input += QString::fromStdString(files.at(j)->suffixtree->s);
                 input += "\n";
                // ui->textBrowser->append(input);
                 QString match = QString::number(result.size());
@@ -175,7 +180,7 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column)
         //This will open a new window with detailed results
         resultsdialog results;
        // std::cout << " Printing from Qt "  << suffixtrees.at(row)->filename << std::endl;
-        results.set_texts(QString::fromStdString(suffixtrees.at(row)->filename), QString::fromStdString(tests.at(column-1).searchstr));
+        results.set_texts(QString::fromStdString(files.at(row)->get_name()), QString::fromStdString(queries.at(column-1).input));
         results.setWindowTitle("Detailed results");
         results.setModal(true);
         results.exec();

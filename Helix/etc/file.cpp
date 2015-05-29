@@ -34,7 +34,7 @@ File::File(std::string filename, int _ID):
     	//std::stringstream suffix;
     	char input;
     	//std::cout << "Printing name from file  " << name << std::endl;
-    	suffixtree = new Suffix3(name);
+    	suffixtree = new Suffix3();
     	while (f.good()) {
     		f.get(input);
     		if (f.eof()) {

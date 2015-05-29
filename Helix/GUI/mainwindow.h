@@ -27,8 +27,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
 	int querycount;
 
-	std::vector <Query> queries;
-	std::vector <File> files;
+    std::vector <Query> queries;
+    std::vector <File*> files;
 
     ~MainWindow();
 

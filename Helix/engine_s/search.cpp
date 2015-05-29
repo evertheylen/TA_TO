@@ -226,7 +226,7 @@ Result::Result() {}
 // -----[ Query ]----------------
 
 Query::Query(std::string& fancypattern, int f, int s, int r, int i, int m):
-		max_fakes(f), max_skips(s), max_reps(r), max_ignores(i), max_total(m) {
+		max_fakes(f), max_skips(s), max_reps(r), max_ignores(i), max_total(m), input(fancypattern) {
 	// All of the theory and algorithms have led up to this:
 	// Converting the fancypattern to a single DFA.
 	std::vector<std::string> pats = fastaReplace(fancypattern);

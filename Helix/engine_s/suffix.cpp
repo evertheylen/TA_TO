@@ -74,7 +74,7 @@ int Node3::height(int above) {
 
 // ------[ Suffix ]---------------------------
 
-Suffix3::Suffix3(std::string _filename): s(""), root(nullptr), filename(_filename) {
+Suffix3::Suffix3(): s(""), root(nullptr) {
     //std::cout << filename << std::endl;
 }
 

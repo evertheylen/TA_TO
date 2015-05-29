@@ -57,7 +57,7 @@ class SuffixPosition;
 
 class Suffix3 {
 public:
-	Suffix3(std::string _filename);
+	Suffix3();
 
 	//Suffix3(std::string& s);
 
