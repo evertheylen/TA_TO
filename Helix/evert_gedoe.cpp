@@ -90,10 +90,16 @@ int main(int argc, char* args[]) {
 	}
 	
 	std::string regex = args[2];
-	/*
+	
 	auto E = RE_to_eNFA<std::string, char, 'e'>(regex);
 	s_eNFA_Runner Erun(E);
 	_write_dot(&E, "enfa.dot");
+	
+	std::cout << "Alphabet of E: ";
+	for (char a: E.sigma) {
+		std::cout << a << ", ";
+	}
+	std::cout << "\n";
 	
 	auto bad_D = MSSC(E);
 	s_DFA_Runner Drun(bad_D);
@@ -104,12 +110,12 @@ int main(int argc, char* args[]) {
 	test("TAT");
 	test("TT");
 	test("TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT");
-	*/
+	
 	
 	Query q(regex, 0, 0, 0, 0, 0);
 	
 	File f(std::string(args[1]), 0);
-	q.search(f);
+	q.search(&f);
 	
 	Result r = q.results_per_file[0];
 	
@@ -117,7 +123,7 @@ int main(int argc, char* args[]) {
 		std::cout << "no matches :(\n";
 	} else {
 		for (Match& m: r.matches) {
-			std::cout << m.format(f);
+			std::cout << m.format(f) << "\n";
 		}
 	}
 }

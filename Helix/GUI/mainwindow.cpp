@@ -40,8 +40,8 @@ void MainWindow::on_pushButton_clicked()        // Input file knop :p
     std::string fileName_str = fileName.toUtf8().constData();
 	if (fileName_str != "") {
 		File* f = new File(fileName_str, ui->tableWidget->rowCount()-1);
-        files.emplace_back(f);  // emplace_back zorgt ervoor dat het direct op de juiste plaats wordt geinit
-
+		files.push_back(f);  // emplace_back zorgt ervoor dat het direct op de juiste plaats wordt geinit
+		std::cout << "creating file on " << f << "\n";
 		//QMessageBox::information(this, tr("Suffixtree"), tr("The file was loaded and the suffixtree was created"));
 
 		ui->tableWidget->insertRow(ui->tableWidget->rowCount());
@@ -137,7 +137,7 @@ void MainWindow::on_runtests_clicked()
 		double progress_advance = 100.0/size;
         for (int j = 0; j < files.size(); j++) {
             for (int i = 0; i < size; i++) {
-				queries.at(i).search(*(files.at(j)));
+				queries.at(i).search(files.at(j));
 				Result& r = queries.at(i).results_per_file[files.at(j)->ID];
                 QTableWidgetItem* item = new QTableWidgetItem();
 				item->setText(QString::fromStdString(r.summary()));
@@ -164,10 +164,14 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column)
       //  QMessageBox::information(this, tr("Fasta comments"), tr("The comments of the fasta file will appear here: "));
     }
     else{
-		std::cout << "clicked\n";
-        //This will open a new window with detailed results
-		ResultView* resultv = new ResultView();
-		resultv->res = &(queries.at(column-1).results_per_file[files.at(row)->ID]);
-		resultv->show();
-    }
+		if (queries.at(column-1).results_per_file.find(files.at(row)->ID) != queries.at(column-1).results_per_file.end()) {
+			std::cout << "clicked\n";
+			//This will open a new window with detailed results
+			ResultView* resultv = new ResultView();
+			resultv->setResult(&(queries.at(column-1).results_per_file[files.at(row)->ID]));
+			resultv->show();
+		} else {
+			QMessageBox::critical(this, tr("Error"), tr("There are no results for this query and file yet."));
+		}
+	}
 }

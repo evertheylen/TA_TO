@@ -32,11 +32,11 @@ public:
 	Suffix3* suffixtree;
 	std::string comments;
 	int ID;
+	std::string name;
 	
 private:
 	std::ifstream file;
 	std::string content;
-	std::string name;
 };
 
 

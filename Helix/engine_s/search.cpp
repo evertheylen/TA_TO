@@ -193,7 +193,7 @@ std::string Match::format(File& file) {
 	html_close_status(current, secondline);
 	
 	//merge the two lines
-	firstline << "\n";
+	firstline << "\n<br/>";
 	firstline << secondline.str();
 	return std::string(firstline.str());
 	
@@ -284,11 +284,11 @@ Query::Query(std::string& fancypattern, int f, int s, int r, int i, int m):
 // 	std::cout << "###################\n";
 }
 
-void Query::search(File& f) {
-	if (results_per_file.find(f.ID) == results_per_file.end()) {
+void Query::search(File* f) {
+	if (results_per_file.find(f->ID) == results_per_file.end()) {
 		std::cout << "adding results\n";
-		auto raw_results = real_search(*f.suffixtree);
-		results_per_file.insert(std::pair<int, Result>(f.ID, Result(raw_results, &f, this)));
+		auto raw_results = real_search(*f->suffixtree);
+		results_per_file.insert(std::pair<int, Result>(f->ID, Result(raw_results, f, this)));
 	}
 }
 

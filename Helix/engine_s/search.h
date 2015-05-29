@@ -155,7 +155,7 @@ public:
 
 	Query(std::string& fancypattern, int f, int s, int r, int i, int m);
 	
-	void search(File& f);
+	void search(File* f);
 	
 private:
 	std::vector<FancyPath> real_search(Suffix3& suf);

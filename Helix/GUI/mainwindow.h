@@ -6,14 +6,6 @@
 #include "../etc/file.h"
 #include "../engine_s/search.h"
 
-struct testsearch {
-    int total_error;
-    int fake_error;
-    int skip_error;
-    int ignore_error;
-    int repetition_error;
-    std::string searchstr;
-};
 
 namespace Ui {
 class MainWindow;
