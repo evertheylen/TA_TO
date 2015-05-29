@@ -54,9 +54,9 @@ GUI: $(OBJS) $(LIBS)
 
 
 .PHONY: test
-test: $(OBJS) $(LIBS) $(TESTS) test.o
+test: $(OBJS) $(LIBS) $(TESTS) tests/filecompare.o test.o
 	@echo -e "\033[1;38;2;20;255;20;48;2;0;0;0m --> Compiling and linking $@ \033[0m"
-	$(CXX) $(CXXFLAGS) -o $@ $(OBJS) test.o $(LIBS) $(TEST_LIBS) $(TEST_STATIC_LIBS) -pthread
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS) test.o tests/filecompare.o $(LIBS) $(TEST_LIBS) $(TEST_STATIC_LIBS) -pthread
 
 
 .PHONY: gtest

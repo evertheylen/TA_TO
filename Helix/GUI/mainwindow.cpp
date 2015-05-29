@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "secdialog.h"
 #include "addtestdialog.h"
-#include "resultsdialog.h"
+#include "resultview.h"
 #include "QtGui"
 #include "QString"
 #include "QDesktopServices"
@@ -164,11 +164,7 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column)
     }
     else{
         //This will open a new window with detailed results
-        resultsdialog results;
-       // std::cout << " Printing from Qt "  << suffixtrees.at(row)->filename << std::endl;
-        results.set_texts(QString::fromStdString(files.at(row)->get_name()), QString::fromStdString(queries.at(column-1).input));
-        results.setWindowTitle("Detailed results");
-        results.setModal(true);
-        results.exec();
+		ResultView resultv;
+		resultv.show();
     }
 }

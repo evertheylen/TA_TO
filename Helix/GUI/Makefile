@@ -52,21 +52,21 @@ SOURCES       = main.cpp \
 		mainwindow.cpp \
 		secdialog.cpp \
 		addtestdialog.cpp \
-		resultsdialog.cpp qrc_logo.cpp \
+		resultview.cpp qrc_logo.cpp \
 		moc_mainwindow.cpp \
 		moc_secdialog.cpp \
 		moc_addtestdialog.cpp \
-		moc_resultsdialog.cpp
+		moc_resultview.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		secdialog.o \
 		addtestdialog.o \
-		resultsdialog.o \
+		resultview.o \
 		qrc_logo.o \
 		moc_mainwindow.o \
 		moc_secdialog.o \
 		moc_addtestdialog.o \
-		moc_resultsdialog.o
+		moc_resultview.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/shell-unix.conf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
@@ -236,11 +236,11 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		Helix.pro mainwindow.h \
 		secdialog.h \
 		addtestdialog.h \
-		resultsdialog.h main.cpp \
+		resultview.h main.cpp \
 		mainwindow.cpp \
 		secdialog.cpp \
 		addtestdialog.cpp \
-		resultsdialog.cpp
+		resultview.cpp
 QMAKE_TARGET  = Helix
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = Helix
@@ -268,7 +268,7 @@ first: all
 
 ####### Build rules
 
-$(TARGET): ui_mainwindow.h ui_secdialog.h ui_addtestdialog.h ui_resultsdialog.h $(OBJECTS)  
+$(TARGET): ui_mainwindow.h ui_secdialog.h ui_addtestdialog.h ui_resultview.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: Helix.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/mkspecs/features/spec_pre.prf \
@@ -629,9 +629,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents logo.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h secdialog.h addtestdialog.h resultsdialog.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp secdialog.cpp addtestdialog.cpp resultsdialog.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.ui secdialog.ui addtestdialog.ui resultsdialog.ui $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h secdialog.h addtestdialog.h resultview.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp secdialog.cpp addtestdialog.cpp resultview.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.ui secdialog.ui addtestdialog.ui resultview.ui $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -659,9 +659,9 @@ qrc_logo.cpp: logo.qrc \
 		HELIX2_negatief.png
 	/usr/lib/qt/bin/rcc -name logo logo.qrc -o qrc_logo.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_secdialog.cpp moc_addtestdialog.cpp moc_resultsdialog.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_secdialog.cpp moc_addtestdialog.cpp moc_resultview.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_secdialog.cpp moc_addtestdialog.cpp moc_resultsdialog.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_secdialog.cpp moc_addtestdialog.cpp moc_resultview.cpp
 moc_mainwindow.cpp: ../etc/file.h \
 		../engine_s/suffix.h \
 		../engine_s/search.h \
@@ -683,16 +683,24 @@ moc_secdialog.cpp: ../etc/file.h \
 moc_addtestdialog.cpp: addtestdialog.h
 	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/GUI -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/FSM -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/tinyxml -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/engine_r -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/engine_s -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/etc -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/4.9.2 -I/usr/include/c++/4.9.2/x86_64-unknown-linux-gnu -I/usr/include/c++/4.9.2/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.2/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.2/include-fixed -I/usr/include addtestdialog.h -o moc_addtestdialog.cpp
 
-moc_resultsdialog.cpp: ../etc/file.h \
+moc_resultview.cpp: ../engine_s/search.h \
+		../lib/FSM/FSM.h \
+		../lib/FSM/FSM.tcc \
+		../lib/tinyxml/tinyxml.h \
+		../lib/tinyxml/tinystr.h \
+		../lib/FSM/Run.h \
+		../lib/FSM/Run.tcc \
+		../lib/FSM/CompactDFA.h \
 		../engine_s/suffix.h \
-		resultsdialog.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/GUI -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/FSM -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/tinyxml -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/engine_r -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/engine_s -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/etc -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/4.9.2 -I/usr/include/c++/4.9.2/x86_64-unknown-linux-gnu -I/usr/include/c++/4.9.2/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.2/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.2/include-fixed -I/usr/include resultsdialog.h -o moc_resultsdialog.cpp
+		../etc/file.h \
+		resultview.h
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/GUI -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/FSM -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/tinyxml -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/engine_r -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/engine_s -I/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/etc -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/4.9.2 -I/usr/include/c++/4.9.2/x86_64-unknown-linux-gnu -I/usr/include/c++/4.9.2/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.2/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.2/include-fixed -I/usr/include resultview.h -o moc_resultview.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_secdialog.h ui_addtestdialog.h ui_resultsdialog.h
+compiler_uic_make_all: ui_mainwindow.h ui_secdialog.h ui_addtestdialog.h ui_resultview.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_secdialog.h ui_addtestdialog.h ui_resultsdialog.h
+	-$(DEL_FILE) ui_mainwindow.h ui_secdialog.h ui_addtestdialog.h ui_resultview.h
 ui_mainwindow.h: mainwindow.ui
 	/usr/lib/qt/bin/uic mainwindow.ui -o ui_mainwindow.h
 
@@ -702,8 +710,8 @@ ui_secdialog.h: secdialog.ui
 ui_addtestdialog.h: addtestdialog.ui
 	/usr/lib/qt/bin/uic addtestdialog.ui -o ui_addtestdialog.h
 
-ui_resultsdialog.h: resultsdialog.ui
-	/usr/lib/qt/bin/uic resultsdialog.ui -o ui_resultsdialog.h
+ui_resultview.h: resultview.ui
+	/usr/lib/qt/bin/uic resultview.ui -o ui_resultview.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -742,7 +750,7 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		ui_mainwindow.h \
 		secdialog.h \
 		addtestdialog.h \
-		resultsdialog.h
+		resultview.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 secdialog.o: secdialog.cpp secdialog.h \
@@ -764,11 +772,19 @@ addtestdialog.o: addtestdialog.cpp addtestdialog.h \
 		ui_addtestdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o addtestdialog.o addtestdialog.cpp
 
-resultsdialog.o: resultsdialog.cpp resultsdialog.h \
-		../etc/file.h \
+resultview.o: resultview.cpp resultview.h \
+		../engine_s/search.h \
+		../lib/FSM/FSM.h \
+		../lib/FSM/FSM.tcc \
+		../lib/tinyxml/tinyxml.h \
+		../lib/tinyxml/tinystr.h \
+		../lib/FSM/Run.h \
+		../lib/FSM/Run.tcc \
+		../lib/FSM/CompactDFA.h \
 		../engine_s/suffix.h \
-		ui_resultsdialog.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o resultsdialog.o resultsdialog.cpp
+		../etc/file.h \
+		ui_resultview.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o resultview.o resultview.cpp
 
 qrc_logo.o: qrc_logo.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_logo.o qrc_logo.cpp
@@ -782,8 +798,8 @@ moc_secdialog.o: moc_secdialog.cpp
 moc_addtestdialog.o: moc_addtestdialog.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_addtestdialog.o moc_addtestdialog.cpp
 
-moc_resultsdialog.o: moc_resultsdialog.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_resultsdialog.o moc_resultsdialog.cpp
+moc_resultview.o: moc_resultview.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_resultview.o moc_resultview.cpp
 
 ####### Install
 

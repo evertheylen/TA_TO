@@ -1,15 +1,15 @@
 #ifndef RESULTSDIALOG_H
 #define RESULTSDIALOG_H
 
-#include <QDialog>
 #include <QString>
+#include <QWindow>
 #include <../etc/file.h>
 
 namespace Ui {
 class resultsdialog;
 }
 
-class resultsdialog : public QDialog
+class resultsdialog : public QWindow
 {
     Q_OBJECT
 
