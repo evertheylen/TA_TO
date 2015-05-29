@@ -22,11 +22,11 @@ template<	typename StateT,
 			SymbolT epsilon>
 eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 	eNFA <StateT, SymbolT, epsilon> N({"q0"},				/** Staten (met initieel de startstaat)*/
-			{'e'},																			/**alfabet (met standaard de epsilon)*/
+			std::set<char>({}),																			/**alfabet (met standaard de epsilon)*/
 			0, {0});													/**Transities van een staat naar een verzameling van staten*/
 	string alphabet;													/**	Vergemakkelijkt het vinden van de eindstaat	*/
 	for (string::iterator k = str.begin(); k!= str.end(); k++){
-		if (*k == '+' or *k == '(' or *k == ')' or *k == '*' or *k == '.'){
+		if (*k == '+' or *k == '(' or *k == ')' or *k == '*' or *k == '.' or *k == 'e'){
 			continue;
 		}
 		else{
@@ -45,6 +45,16 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 	stack<int> start,end; 										/**				Startstaat,eindstaat bijhouden				*/
 	stack<int> bracketsstart,bracketsend;						/**	Brackets start en eind bijhouden*/
 	for (string::iterator it = str.begin(); it!= str.end(); it++){
+		if (*it == 'e' and (it+1) == str.end()){
+			continue;
+		}
+		if (*it == 'e' and ((it+1) != str.end() and *(it+1) != '+')){
+			continue;
+		}
+		if (*it == 'e' and ((it+1) != str.end() and *(it+1) == '+')){
+			it = it+1;
+			continue;
+		}
 		if (*it == '('){
 			/**startstack is niet leeg */
 			if (it != str.begin() and isInAlphabet(alphabet,*(it-1)) == false){
