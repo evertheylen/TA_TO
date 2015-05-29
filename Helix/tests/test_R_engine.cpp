@@ -5,6 +5,7 @@
 #include "filecompare.h"
 #include "../engine_r/RE-eNFA/RE-eNFA.h"
 #include "../engine_r/eNFA-DFA/eNFA-DFA.h"
+#include "../engine_r/Product/product.h"
 #include "string"
 
 // Write tests for R_Engine here
@@ -85,11 +86,37 @@ TEST_F(Tests, eNFA_DFA_fileCompare){
 	
 };
 
-TEST_F(Tests, Productautomaat_fileCompare){
-
-	
-};
 // Test Product
-
+TEST_F(Tests, Product_fileCompare){
+	std::string arg1 = std::string("testbestanden/Product/input1_DFA1.xml");
+	std::string arg2 = std::string("testbestanden/Product/input1_DFA2.xml");
+	
+	s_DFA D1;
+	auto doc = read(arg1);
+	D1.from_xml(doc);
+	
+	s_DFA D2;
+	doc = read(arg2);
+	D2.from_xml(doc);
+	
+	DFA <std::string, char> P = product(D1, D2, true);  // true --> intersection
+	write_dot(&P, std::string("testbestanden/Product/output1.dot"));
+	EXPECT_TRUE(fileCompare("testbestanden/Product/output1.dot", "testbestanden/Product/Expectedfile1.dot"));
+	
+	arg1 = std::string("testbestanden/Product/input1_DFA1.xml");
+	arg2 = std::string("testbestanden/Product/input1_DFA2.xml");
+	
+	s_DFA D3;
+	doc = read(arg1);
+	D3.from_xml(doc);
+	
+	s_DFA D4;
+	doc = read(arg2);
+	D4.from_xml(doc);
+	
+	DFA <std::string, char> P2 = product(D3, D4, true);  // true --> intersection
+	write_dot(&P2, std::string("testbestanden/Product/output2.dot"));
+	EXPECT_TRUE(fileCompare("testbestanden/Product/output2.dot", "testbestanden/Product/Expectedfile2.dot"));
+};
 // Test DFA->CompactDFA
 
