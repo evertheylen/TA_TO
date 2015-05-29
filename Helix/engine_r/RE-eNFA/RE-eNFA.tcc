@@ -15,7 +15,7 @@ template<	typename StateT,
             SymbolT epsilon>
 eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 	eNFA <StateT, SymbolT, epsilon> N( {"q0"},				/** Staten (met initieel de startstaat)*/
-	                                   {'e'},																			/**alfabet (met standaard de epsilon)*/
+  std::set<char>({}),																			/**alfabet (met standaard de epsilon)*/
 	                                   0, {0});													/**Transities van een staat naar een verzameling van staten*/
 	string alphabet;													/**	Vergemakkelijkt het vinden van de eindstaat	*/
 	for (string::iterator k = str.begin(); k!= str.end(); k++) {
