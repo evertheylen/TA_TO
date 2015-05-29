@@ -16,6 +16,8 @@
 #include <string>
 #include "../etc/file.h"
 
+#include <cmath>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),querycount(1),
     ui(new Ui::MainWindow)
@@ -165,7 +167,7 @@ void MainWindow::on_runtests_clicked()
                    //ui->textBrowser->append(index);
                 }
                 progress += progress_advance;
-                ui->progressBar->setValue(progress);
+				ui->progressBar->setValue(round(progress));
             }
         }
     }

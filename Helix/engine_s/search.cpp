@@ -162,9 +162,9 @@ Match::Match(FancyPath& p, Suffix3& suf):
 		FancyPath(p) {
 	// Save locations
 	suf.get_leaves(p.suf_pos.node, locations);
-	for (int i=0; i<locations.size(); i++) {
-		locations[i] += p.suf_pos.pos_in_node;
-	}
+// 	for (int i=0; i<locations.size(); i++) {
+// 		locations[i] += p.suf_pos.pos_in_node;
+// 	}
 }
 
 std::string Match::format(File& file) {
@@ -192,14 +192,19 @@ std::string Match::format(File& file) {
 	}
 	html_close_status(current, secondline);
 	
-	// merge the two lines
-	//firstline << "\n";
-	//firstline << secondline.str();
-	//return std::string(firstline.str());
+	//merge the two lines
+	firstline << "\n";
+	firstline << secondline.str();
+	return std::string(firstline.str());
 	
-	std::cout << "first: " << firstline.str() << "\n";
-	std::cout << "secnd: " << secondline.str() << "\n";
-	return std::string("");
+// 	std::cout << "node address: " << suf_pos.node << "\n";
+// 	std::cout << "first: " << firstline.str() << "\n";
+// 	std::cout << "secnd: " << secondline.str() << "\n";
+// 	std::cout << "locations: ";
+// 	for (int& l: locations) {
+// 		std::cout << l << ", ";
+// 	}
+// 	std::cout << "\n";
 }
 
 
@@ -218,6 +223,15 @@ Result::Result(std::vector<FancyPath>& paths, File* f, Query* q):
 
 Result::Result() {}
 
+std::string Result::summary() {
+	if (matches.size() == 0) {
+		return "no matches";
+	} else if (matches.size() == 1) {
+		return "1 match";
+	} else {
+		return std::to_string(matches.size()) + " matches";
+	}
+}
 
 
 

@@ -188,7 +188,7 @@ void Suffix3::build() {
 		}
 	}
 	
-	//generate_dot(*this, "end", 0);
+	generate_dot(*this, "end", 0);
 	
 	//std::cerr << "Done.\n";
 	//std::cerr << root->children[0]->tag << "\n";
@@ -235,16 +235,14 @@ std::ostream& operator<<(std::ostream& stream, Suffix3& tree) {
 
 
 void Node3::to_dot(std::ostream& stream, int& i, std::string& s) {
+	stream << '\t' << i << " [label= \"";
+	print_substring(s, this, stream);
+	stream << " (i:" << index << ")" << " address: " << this;
+	stream << "\"];\n";
+	int parent_counter = i;
 	if (! children.empty()) {
-		stream << '\t' << i << " [label= \"";
-		print_substring(s, this, stream);
-		stream << "\"];\n";
-		int parent_counter = i;
 		for (auto child: children) {
 			i++;
-			stream << '\t' << i << " [label= \"";
-			print_substring(s, child, stream);
-			stream << "\"];\n";
 			stream << '\t' << parent_counter << " -> " << i << ";\n";
 			child->to_dot(stream, i, s);
 		}

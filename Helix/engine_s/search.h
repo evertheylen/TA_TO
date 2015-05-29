@@ -131,6 +131,8 @@ public:
 	Result();
 	
 	Result(std::vector<FancyPath>& paths, File* f, Query* q);
+	
+	std::string summary();
 };
 
 
