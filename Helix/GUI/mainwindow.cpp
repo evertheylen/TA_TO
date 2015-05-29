@@ -127,7 +127,7 @@ void MainWindow::on_addtestbutton_clicked()     // Input new query knop
 void MainWindow::on_runtests_clicked()
 {
     if (files.size() == 0){
-        QMessageBox::critical(this, tr("Error"),tr("U must specify an input file!!"));
+		QMessageBox::critical(this, tr("Error"),tr("Please specify a file."));
         return;
     }
     int size = queries.size();
@@ -136,43 +136,23 @@ void MainWindow::on_runtests_clicked()
         double progress_advance = 100/size;
         for (int j = 0; j < files.size(); j++) {
             for (int i = 0; i < size; i++) {
-                std::vector<int> result = {};//suffixtrees.at(j)->search_string(tests.at(i).searchstr, tests.at(i).total_error);
-                QString input = "Results for search ";
-                std::cout << "Getting search string\n";
-                input += QString::fromStdString(queries.at(i).input);
-                input += " with ";
-                std::cout << "Getting max total_errors\n";
-                input += QString::number(queries.at(i).max_total);
-                input += " errors.\nIn string ";
-                std::cout << "Getting suffix string\n";
-                input += QString::fromStdString(files.at(j)->suffixtree->s);
-                input += "\n";
-               // ui->textBrowser->append(input);
-                std::cout << "Getting match total\n";
-                QString match = QString::number(result.size());
-                match += " matches\n";
-                //std::cout << "Setting text for item at " << j+1 << ", " << i+2 << std::endl;
-                //std::cout << "Item found: " <<  ui->tableWidget->item(j+1, i+2) << std::endl;
+				queries.at(i).search(*(files.at(j)));
+				Result& r = queries.at(i).results_per_file[files.at(j)->ID];
                 QTableWidgetItem* item = new QTableWidgetItem();
-                item->setText(match);
+				item->setText(QString::fromStdString(r.summary()));
                 ui->tableWidget->setItem(j, i+1, item);
                 ui->tableWidget->resizeColumnsToContents();
                 //std::cout << ui->tableWidget->item(j, i+1) << std::endl;
                 //ui->tableWidget->item(j+1, i+1)->setText(match);
                 //std::cout << "Set new item to " << match.toStdString() << std::endl;
                 //std::cout << "Done\n";
-                for (int k = 0; k < result.size(); k++) {
-                    QString index = "@ index";
-                    index += QString::number(result.at(k));
-                   //ui->textBrowser->append(index);
-                }
                 progress += progress_advance;
 				ui->progressBar->setValue(round(progress));
             }
         }
     }
     else{
-        QMessageBox::critical(this, tr("Error"),tr("U must specify a query!!"));
+		QMessageBox::critical(this, tr("Error"),tr("Please specify a query."));
     }
 }
 
