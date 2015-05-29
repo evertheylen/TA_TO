@@ -15,18 +15,29 @@ bool block::hasFinal(s_DFA D){
     else return false;
 }
 
+//this erases the same blocks in a vector
+void filter(vector<block>& table_vec){
+    vector<block> copy_vec = table_vec;
+    for(int i =0; i < table_vec.size();i++){
+        for(int e=0; e < copy_vec.size();e++){
+            if(table_vec.at(i) == copy_vec.at(e)){
+                table_vec.erase(table_vec.begin() + i);
+            }
+        }
+    }
+    return;
+}
+
 vector<block> makeTable(s_DFA D){
     vector<block> table_vec;
     for(int e=0; e <= D.num_states+1;e++){
         for(int i=0; i<= D.num_states+1;i++){
+            if(i == e) continue;
             block tempblock(e,i);
             if(tempblock.hasFinal(D) == true) tempblock.dist = true;
-            for(int s = 0; s < table_vec.size(); s++){
-                if(table_vec.at(s) == tempblock) continue;
-                else if(i == e) continue;
-                else table_vec.push_back(tempblock);
-            }
+            table_vec.push_back(tempblock);
         }
+        filter(table_vec);
     }
     return table_vec;
 }
@@ -40,11 +51,7 @@ void makePairs(s_DFA D, vector<block> table_vec){
     for(vector<block>::iterator it = table_vec.begin(); it != table_vec.end(); ++it) {
         for(char a: D.sigma){
             int nextState1 = D.delta(it->state1,a);
-            int nextState2 = D.delta(it->state2,a);/*
-            if(nextstate1 == nextState2){
-                it->dist = true;
-                break;
-            }*/
+            int nextState2 = D.delta(it->state2,a);
             if(areIdentical(D.isFinal(nextState1), D.isFinal(nextState2)) == false){
                 it->dist = true;
                 break;
@@ -76,7 +83,7 @@ s_DFA makeNewDFA(s_DFA D,vector<block> table){
             mini.set_delta(D.ID(new_name),a,D.ID(tempName)); // waar gaat mijn nieuwe delta naartoe? naar de combinatie van old1 en old2 OPGELOST!
         }
     }
-    return mini;  // Pieter, ik heb dit even toegevoegd, anders compileert het niet :) (Evert)
+    return mini;
 }
 
 s_DFA TFA(s_DFA D){

@@ -1,6 +1,3 @@
-#ifndef _H_TFA
-#define _H_TFA
-
 #include "FSM.h"
 #include <vector>
 #include <iostream>
@@ -16,5 +13,3 @@ struct block{
 };
 
 s_DFA TFA(s_DFA D);
-
-#endif
