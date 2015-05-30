@@ -69,6 +69,7 @@ int main(int argc, char const* argv[]) {
 		s_DFA D;
 		auto doc = read(arg);
 		D.from_xml(doc);
+		write_dot(&D, arg + ".orig.dot");
 		
 		s_DFA opt_D = TFA(D);
 		
