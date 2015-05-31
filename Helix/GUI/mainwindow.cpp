@@ -167,6 +167,9 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column)
      fv.set_file(files.at(row)->path);
      fv.f = files.at(row);
      fv.exec();
+	 if (fv.saved) {
+		 files.at(row) = fv.f;
+	 }
     }
     else{
 		if (queries.at(column-1).results_per_file.find(files.at(row)->ID) != queries.at(column-1).results_per_file.end()) {
