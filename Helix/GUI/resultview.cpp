@@ -56,9 +56,9 @@ ResultView::ResultView(QWidget *parent) :
 	ui->tableWidget->verticalHeader()->setDefaultSectionSize(55);
 }
 
-#define set(row, col, text) item = new QTableWidgetItem(); \
-	item->setText(QString::fromStdString(text)); \
-	ui->tableWidget->setItem(row, col, item);
+#define set(row, col, text) num_item = new NumericTableWidgetItem(); \
+    num_item->setText(QString::fromStdString(text)); \
+    ui->tableWidget->setItem(row, col, num_item);
 
 
 void ResultView::setResult(Result* _res) {
@@ -84,13 +84,13 @@ void ResultView::setResult(Result* _res) {
 
 	int row = 0;
 	for (Match& m: res->matches) {
-		QTableWidgetItem* item; // see define above
+        NumericTableWidgetItem* num_item; // see define above
 		ui->tableWidget->insertRow(row);
 
 		// Set formatted html
 		QString richStr = QString::fromStdString(m.format(*res->file));
 
-		item = new QTableWidgetItem();
+        QTableWidgetItem* item = new QTableWidgetItem();
 		item->setText(richStr);
 		//QFont font("Monospace");
 		//font.setStyleHint(QFont::TypeWriter);
@@ -106,7 +106,10 @@ void ResultView::setResult(Result* _res) {
 			loc += ", ";
 			loc += std::to_string(*it);
 		}
-		set(row, 2, loc);
+        QTableWidgetItem* item2 = new QTableWidgetItem();
+        item2->setText(QString::fromStdString(loc));
+        item2->setFont(font);
+        ui->tableWidget->setItem(row, 2, item2);
 
 		// Set nen hele hoop ints (total, fakes, skips, reps, ignores)
 		set(row, 3, std::to_string(m.get_total_errors()));

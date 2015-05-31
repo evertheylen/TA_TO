@@ -819,6 +819,12 @@ moc_resultview.cpp: /usr/include/qt5/QtWidgets/QMainWindow \
 		/usr/include/qt5/QtGui/QTextDocument \
 		/usr/include/qt5/QtGui/qtextdocument.h \
 		/usr/include/qt5/QtGui/QFont \
+		/usr/include/qt5/QtWidgets/QTableWidgetItem \
+		/usr/include/qt5/QtWidgets/qtablewidget.h \
+		/usr/include/qt5/QtWidgets/qtableview.h \
+		/usr/include/qt5/QtWidgets/qabstractitemview.h \
+		/usr/include/qt5/QtWidgets/qabstractscrollarea.h \
+		/usr/include/qt5/QtCore/qitemselectionmodel.h \
 		resultview.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include resultview.h -o moc_resultview.cpp
 
@@ -1289,6 +1295,7 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/usr/include/qt5/QtGui/QTextDocument \
 		/usr/include/qt5/QtGui/qtextdocument.h \
 		/usr/include/qt5/QtGui/QFont \
+		/usr/include/qt5/QtWidgets/QTableWidgetItem \
 		/usr/include/qt5/QtGui/QtGui \
 		/usr/include/qt5/QtGui/QtGuiDepends \
 		/usr/include/qt5/QtCore/QtCore \
@@ -1476,7 +1483,6 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/usr/include/qt5/QtCore/QProcess \
 		/usr/include/qt5/QtWidgets/QMessageBox \
 		/usr/include/qt5/QtWidgets/qmessagebox.h \
-		/usr/include/qt5/QtWidgets/QTableWidgetItem \
 		fileview.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
@@ -1977,6 +1983,12 @@ resultview.o: resultview.cpp resultview.h \
 		/usr/include/qt5/QtGui/QTextDocument \
 		/usr/include/qt5/QtGui/qtextdocument.h \
 		/usr/include/qt5/QtGui/QFont \
+		/usr/include/qt5/QtWidgets/QTableWidgetItem \
+		/usr/include/qt5/QtWidgets/qtablewidget.h \
+		/usr/include/qt5/QtWidgets/qtableview.h \
+		/usr/include/qt5/QtWidgets/qabstractitemview.h \
+		/usr/include/qt5/QtWidgets/qabstractscrollarea.h \
+		/usr/include/qt5/QtCore/qitemselectionmodel.h \
 		ui_resultview.h \
 		/usr/include/qt5/QtCore/QVariant \
 		/usr/include/qt5/QtWidgets/QAction \
@@ -1999,12 +2011,7 @@ resultview.o: resultview.cpp resultview.h \
 		/usr/include/qt5/QtWidgets/QHBoxLayout \
 		/usr/include/qt5/QtWidgets/QHeaderView \
 		/usr/include/qt5/QtWidgets/qheaderview.h \
-		/usr/include/qt5/QtWidgets/qabstractitemview.h \
-		/usr/include/qt5/QtWidgets/qabstractscrollarea.h \
-		/usr/include/qt5/QtCore/qitemselectionmodel.h \
 		/usr/include/qt5/QtWidgets/QTableWidget \
-		/usr/include/qt5/QtWidgets/qtablewidget.h \
-		/usr/include/qt5/QtWidgets/qtableview.h \
 		/usr/include/qt5/QtWidgets/QToolButton \
 		/usr/include/qt5/QtWidgets/qtoolbutton.h \
 		/usr/include/qt5/QtWidgets/qabstractbutton.h \
