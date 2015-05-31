@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<AUTOMATON>
+    <ALPHABET>
+        <SYMBOL>0</SYMBOL>
+        <SYMBOL>1</SYMBOL>
+    </ALPHABET>
+
+    <STATES>
+        <STATE name = "p" start="true"></STATE>
+        <STATE name = "q" end="true"></STATE>
+    </STATES>
+
+    <TRANSITIONS>
+        <TRANSITION from="p" symbol="0" to="q"></TRANSITION>
+        <TRANSITION from="p" symbol="1" to="p"></TRANSITION>
+        <TRANSITION from="q" symbol="0" to="q"></TRANSITION>
+        <TRANSITION from="q" symbol="1" to="q"></TRANSITION>
+    </TRANSITIONS>
+</AUTOMATON>
