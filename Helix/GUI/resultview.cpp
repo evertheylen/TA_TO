@@ -75,6 +75,13 @@ void ResultView::setResult(Result* _res) {
 	std::cout << res->summary() << "\n";
 	ui->label_summary->setText(QString::fromStdString(res->summary()));
 
+    ui->tableWidget->horizontalHeaderItem(3)->setText("Total errors | Max: " + QString::number(res->query->max_total));
+    ui->tableWidget->horizontalHeaderItem(4)->setText("Fakes | Max: " + QString::number(res->query->max_fakes));
+    ui->tableWidget->horizontalHeaderItem(5)->setText("Skips | Max: " + QString::number(res->query->max_skips));
+    ui->tableWidget->horizontalHeaderItem(6)->setText("Repetitions | Max: " + QString::number(res->query->max_reps));
+    ui->tableWidget->horizontalHeaderItem(7)->setText("Ignores | Max: " + QString::number(res->query->max_ignores));
+
+
 	int row = 0;
 	for (Match& m: res->matches) {
 		QTableWidgetItem* item; // see define above
