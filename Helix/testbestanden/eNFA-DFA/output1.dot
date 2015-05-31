@@ -2,10 +2,8 @@ digraph automaton {
     node [shape=none]; start;
     node [shape=circle];
     start -> "{q0,q1,}";
-    "{q0,q1,}" -> "{q2,q3,}" [label="a"];
+    "{q0,q1,}" -> "{q0,q1,}" [label="a"];
     "{q0,q1,}" -> "{}" [label="b"];
-    "{q2,q3,}" -> "{}" [label="a"];
-    "{q2,q3,}" -> "{q4,}" [label="b"];
     "{}" -> "{}" [label="a"];
     "{}" -> "{}" [label="b"];
     "{q4,}" -> "{q0,q1,}" [label="a"];
