@@ -10,21 +10,23 @@
 #include "../engine_r/TFA/TFA.h"
 #include "../engine_r/extra.h"
 
+#define uint unsigned int
+
 // ----[ FChar ]-------------
 
 void html_open_status(Status s, std::ostream& out) {
 	switch (s) {
 		case Status::Fake:
-			out << "<font color='#FF8C00'>";  // orange
+			out << "<font color='#FF9022'>";  // orange
 			break;
 		case Status::Skip:
-			out << "<font color='#0040FF'>";  // blue
+			out << "<font color='#0050FF'>";  // blue
 			break;
 		case Status::Repetition:
-			out << "<font color='#00FF00'>";  // green
+			out << "<font color='#33FF33'>";  // green
 			break;
 		case Status::Ignore:
-			out << "<font color='#EE0000'>";  // red
+			out << "<font color='#FF3333'>";  // red
 			break;
 	} // Perfects aren't colored
 }
@@ -55,31 +57,34 @@ std::ostream& operator<<(std::ostream& out, std::vector<FChar>& v) {
 // -----[ SuffixPosition ]---------
 // For more advanced suffix tree states
 
-SuffixPosition::SuffixPosition(Node3* _node, int _pos_in_node, std::vector<Node3*> _parents):
-	node(_node), pos_in_node(_pos_in_node), parents(_parents) {}
+SuffixPosition::SuffixPosition(uint _node, int _pos_in_node):
+	node(_node), pos_in_node(_pos_in_node) {}
 
 std::vector<SuffixPosition> SuffixPosition::branch(Suffix3& suf) {
-	if (pos_in_node < (node->end - node->start - 1)) {
-		//std::cout << "(branching suffix to next position in suffix)\n";
-		return {SuffixPosition(node, pos_in_node+1, parents)};
+	if (int(pos_in_node) < (int(suf.data[node].end) - int(suf.data[node].start)-1)) {
+		std::cout << "(branching suffix to next position in node " << node << ")\n";
+		std::cout << "    (pos_in_node=" << pos_in_node << ", start=" << suf.data[node].start << ", end=" << suf.data[node].end << "\n";
+		return {SuffixPosition(node, pos_in_node+1)};
 	}
 
 	std::vector<SuffixPosition> result;
-	for (Node3* child: node->children) {
-		//std::cout << "(branching suffix to new node: " << child << " = " << suf.s.substr(child->start, child->end-child->start) << ")\n";
-		SuffixPosition extra(child, 0, parents);
-		extra.parents.push_back(node);
+
+	for (uint child_i=suf.data[node].leftmost_child; child_i != 0; child_i = suf.data[child_i].right_brother) {
+		std::cout << "(branching suffix to new node: " << child_i << " = "
+				<< suf.s.substr(suf.data[child_i].start, suf.data[child_i].end-suf.data[child_i].start) << ")\n";
+		SuffixPosition extra(child_i, 0);
 		result.push_back(extra);
 	}
+	
 	return result;
 }
 
-void SuffixPosition::print(std::ostream& out,  Suffix3& tree) {
-	for (Node3* parent: parents) {
-		out << tree.s.substr(parent->start, parent->end - parent->start) << ".";
-	}
-	out << tree.s.substr(node->start, pos_in_node+1);
-}
+// void SuffixPosition::print(std::ostream& out,  Suffix3& tree) {
+// 	for (Node3* parent: parents) {
+// 		out << tree.s.substr(parent->start, parent->end - parent->start) << ".";
+// 	}
+// 	out << tree.s.substr(node->start, pos_in_node+1);
+// }
 
 
 
@@ -149,7 +154,7 @@ std::ostream& operator<<(std::ostream& out, FancyPath& p) {
 // More info than operator<<
 void FancyPath::print(std::ostream& out, Suffix3& tree) {
 	out << "Suffix string: ";
-	suf_pos.print(out, tree);
+	//suf_pos.print(out, tree);
 	out << ", ";
 	out << *this;
 }
@@ -161,6 +166,7 @@ void FancyPath::print(std::ostream& out, Suffix3& tree) {
 Match::Match(FancyPath& p, Suffix3& suf):
 		FancyPath(p) {
 	// Save locations
+	std::cout << "match on node " << p.suf_pos.node << "\n";
 	suf.get_leaves(p.suf_pos.node, locations);
 // 	for (int i=0; i<locations.size(); i++) {
 // 		locations[i] += p.suf_pos.pos_in_node;
@@ -180,7 +186,7 @@ std::string Match::format(File& file) {
 			firstline << file.suffixtree->s[fasta_i];
 			fasta_i++;
 		} else {
-			firstline << ' ';
+			firstline << '.'; // space gives problems with truncating
 		}
 		
 		if (fc.s != current) {
@@ -317,8 +323,8 @@ void Query::search(File* f) {
 // The one and only search
 std::vector<FancyPath> Query::real_search(Suffix3& suf) {
 	std::vector<FancyPath> result;
-
-	std::vector<FancyPath> working_set = {FancyPath(SuffixPosition(suf.root, 0), DFAPosition(D.q0, '\0'))};
+	
+	std::vector<FancyPath> working_set = {FancyPath(SuffixPosition(0, 0), DFAPosition(D.q0, '\0'))};
 	
 	while (working_set.size() > 0) {
 		std::vector<FancyPath> new_set;

@@ -130,6 +130,7 @@ int main(int argc, char const* argv[]) {
 		*/
 		try {
 			File f(arg, 0);
+			f.suffixtree->stats(std::cout);
 			//f.test("sss", 1);
 		} catch (int x) {
 			std::cerr << "Error: The specified file doesn't exist!";

@@ -91,27 +91,27 @@ int main(int argc, char* args[]) {
 	
 	std::string regex = args[2];
 	
-	auto E = RE_to_eNFA<std::string, char, 'e'>(regex);
-	s_eNFA_Runner Erun(E);
-	_write_dot(&E, "enfa.dot");
-	
-	std::cout << "Alphabet of E: ";
-	for (char a: E.sigma) {
-		std::cout << a << ", ";
-	}
-	std::cout << "\n";
-	
-	auto bad_D = MSSC(E);
-	s_DFA_Runner Drun(bad_D);
-	_write_dot(&bad_D, "dfa.dot");
-	
-	#define test(a) std::cout << "testing '" << a << "' : " << Erun.process(a) << " == " << Drun.process(a) << "\n"
-	test("TAAT");
-	test("TAT");
-	test("TT");
-	test("TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT");
-	
-	
+// 	auto E = RE_to_eNFA<std::string, char, 'e'>(regex);
+// 	s_eNFA_Runner Erun(E);
+// 	_write_dot(&E, "enfa.dot");
+// 	
+// 	std::cout << "Alphabet of E: ";
+// 	for (char a: E.sigma) {
+// 		std::cout << a << ", ";
+// 	}
+// 	std::cout << "\n";
+// 	
+// 	auto bad_D = MSSC(E);
+// 	s_DFA_Runner Drun(bad_D);
+// 	_write_dot(&bad_D, "dfa.dot");
+// 	
+// 	#define test(a) std::cout << "testing '" << a << "' : " << Erun.process(a) << " == " << Drun.process(a) << "\n"
+// 	test("TAAT");
+// 	test("TAT");
+// 	test("TT");
+// 	test("TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT");
+// 	
+// 	
 	Query q(regex, 0, 0, 0, 0, 0);
 	
 	File f(std::string(args[1]), 0);

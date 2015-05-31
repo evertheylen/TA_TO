@@ -14,11 +14,37 @@ To XML_Cast(std::string s) {
 
 //BEGIN ----[ FSM ]-------------------------
 
+/*
+// Named class
+template <	typename StateT,
+			typename SymbolT,
+			typename DeltaResultT>
+class NamedFSM {
+public:
+	// Practical
+		Bimap map;  // Couples the ints to the type you really want
+		            // contains the States (instead of Q)
+		            // although it's a map, map.left should be used more as a vector
+		            // NOT used while running
+	
+	typedef boost::bimap<int, State> Bimap;
+	
+	NamedFSM(std::vector<StateT> states) {
+		int i=0;
+		for (auto state: states) {
+			map.left.insert(typename Bimap::left_value_type(i, state));
+			++i;
+		}
+	}
+}
+*/
+
+
 // Main class (abstract)
 
 template <	typename StateT,              // State type
 			typename SymbolT,             // Symbol type
-			typename DeltaResultT = int>  // Delta type (difference between NFA and DFA)
+			typename DeltaResultT>        // Delta type (difference between NFA and DFA)
 			                              // you should be using int or std::set<int> for this.
 class FSM {
 public:

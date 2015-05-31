@@ -5,52 +5,43 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <deque>
 
 class Node3;
 class Suffix3;
 
-void print_substring(std::string& s, Node3* n, std::ostream& out);
-
 void generate_dot(Suffix3& s, std::string name, int i);
 
 
-// Helper structs
-
-struct Path {
-	int errors;
-	int pos_in_node;
-
-
-	Node3* node;
-	
-	Path(int _errors, int _p, Node3* _node);
-
-	friend std::ostream& operator<<(std::ostream& out, Path& p);
-};
 
 
 class Node3 {
 public:
 	//std::string tag;  == s[start:end[
-	int start;
-	int end;
+	unsigned int start; // 4
+	unsigned int end; // 4
 	
-	int index;
+	unsigned int index; // 4
 
-	Node3* suffix_link;
+	unsigned int suffix_link; // 4
+	
+	unsigned int leftmost_child;
+	
+	unsigned int right_brother;
+	
+	//std::vector<Node3*> children; // 24
 
-	std::vector<Node3*> children;
+	Node3(unsigned int _start, unsigned int _end, unsigned int _index, unsigned int _suffix_link=0, unsigned int _lchild=0, unsigned int _rbrother=0);
 	
-
-	Node3(int _start, int _end, int _index);
+	//void add_child(Node3* c);
 	
-	void add_child(Node3* c);
+	void to_dot(std::ostream& stream, int own_index, Suffix3& suf);
 	
-	void to_dot(std::ostream& stream, int& i, std::string& s);
+	void print_substring(std::string& s, std::ostream& out);
 	
-	int height(int);
+	//int height(int);
 	
-	~Node3();
+	//void add_children(std::vector<Node3*>& nodes);
 };
 
 class SuffixPosition;
@@ -63,29 +54,23 @@ public:
 
 	void build();
 	
-// 	int_and_node find_head(std::string& subs);
-	
 	std::string s;
 	std::string filename;
 
-	Node3* root;
+	//Node3* root;
+	std::deque<Node3> data;
 	
 	void add_char(char c);
 	
 	char get(SuffixPosition& pos);
 	
-	std::vector<int> search_string(std::string& str);
-	/*
-	 * Returns a vector of indeces of where the substring occurs in your text. Returns an empty list if the string doesn't occur in the text.
-	 */
-	
-	std::vector<int> search_string(std::string& std, int errors);
-	
-	void get_leaves(Node3* current, std::vector<int>& leaves);
+	void get_leaves(unsigned int current, std::vector<int>& leaves);
 
 	friend std::ostream& operator<<(std::ostream& stream, Suffix3& tree);
 	
-	~Suffix3();
+	void stats(std::ostream& out);
+	
+	//~Suffix3();
 };
 
 #endif
