@@ -50,7 +50,7 @@ File::File(std::string filename, int _ID):
     			comments += '\n';
     		}
     	}
-
+    	suffixtree->add_char('$');
     	suffixtree->build();
 
     	//suffixtree = new Suffix3(str);
