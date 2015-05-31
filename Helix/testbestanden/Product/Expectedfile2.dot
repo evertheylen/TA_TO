@@ -1,26 +1,22 @@
 digraph automaton {
-//    rankdir = LR
     node [shape=none]; start;
-    node [shape=doublecircle]; "C/F";
+    node [shape=doublecircle]; "B/U";
     node [shape=circle];
-    start -> "A/D";
-    "A/D" -> "C/E" [label="0"];
-    "A/D" -> "B/E" [label="1"];
-    "A/E" -> "C/D" [label="0"];
-    "A/E" -> "B/F" [label="1"];
-    "A/F" -> "C/E" [label="0"];
-    "A/F" -> "B/D" [label="1"];
-    "B/D" -> "A/E" [label="0"];
-    "B/D" -> "C/E" [label="1"];
-    "B/E" -> "A/D" [label="0"];
-    "B/E" -> "C/F" [label="1"];
-    "C/D" -> "C/E" [label="0"];
-    "C/D" -> "A/E" [label="1"];
-    "C/E" -> "C/D" [label="0"];
-    "C/E" -> "A/F" [label="1"];
-    "C/F" -> "C/E" [label="0"];
-    "C/F" -> "A/D" [label="1"];
-    "B/F" -> "A/E" [label="0"];
-    "B/F" -> "C/D" [label="1"];
-
+    start -> "A/R";
+    "A/R" -> "A/S" [label="0"];
+    "A/R" -> "B/R" [label="1"];
+    "A/S" -> "A/T" [label="0"];
+    "A/S" -> "B/R" [label="1"];
+    "A/T" -> "A/U" [label="0"];
+    "A/T" -> "B/R" [label="1"];
+    "A/U" -> "A/U" [label="0"];
+    "A/U" -> "B/U" [label="1"];
+    "B/R" -> "A/S" [label="0"];
+    "B/R" -> "B/R" [label="1"];
+    "B/S" -> "A/T" [label="0"];
+    "B/S" -> "B/R" [label="1"];
+    "B/T" -> "A/U" [label="0"];
+    "B/T" -> "B/R" [label="1"];
+    "B/U" -> "A/U" [label="0"];
+    "B/U" -> "B/U" [label="1"];
 }

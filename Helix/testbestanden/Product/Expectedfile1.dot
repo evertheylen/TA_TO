@@ -1,5 +1,4 @@
 digraph automaton {
-//    rankdir = LR
     node [shape=none]; start;
     node [shape=doublecircle]; "B/U";
     node [shape=circle];
@@ -12,13 +11,12 @@ digraph automaton {
     "A/T" -> "B/R" [label="1"];
     "A/U" -> "A/U" [label="0"];
     "A/U" -> "B/U" [label="1"];
-    "B/R" -> "B/S" [label="0"];
-    "B/R" -> "A/R" [label="1"];
-    "B/S" -> "B/T" [label="0"];
-    "B/S" -> "A/R" [label="1"];
-    "B/T" -> "B/U" [label="0"];
-    "B/T" -> "A/R" [label="1"];
-    "B/U" -> "B/U" [label="0"];
-    "B/U" -> "A/U" [label="1"];
-
+    "B/R" -> "A/S" [label="0"];
+    "B/R" -> "B/R" [label="1"];
+    "B/S" -> "A/T" [label="0"];
+    "B/S" -> "B/R" [label="1"];
+    "B/T" -> "A/U" [label="0"];
+    "B/T" -> "B/R" [label="1"];
+    "B/U" -> "A/U" [label="0"];
+    "B/U" -> "B/U" [label="1"];
 }

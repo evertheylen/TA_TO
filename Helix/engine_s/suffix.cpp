@@ -193,7 +193,7 @@ void Suffix3::build() {
 		current = data[current].suffix_link;
 	}
 	
-	//generate_dot(*this, "end", 0);
+	generate_dot(*this, "end", 0);
 	
 	//std::cerr << "Done.\n";
 	//std::cerr << root->children[0]->tag << "\n";

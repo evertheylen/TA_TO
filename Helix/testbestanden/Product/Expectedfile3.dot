@@ -1,0 +1,14 @@
+digraph automaton {
+    node [shape=none]; start;
+    node [shape=doublecircle]; "q/s";
+    node [shape=circle];
+    start -> "p/r";
+    "p/r" -> "q/r" [label="0"];
+    "p/r" -> "p/s" [label="1"];
+    "p/s" -> "q/s" [label="0"];
+    "p/s" -> "p/s" [label="1"];
+    "q/r" -> "q/r" [label="0"];
+    "q/r" -> "q/s" [label="1"];
+    "q/s" -> "q/s" [label="0"];
+    "q/s" -> "q/s" [label="1"];
+}

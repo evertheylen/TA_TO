@@ -4,14 +4,9 @@
 #include "string"
 #include "vector"
 
-class testVarious: public ::testing::Test {
-protected:
-	virtual void SetUp(){};
-	virtual void TearDown(){};
-};
 // Test various stuff if needed (fasta string replace?)
 
-TEST_F(testVarious, tests){
+TEST(testVarious, tests){
 	std::string str = "ABCHGUT;RYKMSWBDHVNX";
 	std::vector<std::string> result;
 	result.push_back("A(C+G+T+U)C(A+C+T+U)GUT");

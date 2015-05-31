@@ -24,13 +24,8 @@ TiXmlDocument read(string name) {
 }
 
 // Test Regex->eNFA
-class Tests: public ::testing::Test {
-protected:
-	virtual void SetUp(){};
-	virtual void TearDown(){};
-};
 
-TEST_F(Tests, Regex_eNFA_fileCompare){
+TEST(Tests, Regex_eNFA_fileCompare){
 	string arg = string("A*B*C*");
 	string filename = string("testbestanden/RE-eNFA/file1.dot");
 	eNFA <std::string, char, 'e'> N = RE_to_eNFA<std::string, char, 'e'>(arg);
@@ -43,7 +38,7 @@ TEST_F(Tests, Regex_eNFA_fileCompare){
 	write_dot(&N, filename);
 	EXPECT_TRUE(fileCompare("testbestanden/RE-eNFA/file2.dot", "testbestanden/RE-eNFA/Expectedfile2.dot"));
 	
-	arg = string("e");
+	arg = string("");
 	filename = string("testbestanden/RE-eNFA/file3.dot");
 	N = RE_to_eNFA<std::string, char, 'e'>(arg);
 	write_dot(&N, filename);
@@ -64,7 +59,7 @@ TEST_F(Tests, Regex_eNFA_fileCompare){
 };
 
 // Test eNFA->DFA
-TEST_F(Tests, eNFA_DFA_fileCompare){
+TEST(Tests, eNFA_DFA_fileCompare){
 	std::string arg = std::string("testbestanden/eNFA-DFA/input1.xml");
 	s_eNFA N;
 	auto doc = read(arg);
@@ -87,7 +82,7 @@ TEST_F(Tests, eNFA_DFA_fileCompare){
 };
 
 // Test Product
-TEST_F(Tests, Product_fileCompare){
+TEST(Tests, Product_fileCompare){
 	std::string arg1 = std::string("testbestanden/Product/input1_DFA1.xml");
 	std::string arg2 = std::string("testbestanden/Product/input1_DFA2.xml");
 	
@@ -117,6 +112,22 @@ TEST_F(Tests, Product_fileCompare){
 	DFA <std::string, char> P2 = product(D3, D4, true);  // true --> intersection
 	write_dot(&P2, std::string("testbestanden/Product/output2.dot"));
 	EXPECT_TRUE(fileCompare("testbestanden/Product/output2.dot", "testbestanden/Product/Expectedfile2.dot"));
+	
+	
+	arg1 = std::string("testbestanden/Product/input3_DFA1.xml");
+	arg2 = std::string("testbestanden/Product/input3_DFA2.xml");
+	
+	s_DFA D5;
+	doc = read(arg1);
+	D5.from_xml(doc);
+	
+	s_DFA D6;
+	doc = read(arg2);
+	D6.from_xml(doc);
+	
+	DFA <std::string, char> P3 = product(D5, D6, true);  // true --> intersection
+	write_dot(&P3, std::string("testbestanden/Product/output3.dot"));
+	EXPECT_TRUE(fileCompare("testbestanden/Product/output3.dot", "testbestanden/Product/Expectedfile3.dot"));
 };
 // Test DFA->CompactDFA
 

@@ -8,7 +8,7 @@
 #include <QPainter>
 #include <QTextDocument>
 #include <QFont>
-
+#include <QTableWidgetItem>
 
 // http://stackoverflow.com/questions/1956542/how-to-make-item-view-render-rich-html-text-in-qt
 class HTMLDelegate : public QStyledItemDelegate
@@ -24,6 +24,14 @@ namespace Ui {
 	class ResultView;
 }
 
+class NumericTableWidgetItem : public QTableWidgetItem {
+    public:
+        bool operator <(const QTableWidgetItem &right) const
+        {
+            return text().toInt() < right.text().toInt();
+        }
+};
+
 class ResultView : public QMainWindow
 {
 	Q_OBJECT
@@ -35,6 +43,9 @@ public:
 	void setResult(Result* res);
 
 	Result* res;
+
+private slots:
+    void on_help_button_clicked();
 
 private:
 	Ui::ResultView *ui;
