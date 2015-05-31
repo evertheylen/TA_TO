@@ -44,15 +44,14 @@ std::ostream& operator<<(std::ostream& out, std::vector<FChar>& v);
 // For more advanced suffix tree states
 class SuffixPosition {
 public:
-	std::vector<Node3*> parents; // TODO remove me, not necessary
-	Node3* node;
-	int pos_in_node;
+	unsigned int node;
+	unsigned int pos_in_node;
 
-	SuffixPosition(Node3* _node, int _pos_in_node, std::vector<Node3*> _parents = {});
+	SuffixPosition(unsigned int _node, int _pos_in_node);
 
 	std::vector<SuffixPosition> branch(Suffix3& suf);
 	
-	void print(std::ostream& out,  Suffix3& tree);
+	//void print(std::ostream& out,  Suffix3& tree);
 };
 
 // For more advanced DFAPositions, obviously
