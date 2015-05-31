@@ -2,6 +2,8 @@
 #include "ui_resultview.h"
 
 #include <QFontDatabase>
+#include <QMessageBox>
+#include <QString>
 
 void HTMLDelegate::paint(QPainter* painter, const QStyleOptionViewItem & option, const QModelIndex &index) const
 {
@@ -117,4 +119,22 @@ ResultView::~ResultView()
 {
 	delete ui;
 	delete this;
+}
+
+void ResultView::on_help_button_clicked()
+{
+    QString help = "The resultview is splitted into different areas. In the first area the matches are explained in detail.\n";
+    help += "The first line is the match that is actually found in the suffixtree, the second line is the corresponding match found in the DFA.\n";
+    help += "This line has color coding:\n\n";
+    help += "Orange: Fake error -- A letter from the suffixtree is interpreted in a different way by the DFA\n\n";
+    help += "Blue: Skip error -- The DFA has advanced to the next state without new input from the suffixtree\n\n";
+    help += "?????: Repetition error -- The input of the suffixtree is the same as the previous input, the DFA remains in the same state\n\n";
+    help += "?????: Ignore (or FakeRepetition) error -- The input of the suffixtree differs from the previous input, the DFA remains in the same state and ignores the suffixtree\n\n";
+    help += "The same match can be found in multiple ways, with different kinds of errors.\n";
+   // help += "\n\nBelow a scheme of all the different errors\n\n";
+   // help += "-------+        |                    D F A                    |\nSUFFIX  \       |         stay         |       advance        |\n+------+----------------------+----------------------+\nstay          | /  /  /  /  /  /  /  |                      |\n";
+   // help += "(can't be OK    |/  /  /  /  /  /  /  /|        Skip          |\nor not OK)  |  /  /  /  /  /  /  / |                      |\n----------------+----------------------+----------------------+\n|                      |                      |\n";
+   // help += "OK   |      Repetition      |       Perfect!       |\n|                      |                      |\nadvance - - - -+- - - - - - - - - - - + - - - - - - - - - - -+\n|                      |                      |\nNOT OK |   Ignore / FakeRep   |         Fake         |\n|                      |                      |\n---------------+----------------------+----------------------+\n";
+
+    QMessageBox::information(this, tr("Detailed results --- Help"), help);
 }

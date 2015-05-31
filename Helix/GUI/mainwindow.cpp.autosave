@@ -166,6 +166,9 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column)
      Fileview fv;
      fv.set_file(files.at(row)->path);
      fv.f = files.at(row);
+     if (fv.saved) {
+         files.at(row) = fv.f;
+     }
      fv.exec();
     }
     else{

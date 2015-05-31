@@ -20,6 +20,7 @@ File::File(std::string filename, int _ID):
 	int loc = 0;
     if (f.good()) {
     	name = filename;
+    	path = filename;
     	std::string good_name;
     	for (int i = name.length()-1; i >= 0; i--) {
             if (name[i] == '/') {    	

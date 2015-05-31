@@ -29,17 +29,20 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     secdialog.cpp \
     addtestdialog.cpp \
-    resultview.cpp
+    resultview.cpp \
+    fileview.cpp
 
 HEADERS  += mainwindow.h \
     secdialog.h \
     addtestdialog.h \
-    resultview.h
+    resultview.h \
+    fileview.h
 
 FORMS    += mainwindow.ui \
     secdialog.ui \
     addtestdialog.ui \
-    resultview.ui
+    resultview.ui \
+    fileview.ui
 
 RESOURCES += \
     logo.qrc

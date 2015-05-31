@@ -33,7 +33,7 @@ public:
 	std::string comments;
 	int ID;
 	std::string name;
-	
+	std::string path;
 private:
 	std::ifstream file;
 	std::string content;
