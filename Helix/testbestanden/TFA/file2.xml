@@ -1,0 +1,34 @@
+<AUTOMATON>
+	<ALPHABET>
+		<SYMBOL>0</SYMBOL>
+		<SYMBOL>1</SYMBOL>
+	</ALPHABET>
+	<STATES>
+		<STATE name="A" start="true"/>
+		<STATE name="B"/>
+		<STATE name="C"/>
+		<STATE name="D" end="true"/>
+		<STATE name="E"/>
+		<STATE name="F" end="true"/>
+		<STATE name="G" end="true"/>
+		<STATE name="H" end="true"/>
+	</STATES>
+	<TRANSITIONS>
+		<TRANSITION from="A" symbol="0" to="B"/>
+		<TRANSITION from="A" symbol="1" to="A"/>
+		<TRANSITION from="B" symbol="0" to="C"/>
+		<TRANSITION from="B" symbol="1" to="E"/>
+		<TRANSITION from="C" symbol="0" to="D"/>
+		<TRANSITION from="C" symbol="1" to="E"/>
+		<TRANSITION from="D" symbol="0" to="D"/>
+		<TRANSITION from="D" symbol="1" to="F"/>
+		<TRANSITION from="E" symbol="0" to="G"/>
+		<TRANSITION from="E" symbol="1" to="A"/>
+		<TRANSITION from="F" symbol="0" to="F"/>
+		<TRANSITION from="F" symbol="1" to="H"/>
+		<TRANSITION from="G" symbol="0" to="E"/>
+		<TRANSITION from="G" symbol="1" to="D"/>
+		<TRANSITION from="H" symbol="0" to="D"/>
+		<TRANSITION from="H" symbol="1" to="H"/>
+	</TRANSITIONS>
+</AUTOMATON>

@@ -73,7 +73,7 @@ s_DFA TFA(s_DFA D) {
 	D.lazy_evaluation();
 	// Create the table
 	Table table(D.num_states);
-	table.print(std::cout, D);
+	//table.print(std::cout, D);
 	// Mark base cases
 	for (int k=0; k < D.num_states; k++) {
 		for (int l=k+1; l < D.num_states; l++) {
@@ -82,8 +82,8 @@ s_DFA TFA(s_DFA D) {
 			}
 		}
 	}
-	std::cout << "\nafter base cases:\n";
-	table.print(std::cout, D);
+	//std::cout << "\nafter base cases:\n";
+	//table.print(std::cout, D);
 	
 	// mark all the rest
 	bool changed = false;
@@ -106,8 +106,8 @@ s_DFA TFA(s_DFA D) {
 			}
 		}
 		
-		std::cout << "--------------------------------\n";
-		table.print(std::cout, D);
+		//std::cout << "--------------------------------\n";
+		//table.print(std::cout, D);
 	} while (changed);
 	
 	

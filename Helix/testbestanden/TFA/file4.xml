@@ -1,0 +1,19 @@
+<AUTOMATON>
+	<ALPHABET>
+		<SYMBOL>0</SYMBOL>
+		<SYMBOL>1</SYMBOL>
+	</ALPHABET>
+	<STATES>
+		<STATE name="P" start="true"/>
+		<STATE name="Q"/>
+		<STATE name="R" end="true"/>
+	</STATES>
+	<TRANSITIONS>
+		<TRANSITION from="P" symbol="0" to="P"/>
+		<TRANSITION from="P" symbol="1" to="Q"/>
+		<TRANSITION from="Q" symbol="0" to="R"/>
+		<TRANSITION from="Q" symbol="1" to="Q"/>
+		<TRANSITION from="R" symbol="0" to="Q"/>
+		<TRANSITION from="R" symbol="1" to="Q"/>
+	</TRANSITIONS>
+</AUTOMATON>

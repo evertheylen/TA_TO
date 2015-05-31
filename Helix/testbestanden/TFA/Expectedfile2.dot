@@ -1,0 +1,19 @@
+digraph automaton {
+	node [shape=none]; start;
+	node [shape=doublecircle]; "DHF";
+	node [shape=doublecircle]; "G";
+	node [shape=circle];
+	start -> "A"
+	"A" -> "B" [label="0"]
+	"A" -> "A" [label="1"]
+	"B" -> "C" [label="0"]
+	"B" -> "E" [label="1"]
+	"C" -> "DHF" [label="0"]
+	"C" -> "E" [label="1"]
+	"DHF" -> "DHF" [label="0"]
+	"DHF" -> "DHF" [label="1"]
+	"E" -> "G" [label="0"]
+	"E" -> "A" [label="1"]
+	"G" -> "E" [label="0"]
+	"G" -> "DHF" [label="1"]
+	}
