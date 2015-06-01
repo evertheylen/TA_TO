@@ -1016,3 +1016,37 @@ int main(int argc, char** argv)
 #endif
 }
 
+Determining if files pthread.h exist passed with the following output:
+Change Dir: /home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec4236598072/fast"
+make[1]: Entering directory `/home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec4236598072.dir/build.make CMakeFiles/cmTryCompileExec4236598072.dir/build
+make[2]: Entering directory `/home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4236598072.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec4236598072.dir/CheckIncludeFiles.c.o   -c /home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+Linking C executable cmTryCompileExec4236598072
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4236598072.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec4236598072.dir/CheckIncludeFiles.c.o  -o cmTryCompileExec4236598072 -rdynamic 
+make[2]: Leaving directory `/home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+
+
+Determining if the function pthread_create exists in the pthread passed with the following output:
+Change Dir: /home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec3511414740/fast"
+make[1]: Entering directory `/home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3511414740.dir/build.make CMakeFiles/cmTryCompileExec3511414740.dir/build
+make[2]: Entering directory `/home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3511414740.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec3511414740.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3511414740
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3511414740.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec3511414740.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3511414740 -rdynamic -lpthread 
+make[2]: Leaving directory `/home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+
+

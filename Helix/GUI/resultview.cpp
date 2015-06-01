@@ -14,7 +14,8 @@ void HTMLDelegate::paint(QPainter* painter, const QStyleOptionViewItem & option,
 
 	QTextDocument doc;
 	doc.setHtml(options.text);
-	QFont font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
+	//QFont font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
+	QFont font("monospace");	
 	font.setPointSize(14);
 	doc.setDefaultFont(font);
 
@@ -94,7 +95,8 @@ void ResultView::setResult(Result* _res) {
 		item->setText(richStr);
 		//QFont font("Monospace");
 		//font.setStyleHint(QFont::TypeWriter);
-		QFont font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
+		//QFont font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
+		QFont font("monospace");
 		item->setFont(font);
 		ui->tableWidget->setItem(row, 0, item);
 
