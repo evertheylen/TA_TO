@@ -164,9 +164,9 @@ void Suffix3::build() {
 						// add children, subs[end_head:] (aka tail) and child->tag[current_pos:]
 						//Node3* parent_tail = new Node3(current->tag.substr(current_pos), current->index_start);
 						uint parent_tail_i = data.size();
-						data.emplace_back(Node3(current->start+current_pos, current->end, current->index));
-						// References became invalid!
-						current = &data[child_i];
+						if (data.emplace_back(Node3(current->start+current_pos, current->end, current->index)));
+							// References became invalid!
+							current = &data[child_i];
 						Node3* parent_tail = &data.back();
 						
 						//std::cout << "  parent_tail = "; print_substring(s, parent_tail, //std::cout); //std::cout << "\n";
@@ -177,9 +177,9 @@ void Suffix3::build() {
 						// ......[         subs                ]
 						// .....................................(len)
 						uint new_tail_i = parent_tail_i+1;
-						data.emplace_back(Node3(i+end_head, len, i, 0, 0, parent_tail_i)); // also set right brother!
-						// References became invalid!
-						current = &data[child_i];
+						if (data.emplace_back(Node3(i+end_head, len, i, 0, 0, parent_tail_i))) // also set right brother!
+							// References became invalid!
+							current = &data[child_i];
 						
 						//std::cout << "  new_tail = "; print_substring(s, new_tail, //std::cout); //std::cout << "\n";
 						
@@ -219,8 +219,8 @@ void Suffix3::build() {
 			////std::cout << end_head << "\n";
 			//current->add_child(new Node3(subs.substr(end_head), i));  // add tail [end_head, end...[
 			previous_insert = data.size();
-			data.emplace_back(Node3(i+end_head, len, i, 0, 0, current->leftmost_child));
-			current = &data[current_i]; // references invalidated
+			if (data.emplace_back(Node3(i+end_head, len, i, 0, 0, current->leftmost_child)))
+				current = &data[current_i]; // references invalidated
 			current->leftmost_child = previous_insert;
 			//std::cout << "add child = " << s.substr(i+end_head, end_head) << "\n";
 			goto end_while;
