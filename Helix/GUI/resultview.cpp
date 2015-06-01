@@ -140,8 +140,8 @@ void ResultView::on_help_button_clicked()
     help += "This line has color coding:\n\n";
     help += "Orange: Fake error -- A letter from the suffixtree is interpreted in a different way by the DFA\n\n";
     help += "Blue: Skip error -- The DFA has advanced to the next state without new input from the suffixtree\n\n";
-    help += "?????: Repetition error -- The input of the suffixtree is the same as the previous input, the DFA remains in the same state\n\n";
-    help += "?????: Ignore (or FakeRepetition) error -- The input of the suffixtree differs from the previous input, the DFA remains in the same state and ignores the suffixtree\n\n";
+    help += "Green: Repetition error -- The input of the suffixtree is the same as the previous input, the DFA remains in the same state\n\n";
+    help += "Red: Ignore (or FakeRepetition) error -- The input of the suffixtree differs from the previous input, the DFA remains in the same state and ignores the suffixtree\n\n";
     help += "The same match can be found in multiple ways, with different kinds of errors.\n";
    // help += "\n\nBelow a scheme of all the different errors\n\n";
    // help += "-------+        |                    D F A                    |\nSUFFIX  \       |         stay         |       advance        |\n+------+----------------------+----------------------+\nstay          | /  /  /  /  /  /  /  |                      |\n";

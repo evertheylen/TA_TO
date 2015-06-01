@@ -46,14 +46,11 @@ RM = /usr/bin/cmake -E remove -f
 # Escaping for special characters.
 EQUALS = =
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
-
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/uauser/TA_TO/Helix/lib/gtest
+CMAKE_SOURCE_DIR = "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/uauser/TA_TO/Helix/lib/gtest
+CMAKE_BINARY_DIR = "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest"
 
 #=============================================================================
 # Target rules for target CMakeFiles/gtest.dir
@@ -62,7 +59,7 @@ CMAKE_BINARY_DIR = /home/uauser/TA_TO/Helix/lib/gtest
 CMakeFiles/gtest.dir/all:
 	$(MAKE) -f CMakeFiles/gtest.dir/build.make CMakeFiles/gtest.dir/depend
 	$(MAKE) -f CMakeFiles/gtest.dir/build.make CMakeFiles/gtest.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles  1
+	$(CMAKE_COMMAND) -E cmake_progress_report "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles"  1
 	@echo "Built target gtest"
 .PHONY : CMakeFiles/gtest.dir/all
 
@@ -72,9 +69,9 @@ all: CMakeFiles/gtest.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/gtest.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles" 1
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/gtest.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles" 0
 .PHONY : CMakeFiles/gtest.dir/rule
 
 # Convenience name for target.
@@ -97,7 +94,7 @@ clean: CMakeFiles/gtest.dir/clean
 CMakeFiles/gtest_main.dir/all: CMakeFiles/gtest.dir/all
 	$(MAKE) -f CMakeFiles/gtest_main.dir/build.make CMakeFiles/gtest_main.dir/depend
 	$(MAKE) -f CMakeFiles/gtest_main.dir/build.make CMakeFiles/gtest_main.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles  2
+	$(CMAKE_COMMAND) -E cmake_progress_report "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles"  2
 	@echo "Built target gtest_main"
 .PHONY : CMakeFiles/gtest_main.dir/all
 
@@ -107,9 +104,9 @@ all: CMakeFiles/gtest_main.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/gtest_main.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles" 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/gtest_main.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles" 0
 .PHONY : CMakeFiles/gtest_main.dir/rule
 
 # Convenience name for target.

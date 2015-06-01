@@ -34,14 +34,11 @@ RM = /usr/bin/cmake -E remove -f
 # Escaping for special characters.
 EQUALS = =
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
-
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/uauser/TA_TO/Helix/lib/gtest
+CMAKE_SOURCE_DIR = "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/uauser/TA_TO/Helix/lib/gtest
+CMAKE_BINARY_DIR = "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/gtest_main.dir/depend.make
@@ -54,17 +51,17 @@ include CMakeFiles/gtest_main.dir/flags.make
 
 CMakeFiles/gtest_main.dir/src/gtest_main.cc.o: CMakeFiles/gtest_main.dir/flags.make
 CMakeFiles/gtest_main.dir/src/gtest_main.cc.o: src/gtest_main.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles" $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gtest_main.dir/src/gtest_main.cc.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -c /home/uauser/TA_TO/Helix/lib/gtest/src/gtest_main.cc
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -c "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/src/gtest_main.cc"
 
 CMakeFiles/gtest_main.dir/src/gtest_main.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gtest_main.dir/src/gtest_main.cc.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/uauser/TA_TO/Helix/lib/gtest/src/gtest_main.cc > CMakeFiles/gtest_main.dir/src/gtest_main.cc.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/src/gtest_main.cc" > CMakeFiles/gtest_main.dir/src/gtest_main.cc.i
 
 CMakeFiles/gtest_main.dir/src/gtest_main.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gtest_main.dir/src/gtest_main.cc.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/uauser/TA_TO/Helix/lib/gtest/src/gtest_main.cc -o CMakeFiles/gtest_main.dir/src/gtest_main.cc.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/src/gtest_main.cc" -o CMakeFiles/gtest_main.dir/src/gtest_main.cc.s
 
 CMakeFiles/gtest_main.dir/src/gtest_main.cc.o.requires:
 .PHONY : CMakeFiles/gtest_main.dir/src/gtest_main.cc.o.requires
@@ -101,6 +98,6 @@ CMakeFiles/gtest_main.dir/clean:
 .PHONY : CMakeFiles/gtest_main.dir/clean
 
 CMakeFiles/gtest_main.dir/depend:
-	cd /home/uauser/TA_TO/Helix/lib/gtest && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/uauser/TA_TO/Helix/lib/gtest /home/uauser/TA_TO/Helix/lib/gtest /home/uauser/TA_TO/Helix/lib/gtest /home/uauser/TA_TO/Helix/lib/gtest /home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles/gtest_main.dir/DependInfo.cmake --color=$(COLOR)
+	cd "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest" "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest" "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest" "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest" "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles/gtest_main.dir/DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/gtest_main.dir/depend
 

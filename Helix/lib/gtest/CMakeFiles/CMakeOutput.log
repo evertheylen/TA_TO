@@ -1050,3 +1050,37 @@ make[2]: Leaving directory `/home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeT
 make[1]: Leaving directory `/home/uauser/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
 
 
+Determining if files pthread.h exist passed with the following output:
+Change Dir: /home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec4123419890/fast"
+make[1]: Entering directory `/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec4123419890.dir/build.make CMakeFiles/cmTryCompileExec4123419890.dir/build
+make[2]: Entering directory `/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp/CMakeFiles" 1
+Building C object CMakeFiles/cmTryCompileExec4123419890.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec4123419890.dir/CheckIncludeFiles.c.o   -c "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp/CheckIncludeFiles.c"
+Linking C executable cmTryCompileExec4123419890
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4123419890.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec4123419890.dir/CheckIncludeFiles.c.o  -o cmTryCompileExec4123419890 -rdynamic 
+make[2]: Leaving directory `/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+
+
+Determining if the function pthread_create exists in the pthread passed with the following output:
+Change Dir: /home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec2126119868/fast"
+make[1]: Entering directory `/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2126119868.dir/build.make CMakeFiles/cmTryCompileExec2126119868.dir/build
+make[2]: Entering directory `/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report "/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp/CMakeFiles" 1
+Building C object CMakeFiles/cmTryCompileExec2126119868.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec2126119868.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec2126119868
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2126119868.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec2126119868.dir/CheckFunctionExists.c.o  -o cmTryCompileExec2126119868 -rdynamic -lpthread 
+make[2]: Leaving directory `/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+
+
