@@ -130,4 +130,21 @@ TEST(Tests, Product_fileCompare){
 	EXPECT_TRUE(fileCompare("testbestanden/Product/output3.dot", "testbestanden/Product/Expectedfile3.dot"));
 };
 // Test DFA->CompactDFA
+TEST(Tests, TFA_fileCompare){
+    std::string arg = std::string("testbestanden/TFA/file2.xml");
+    s_DFA D;
+    auto doc = read(arg);
+    D.from_xml(doc);
+    write_dot(&D, std::string("testbestanden/TFA/output1.dot"));
+    EXPECT_TRUE(fileCompare("testbestanden/TFA/output1.dot", "testbestanden/TFA/Expectedfile1.dot"));
+    
+    arg= "";
+    arg = std::string("testbestanden/TFA/file4.xml");
+    doc = read(arg);
+    s_DFA K;
+    K.from_xml(doc);
+    write_dot(&K, std::string("testbestanden/TFA/output4.dot"));
+    EXPECT_TRUE(fileCompare("testbestanden/TFA/output4.dot", "testbestanden/TFA/Expectedfile4.dot"));
+};
+
 
