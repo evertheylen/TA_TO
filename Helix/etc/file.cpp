@@ -50,7 +50,6 @@ File::File(std::string filename, int _ID):
     				f.get(input);
     				comments += input;
     			}
-    			comments += '\n';
     		}
     	}
     	//suffixtree->add_char('$');
