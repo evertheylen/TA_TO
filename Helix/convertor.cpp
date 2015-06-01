@@ -131,11 +131,18 @@ int main(int argc, char const* argv[]) {
 		try {
 			File f(arg, 0);
 			f.suffixtree->stats(std::cout);
+			//std::cout << *f.content << "\n";
 			//f.test("sss", 1);
+// 			std::cout << "even more final:\n";
+// 			for (int j=0; j<f.suffixtree->data.size(); j++) {
+// 				f.suffixtree->data[j].print(std::cout);
+// 			}
 		} catch (int x) {
 			std::cerr << "Error: The specified file doesn't exist!";
 			return x;
 		}
+		
+		
 		/*std::string content = get_file_contents(arg);
 		Suffix3 suf(content);*/
 		

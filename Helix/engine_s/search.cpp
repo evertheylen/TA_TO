@@ -71,7 +71,7 @@ std::vector<SuffixPosition> SuffixPosition::branch(Suffix3& suf) {
 
 	for (uint child_i=suf.data[node].leftmost_child; child_i != 0; child_i = suf.data[child_i].right_brother) {
 		std::cout << "(branching suffix to new node: " << child_i << " = "
-				<< suf.s.substr(suf.data[child_i].start, suf.data[child_i].end-suf.data[child_i].start) << ")\n";
+				<< suf.s->substr(suf.data[child_i].start, suf.data[child_i].end-suf.data[child_i].start) << ")\n";
 		SuffixPosition extra(child_i, 0);
 		result.push_back(extra);
 	}
@@ -183,7 +183,7 @@ std::string Match::format(File& file) {
 	for (FChar& fc: text) {
 		// print fasta character, unless it's a skip
 		if (fc.s != Status::Skip) {
-			firstline << file.suffixtree->s[fasta_i];
+			firstline << (*file.content)[fasta_i];
 			fasta_i++;
 		} else {
 			firstline << '.'; // space gives problems with truncating

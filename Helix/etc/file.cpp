@@ -19,6 +19,8 @@ File::File(std::string filename, int _ID):
 	std::fstream f(filename.c_str());
 	int loc = 0;
     if (f.good()) {
+		content = new std::string;
+		
     	name = filename;
     	path = filename;
     	std::string good_name;
@@ -35,14 +37,14 @@ File::File(std::string filename, int _ID):
     	//std::stringstream suffix;
     	char input;
     	//std::cout << "Printing name from file  " << name << std::endl;
-    	suffixtree = new Suffix3();
     	while (f.good()) {
     		f.get(input);
     		if (f.eof()) {
     			break;
     		}
     		if (input != '>' && input != ';' && input != '\n') {
-    			suffixtree->add_char(input);
+				//suffixtree->add_char(input);
+				*content += input;
     		} else if (input == '>' || input == ';'){
     			while (input != '\n') {
     				f.get(input);
@@ -51,8 +53,9 @@ File::File(std::string filename, int _ID):
     			comments += '\n';
     		}
     	}
-    	suffixtree->add_char('$');
-    	suffixtree->build();
+    	//suffixtree->add_char('$');
+    	*content += '$';
+    	suffixtree = new Suffix3(content);
 
     	//suffixtree = new Suffix3(str);
     	/*std::string search = "sss";

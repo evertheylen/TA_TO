@@ -34,9 +34,9 @@ public:
 	int ID;
 	std::string name;
 	std::string path;
+	std::string* content;
 private:
 	std::ifstream file;
-	std::string content;
 };
 
 
