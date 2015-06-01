@@ -78,9 +78,59 @@ File::File(std::string filename, int _ID):
     f.close();
 }
 
+File::File(std::ifstream& f) {
+	// std::string name;
+	name = read_string(f);
+	// std::string comments;
+	comments = read_string(f);
+	// std::string* content;
+	content = read_string_ptr(f);
+	// std::string path;
+	path = read_string(f);
+	// int ID;
+	ID = read_simple<int>(f);
+	
+	// Suffix3* suffixtree;
+}
+
+void File::save(std::ofstream& f) {
+	// std::string name;
+	write_string(f, name);
+	// std::string comments;
+	write_string(f, comments);
+	// std::string* content;
+	write_string(f, *content);
+	// std::string path;
+	write_string(f, path);
+	// int ID;
+	write_simple<int>(f, ID);
+	
+	// Suffix3* suffixtree;
+}
+
+
 const std::string& File::get_name() const {
 	return name;
 }
 
 
+// Helpers
 
+void write_string(std::ofstream& file, std::string& s) {
+	write_simple<uint>(file, s.size());
+	file.write(s.c_str(), s.size());
+}
+
+std::string read_string(std::ifstream& file) {
+	uint size = read_simple<uint>(file);
+	std::string result(size, 'x');
+	file.read((char*) result.c_str(), size);
+	return result;
+}
+
+std::string* read_string_ptr(std::ifstream& file) {
+	uint size = read_simple<uint>(file);
+	std::string* result = new std::string(size, 'x');
+	file.read((char*) result->c_str(), size);
+	return result;
+}

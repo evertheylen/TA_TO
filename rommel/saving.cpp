@@ -1,0 +1,70 @@
+
+#include <string>
+#include <iostream>
+#include <fstream>
+
+#define uint unsigned int
+
+struct Obj {
+	std::string a;
+	std::string b;
+	std::string* c;
+
+	void save(std::fstream& file) {
+
+
+	}
+};
+
+template <typename T>
+void write_simple(std::ofstream& file, T obj) {
+	file.write((const char*) &obj, sizeof(T));
+}
+
+template <typename T>
+T read_simple(std::ifstream& file) {
+	T temp;
+	file.read((char*) &temp, sizeof(T));
+	return temp;
+}
+
+void write_string(std::ofstream& file, std::string& s) {
+	write_simple<uint>(file, s.size());
+	file.write(s.c_str(), s.size());
+}
+
+std::string read_string(std::ifstream& file) {
+	uint size = read_simple<uint>(file);
+	std::string result(size, 'x');
+	file.read((char*) result.c_str(), size);
+	return result;
+}
+
+int main() {
+	Obj dirk;
+	dirk.a = "Hello";
+	dirk.b = "World test";
+	dirk.c = new std::string("this is a string pointer");
+
+	// Save to a file
+	std::ofstream file;
+	file.open("binary_file");
+	//write_simple<int>(file, dirk.a.size());
+	write_string(file, dirk.a);
+	write_string(file, dirk.b);
+	write_string(file, *(dirk.c));
+	
+	file.close();
+	std::cout << "closing file\n";
+	
+	// Read from a file
+	std::ifstream infile;
+	Obj jos;
+	infile.open("binary_file");
+	jos.a = read_string(infile);
+	jos.b = read_string(infile);
+	jos.c = new std::string(read_string(infile));
+	std::cout << "a+b is " << jos.a << jos.b << "\n";
+	std::cout << "c is " << *jos.c << "\n";
+	
+}

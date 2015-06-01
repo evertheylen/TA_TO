@@ -87,11 +87,28 @@ int Node3::height(int above, Suffix3& tree) {
 // ------[ Suffix ]---------------------------
 
 Suffix3::Suffix3(std::string* content):
-		s(content), //data(content->length()*1.6) {
+		s(content),
 		data(content->length()*1.6) {
     //std::cout << filename << std::endl;
 	build();
 }
+
+Suffix3::Suffix3(std::string* content, std::ifstream& f):
+		s(content) {
+	// std::string filename;
+	filename = read_string(f);
+	
+	// FancyVector<Node3> data;
+	
+}
+
+void Suffix3::save(std::ifstream& f) {
+	// std::string filename;
+	write_string(f, filename);
+	
+	// FancyVector<Node3> data;
+}
+
 
 
 void Suffix3::add_char(char c) {

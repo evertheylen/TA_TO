@@ -126,7 +126,11 @@ class SuffixPosition;
 class Suffix3 {
 public:
 	Suffix3(std::string* s);
-
+	
+	Suffix3(std::string* s, std::ifstream& f);
+	
+	void save(std::ifstream& f);
+	
 	//Suffix3(std::string& s);
 	
 	void fuck_you(std::string s);
