@@ -94,19 +94,12 @@ Suffix3::Suffix3(std::string* content):
 }
 
 Suffix3::Suffix3(std::string* content, std::ifstream& f):
-		s(content) {
-	// std::string filename;
-	filename = read_string(f);
-	
-	// FancyVector<Node3> data;
-	
-}
+		s(content), data(f) {}
 
-void Suffix3::save(std::ifstream& f) {
-	// std::string filename;
-	write_string(f, filename);
-	
+
+void Suffix3::save(std::ofstream& f) {
 	// FancyVector<Node3> data;
+	data.save(f);
 }
 
 

@@ -10,7 +10,9 @@
 
 #include <string>
 #include <fstream>
-#include "suffix.h"
+//#include "suffix.h"
+
+class Suffix3;
 
 class File {
 public:
@@ -20,6 +22,8 @@ public:
 	File(std::string filename, int _ID);
 	
 	File(std::ifstream& f);
+	
+	~File();
 	
 	void save(std::ofstream& f);
 	

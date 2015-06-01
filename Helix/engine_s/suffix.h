@@ -7,7 +7,9 @@
 #include <iostream>
 #include <deque>
 
-#include <cstdlib>
+#include <algorithm>
+
+#include "file.h"
 
 class Node3;
 class Suffix3;
@@ -21,9 +23,8 @@ public:
 	std::deque<T> extra;
 	
 	bool vector_full;
-	int _size;
-	int _cons_cap;
-	
+	unsigned int _size;
+	unsigned int _cons_cap;
 	
 	FancyVector(int cap=0):
 			vector_full(false), _size(0), _cons_cap(cap) {
@@ -34,6 +35,25 @@ public:
 		}
 		std::cout << "cted with cap " << cap << "\n";
 	}
+	
+	FancyVector(std::ifstream& f):
+			vector_full(true) {
+		_size = read_simple<unsigned int>(f);
+		_cons_cap = _size;
+		cons_data = std::vector<T>(_size); // if this works, update thingy above
+		f.read((char*) &cons_data[0], _size*sizeof(T));
+	}
+	
+	void save(std::ofstream& f) {
+		write_simple<unsigned int>(f, _size);
+		// first copy vector
+		f.write((const char*) &cons_data[0], sizeof(T)*std::min(_size, _cons_cap));
+		// then write deque
+		for (T& el: extra) {
+			write_simple<T>(f, el);
+		}
+	}
+	
 	
 	T& operator[](unsigned int loc) {
 		if (loc < _cons_cap) {
@@ -129,7 +149,7 @@ public:
 	
 	Suffix3(std::string* s, std::ifstream& f);
 	
-	void save(std::ifstream& f);
+	void save(std::ofstream& f);
 	
 	//Suffix3(std::string& s);
 	
@@ -138,7 +158,6 @@ public:
 	void build();
 	
 	std::string* s;
-	std::string filename;
 
 	//Node3* root;
 	FancyVector<Node3> data;

@@ -11,6 +11,8 @@
 #include <list>
 #include <iostream> 
 
+#include "suffix.h"
+
 #include <exception>
 #include <stdexcept>
 
@@ -91,6 +93,7 @@ File::File(std::ifstream& f) {
 	ID = read_simple<int>(f);
 	
 	// Suffix3* suffixtree;
+	suffixtree = new Suffix3(content, f);
 }
 
 void File::save(std::ofstream& f) {
@@ -106,7 +109,14 @@ void File::save(std::ofstream& f) {
 	write_simple<int>(f, ID);
 	
 	// Suffix3* suffixtree;
+	suffixtree->save(f);
 }
+
+File::~File() {
+	delete content;
+	delete suffixtree;
+}
+
 
 
 const std::string& File::get_name() const {

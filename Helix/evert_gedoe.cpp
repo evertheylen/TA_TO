@@ -89,16 +89,19 @@ int main(int argc, char* args[]) {
 		}
 	}
 	*/
-	
+	/*
 	File f(args[1], 756);
 	std::ofstream stream;
 	stream.open("binary_file");
 	f.save(stream);
+	//generate_dot(f.suffixtree, "original", 0);
 	stream.close();
+	*/
 	
 	std::ifstream istream;
-	istream.open("binary_file");
+	istream.open(args[1]);
 	File otherf(istream);
+	//generate_dot(f.suffixtree, "loaded", 0);
 	std::cout << otherf.comments << "\n";
 	istream.close();
 }
