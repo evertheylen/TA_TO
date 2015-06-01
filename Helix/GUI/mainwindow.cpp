@@ -169,6 +169,10 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column)
      fv.exec();
 	 if (fv.saved) {
 		 files.at(row) = fv.f;
+         for (int i = 0; i < queries.size(); i++) {
+            auto raw_results = queries.at(i).real_search(*(fv.f->suffixtree));
+            queries.at(i).results_per_file[fv.f->ID] = Result(raw_results, fv.f, &queries.at(i));
+         }
 	 }
     }
     else{

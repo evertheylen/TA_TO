@@ -295,11 +295,11 @@ void Query::search(File* f) {
 		std::cout << "adding results\n";
 		auto raw_results = real_search(*f->suffixtree);
 		results_per_file.insert(std::pair<int, Result>(f->ID, Result(raw_results, f, this)));
-	} else {
+	}/* else {
     	std::cout << "replacing results in results_per_file\n";
 	    auto raw_results = real_search(*f->suffixtree);
 	    results_per_file[f->ID] = Result(raw_results, f, this);
-	}
+	}*/
 }
 
 
