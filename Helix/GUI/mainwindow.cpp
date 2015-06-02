@@ -66,10 +66,38 @@ void MainWindow::on_pushButton_clicked()        // Input file knop :p
 }
 
 
+void MainWindow::on_add_dir_clicked()
+{
+	QString dirName = QFileDialog::getExistingDirectory();
+	if (dirName != "") {
+		QStringList nameFilter("*.suffix");
+		QDir directory(dirName);
+		QStringList suffixFiles = directory.entryList(nameFilter);
+		int row = ui->tableWidget->rowCount();
+		for (auto fileName_str: suffixFiles) {
+			File* f = manager.add_file((dirName+"/"+fileName_str).toStdString());
+
+			ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+			QTableWidgetItem* item = new QTableWidgetItem(QString::fromStdString(f->get_name()));
+			QString comments = QString::fromStdString(f->comments);
+			if (comments == "") {
+				comments = "no comments available for this file\n";
+			}
+			item->setToolTip(comments);
+			ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, item);
+			ui->tableWidget->resizeColumnsToContents();
+			row++;
+		}
+	}
+}
+
+
 void MainWindow::on_quitprogram_clicked()
 {
     this->close();
 }
+
+
 
 void MainWindow::on_addtestbutton_clicked()     // Input new query knop
 {
@@ -126,6 +154,16 @@ void MainWindow::on_runtests_clicked()
 		double progress_advance = 100.0/size;
 		// critical step here (when offloading); for every file...
 		for (int j = 0; j < manager.next_ID; j++) {
+			bool hasQuery = false;
+			for (Query& q: queries) {
+				if (q.results_per_file.find(j) == q.results_per_file.end()) {
+					hasQuery = true;
+					break;
+				}
+			}
+
+			if (!hasQuery) continue;
+
 			File* file= manager.get_file(j); // might take a loooong time
             for (int i = 0; i < size; i++) {
 				queries.at(i).search(file, j);
@@ -174,6 +212,7 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column)
 			std::cout << "clicked\n";
 			//This will open a new window with detailed results
 			ResultView* resultv = new ResultView();
+			queries.at(column-1).results_per_file[row].file = manager.get_file(row);
 			resultv->setResult(&(queries.at(column-1).results_per_file[row]));
 			resultv->show();
 		} else {

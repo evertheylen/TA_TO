@@ -127,6 +127,7 @@ File::File(std::ifstream& f) {
 	uint gap_vector_length = read_simple<int>(f);
 	gaps = std::vector<Gap>(gap_vector_length);
 	f.read((char*) &gaps[0], gap_vector_length*sizeof(Gap));
+	
 	// Suffix3* suffixtree;
 	suffixtree = new Suffix3(content, f);
 }

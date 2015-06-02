@@ -85,11 +85,12 @@ int main(int argc, char const* argv[]) {
 		write_dot(&N, arg+".org_dot");
 		write_dot(&D, arg+".dot");
 	} else if (mode == "union" || mode == "intersection") {
-		if (argc < 4) {
+		if (argc < 5) {
 			cout << "Not enough arguments given for creating the product automaton.\n";
 			return 1;
 		}
 		string arg2 = string(argv[3]);
+		string filename = string(argv[4]);
 		
 		s_DFA D1;
 		//DFA <std::string, char> D1;
@@ -102,7 +103,8 @@ int main(int argc, char const* argv[]) {
 		D2.from_xml(doc);
 
 		DFA <std::string, char> P = product(D1, D2, mode == "intersection");  // true --> intersection
-		write_dot(&P, "product_"+arg+"_"+arg2+".dot");
+		write_dot(&P, filename);
+		std::cout << "written dot to " << filename << "\n";
 	} else if (mode == "suffix") {
 		/*string arg2 = string(argv[3]);
 

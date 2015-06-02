@@ -28,9 +28,9 @@ DFA<StateT, SymbolT> product(DFA<StateT, SymbolT> D1, DFA<StateT, SymbolT> D2, b
 	 */
 
 	std::stringstream ss;
-	ss << D1.realState(D1.q0) << "/" << D2.realState(D2.q0);
-	std::string str = ss.str();
-	ss.str("");
+// 	ss << D1.realState(D1.q0) << "/" << D2.realState(D2.q0);
+// 	std::string str = ss.str();
+// 	ss.str("");
 
 	for (int i = 0; i < D1.num_states; i++) {
 		for (int j = 0; j < D2.num_states; j++) {

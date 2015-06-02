@@ -110,6 +110,7 @@ public:
 class Match: public FancyPath {
 public:
 	std::vector<int> locations;  // in the suffix tree
+	int str_loc;
 	
 	Match(FancyPath& p, File* file);
 	

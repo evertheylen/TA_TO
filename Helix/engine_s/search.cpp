@@ -168,6 +168,7 @@ Match::Match(FancyPath& p, File* file):
 	// Save locations
 	//std::cout << "match on node " << p.suf_pos.node << "\n";
 	file->suffixtree->get_leaves(p.suf_pos.node, locations);
+	str_loc = locations.at(0);
 	for (int& i: locations) {
 		i = file->real_location(i);
 	}
@@ -180,7 +181,7 @@ std::string Match::format(File* file) {
 	std::stringstream firstline;  // FASTA
 	std::stringstream secondline; // pattern
 	
-	int fasta_i = locations.at(0);  // if there's no match, something serious is wrong
+	int fasta_i = str_loc;  // if there's no match, something serious is wrong
 	Status current = Status::Perfect;
 	
 	for (FChar& fc: text) {

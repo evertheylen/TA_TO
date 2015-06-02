@@ -41,6 +41,8 @@ private slots:
 
 	void on_offload_button_clicked();
 
+	void on_add_dir_clicked();
+
 private:
     Ui::MainWindow *ui;
 
