@@ -1,4 +1,5 @@
 #include "TFA.h"
+#include "Run.h"
 #include <vector>
 #include <iostream>
 using namespace std;
@@ -165,6 +166,13 @@ s_DFA TFA(s_DFA D) {
 		tempnames[ns] += "}";
 		optimus_prime.map.insert(s_DFA::Bimap::value_type(ns, tempnames[ns]));
 	}
-	
+    //Runner<s_DFA> r(D);
+    //Runner<s_DFA> rr(optimus_prime);
+    //bool accepted = r.process("00110");
+    //bool accepted2 = r.process("11011000");
+    //bool accepted3 = r.process("011000");
+    //cout << "accepted? " << accepted << endl;
+    //cout << "accepted2? " << accepted2 << endl;
+    //cout << "accepted3? " << accepted3 << endl;
 	return optimus_prime;
 }

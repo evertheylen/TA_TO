@@ -23,15 +23,22 @@ DFA<StateT, SymbolT> product(DFA<StateT, SymbolT> D1, DFA<StateT, SymbolT> D2, b
 	product.sigma = D1.sigma;
 
 	/*
-	 * I will create temporary pares of original states, to be able to check their original delta-function.
+	 * I will create temporary pairs of original states, to be able to check their original delta-function.
 	 * At the end of the algorithm I will transform them to normal states and insert them into the product automaton.
 	 */
 
 	std::stringstream ss;
+<<<<<<< HEAD
 // 	ss << D1.realState(D1.q0) << "/" << D2.realState(D2.q0);
 // 	std::string str = ss.str();
 // 	ss.str("");
 
+=======
+/*	ss << D1.realState(D1.q0) << "/" << D2.realState(D2.q0);
+	std::string str = ss.str();
+	ss.str("");
+*/
+>>>>>>> eb0fbfb6dcf966ec476b6f5225897aac9e6c515b
 	for (int i = 0; i < D1.num_states; i++) {
 		for (int j = 0; j < D2.num_states; j++) {
 			ss << D1.realState(i) << "/" << D2.realState(j);
