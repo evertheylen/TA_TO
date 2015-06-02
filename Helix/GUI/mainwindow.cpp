@@ -189,7 +189,7 @@ void MainWindow::on_runtests_clicked()
 
 void MainWindow::on_tableWidget_cellClicked(int row, int column)
 {
-	if (column == 0){//First column will show the fasta comments
+    /*(if (column == 0){//First column will show the fasta comments
 		if (!manager.offload) {
 		// TODO Stijn :)
 //		 Fileview fv;
@@ -204,10 +204,10 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column)
 //				 ui->tableWidget->item(row, 0)->setToolTip(QString::fromStdString(fv.f->comments));
 //			 }
 //		 }
-		} else {
+        } else {
 			QMessageBox::information(this, tr("Editing disabled"), tr("Editing disabled when offloading files to disk. Will give unexpected results."));
 		}
-	} else {
+    }*/ if (column != 0) {
 		if (queries.at(column-1).results_per_file.find(row) != queries.at(column-1).results_per_file.end()) {
 			std::cout << "clicked\n";
 			//This will open a new window with detailed results
