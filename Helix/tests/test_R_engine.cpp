@@ -6,6 +6,7 @@
 #include "../engine_r/RE-eNFA/RE-eNFA.h"
 #include "../engine_r/eNFA-DFA/eNFA-DFA.h"
 #include "../engine_r/Product/product.h"
+#include "../engine_r/TFA/TFA.h"
 #include "string"
 
 // Write tests for R_Engine here
@@ -130,7 +131,6 @@ TEST(Tests, Product_fileCompare){
 	EXPECT_TRUE(fileCompare("testbestanden/Product/output3.dot", "testbestanden/Product/Expectedfile3.dot"));
 };
 
-#include "../r_engine/TFA/TFA.h"
 
 // Test DFA-> optimal DFA
 TEST(Tests, TFA_fileCompare){
@@ -139,7 +139,7 @@ TEST(Tests, TFA_fileCompare){
     auto doc = read(arg);
     D.from_xml(doc);
 	s_DFA OD = TFA(D);
-    write_dot(&D, std::string("testbestanden/TFA/file2_output.dot"));
+    write_dot(&OD, std::string("testbestanden/TFA/file2_output.dot"));
     EXPECT_TRUE(fileCompare("testbestanden/TFA/file2_output.dot", "testbestanden/TFA/file2_reference.dot"));
     
     arg = std::string("testbestanden/TFA/file4.xml");
@@ -147,7 +147,7 @@ TEST(Tests, TFA_fileCompare){
     s_DFA K;
     K.from_xml(doc);
 	s_DFA OK = TFA(K);
-    write_dot(&K, std::string("testbestanden/TFA/output4.dot"));
+    write_dot(&OK, std::string("testbestanden/TFA/file4_output.dot"));
     EXPECT_TRUE(fileCompare("testbestanden/TFA/file4_output.dot", "testbestanden/TFA/file4_reference.dot"));
 };
 
