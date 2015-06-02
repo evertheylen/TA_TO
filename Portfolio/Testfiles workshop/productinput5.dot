@@ -1,0 +1,8 @@
+digraph outputAutomaat {
+	rankdir=LR
+	start [style=invisible]
+	start -> "A" [label=start]
+	"B" [shape=doublecircle]
+	"A" -> "B" [label="0,1"]
+	"B" -> "A" [label="0,1"]
+}
