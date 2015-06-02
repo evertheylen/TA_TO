@@ -11,11 +11,11 @@ File* Filemanager::add_file(std::string filename) {
 	next_ID++;
 	if (is_binary) {
 		if (offload) {
-			std::cout << "adding binary file [" << ID << "] offloaded. filename is " << filename << "\n";
+			std::cout << "  [FILEMANAGER]  adding binary file [" << ID << "] offloaded. filename is " << filename << "\n";
 			filenames[ID] = filename;
 			return get_file(ID);
 		} else {
-			std::cout << "adding binary file [" << ID << "] to RAM. filename is " << filename << "\n";
+			std::cout << "  [FILEMANAGER]  adding binary file [" << ID << "] to RAM. filename is " << filename << "\n";
 			std::ifstream file;
 			file.open(filename);
 			files[ID] = new File(file);
@@ -25,10 +25,10 @@ File* Filemanager::add_file(std::string filename) {
 		}
 	} else {
 		if (offload) {
-			std::cout << "adding fasta file [" << ID << "] and saving to file. filename is " << filename << "\n";
+			std::cout << "  [FILEMANAGER]  adding fasta file [" << ID << "] and saving to file. filename is " << filename << "\n";
 			if (current != nullptr) delete current;
 			std::string saved_filename = filename + ".suffix";
-			std::cout << "    saving on " << saved_filename << "\n";
+			//std::cout << "    saving on " << saved_filename << "\n";
 			current = new File(filename);
 			std::ofstream file;
 			file.open(saved_filename);
@@ -39,7 +39,7 @@ File* Filemanager::add_file(std::string filename) {
 			current_ID = ID;
 			return current;
 		} else {
-			std::cout << "adding fasta file [" << ID << "] and saving to RAM. filename is " << filename << "\n";
+			std::cout << "  [FILEMANAGER]  adding fasta file [" << ID << "] and saving to RAM. filename is " << filename << "\n";
 			files[ID] = new File(filename);
 			return files[ID];
 		}
@@ -53,14 +53,14 @@ void Filemanager::enable_offloading() {
 		for (int ID=0; ID<next_ID; ID++) {
 			if (filenames.find(ID) == filenames.end()) {
 				std::string saved_filename = files[ID]->get_name() + ".suffix";
-				std::cout << "(enable) saving " << ID << " to " << saved_filename << "\n";
+				std::cout << "  [FILEMANAGER]  (enable) saving " << ID << " to " << saved_filename << "\n";
 				std::ofstream file;
 				file.open(saved_filename);
 				files[ID]->save(file);
 				file.close();
 				filenames[ID] = saved_filename;
 			}
-			std::cout << "(enable) deleting from RAM: " << ID << "\n";
+			std::cout << "  [FILEMANAGER]  (enable) deleting from RAM: " << ID << "\n";
 			delete files[ID];
 		}
 		
@@ -77,7 +77,7 @@ void Filemanager::disable_offloading() {
 		for (int ID=0; ID<next_ID; ID++) {
 			std::ifstream file;
 			file.open(filenames[ID]);
-			std::cout << "(disable) loading file " << filenames[ID] << " to file with ID: " << ID << "\n";
+			std::cout << "  [FILEMANAGER]  (disable) loading file " << filenames[ID] << " to file with ID: " << ID << "\n";
 			files[ID] = new File(file);
 			file.close();
 		}
@@ -93,7 +93,7 @@ void Filemanager::disable_offloading() {
 File* Filemanager::get_file(int ID) {
 	if (offload) {
 		if (current_ID == ID) {
-			std::cout << "loading current file in RAM with ID: " << current_ID << "\n";
+			std::cout << "  [FILEMANAGER]  loading current file in RAM with ID: " << current_ID << "\n";
 		} else {
 			delete current;
 			std::ifstream file;
@@ -101,11 +101,11 @@ File* Filemanager::get_file(int ID) {
 			current = new File(file);
 			current_ID = ID;
 			file.close();
-			std::cout << "loading file in RAM with ID: " << current_ID << "\n";
+			std::cout << "  [FILEMANAGER]  loading file in RAM with ID: " << current_ID << "\n";
 		}
 		return current;
 	} else {
-		std::cout << "loading file directly from RAM with ID: " << ID << "\n";
+		std::cout << "  [FILEMANAGER]  loading file directly from RAM with ID: " << ID << "\n";
 		return files[ID];
 	}
 }
