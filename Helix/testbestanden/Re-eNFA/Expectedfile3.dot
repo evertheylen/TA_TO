@@ -1,6 +1,5 @@
 digraph automaton {
     node [shape=none]; start;
-    node [shape=doublecircle]; "q3";
     node [shape=circle];
     start -> "q0";
 }
