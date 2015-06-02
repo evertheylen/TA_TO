@@ -1,8 +1,3 @@
-/*
- *	Author: Anthony Hermans
- *	Date: 26/05/2015
- *	Information: All the functions about fasta
-*/
 
 #ifndef ____fasta__
 #define ____fasta__

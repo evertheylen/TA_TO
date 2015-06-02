@@ -179,9 +179,6 @@ Match::Match(FancyPath& p, File* file):
 	for (int& i: locations) {
 		i = file->real_location(i);
 	}
-// 	for (int i=0; i<locations.size(); i++) {
-// 		locations[i] += p.suf_pos.pos_in_node;
-// 	}
 }
 
 std::string Match::format(File* file) {
@@ -213,15 +210,6 @@ std::string Match::format(File* file) {
 	firstline << "\n<br/>";
 	firstline << secondline.str();
 	return std::string(firstline.str());
-	
-// 	std::cout << "node address: " << suf_pos.node << "\n";
-// 	std::cout << "first: " << firstline.str() << "\n";
-// 	std::cout << "secnd: " << secondline.str() << "\n";
-// 	std::cout << "locations: ";
-// 	for (int& l: locations) {
-// 		std::cout << l << ", ";
-// 	}
-// 	std::cout << "\n";
 }
 
 
@@ -232,8 +220,6 @@ std::string Match::format(File* file) {
 Result::Result(std::vector<FancyPath>& paths, File* f, Query* q):
 			file(f), query(q) {
 	for (FancyPath& fp: paths) {
-// 		std::cout << "Adding path:\n";
-// 		fp.print(std::cout, *(file.suffixtree));
 		matches.push_back(Match(fp, file));
 	}
 }
@@ -241,7 +227,6 @@ Result::Result(std::vector<FancyPath>& paths, File* f, Query* q):
 Result::Result() {}
 
 std::string Result::summary() {
-	// TODO total unique positions
 	int total_matched_loc = 0;
 	for (Match& m: matches) {
 		total_matched_loc += m.locations.size();
@@ -295,7 +280,6 @@ Query::Query(std::string& fancypattern, int f, int s, int r, int i, int m):
 
 void Query::search(File* f, int ID) {
 	if (results_per_file.find(ID) == results_per_file.end()) {
-		std::cout << "adding results\n";
 		auto raw_results = real_search(*f->suffixtree);
 		results_per_file.insert(std::pair<int, Result>(ID, Result(raw_results, f, this)));
 	}

@@ -116,7 +116,7 @@ int main(int argc, char const* argv[]) {
 			for (Gap& g: f.gaps) {
 				std::cout << " - gap: " << g.position << ", " << g.length << "\n";
 			}
-			stream.open(arg+".suffix");
+			stream.open(arg+".dot");
 			stream << *(f.suffixtree);
 			stream.close();
 		} else if (argc > 3) { // suffixsearch
@@ -125,7 +125,7 @@ int main(int argc, char const* argv[]) {
 			q.search(&f, 0);
 			std::cout << q.results_per_file[0].summary() << "\n";
 		}
-	} else if (mode == "suffixload") {
+	} else if (mode == "suffixsave") {
 		std::cout << "Loading the suffixtree and saving to file...\n";
 		File f(arg);
 		std::ofstream stream;

@@ -1,0 +1,13 @@
+digraph automaton {
+    node [shape=none]; start;
+    node [shape=doublecircle]; "C";
+    node [shape=circle];
+    start -> "AE";
+    "AE" -> "BH" [label="0"];
+    "AE" -> "F" [label="1"];
+    "BH" -> "G" [label="0"];
+    "BH" -> "C" [label="1"];
+    "G" -> "G" [label="0"];
+    "F" -> "C" [label="0"];
+    "F" -> "G" [label="1"];
+    }

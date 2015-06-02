@@ -1,8 +1,3 @@
-/*
- *	Author: Anthony Hermans
- *	Date: 26/05/2015
- *	Information: All the functions about fasta
-*/
 
 #include "fasta.h"
 #include <string>

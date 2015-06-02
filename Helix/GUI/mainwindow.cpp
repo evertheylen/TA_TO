@@ -126,21 +126,8 @@ void MainWindow::on_addtestbutton_clicked()     // Input new query knop
         ui->tableWidget->setHorizontalHeaderItem(ui->tableWidget->columnCount()-1, item);
         ui->tableWidget->resizeColumnsToContents();
     }
-    /*
-    addtestdialog addtest;
-    addtest.setWindowTitle("Add test file");
-    addtest.setModal(true);
-    addtest.exec();*/
 }
 
-/*void MainWindow::on_results_clicked()
-{
-    //This button will show us the detailed results from the test
-    resultsdialog results;
-    results.setWindowTitle("Detailed results");
-    results.setModal(true);
-    results.exec();
-}*/
 
 void MainWindow::on_runtests_clicked()
 {
@@ -172,10 +159,6 @@ void MainWindow::on_runtests_clicked()
 				item->setText(QString::fromStdString(r.summary()));
                 ui->tableWidget->setItem(j, i+1, item);
                 ui->tableWidget->resizeColumnsToContents();
-                //std::cout << ui->tableWidget->item(j, i+1) << std::endl;
-                //ui->tableWidget->item(j+1, i+1)->setText(match);
-                //std::cout << "Set new item to " << match.toStdString() << std::endl;
-                //std::cout << "Done\n";
                 progress += progress_advance;
 				ui->progressBar->setValue(round(progress));
             }
@@ -189,25 +172,7 @@ void MainWindow::on_runtests_clicked()
 
 void MainWindow::on_tableWidget_cellClicked(int row, int column)
 {
-    /*(if (column == 0){//First column will show the fasta comments
-		if (!manager.offload) {
-		// TODO Stijn :)
-//		 Fileview fv;
-//		 fv.f = files.at(row);
-//		 fv.set_file(fv.f->path);
-//		 fv.exec();
-//		 if (fv.saved) {
-//			 //fv.f = fv.f;
-//			 for (int i=0; i<queries.size(); i++) {
-//				 queries[i].results_per_file.erase(row);
-//				 ui->tableWidget->item(row, 1+i)->setText("");
-//				 ui->tableWidget->item(row, 0)->setToolTip(QString::fromStdString(fv.f->comments));
-//			 }
-//		 }
-        } else {
-			QMessageBox::information(this, tr("Editing disabled"), tr("Editing disabled when offloading files to disk. Will give unexpected results."));
-		}
-    }*/ if (column != 0) {
+    if (column != 0) {
 		if (queries.at(column-1).results_per_file.find(row) != queries.at(column-1).results_per_file.end()) {
             //std::cout << "clicked\n";
 			//This will open a new window with detailed results

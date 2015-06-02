@@ -73,13 +73,6 @@ int Node3::height(int above, Suffix3& tree) {
 	return max;
 }
 
-// void Node3::add_children(std::vector< Node3* >& nodes) {
-// 	for (Node3* child: children) {
-// 		nodes.push_back(child);
-// 		child->add_children(nodes);
-// 	}
-// }
-
 
 
 
@@ -127,7 +120,7 @@ void Suffix3::build() {
 	Node3* current = &data[0];
 	uint current_i = 0;
 	// for each substring in s
-	for (uint i=1; i<len-1; i++) {			// TODO Just for attention :) changed from len to len-1
+	for (uint i=1; i<len-1; i++) {
 		//generate_dot(*this, "blabl", i);
 		
 // 		std::cout << "\n\n--------[" << i << "]----------------\n";
@@ -255,7 +248,7 @@ void Suffix3::build() {
 		}
 	}
 	
-	std::cout << "\nDone.\n";
+	std::cout << "\n  [Suffixtree]  Done.\n";
 	//generate_dot(this, "suffix_tree", 0);
 	
 // 	std::cout << "\n\n--------[ final ]----------------\n";

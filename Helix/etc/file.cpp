@@ -1,15 +1,9 @@
-/*
- * file.cpp
- *
- *  Created on: 12 May 2015
- *      Author: stijn
- */
 
 #include "file.h"
 #include <fstream>
 #include <sstream>
 #include <list>
-#include <iostream> 
+#include <iostream>
 
 #include "suffix.h"
 
@@ -17,51 +11,51 @@
 #include <stdexcept>
 
 Gap::Gap(unsigned int p, unsigned int l):
-		position(p), length(l) {}
+	position(p), length(l) {}
 
 
 File::File(std::string filename) {
 	std::fstream f(filename.c_str());
-    if (f.good()) {
+	if (f.good()) {
 		content = new std::string;
-		
-    	name = filename;
-    	path = filename;
-    	std::string good_name;
-    	for (int i = name.length()-1; i >= 0; i--) {
-            if (name[i] == '/') {    	
-                break;
-            } else {
-                good_name += name[i];
-            }
-    	}
-    	name = std::string(good_name.rbegin(), good_name.rend());
-    	std::cout << "  [File]  Creating suffixtree from file " << name << "\n";
-    	std::fstream suffixfile;
-    	suffixfile.open(filename.c_str());
-    	//std::stringstream suffix;
-    	char input;
+
+		name = filename;
+		path = filename;
+		std::string good_name;
+		for (int i = name.length()-1; i >= 0; i--) {
+			if (name[i] == '/') {
+				break;
+			} else {
+				good_name += name[i];
+			}
+		}
+		name = std::string(good_name.rbegin(), good_name.rend());
+		std::cout << "  [File]  Creating suffixtree from file " << name << "\n";
+		std::fstream suffixfile;
+		suffixfile.open(filename.c_str());
+		//std::stringstream suffix;
+		char input;
 		uint N_gap_length=0;
 		uint i=0;
-    	//std::cout << "Printing name from file  " << name << std::endl;
-    	while (f.good()) {
-    		f.get(input);
-    		if (f.eof()) {
-    			break;
-    		}
-    		
-    		if (input == '\n') continue;
-    		
-    		if (input == '>' || input == ';') {
-    			while (input != '\n') {
-    				f.get(input);
-    				comments += input;
-    			}
-    			continue;
-    		}
-    		
-    		// check gaps
-    		if (input == 'N') {
+		//std::cout << "Printing name from file  " << name << std::endl;
+		while (f.good()) {
+			f.get(input);
+			if (f.eof()) {
+				break;
+			}
+
+			if (input == '\n') continue;
+
+			if (input == '>' || input == ';') {
+				while (input != '\n') {
+					f.get(input);
+					comments += input;
+				}
+				continue;
+			}
+
+			// check gaps
+			if (input == 'N') {
 				N_gap_length++;
 				continue;
 			} else {
@@ -72,34 +66,18 @@ File::File(std::string filename) {
 				}
 				N_gap_length = 0;
 			}
-			
-			*content += input;
-    		i++;
-    	}
-    	//suffixtree->add_char('$');
-    	*content += '$';
-    	suffixtree = new Suffix3(content);
 
-    	//suffixtree = new Suffix3(str);
-    	/*std::string search = "sss";
-    	std::vector<int> result = suffixtree->search_string(search, 1);
-    	int size = result.size();
-    	std::ofstream output_file;
-		output_file.open("Commentsofthefastafile.txt");
-		output_file << "comments: \n" << comments.str();
-		//output_file << "suffix: \n" << suffix.str();
-		output_file.close();
- 		std::string filename = "_search_for_";
-		filename += search;
- 		std::ofstream f(filename);
- 		f << "Occurrences of the pattern " << search << std::endl;
-  		for (int k = 0; k < result.size(); k++) {
- 			f << "Result found at position " << result.at(k) << "\n";
- 		}*/
-    } else {
-        throw std::runtime_error("Something went wrong while loading the file.");
-    }
-    f.close();
+			*content += input;
+			i++;
+		}
+		//suffixtree->add_char('$');
+		*content += '$';
+		suffixtree = new Suffix3(content);
+
+	} else {
+		throw std::runtime_error("Something went wrong while loading the file.");
+	}
+	f.close();
 }
 
 unsigned int File::real_location(unsigned int loc) {
@@ -128,7 +106,7 @@ File::File(std::ifstream& f) {
 	uint gap_vector_length = read_simple<int>(f);
 	gaps = std::vector<Gap>(gap_vector_length);
 	f.read((char*) &gaps[0], gap_vector_length*sizeof(Gap));
-	
+
 	// Suffix3* suffixtree;
 	suffixtree = new Suffix3(content, f);
 }

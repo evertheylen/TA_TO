@@ -36,14 +36,6 @@ void Fileview::on_pushButton_4_clicked()
     output << ui->textBrowser->document()->toPlainText();
     file.close();
 
-  /*  std::ofstream file(path);
-    file.open();
-    file << ui->textBrowser->document()->toPlainText();
-    file.close();*/
-
-	// TODO Stijn :)
-	//int id = f->ID;
-	//f = new File(path, id);
     saved = true;
     this->close();
 }
