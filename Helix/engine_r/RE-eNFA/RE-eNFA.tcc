@@ -29,22 +29,15 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 		continue;
 		}
 	}
-	// std::cout << alphabet << std::endl;
-	// std::cout << isInAlphabet(alphabet, '0') << std::endl;
 	int currentstate = N.ID("q0");						/** 				Houdt de huidige staat bij					*/
 	int states = 1;														/**						Counter van de staten 						*/
 	stack<int> start,end; 										/**				Startstaat,eindstaat bijhouden				*/
 	stack<int> bracketsstart,bracketsend;						/**	Brackets start en eind bijhouden*/
+	int countBrackets=0;
 	for (string::iterator it = str.begin(); it!= str.end(); it++){
 		if (*it == '('){
-			/**startstack is niet leeg */
-			if (it != str.begin() and isInAlphabet(alphabet,*(it-1)) == false){
-				bracketsstart.push(start.top());
-			}
-			/** '(' komt als eerste voor of startstack is leeg */
-			else{
-				bracketsstart.push(currentstate);
-			}
+			/** Houdt de beginstaat voor de haakjes bij*/
+			bracketsstart.push(currentstate);
 			continue;
 		}
 		if (*it == ')'){
@@ -56,7 +49,7 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 			/**Houdt de einstaat bij*/
 			end.push(currentstate);
 			/**Staat bevindt zich niet binnen haakjes*/
-			if(bracketsstart.size() == 0){
+			if(bracketsstart.size() == 0 ){
 				currentstate = start.top();
 				start.pop();
 			}
@@ -228,3 +221,4 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 	*/
 	return N;
 }
+
