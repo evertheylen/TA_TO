@@ -71,7 +71,7 @@ int main(int argc, char const* argv[]) {
 		D.from_xml(doc);
 		write_dot(&D, arg + ".orig.dot");
 		
-		s_DFA opt_D = TFA(D);
+		s_DFA opt_D = TFA(D, true);
 		
 		write_dot(&opt_D, arg + ".dot");
 	} else if (mode == "eNFA-DFA") {

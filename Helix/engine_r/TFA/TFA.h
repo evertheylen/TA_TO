@@ -35,6 +35,6 @@ struct block {
     bool hasFinal(s_DFA D);
 };
 
-s_DFA TFA(s_DFA D);
+s_DFA TFA(s_DFA D, bool print = false);
 
 #endif
