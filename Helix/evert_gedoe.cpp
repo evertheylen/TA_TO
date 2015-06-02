@@ -104,9 +104,9 @@ int main(int argc, char* args[]) {
 			std::cout << "gap: " << g.position << ", " << g.length << "\n";
 		}
 	} else {
-		File f(arg, 756);
+		File f(arg);
 		std::ofstream stream;
-		stream.open("binary_file.suffix");
+		stream.open(arg+".suffix");
 		f.save(stream);
 		//generate_dot(f.suffixtree, "original", 0);
 		stream.close();
