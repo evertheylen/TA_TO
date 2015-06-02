@@ -33,7 +33,7 @@ public:
 		} else {
 			cons_data = std::vector<T>(cap, T());
 		}
-		std::cout << "cted with cap " << cap << "\n";
+	//	std::cout << "cted with cap " << cap << "\n";
 	}
 	
 	FancyVector(std::ifstream& f):

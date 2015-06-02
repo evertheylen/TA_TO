@@ -36,6 +36,7 @@ File::File(std::string filename) {
             }
     	}
     	name = std::string(good_name.rbegin(), good_name.rend());
+    	std::cout << "  [File]  Creating suffixtree from file " << name << "\n";
     	std::fstream suffixfile;
     	suffixfile.open(filename.c_str());
     	//std::stringstream suffix;
