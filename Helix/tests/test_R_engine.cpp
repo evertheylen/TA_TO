@@ -129,22 +129,26 @@ TEST(Tests, Product_fileCompare){
 	write_dot(&P3, std::string("testbestanden/Product/output3.dot"));
 	EXPECT_TRUE(fileCompare("testbestanden/Product/output3.dot", "testbestanden/Product/Expectedfile3.dot"));
 };
-// Test DFA->CompactDFA
+
+#include "../r_engine/TFA/TFA.h"
+
+// Test DFA-> optimal DFA
 TEST(Tests, TFA_fileCompare){
     std::string arg = std::string("testbestanden/TFA/file2.xml");
     s_DFA D;
     auto doc = read(arg);
     D.from_xml(doc);
-    write_dot(&D, std::string("testbestanden/TFA/output1.dot"));
-    EXPECT_TRUE(fileCompare("testbestanden/TFA/output1.dot", "testbestanden/TFA/Expectedfile1.dot"));
+	s_DFA OD = TFA(D);
+    write_dot(&D, std::string("testbestanden/TFA/file2_output.dot"));
+    EXPECT_TRUE(fileCompare("testbestanden/TFA/file2_output.dot", "testbestanden/TFA/file2_reference.dot"));
     
-    arg= "";
     arg = std::string("testbestanden/TFA/file4.xml");
     doc = read(arg);
     s_DFA K;
     K.from_xml(doc);
+	s_DFA OK = TFA(K);
     write_dot(&K, std::string("testbestanden/TFA/output4.dot"));
-    EXPECT_TRUE(fileCompare("testbestanden/TFA/output4.dot", "testbestanden/TFA/Expectedfile4.dot"));
+    EXPECT_TRUE(fileCompare("testbestanden/TFA/file4_output.dot", "testbestanden/TFA/file4_reference.dot"));
 };
 
 

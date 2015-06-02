@@ -7,16 +7,7 @@
 #include <set>
 using namespace std;
 
-bool isInAlphabet(string str, char c){
-	for (string::iterator it = str.begin(); it!= str.end(); it++){
-		if (*it == c){
-			return true;
-		}
-		continue;
-	}
-	return false;
 
-}
 template<	typename StateT,
 			typename SymbolT,
 			SymbolT epsilon>

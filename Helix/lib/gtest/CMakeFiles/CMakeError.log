@@ -1410,3 +1410,64 @@ make[1]: *** [cmTryCompileExec722870028/fast] Error 2
 make[1]: Leaving directory `/home/stijn/Documents/1Ba Informatica/Talen en Automaten/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
 
 
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec726885245/fast"
+make[1]: Entering directory '/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec726885245.dir/build.make CMakeFiles/cmTryCompileExec726885245.dir/build
+make[2]: Entering directory '/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec726885245.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec726885245.dir/CheckSymbolExists.c.o   -c /Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec726885245
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec726885245.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec726885245.dir/CheckSymbolExists.c.o  -o cmTryCompileExec726885245 -rdynamic 
+CMakeFiles/cmTryCompileExec726885245.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTryCompileExec726885245.dir/build.make:88: recipe for target 'cmTryCompileExec726885245' failed
+make[2]: *** [cmTryCompileExec726885245] Error 1
+make[2]: Leaving directory '/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+Makefile:117: recipe for target 'cmTryCompileExec726885245/fast' failed
+make[1]: *** [cmTryCompileExec726885245/fast] Error 2
+make[1]: Leaving directory '/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+
+File /Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2260883608/fast"
+make[1]: Entering directory '/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2260883608.dir/build.make CMakeFiles/cmTryCompileExec2260883608.dir/build
+make[2]: Entering directory '/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2260883608.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec2260883608.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.2/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec2260883608
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2260883608.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec2260883608.dir/CheckFunctionExists.c.o  -o cmTryCompileExec2260883608 -rdynamic -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTryCompileExec2260883608.dir/build.make:88: recipe for target 'cmTryCompileExec2260883608' failed
+make[2]: *** [cmTryCompileExec2260883608] Error 1
+make[2]: Leaving directory '/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+Makefile:117: recipe for target 'cmTryCompileExec2260883608/fast' failed
+make[1]: *** [cmTryCompileExec2260883608/fast] Error 2
+make[1]: Leaving directory '/Bestanden/Copy/root/Bestanden/School/TA/TA_TO/Helix/lib/gtest/CMakeFiles/CMakeTmp'
+
+

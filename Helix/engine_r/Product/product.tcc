@@ -10,7 +10,7 @@ template<	typename StateT,
 			typename SymbolT>
 DFA<StateT, SymbolT> product(DFA<StateT, SymbolT> D1, DFA<StateT, SymbolT> D2, bool intersection) {
 	// Insert bug-free quality code here
-
+	
 	/*
 	 * A Product Automaton can only be created out of 2 DFA's with the exact same alphabet.
 	 * Therefore the first part of this algorithm ensures that the two alphabets are equal,

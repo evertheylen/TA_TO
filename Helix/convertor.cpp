@@ -14,6 +14,7 @@
 #include "suffix.h"
 
 #include "file.h"
+#include "search.h"
 
 using namespace std;
 
@@ -105,70 +106,33 @@ int main(int argc, char const* argv[]) {
 		DFA <std::string, char> P = product(D1, D2, mode == "intersection");  // true --> intersection
 		write_dot(&P, filename);
 		std::cout << "written dot to " << filename << "\n";
-	} else if (mode == "suffix") {
-		/*string arg2 = string(argv[3]);
-
-		try {
-			File f(arg);
-		} catch (int x) {
-			std::cerr << "Error: The specified file doesn't exist!";
-			return x;
-		}
-		SuffixTree s(arg);
-
-		ofstream output_file;
-		output_file.open(arg+".gv");
-		output_file << s;
-		output_file.close();
-
-		list<int> index = s.search_string(arg2, 1);
-		cout << "Longest common prefix of " << arg << " and " << arg2 << " is " << s.longest_common_prefix(arg, arg2) << std::endl;
-		if (index.size() == 0) {
-			cout << "No matches where found with string " << arg2 << " in text " << arg <<".\n";
-		}
-		for (std::list<int>::const_iterator i = index.begin(); i != index.end(); i++) {
-			cout << "Match at index " << *i << " between " << arg << " and " << arg2 << " with amount of errors = " << 1 << endl;
-		}
-		*/
-		try {
-			File f(arg);
+	} else if (mode == "suffix" || mode == "suffixsearch") {
+		File f(arg);
+		if (mode == "suffix") {
+			std::cout << "suffixtree stats:\n";
 			f.suffixtree->stats(std::cout);
-			#define test(loc) std::cout << "real loc of " << loc << " is " << f.real_location(loc) << "\n";
-			test(0);
-			test(5);
-			test(10);
-			test(15);
-			test(20);
-			test(25);
-			//std::cout << *f.content << "\n";
-			//f.test("sss", 1);
-// 			std::cout << "even more final:\n";
-// 			for (int j=0; j<f.suffixtree->data.size(); j++) {
-// 				f.suffixtree->data[j].print(std::cout);
-// 			}
-		} catch (int x) {
-			std::cerr << "Error: The specified file doesn't exist!";
-			return x;
+			std::ofstream stream;
+			std::cout << "gaps: \n";
+			for (Gap& g: f.gaps) {
+				std::cout << " - gap: " << g.position << ", " << g.length << "\n";
+			}
+			stream.open(arg+".suffix");
+			stream << *(f.suffixtree);
+			stream.close();
+		} else if (argc > 3) { // suffixsearch
+			string pat(argv[3]);
+			Query q(pat,0,0,0,0,0);
+			q.search(&f, 0);
+			std::cout << q.results_per_file[0].summary() << "\n";
 		}
-		
-		
-		/*std::string content = get_file_contents(arg);
-		Suffix3 suf(content);*/
-		
-		//std::cout << "height = " << suf.root->height(0);
-		/*
- 		std::string search = "sss";
- 		std::vector<int> result = suf.search_string(search, 1);
- 		std::string filename = arg;
- 		filename += "_search_for_";
-		filename += search;
- 		std::ofstream f(filename);
- 		f << "Occurrences of the pattern " << search << " in " << content << std::endl;
-  		for (int k = 0; k < result.size(); k++) {
- 			f << "Result found at position " << result.at(k) << "\n";
- 		}
- 		f.close();
-		*/
+	} else if (mode == "suffixload") {
+		std::cout << "Loading the suffixtree and saving to file...\n";
+		File f(arg);
+		std::ofstream stream;
+		stream.open(arg+".suffix");
+		f.save(stream);
+		//generate_dot(f.suffixtree, "original", 0);
+		stream.close();
 	} else {
 		cout << "I don't understand " << mode << endl;
 	}

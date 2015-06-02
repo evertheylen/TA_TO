@@ -120,7 +120,7 @@ void Suffix3::build() {
 	data.emplace_back(Node3(0,len,0));
 	
 	// loading bar
-	int progress = len/100;
+	int progress = round(double(len)/100.0);
 	int current_progress = 0;
 	std::cout << "0        10        20        30        40        50        60        70        80        90        100\n";
 	
@@ -298,7 +298,6 @@ void Suffix3::stats(std::ostream& out) {
 	
 	out << "string size: " << s->size() << "\n";
 	out << "memory: " << memory << "\n";
-// 	out << "height: " << root->height(0) << "\n";
 }
 
 

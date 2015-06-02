@@ -86,7 +86,7 @@ s_DFA TFA(s_DFA D, bool print) {
 		}
 	}
 	if (print) {
-	    std::cout << "\nafter base cases:\n";
+	    std::cout << "[TFA] after base cases:\n";
 	    table.print(std::cout, D);
     }
 	
@@ -112,7 +112,7 @@ s_DFA TFA(s_DFA D, bool print) {
 		}
 		
 		if (print) {
-		    std::cout << "--------------------------------\n";
+		    std::cout << "[TFA] table:\n";
 		    table.print(std::cout, D);
 	    }
 	} while (changed);
