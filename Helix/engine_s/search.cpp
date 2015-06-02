@@ -64,7 +64,12 @@ std::vector<SuffixPosition> SuffixPosition::branch(Suffix3& suf) {
 	if (int(pos_in_node) < (int(suf.data[node].end) - int(suf.data[node].start)-1)) {
 // 		std::cout << "(branching suffix to next position in node " << node << ")\n";
 // 		std::cout << "    (pos_in_node=" << pos_in_node << ", start=" << suf.data[node].start << ", end=" << suf.data[node].end << "\n";
-		return {SuffixPosition(node, pos_in_node+1)};
+		SuffixPosition result(node, pos_in_node+1);
+		if (suf.get(result) != '$') {
+			return {result};
+		} else {
+			return {};
+		}
 	}
 
 	std::vector<SuffixPosition> result;
@@ -73,7 +78,9 @@ std::vector<SuffixPosition> SuffixPosition::branch(Suffix3& suf) {
 // 		std::cout << "(branching suffix to new node: " << child_i << " = "
 // 				<< suf.s->substr(suf.data[child_i].start, suf.data[child_i].end-suf.data[child_i].start) << ")\n";
 		SuffixPosition extra(child_i, 0);
-		result.push_back(extra);
+		if (suf.get(extra) != '$') {
+			result.push_back(extra);
+		}
 	}
 	
 	return result;
