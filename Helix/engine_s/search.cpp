@@ -269,16 +269,7 @@ Query::Query(std::string& fancypattern, int f, int s, int r, int i, int m):
 // 	std::cout << "Query about to create DFA\n";
 	if (pats.size() == 1) {
 		auto DFA = to_DFA<std::string, char, 'e'>(pats[0]);
-		
-		
-// 		std::cout << "####### DFA ########\n";
-// 		for (int s=0; s<DFA.num_states; s++) {
-// 			for (char c: DFA.sigma) {
-// 				std::cout << "delta[" << s << "][" << c << "] = " << DFA.d_data.at(s).at(c) << "\n";
-// 			}
-// 		}
-// 		std::cout << "###################\n";
-		D = CompactDFA(TFA(DFA));
+		D = CompactDFA(DFA);
 	} else {
 		// at least two DFA's
 		s_DFA currentD = product<std::string, char>(to_DFA<std::string, char, 'e'>(pats[0]),
@@ -288,14 +279,15 @@ Query::Query(std::string& fancypattern, int f, int s, int r, int i, int m):
 			newD = to_DFA<std::string, char, 'e'>(pats[i]);
 			currentD = product<std::string, char>(currentD, newD, true);
 		}
-		D = CompactDFA(TFA(currentD));
+		D = CompactDFA(currentD);
 	}
+	std::cout << "  [Query]  CompactDFA has " << D.num_states << " states.\n";
 	
-	// DFA Table
+// 	// DFA Table
 // 	std::cout << "###################\n";
 // 	for (int s=0; s<D.num_states; s++) {
 // 		for (int ia=0; ia<D.sigma.size(); ia++) {
-// 			std::cout << "delta[" << s << "][" << D.sigma[ia] << "] = " << D.d_data.at(s).at(ia) << "\n";
+// 			std::cout << "delta[" << s << "][" << D.sigma[ia] << "] = " << D.d_data.at(s).at(ia) << "  (final: " << D.is_final(s) << ")\n";
 // 		}
 // 	}
 // 	std::cout << "###################\n";

@@ -142,6 +142,7 @@ s_DFA TFA(s_DFA D, bool print) {
 	}
 	
 	s_DFA optimus_prime;
+	optimus_prime.sigma = D.sigma;
 	optimus_prime.num_states = max;
 	
 	std::vector<std::string> tempnames(optimus_prime.num_states, "{");
