@@ -1,0 +1,12 @@
+digraph automaton {
+    node [shape=none]; start;
+    node [shape=doublecircle]; "{D, F}";
+    node [shape=circle];
+    start -> "{A, C}";
+    "{A, C}" -> "{A, C}" [label="0"];
+    "{A, C}" -> "{B, E}" [label="1"];
+    "{B, E}" -> "{D, F}" [label="0"];
+    "{B, E}" -> "{B, E}" [label="1"];
+    "{D, F}" -> "{B, E}" [label="0"];
+    "{D, F}" -> "{B, E}" [label="1"];
+}
