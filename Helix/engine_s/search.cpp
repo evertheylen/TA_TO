@@ -278,8 +278,7 @@ Query::Query(std::string& fancypattern, int f, int s, int r, int i, int m):
 // 			}
 // 		}
 // 		std::cout << "###################\n";
-		
-		D = CompactDFA(DFA);
+		D = CompactDFA(TFA(DFA));
 	} else {
 		// at least two DFA's
 		s_DFA currentD = product<std::string, char>(to_DFA<std::string, char, 'e'>(pats[0]),
@@ -289,7 +288,7 @@ Query::Query(std::string& fancypattern, int f, int s, int r, int i, int m):
 			newD = to_DFA<std::string, char, 'e'>(pats[i]);
 			currentD = product<std::string, char>(currentD, newD, true);
 		}
-		D = CompactDFA(currentD);
+		D = CompactDFA(TFA(currentD));
 	}
 	
 	// DFA Table
