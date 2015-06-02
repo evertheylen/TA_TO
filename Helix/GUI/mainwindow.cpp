@@ -211,8 +211,9 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column)
 		if (queries.at(column-1).results_per_file.find(row) != queries.at(column-1).results_per_file.end()) {
             //std::cout << "clicked\n";
 			//This will open a new window with detailed results
-            if (queries.at(column-1).results_per_file[row].matches.size() > 100000 ) {
+            if (queries.at(column-1).results_per_file[row].matches.size() > 10000) {
                 QMessageBox::critical(this, tr("Error"), tr("Qt can't handle so many matches! Sorry :("));
+				return;
             }
 			ResultView* resultv = new ResultView();
 			queries.at(column-1).results_per_file[row].file = manager.get_file(row);
