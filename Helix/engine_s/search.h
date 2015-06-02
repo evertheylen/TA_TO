@@ -111,9 +111,9 @@ class Match: public FancyPath {
 public:
 	std::vector<int> locations;  // in the suffix tree
 	
-	Match(FancyPath& p, Suffix3& suf);
+	Match(FancyPath& p, File* file);
 	
-	std::string format(File& file);
+	std::string format(File* file);
 };
 
 
@@ -154,7 +154,7 @@ public:
 
 	Query(std::string& fancypattern, int f, int s, int r, int i, int m);
 	
-	void search(File* f);
+	void search(File* f, int ID);
 
 	std::vector<FancyPath> real_search(Suffix3& suf);
 };

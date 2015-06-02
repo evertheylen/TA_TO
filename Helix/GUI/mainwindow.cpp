@@ -21,7 +21,7 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),querycount(1),
-    ui(new Ui::MainWindow)
+	ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 	ui->tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);  // ?
@@ -29,9 +29,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    for (int i = 0; i < files.size(); i++) {
-        delete files.at(i);
-    }
     delete ui;
 }
 
@@ -40,10 +37,7 @@ void MainWindow::on_pushButton_clicked()        // Input file knop :p
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),"",tr("Files (*.*)"));
     std::string fileName_str = fileName.toUtf8().constData();
 	if (fileName_str != "") {
-		File* f = new File(fileName_str, ui->tableWidget->rowCount()-1);
-		files.push_back(f);  // emplace_back zorgt ervoor dat het direct op de juiste plaats wordt geinit
-		std::cout << "creating file on " << f << "\n";
-		//QMessageBox::information(this, tr("Suffixtree"), tr("The file was loaded and the suffixtree was created"));
+		File* f = manager.add_file(fileName_str);
 
 		ui->tableWidget->insertRow(ui->tableWidget->rowCount());
         QTableWidgetItem* item = new QTableWidgetItem(QString::fromStdString(f->get_name()));
@@ -71,12 +65,6 @@ void MainWindow::on_pushButton_clicked()        // Input file knop :p
     }
 }
 
-// enkel te gebruiken voor cellen te vervangen
-void MainWindow::rebuild_table() {
-    for (File* f: files) {
-
-	}
-}
 
 void MainWindow::on_quitprogram_clicked()
 {
@@ -128,7 +116,7 @@ void MainWindow::on_addtestbutton_clicked()     // Input new query knop
 
 void MainWindow::on_runtests_clicked()
 {
-    if (files.size() == 0){
+	if (manager.next_ID == 0){
 		QMessageBox::critical(this, tr("Error"),tr("Please specify a file."));
         return;
     }
@@ -136,10 +124,12 @@ void MainWindow::on_runtests_clicked()
     if (size != 0){
         double progress = 0.0;
 		double progress_advance = 100.0/size;
-        for (int j = 0; j < files.size(); j++) {
+		// critical step here (when offloading); for every file...
+		for (int j = 0; j < manager.next_ID; j++) {
+			File* file= manager.get_file(j); // might take a loooong time
             for (int i = 0; i < size; i++) {
-				queries.at(i).search(files.at(j));
-				Result& r = queries.at(i).results_per_file[files.at(j)->ID];
+				queries.at(i).search(file, j);
+				Result& r = queries.at(i).results_per_file[j];
                 QTableWidgetItem* item = new QTableWidgetItem();
 				item->setText(QString::fromStdString(r.summary()));
                 ui->tableWidget->setItem(j, i+1, item);
@@ -161,30 +151,44 @@ void MainWindow::on_runtests_clicked()
 
 void MainWindow::on_tableWidget_cellClicked(int row, int column)
 {
-    if (column == 0){//First column will show the fasta comments
-      //  QMessageBox::information(this, tr("Fasta comments"), tr("The comments of the fasta file will appear here: "));
-     Fileview fv;
-     fv.set_file(files.at(row)->path);
-     fv.f = files.at(row);
-     fv.exec();
-	 if (fv.saved) {
-		 files.at(row) = fv.f;
-		 for (int i=0; i<queries.size(); i++) {
-			 queries[i].results_per_file.erase(fv.f->ID);
-			 ui->tableWidget->item(row, 1+i)->setText("");
-			 ui->tableWidget->item(row, 0)->setToolTip(QString::fromStdString(fv.f->comments));
-		 }
-	 }
-    }
-    else{
-		if (queries.at(column-1).results_per_file.find(files.at(row)->ID) != queries.at(column-1).results_per_file.end()) {
+	if (column == 0){//First column will show the fasta comments
+		if (!manager.offload) {
+		// TODO Stijn :)
+//		 Fileview fv;
+//		 fv.f = files.at(row);
+//		 fv.set_file(fv.f->path);
+//		 fv.exec();
+//		 if (fv.saved) {
+//			 //fv.f = fv.f;
+//			 for (int i=0; i<queries.size(); i++) {
+//				 queries[i].results_per_file.erase(row);
+//				 ui->tableWidget->item(row, 1+i)->setText("");
+//				 ui->tableWidget->item(row, 0)->setToolTip(QString::fromStdString(fv.f->comments));
+//			 }
+//		 }
+		} else {
+			QMessageBox::information(this, tr("Editing disabled"), tr("Editing disabled when offloading files to disk. Will give unexpected results."));
+		}
+	} else {
+		if (queries.at(column-1).results_per_file.find(row) != queries.at(column-1).results_per_file.end()) {
 			std::cout << "clicked\n";
 			//This will open a new window with detailed results
 			ResultView* resultv = new ResultView();
-			resultv->setResult(&(queries.at(column-1).results_per_file[files.at(row)->ID]));
+			resultv->setResult(&(queries.at(column-1).results_per_file[row]));
 			resultv->show();
 		} else {
 			QMessageBox::critical(this, tr("Error"), tr("There are no results for this query and file yet."));
 		}
+	}
+}
+
+void MainWindow::on_offload_button_clicked()
+{
+	if (ui->offload_button->isChecked()) {
+		manager.enable_offloading();
+		ui->offload_button->setText("offload to disk = on");
+	} else {
+		manager.disable_offloading();
+		ui->offload_button->setText("offload to disk = off");
 	}
 }

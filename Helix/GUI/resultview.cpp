@@ -89,7 +89,7 @@ void ResultView::setResult(Result* _res) {
 		ui->tableWidget->insertRow(row);
 
 		// Set formatted html
-		QString richStr = QString::fromStdString(m.format(*res->file));
+		QString richStr = QString::fromStdString(m.format(res->file));
 
         QTableWidgetItem* item = new QTableWidgetItem();
 		item->setText(richStr);

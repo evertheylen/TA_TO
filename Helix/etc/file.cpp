@@ -16,10 +16,12 @@
 #include <exception>
 #include <stdexcept>
 
-File::File(std::string filename, int _ID):
-		ID(_ID) {
+Gap::Gap(unsigned int p, unsigned int l):
+		position(p), length(l) {}
+
+
+File::File(std::string filename) {
 	std::fstream f(filename.c_str());
-	int loc = 0;
     if (f.good()) {
 		content = new std::string;
 		
@@ -38,21 +40,40 @@ File::File(std::string filename, int _ID):
     	suffixfile.open(filename.c_str());
     	//std::stringstream suffix;
     	char input;
+		uint N_gap_length=0;
+		uint i=0;
     	//std::cout << "Printing name from file  " << name << std::endl;
     	while (f.good()) {
     		f.get(input);
     		if (f.eof()) {
     			break;
     		}
-    		if (input != '>' && input != ';' && input != '\n') {
-				//suffixtree->add_char(input);
-				*content += input;
-    		} else if (input == '>' || input == ';'){
+    		
+    		if (input == '\n') continue;
+    		
+    		if (input == '>' || input == ';') {
     			while (input != '\n') {
     				f.get(input);
     				comments += input;
     			}
+    			continue;
     		}
+    		
+    		// check gaps
+    		if (input == 'N') {
+				N_gap_length++;
+				continue;
+			} else {
+				if (N_gap_length>20) {
+					gaps.push_back(Gap(i, N_gap_length));
+					//std::cout << "pushed gap, loc:" << i-N_gap_length << ", len:" << N_gap_length << ", i:" << i <<"\n";
+					*content += "NNNNN";
+				}
+				N_gap_length = 0;
+			}
+			
+			*content += input;
+    		i++;
     	}
     	//suffixtree->add_char('$');
     	*content += '$';
@@ -80,6 +101,19 @@ File::File(std::string filename, int _ID):
     f.close();
 }
 
+unsigned int File::real_location(unsigned int loc) {
+	uint real_loc = loc;
+	for (Gap& g: gaps) {
+		if (g.position < loc) {
+			real_loc += g.length;
+		} else {
+			break;
+		}
+	}
+	return real_loc;
+}
+
+
 File::File(std::ifstream& f) {
 	// std::string name;
 	name = read_string(f);
@@ -89,9 +123,10 @@ File::File(std::ifstream& f) {
 	content = read_string_ptr(f);
 	// std::string path;
 	path = read_string(f);
-	// int ID;
-	ID = read_simple<int>(f);
-	
+	// std::vector<Gap> gaps;
+	uint gap_vector_length = read_simple<int>(f);
+	gaps = std::vector<Gap>(gap_vector_length);
+	f.read((char*) &gaps[0], gap_vector_length*sizeof(Gap));
 	// Suffix3* suffixtree;
 	suffixtree = new Suffix3(content, f);
 }
@@ -105,9 +140,9 @@ void File::save(std::ofstream& f) {
 	write_string(f, *content);
 	// std::string path;
 	write_string(f, path);
-	// int ID;
-	write_simple<int>(f, ID);
-	
+	// std::vector<Gap> gaps;
+	write_simple<int>(f, gaps.size());
+	f.write((const char*) &gaps[0], gaps.size()*sizeof(Gap));
 	// Suffix3* suffixtree;
 	suffixtree->save(f);
 }

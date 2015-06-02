@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <vector>
 #include "../etc/file.h"
+#include "../etc/filemanager.h"
 #include "../engine_s/search.h"
 
 
@@ -20,7 +21,8 @@ public:
 	int querycount;
 
     std::vector <Query> queries;
-    std::vector <File*> files;
+	//std::vector <File*> files;
+	Filemanager manager;
 
     ~MainWindow();
 
@@ -37,10 +39,11 @@ private slots:
 
     void on_tableWidget_cellClicked(int row, int column);
 
+	void on_offload_button_clicked();
+
 private:
     Ui::MainWindow *ui;
 
-	void rebuild_table();
 };
 
 #endif // MAINWINDOW_H

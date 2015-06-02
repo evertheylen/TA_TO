@@ -16,7 +16,7 @@
 #include "./engine_r/TFA/TFA.h"
 
 #include "suffix.h"
-
+#include "file.h"
 #include "search.h"
 
 #include "tinyxml.h"
@@ -89,19 +89,31 @@ int main(int argc, char* args[]) {
 		}
 	}
 	*/
-	/*
-	File f(args[1], 756);
-	std::ofstream stream;
-	stream.open("binary_file");
-	f.save(stream);
-	//generate_dot(f.suffixtree, "original", 0);
-	stream.close();
-	*/
 	
-	std::ifstream istream;
-	istream.open(args[1]);
-	File otherf(istream);
-	//generate_dot(f.suffixtree, "loaded", 0);
-	std::cout << otherf.comments << "\n";
-	istream.close();
+	std::string arg(args[1]);
+	if (arg.length() > 7 && arg.substr(arg.length()-6) == "suffix") {
+		// Load file
+		std::ifstream istream;
+		istream.open(arg);
+		File otherf(istream);
+		//generate_dot(f.suffixtree, "loaded", 0);
+		std::cout << otherf.comments << "\n";
+		istream.close();
+		
+		for (Gap& g: otherf.gaps) {
+			std::cout << "gap: " << g.position << ", " << g.length << "\n";
+		}
+	} else {
+		File f(arg, 756);
+		std::ofstream stream;
+		stream.open("binary_file.suffix");
+		f.save(stream);
+		//generate_dot(f.suffixtree, "original", 0);
+		stream.close();
+		
+		for (Gap& g: f.gaps) {
+			std::cout << "gap: " << g.position << ", " << g.length << "\n";
+		}
+	}
+	
 }

@@ -119,6 +119,11 @@ void Suffix3::build() {
 	//root->add_child(new Node3(0,len,0));
 	data.emplace_back(Node3(0,len,0));
 	
+	// loading bar
+	int progress = len/100;
+	int current_progress = 0;
+	std::cout << "0        10        20        30        40        50        60        70        80        90        100\n";
+	
 	Node3* current = &data[0];
 	uint current_i = 0;
 	// for each substring in s
@@ -242,8 +247,15 @@ void Suffix3::build() {
 		current = &data[current->suffix_link];
 		
 		//generate_dot(this, "blabl_end", i);
+		current_progress++;
+		if (current_progress==progress) {
+			std::cout << "#";
+			std::cout.flush();
+			current_progress=0;
+		}
 	}
 	
+	std::cout << "\nDone.\n";
 	//generate_dot(this, "suffix_tree", 0);
 	
 // 	std::cout << "\n\n--------[ final ]----------------\n";
@@ -303,20 +315,16 @@ std::ostream& operator<<(std::ostream& stream, Suffix3& tree) {
 }
 
 void Node3::print_substring(std::string* s, std::ostream& out) {
-	std::cout << "wanting to print out " << start << " -> " << end << "\n";
 	out << s->substr(start, end - start);
 }
 
 
 void Node3::to_dot(std::ostream& stream, int own_index, Suffix3& tree) {
-	std::cout << "to_dotting...\n";
-	print(std::cout);
 	stream << '\t' << own_index << " [label= \"";
 	print_substring(tree.s, stream);
 	stream << " (" << index << ", " << own_index << ")\"];\n";
 	for (uint child_i=leftmost_child; child_i != 0; child_i = tree.data[child_i].right_brother) {
 		stream << '\t' << own_index << " -> " << child_i << ";\n";
-		std::cout << "child is " << child_i << "\n";
 		tree.data[child_i].to_dot(stream, child_i, tree);
 	}
 }

@@ -129,8 +129,15 @@ int main(int argc, char const* argv[]) {
 		}
 		*/
 		try {
-			File f(arg, 0);
+			File f(arg);
 			f.suffixtree->stats(std::cout);
+			#define test(loc) std::cout << "real loc of " << loc << " is " << f.real_location(loc) << "\n";
+			test(0);
+			test(5);
+			test(10);
+			test(15);
+			test(20);
+			test(25);
 			//std::cout << *f.content << "\n";
 			//f.test("sss", 1);
 // 			std::cout << "even more final:\n";

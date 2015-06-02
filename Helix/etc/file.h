@@ -10,16 +10,23 @@
 
 #include <string>
 #include <fstream>
+#include <vector>
 //#include "suffix.h"
 
 class Suffix3;
+
+struct Gap {
+	unsigned int position;
+	unsigned int length;
+	Gap(unsigned int p=0, unsigned int l=0);
+};
 
 class File {
 public:
 	/*
 	 * Raises exception when file not found.
 	 */
-	File(std::string filename, int _ID);
+	File(std::string filename);
 	
 	File(std::ifstream& f);
 	
@@ -27,22 +34,20 @@ public:
 	
 	void save(std::ofstream& f);
 	
-	/*
-	 * Returns all FASTA comments (lines starting with '>' or ';').
-	 */
-	const std::string& get_description() const;
 
 	/*
 	 * Returns the filename.
 	 */
 	const std::string& get_name() const;
 	
+	unsigned int real_location(unsigned int loc);
+	
 	// Use this order to save and read
 	std::string name;
 	std::string comments;
 	std::string* content;
 	std::string path;
-	int ID;
+	std::vector<Gap> gaps;
 	Suffix3* suffixtree;
 	
 };

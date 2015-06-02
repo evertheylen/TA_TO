@@ -62,16 +62,16 @@ SuffixPosition::SuffixPosition(uint _node, int _pos_in_node):
 
 std::vector<SuffixPosition> SuffixPosition::branch(Suffix3& suf) {
 	if (int(pos_in_node) < (int(suf.data[node].end) - int(suf.data[node].start)-1)) {
-		std::cout << "(branching suffix to next position in node " << node << ")\n";
-		std::cout << "    (pos_in_node=" << pos_in_node << ", start=" << suf.data[node].start << ", end=" << suf.data[node].end << "\n";
+// 		std::cout << "(branching suffix to next position in node " << node << ")\n";
+// 		std::cout << "    (pos_in_node=" << pos_in_node << ", start=" << suf.data[node].start << ", end=" << suf.data[node].end << "\n";
 		return {SuffixPosition(node, pos_in_node+1)};
 	}
 
 	std::vector<SuffixPosition> result;
 
 	for (uint child_i=suf.data[node].leftmost_child; child_i != 0; child_i = suf.data[child_i].right_brother) {
-		std::cout << "(branching suffix to new node: " << child_i << " = "
-				<< suf.s->substr(suf.data[child_i].start, suf.data[child_i].end-suf.data[child_i].start) << ")\n";
+// 		std::cout << "(branching suffix to new node: " << child_i << " = "
+// 				<< suf.s->substr(suf.data[child_i].start, suf.data[child_i].end-suf.data[child_i].start) << ")\n";
 		SuffixPosition extra(child_i, 0);
 		result.push_back(extra);
 	}
@@ -163,17 +163,20 @@ void FancyPath::print(std::ostream& out, Suffix3& tree) {
 
 // -----[ Match ]-------------
 
-Match::Match(FancyPath& p, Suffix3& suf):
+Match::Match(FancyPath& p, File* file):
 		FancyPath(p) {
 	// Save locations
-	std::cout << "match on node " << p.suf_pos.node << "\n";
-	suf.get_leaves(p.suf_pos.node, locations);
+	//std::cout << "match on node " << p.suf_pos.node << "\n";
+	file->suffixtree->get_leaves(p.suf_pos.node, locations);
+	for (int& i: locations) {
+		i = file->real_location(i);
+	}
 // 	for (int i=0; i<locations.size(); i++) {
 // 		locations[i] += p.suf_pos.pos_in_node;
 // 	}
 }
 
-std::string Match::format(File& file) {
+std::string Match::format(File* file) {
 	std::stringstream firstline;  // FASTA
 	std::stringstream secondline; // pattern
 	
@@ -183,7 +186,7 @@ std::string Match::format(File& file) {
 	for (FChar& fc: text) {
 		// print fasta character, unless it's a skip
 		if (fc.s != Status::Skip) {
-			firstline << (*file.content)[fasta_i];
+			firstline << (*file->content)[fasta_i];
 			fasta_i++;
 		} else {
 			firstline << '.'; // space gives problems with truncating
@@ -223,13 +226,14 @@ Result::Result(std::vector<FancyPath>& paths, File* f, Query* q):
 	for (FancyPath& fp: paths) {
 // 		std::cout << "Adding path:\n";
 // 		fp.print(std::cout, *(file.suffixtree));
-		matches.push_back(Match(fp, *(file->suffixtree)));
+		matches.push_back(Match(fp, file));
 	}
 }
 
 Result::Result() {}
 
 std::string Result::summary() {
+	// TODO total unique positions
 	int total_matched_loc = 0;
 	for (Match& m: matches) {
 		total_matched_loc += m.locations.size();
@@ -290,16 +294,12 @@ Query::Query(std::string& fancypattern, int f, int s, int r, int i, int m):
 // 	std::cout << "###################\n";
 }
 
-void Query::search(File* f) {
-	if (results_per_file.find(f->ID) == results_per_file.end()) {
+void Query::search(File* f, int ID) {
+	if (results_per_file.find(ID) == results_per_file.end()) {
 		std::cout << "adding results\n";
 		auto raw_results = real_search(*f->suffixtree);
-		results_per_file.insert(std::pair<int, Result>(f->ID, Result(raw_results, f, this)));
-	}/* else {
-    	std::cout << "replacing results in results_per_file\n";
-	    auto raw_results = real_search(*f->suffixtree);
-	    results_per_file[f->ID] = Result(raw_results, f, this);
-	}*/
+		results_per_file.insert(std::pair<int, Result>(ID, Result(raw_results, f, this)));
+	}
 }
 
 

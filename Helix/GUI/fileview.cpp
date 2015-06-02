@@ -7,6 +7,8 @@
 #include <fstream>
 #include <QMessageBox>
 
+#include <iostream>
+
 Fileview::Fileview(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Fileview), saved(false)
@@ -38,8 +40,10 @@ void Fileview::on_pushButton_4_clicked()
     file.open();
     file << ui->textBrowser->document()->toPlainText();
     file.close();*/
-    int id = f->ID;
-    f = new File(path, id);
+
+	// TODO Stijn :)
+	//int id = f->ID;
+	//f = new File(path, id);
     saved = true;
     this->close();
 }
