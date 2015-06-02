@@ -29,7 +29,7 @@ void Fileview::on_cancel_clicked()
 void Fileview::on_pushButton_4_clicked()
 {
     QString pad =QString::fromStdString(path);
-    std::cout << "Writing to file on " << path << std::endl;
+    //std::cout << "Writing to file on " << path << std::endl;
     QFile file(pad);
     file.open(QIODevice::WriteOnly);
     QTextStream output(&file);

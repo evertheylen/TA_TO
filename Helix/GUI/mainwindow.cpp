@@ -115,9 +115,9 @@ void MainWindow::on_addtestbutton_clicked()     // Input new query knop
         querycount++;
         QTableWidgetItem* item = new QTableWidgetItem(QString::fromStdString(newquery));
         QString tooltip = "Search for ";
-        std::cout << " Pre vector ======  Testcount = " << querycount << " queries.size() = " << queries.size() << std::endl;
+       // std::cout << " Pre vector ======  Testcount = " << querycount << " queries.size() = " << queries.size() << std::endl;
         Query query = queries.at(querycount-2);
-        std::cout << " Post vector\n";
+       // std::cout << " Post vector\n";
         tooltip += QString::fromStdString(query.input);
         tooltip += " with ";
         tooltip += QString::number(query.max_total);
@@ -209,8 +209,11 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column)
 		}
     }*/ if (column != 0) {
 		if (queries.at(column-1).results_per_file.find(row) != queries.at(column-1).results_per_file.end()) {
-			std::cout << "clicked\n";
+            //std::cout << "clicked\n";
 			//This will open a new window with detailed results
+            if (queries.at(column-1).results_per_file[row].matches.size() > 100000 ) {
+                QMessageBox::critical(this, tr("Error"), tr("Qt can't handle so many matches! Sorry :("));
+            }
 			ResultView* resultv = new ResultView();
 			queries.at(column-1).results_per_file[row].file = manager.get_file(row);
 			resultv->setResult(&(queries.at(column-1).results_per_file[row]));

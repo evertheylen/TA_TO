@@ -34,10 +34,10 @@ void secDialog::on_ADD_clicked()
     int repetition_error  = ui->erroramount_5->value();
     int ignore_error  = ui->erroramount_6->value();
     //std::cout << error << std::endl;
-    std::cout << ((MainWindow*)parentWidget())->queries.size() << std::endl;
+   // std::cout << ((MainWindow*)parentWidget())->queries.size() << std::endl;
 	((MainWindow*)parentWidget())->queries.emplace_back(
 				Query(search, fake_error, skip_error, repetition_error, ignore_error, total_error));
-    std::cout << ((MainWindow*)parentWidget())->queries.size() << std::endl;
+   // std::cout << ((MainWindow*)parentWidget())->queries.size() << std::endl;
 	//QMessageBox::information(this, tr("New test"),tr("The test was added successfully"));
 
     //std::cout << "test added successfully search for " << search << " with " << error << " amount of errors.\n";

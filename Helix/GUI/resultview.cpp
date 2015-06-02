@@ -67,13 +67,13 @@ void ResultView::setResult(Result* _res) {
 
 	// Set text labels:
 	// Filename
-	std::cout << "file address: " << res->file << "\n";
-	std::cout << res->file->name << " <-- filename\n";
+    //std::cout << "file address: " << res->file << "\n";
+    //std::cout << res->file->name << " <-- filename\n";
 	ui->label_file->setText(QString::fromStdString(res->file->name));
 	// Query
 	ui->label_query->setText(QString::fromStdString(res->query->input));
 	// Summary
-	std::cout << res->summary() << "\n";
+    //std::cout << res->summary() << "\n";
 	ui->label_summary->setText(QString::fromStdString(res->summary()));
 
     ui->tableWidget->horizontalHeaderItem(3)->setText("Total errors | Max: " + QString::number(res->query->max_total));
