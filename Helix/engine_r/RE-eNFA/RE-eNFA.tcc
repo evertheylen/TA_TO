@@ -77,7 +77,6 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 		}
 		if (*it == '*'){
 			if(*(it-1) != ')'){
-				//if (bracketsstart.size() == 0){
 					set<int> tempTransitions;
 					/**Laatste epsilon pijl*/
 					string new_end = 'q' + to_string(states);
@@ -106,27 +105,6 @@ eNFA<StateT, SymbolT, epsilon> RE_to_eNFA(string& str) {
 					tempTransitions.insert(currentstate);
 					N.set_delta(start.top(),'e',tempTransitions);
 					tempTransitions.clear();
-			//	}
-				// else{
-				// 	set<int> tempTransitions;
-				// 	/**Laatste epsilon pijl*/
-				// 	string new_end = 'q' + to_string(states);
-				// 	N.add_state(new_end,false);
-				// 	states++;
-				// 	std::cout << N.realState(currentstate);
-				// 	tempTransitions = N.delta(currentstate,'e');
-				// 	tempTransitions.insert(N.ID(new_end));
-				// 	N.set_delta(currentstate, 'e', tempTransitions);
-				// 	tempTransitions.clear();
-				//
-				// 	/**Wederkerende epsilon pijl*/
-				// 	// tempTransitions = N.delta(currentstate,'e');
-				// 	// N.set_delta(currentstate, 'e', tempTransitions);
-				// 	// //N.insert()
-				// 	// currentstate = N.ID(new_end);
-				// 	// tempTransitions.clear();
-				//
-				// }
 			}
 			/** Case: * na de haakjes	*/
 			else{
