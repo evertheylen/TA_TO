@@ -31,31 +31,31 @@ TEST(Tests, Regex_eNFA_fileCompare){
 	string filename = string("testbestanden/RE-eNFA/file1.dot");
 	eNFA <std::string, char, 'e'> N = RE_to_eNFA<std::string, char, 'e'>(arg);
 	write_dot(&N, filename);
-	EXPECT_TRUE(fileCompare("testbestanden/RE-eNFA/file1.dot", "testbestanden/RE-eNFA/Expectedfile1.dot"));
+	EXPECT_TRUE(fileCompare("testbestanden/RE-eNFA/file1.dot", "testbestanden/RE-eNFA/file1_reference.dot"));
 	
 	arg = string("(01)*");
 	filename = string("testbestanden/RE-eNFA/file2.dot");
 	N = RE_to_eNFA<std::string, char, 'e'>(arg);
 	write_dot(&N, filename);
-	EXPECT_TRUE(fileCompare("testbestanden/RE-eNFA/file2.dot", "testbestanden/RE-eNFA/Expectedfile2.dot"));
+	EXPECT_TRUE(fileCompare("testbestanden/RE-eNFA/file2.dot", "testbestanden/RE-eNFA/file2_reference.dot"));
 	
 	arg = string("");
 	filename = string("testbestanden/RE-eNFA/file3.dot");
 	N = RE_to_eNFA<std::string, char, 'e'>(arg);
 	write_dot(&N, filename);
-	EXPECT_TRUE(fileCompare("testbestanden/RE-eNFA/file3.dot", "testbestanden/RE-eNFA/Expectedfile3.dot"));
+	EXPECT_TRUE(fileCompare("testbestanden/RE-eNFA/file3.dot", "testbestanden/RE-eNFA/file3_reference.dot"));
 	
 	arg = string("(0123+345)*345(6+32)*");
 	filename = string("testbestanden/RE-eNFA/file4.dot");
 	N = RE_to_eNFA<std::string, char, 'e'>(arg);
 	write_dot(&N, filename);
-	EXPECT_TRUE(fileCompare("testbestanden/RE-eNFA/file4.dot", "testbestanden/RE-eNFA/Expectedfile4.dot"));
+	EXPECT_TRUE(fileCompare("testbestanden/RE-eNFA/file4.dot", "testbestanden/RE-eNFA/file4_reference.dot"));
 
 	arg = string("(0(63+1)*)*90A*");
 	filename = string("testbestanden/RE-eNFA/file5.dot");
 	N = RE_to_eNFA<std::string, char, 'e'>(arg);
 	write_dot(&N, filename);
-	EXPECT_TRUE(fileCompare("testbestanden/RE-eNFA/file5.dot", "testbestanden/RE-eNFA/Expectedfile5.dot"));
+	EXPECT_TRUE(fileCompare("testbestanden/RE-eNFA/file5.dot", "testbestanden/RE-eNFA/file5_reference.dot"));
 	
 };
 
@@ -113,7 +113,6 @@ TEST(Tests, Product_fileCompare){
 	DFA <std::string, char> P2 = product(D3, D4, true);  // true --> intersection
 	write_dot(&P2, std::string("testbestanden/Product/output2.dot"));
 	EXPECT_TRUE(fileCompare("testbestanden/Product/output2.dot", "testbestanden/Product/Expectedfile2.dot"));
-	
 	
 	arg1 = std::string("testbestanden/Product/input3_DFA1.xml");
 	arg2 = std::string("testbestanden/Product/input3_DFA2.xml");
