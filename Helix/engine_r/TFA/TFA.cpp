@@ -27,11 +27,16 @@ int Table::loc(int k, int l) {
 
 
 bool Table::get(int k, int l) {
+	if (k==l) {
+	    return false;
+	}
 	return data[loc(k,l)];
 }
 
 void Table::set(int k, int l, bool val) {
-	data.at(loc(k,l)) = val;
+    if (k != l) {
+    	data.at(loc(k,l)) = val;
+    }
 }
 
 
