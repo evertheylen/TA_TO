@@ -3,8 +3,9 @@
 
 **Authors**: Pieter Coeck, Anthony Hermans, Evert Heylen, Stijn Janssens
 
-**License**: Public Domain <br/>
-(If you use this code or the program itself, please let me know at evertheylen@gmail.com)
+**License**: This code is solely for informational purposes. You may not use this code, in whole or in part, without permission.
+
+If you want to use this code, please contact me.
 
 Helix is the ultimate combination of regexes, DNA and suffixtrees.
 
