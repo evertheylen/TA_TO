@@ -6,6 +6,7 @@
 #include "tests/filecompare.h"
 #include "tests/test_R_engine.cpp"
 #include "tests/test_various.cpp"
+#include "tests/test_CFG.cpp"
 
 TEST(Meta, GTestTest) {
 	EXPECT_TRUE(true);

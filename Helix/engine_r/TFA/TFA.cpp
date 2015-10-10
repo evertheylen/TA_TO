@@ -164,13 +164,13 @@ s_DFA TFA(s_DFA D, bool print) {
 		tempnames.at(grouped_s) += ", ";
 	}
     
-    for (int s=0; s<D.num_states; s++) {
-        int grouped_s = groups[s];
-        if(tempnames.at(grouped_s).back() == ' '){
-            tempnames.at(grouped_s).pop_back();
-            tempnames.at(grouped_s).pop_back();
-        }
-    }
+	for (int s=0; s<D.num_states; s++) {
+		int grouped_s = groups[s];
+		if (tempnames.at(grouped_s).back() == ' ') {
+			tempnames.at(grouped_s).pop_back();
+			tempnames.at(grouped_s).pop_back();
+		}
+	}
 	
 	optimus_prime.q0 = groups[D.q0];
 	
