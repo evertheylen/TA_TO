@@ -1,5 +1,5 @@
 # Helix
-(Talen &amp; Automaten toepassingsopdracht)
+(Talen & Automaten toepassingsopdracht)
 
 **Authors**: Pieter Coeck, Anthony Hermans, Evert Heylen, Stijn Janssens
 
