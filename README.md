@@ -1,5 +1,5 @@
 # Helix
-(Talen &amp; Automaten toepassingsopdracht)
+(Talen &amp; Automaten project, first year of Bachelor Computer Science @UAntwerpen)
 
 **Authors**: Pieter Coeck, Anthony Hermans, Evert Heylen, Stijn Janssens
 
